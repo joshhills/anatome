@@ -60,13 +60,16 @@ public class PreambleLanguage extends Fragment implements View.OnClickListener {
 
         switch(v.getId()) {
             case R.id.langBtnEnglish:
-                System.out.println("English!");
+                User.getInstance().setLang("en");
+                System.out.println(User.getInstance().getLang());
                 break;
             case R.id.langBtnFrench:
-                System.out.println("French!");
+                User.getInstance().setLang("fr");
+                System.out.println(User.getInstance().getLang());
                 break;
             case R.id.langBtnSpanish:
-                System.out.println("Spanish!");
+                User.getInstance().setLang("es");
+                System.out.println(User.getInstance().getLang());
                 break;
         }
 
