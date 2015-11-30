@@ -26,6 +26,15 @@
             android:textColor="@color/heart_accent_text"
             android:textSize="70dp"
             android:textIsSelectable="false" />
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageButton"
+            android:layout_gravity="left|top"
+            android:src="@drawable/backArrow"
+            android:background="@color/heart_button_bg"/>
+
     </FrameLayout>
 
     <TextView
