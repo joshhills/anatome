@@ -17,6 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainScroll"></activity>
+        <activity android:name=".HeartActivity"
+            android:label="Welcome to the heart">
+        </activity>
     </application>
 
 </manifest>

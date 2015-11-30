@@ -32,7 +32,7 @@
             android:layout_height="50dp"
             android:id="@+id/imageButton"
             android:layout_gravity="left|top"
-            android:src="@drawable/backArrow"
+            android:src="@drawable/back_arrow"
             android:background="@color/heart_button_bg"/>
 
     </FrameLayout>
