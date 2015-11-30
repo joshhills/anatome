@@ -16,6 +16,8 @@
     <color name="heart_secondary_bg">#7c2727</color>
     <color name="heart_main_text">#ffffff</color>
     <color name="heart_accent_text">#f2df73</color>
+    <color name="heart_button_panel_bg">#983838</color>
+    <color name="heart_button_bg">#b54a4a</color>
     <!-- Substance Section. -->
     <color name="liver_main_bg">#eae09a</color>
     <color name="liver_secondary_bg">#5c3f1d</color>
