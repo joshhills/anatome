@@ -1,4 +1,4 @@
-package anatome.wellbeings.com.anatome;
+package io.wellbeings.anatome;
 
 import org.junit.Test;
 

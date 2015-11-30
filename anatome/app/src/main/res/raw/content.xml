@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This document conforms to a bespoke schema directly accesible by our application. -->
-<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="content-schema.xsd">
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="contentschema.xsd">
     <!-- Content blocks hold bulk information in various languages for internationalization. -->
     <content lang="en">
         <!-- Sections store text relevant to the visible frame. -->
@@ -49,10 +49,10 @@
                 </notification>
             </notifications>
             <buttons>
-				<label id="next">Next</label>
-				<label id="back">Back</label>
-				<label id="ok">Okay</label>
-				<label id="cancel">Cancel</label>
+                <label id="next">Next</label>
+                <label id="back">Back</label>
+                <label id="ok">Okay</label>
+                <label id="cancel">Cancel</label>
             </buttons>
         </miscellaneous>
     </content>

@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorAccent">#ffffff</color>
+    <!-- Naming convention for consistency: 'section_weighting_element'. -->
+    <color name="main_main_bg">#54d3e2</color>
+    <color name="main_main_text">#000000</color>
+    <color name="main_accent_text">#ffffff</color>
+    <!-- Mental Health Section. -->
+    <color name="brain_main_bg">#8b6eb0</color>
+    <color name="brain_secondary_bg">#432a64</color>
+    <color name="brain_main_text">#ffffff</color>
+    <color name="brain_accent_text">#f2df73</color>
+    <!-- Mood Section. -->
+    <color name="heart_main_bg">#de6363</color>
+    <color name="heart_secondary_bg">#7c2727</color>
+    <color name="heart_main_text">#ffffff</color>
+    <color name="heart_accent_text">#f2df73</color>
+    <!-- Substance Section. -->
+    <color name="liver_main_bg">#eae09a</color>
+    <color name="liver_secondary_bg">#5c3f1d</color>
+    <color name="liver_main_text">#ffffff</color>
+    <color name="liver_accent_text">#de522c</color>
 </resources>

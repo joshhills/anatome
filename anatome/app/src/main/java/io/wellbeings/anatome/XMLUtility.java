@@ -1,11 +1,11 @@
 package io.wellbeings.anatome;
 
-import java.io.File;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import javax.xml.XMLConstants;
+import java.io.InputStream;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.*;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -13,7 +13,6 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 /**
  * Provide generic access to XML
@@ -28,27 +27,30 @@ abstract class XMLUtility implements Utility {
 	// Log status of utility.
 	private STATUS utilityStatus;
 	
-	// Hold locations of relevant files.
-	protected String xmlDocumentPath;
-	protected String xmlDocumentSchemaPath;
+	// Hold location streams of relevant files.
+	protected InputStream xmlDocument;
+	protected InputStream xmlDocumentSchema;
 	
 	// Hold Java representation of document for traversal.
-	private Source xmlDocument;
+	private Source xmlDocumentSource;
+	private Source xmlDocumentSchemaSource;
 	private XPath xPath;
+
+	// Create copies of the stream to navigate.
+	ByteArrayOutputStream baos = null;
 	
 	/**
-	 * Constructor to be called with literal
-	 * values by children to ensure no changes
-	 * after compilation. 
+	 * Constructor to be called with resources
+	 * delivered by calling context.
 	 * 
-	 * @param xmlDocumentPath		Relative or absolute path to document.
-	 * @param xmlDocumentSchemaPath Relative or absolute path to linked schema.
+	 * @param xmlStream			The '.xml' file resource as an initialized stream.
+	 * @param xmlSchemaStream 	The '.xsd' file resource as an initialized stream.
 	 * @throws IOException 			Break in the case of a fatal error.
 	 */
-	protected XMLUtility(final String xmlDocumentPath, final String xmlDocumentSchemaPath) throws IOException {
+	protected XMLUtility(InputStream xmlStream, InputStream xmlSchemaStream) throws IOException {
 		
-		this.xmlDocumentPath = xmlDocumentPath;
-		this.xmlDocumentSchemaPath = xmlDocumentSchemaPath;
+		this.xmlDocument = xmlStream;
+		this.xmlDocumentSchema = xmlSchemaStream;
 		
 		// Attempt to start to set-up the utility using the arguments provided.
 		utilityStatus = initialize();
@@ -61,34 +63,26 @@ abstract class XMLUtility implements Utility {
 	 */
 	@Override
 	public STATUS initialize() throws IOException {
-		
-		/* Ensure both necessary files point somewhere. */
-		
-		// Create XML File object representation.
-		File tempFile = new File(xmlDocumentPath);
-		// Check main criteria necessary to act upon it.
-		if(!tempFile.exists() || !tempFile.isFile() || !tempFile.canRead()
-				|| !tempFile.getName().contains(".xml")) {
-			throw new IOException("File '" + xmlDocumentPath + "'is inaccessible."
-					+ "Please ensure that the file's path is correctly formed and that it is readable '.xml'.");
-		}
-		
-		// Load '.xml' file as Java Source object to perform validation upon.
-		xmlDocument = new StreamSource(new File(xmlDocumentPath));
+
+		// Load files as Java Source objects to perform validation upon.
+		xmlDocumentSource = new StreamSource(xmlDocument);
+		xmlDocumentSchemaSource = new StreamSource(xmlDocumentSchema);
 		
 		// By this point, file exists, can safely set up 'XPath' for querying.
 		xPath = XPathFactory.newInstance().newXPath();
-		
-		// Create XSD Schema object representation.
-		Schema schema = null;
-		try {
-			schema = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-					.newSchema(new File(xmlDocumentSchemaPath));
-		} catch (SAXException e) {
-			return STATUS.FAIL;
-		}		
-		
-		return validateAgainstSchema(xmlDocument, schema);
+
+		// Allow copying of input stream to reset it after queries.
+		baos = new ByteArrayOutputStream();
+
+		byte[] buffer = new byte[1024];
+		int len;
+		while((len = xmlDocument.read(buffer)) > -1) {
+			baos.write(buffer, 0, len);
+		}
+		baos.flush();
+
+		// By this point, if it has not thrown an exception, set status of Utility to active.
+		return STATUS.ACTIVE;
 		
 	}
 
@@ -98,6 +92,15 @@ abstract class XMLUtility implements Utility {
 	 */
 	@Override
 	public STATUS shutdown() {
+
+		// Close streams.
+		try {
+			xmlDocument.close();
+			xmlDocumentSchema.close();
+		} catch(IOException e) {
+			return STATUS.FAIL;
+		}
+
 		return STATUS.INACTIVE;
 	}
 	
@@ -111,7 +114,7 @@ abstract class XMLUtility implements Utility {
 	 * @param xsd	The Schema by which to validate.
 	 * @return		The validation status.
 	 */
-	public static STATUS validateAgainstSchema(Source xml, Schema xsd) {
+	/*public static STATUS validateAgainstSchema(Source xml, Schema xsd) {
 		
 		// Create a validator from the schema.
 		Validator validator = xsd.newValidator();
@@ -126,7 +129,7 @@ abstract class XMLUtility implements Utility {
 		
 		return STATUS.SUCCESS;
 		
-	}
+	}*/
 	
 	/**
 	 * Finds all nodes matching the XPath query.
@@ -135,17 +138,20 @@ abstract class XMLUtility implements Utility {
 	 * @return 					Set of nodes found using XPath expression.
 	 */
 	protected NodeList getNodesWithXPath(String xPathExpression) {
-		
+
 		// Create a node-list to store results.
 		NodeList results = null;
-		
+
+		// Copy the XML input to perform navigation upon.
+		InputStream isCopy = new ByteArrayInputStream(baos.toByteArray());
+
 		// Attempt to find the target nodes using the expression provided.
 		try {
-			results = (NodeList) xPath.evaluate(xPathExpression, new InputSource(xmlDocumentPath), XPathConstants.NODESET);
+			results = (NodeList) xPath.evaluate(xPathExpression, new InputSource(isCopy), XPathConstants.NODESET);
 		} catch (XPathExpressionException e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
-		
+
 		return results;
 		
 	}
@@ -159,8 +165,11 @@ abstract class XMLUtility implements Utility {
 	protected Node getNodeWithXPath(String xPathExpression) {
 		
 		// Return the first node.
-		return getNodesWithXPath(xPathExpression).item(0);
-		
+		NodeList results =  getNodesWithXPath(xPathExpression);
+
+		// Check for nullity.
+		return (results == null) ? null : results.item(0);
+
 	}
 	
 	/**
@@ -196,7 +205,13 @@ abstract class XMLUtility implements Utility {
 	 * @return String || null	The textual content of the first node returned by the XPath expression.
 	 */
 	protected String getNodeContentWithXPath(String xPathExpression) {
-		return getNodeWithXPath(xPathExpression).getTextContent().trim();
+
+		// Retrieve the target node.
+		Node target = getNodeWithXPath(xPathExpression);
+
+		// Check for nullity and format result.
+		return ((target == null) ? null : target.getTextContent().trim());
+
 	}
 	
 	// TODO: Implement node-writing function.

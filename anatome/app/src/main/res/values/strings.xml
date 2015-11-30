@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">Anatome</string>
-    <string name="title_activity_main_scroll">MainScroll</string>
+
+    <string name="app_name">anatome</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
