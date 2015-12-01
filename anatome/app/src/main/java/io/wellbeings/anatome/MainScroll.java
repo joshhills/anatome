@@ -1,6 +1,7 @@
 package io.wellbeings.anatome;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 public class MainScroll extends Activity {
@@ -10,5 +11,7 @@ public class MainScroll extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_scroll);
     }
+
+
 
 }

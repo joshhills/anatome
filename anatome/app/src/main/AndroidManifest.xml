@@ -12,12 +12,11 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainScroll"></activity>
-        <activity android:name=".HeartActivity"
+        <activity android:name=".HeartActivity" android:theme="@style/HeartTheme"
             android:label="Welcome to the heart">
         </activity>
     </application>
