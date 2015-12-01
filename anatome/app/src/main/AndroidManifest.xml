@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainScroll"></activity>
+        <activity android:name=".MainScroll"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".HeartActivity" android:theme="@style/HeartTheme"
             android:label="Welcome to the heart">
         </activity>
