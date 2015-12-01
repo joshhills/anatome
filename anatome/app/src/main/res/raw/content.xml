@@ -4,6 +4,41 @@
     <!-- Content blocks hold bulk information in various languages for internationalization. -->
     <content lang="en">
         <!-- Sections store text relevant to the visible frame. -->
+        <section name="preamble">
+            <!-- Headers store titles for parts of the section. -->
+            <headers>
+                <header id="intro">
+                    Hey there!
+                </header>
+                <header id="name">
+                    Who are you?
+                </header>
+                <header id="lock">
+                    Keep me safe.
+                </header>
+            </headers>
+            <information id="intro">
+                Welcome to the student toolkit for well-being.
+
+There's some minor information necessary to set you going so you can use your new app to soothe your mood, settle your stomach, and see a psych' whenever you like!
+
+(This can all be tweaked in the settings.)
+            </information>
+            <information id="name">
+                Firstly, what should we call you?
+                
+(If you're worried about privacy, now's the time to re-invent yourself. Otherwise, we'll remember you as 'guest'!)
+            </information>
+            <information id="lock">
+                You can use our interactive sections to store personal information.
+
+For this reason, you may want to password-protect them.
+            </information>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2001-12-17T09:30:47Z
+            </modified>
+        </section>
         <section name="brain">
             <!-- Headers store titles for parts of the section. -->
             <headers>

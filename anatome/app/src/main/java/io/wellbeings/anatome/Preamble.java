@@ -10,21 +10,20 @@ import java.io.IOException;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-public class Preamble extends AppCompatActivity implements Section, PreambleLanguage.OnFragmentInteractionListener, PreambleCarousel.OnFragmentInteractionListener {
+public class Preamble extends AppCompatActivity implements PreambleLanguage.OnFragmentInteractionListener,
+        PreambleCarousel.OnFragmentInteractionListener, PreambleIntro.OnFragmentInteractionListener,
+        PreambleName.OnFragmentInteractionListener, PreambleLock.OnFragmentInteractionListener {
 
     // TODO: PAGER TESTING
-    private static final int NUM_STEPS = 2;
-    private ViewPager mPager;
+    public static final int NUM_STEPS = 4;
+    public static ViewPager mPager;
     private PagerAdapter mPagerAdapter;
 
-
-
-
     // Declare the section meta-information.
-    private final String sectionName = "brain";
+    private final String sectionName = "preamble";
 
     // Store the section's content loader.
-    ContentLoader cLoad = null;
+    public static ContentLoader cLoad = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,21 @@ public class Preamble extends AppCompatActivity implements Section, PreambleLang
         mPagerAdapter = new MyPageAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+
+            @Override
+            public void onPageSelected(int position) {
+                PreambleCarousel fragment = (PreambleCarousel) getSupportFragmentManager().findFragmentById(R.id.carousel_fragment);
+                fragment.changeTab(position);
+            }
+
+        });
+
     }
 
     private class MyPageAdapter extends FragmentPagerAdapter {
@@ -65,29 +79,15 @@ public class Preamble extends AppCompatActivity implements Section, PreambleLang
                 case 0:
                     return new PreambleLanguage();
                 case 1:
-                    return new PreambleCarousel();
+                    return new PreambleIntro();
+                case 2:
+                    return new PreambleName();
+                case 3:
+                    return new PreambleLock();
                 default:
-                    return new PreambleCarousel();
+                    return null;
             }
         }
-
-    }
-
-    /**
-     * Fill the text elements of the page with content from local '.xml' file,
-     * based on user preferences.
-     *
-     * @return  Status of function - whether here were errors.
-     */
-    public STATUS populateContent() {
-
-        /*
-         * Here, you would grab each text element and call 'setText'
-         * passing cLoad._____("xpath/to/correct/node") or similar
-         * ContentLoader functions as arguments.
-         */
-
-        return STATUS.SUCCESS;
 
     }
 
