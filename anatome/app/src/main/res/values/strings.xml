@@ -15,5 +15,6 @@
     <string name="image_idcard">ID Card</string>
     <string name="image_lock">Padlock</string>
     <string name="generic_name">name</string>
+    <string name="title_activity_section">Section</string>
 
 </resources>

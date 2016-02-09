@@ -21,35 +21,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:id="@+id/imageView"
+            android:id="@+id/welcome"
             android:src="@drawable/one" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:id="@+id/imageView2"
+            android:id="@+id/brain"
             android:src="@drawable/two" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:id="@+id/imageView3"
+            android:id="@+id/heart"
             android:src="@drawable/three" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:id="@+id/imageView4"
+            android:id="@+id/liver"
             android:src="@drawable/four" />
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:id="@+id/imageView5"
+            android:id="@+id/footer"
             android:src="@drawable/five" />
 
     </LinearLayout>

@@ -10,9 +10,7 @@ import java.io.IOException;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-public class Preamble extends AppCompatActivity implements PreambleLanguage.OnFragmentInteractionListener,
-        PreambleCarousel.OnFragmentInteractionListener, PreambleIntro.OnFragmentInteractionListener,
-        PreambleName.OnFragmentInteractionListener, PreambleLock.OnFragmentInteractionListener {
+public class Preamble extends AppCompatActivity {
 
     // TODO: PAGER TESTING
     public static final int NUM_STEPS = 4;
