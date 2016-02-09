@@ -1,5 +1,6 @@
 package io.wellbeings.anatome;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -9,7 +10,10 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 
 import java.lang.reflect.Constructor;
 
@@ -86,7 +90,14 @@ public class Section extends FragmentActivity {
 
         /* Create interactive fragment. */
 
-        Fragment interactive = null;
+        FragmentTabHost mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+
+        mTabHost.addTab(mTabHost.newTabSpec("0").setIndicator("Thing 1"), BrainWidget.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("1").setIndicator("Thing 2"), HeartWidget.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("2").setIndicator("Thing 3"), LiverWidget.class, null);
+
+        /*Fragment interactive = null;
 
         // Assign it based on section selected.
         switch(section) {
@@ -101,15 +112,32 @@ public class Section extends FragmentActivity {
                 break;
         }
 
-        // Update the layout.
+        /* Update the layout.
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.activity, interactive);
         ft.commit();
 
+        TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
+
+        TabHost.TabSpec tab1 = tabHost.newTabSpec("First Tab");
+        TabHost.TabSpec tab2 = tabHost.newTabSpec("Second Tab");
+
+        tab1.setIndicator("Tab1");
+        tab1.setContent(new Intent(this,LiverWidget.class));
+
+        tab2.setIndicator("Tab2");
+        tab2.setContent(new Intent(this,PreambleLanguage.class));
+
+        tabHost.addTab(tab1);
+        tabHost.addTab(tab2);*/
+
+
+
+
         /* Create informative fragment. */
 
-        
+
 
     }
 

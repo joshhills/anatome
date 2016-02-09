@@ -32,53 +32,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/section_ico" />
+
             </LinearLayout>
 
         </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:id="@+id/tabhostcontainer">
 
-            <TabHost
+            <android.support.v4.app.FragmentTabHost
+                android:id="@+id/tabhost"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tabHost"
-                android:layout_weight="1">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
+                <TabWidget
+                    android:id="@+id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+            </android.support.v4.app.FragmentTabHost>
 
-                    <TabWidget
-                        android:id="@android:id/tabs"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"></TabWidget>
+            <FrameLayout
+                android:id="@+id/realtabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
 
-                    <FrameLayout
-                        android:id="@android:id/tabcontent"
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="2.26">
-
-                        <LinearLayout
-                            android:id="@+id/activity"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/info"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"></LinearLayout>
-
-                    </FrameLayout>
-                </LinearLayout>
-            </TabHost>
         </TableRow>
+
 </TableLayout>

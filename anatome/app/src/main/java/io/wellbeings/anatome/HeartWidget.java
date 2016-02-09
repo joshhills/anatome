@@ -33,7 +33,7 @@ public class HeartWidget extends Fragment implements Widget {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_liver_widget, container, false);
+        return inflater.inflate(R.layout.fragment_heart_widget, container, false);
     }
 
 }
