@@ -16,7 +16,7 @@ public class ContentLoader extends XMLUtility {
     /**
      * Constructor is protected; this prevents a component from creating another instance.
      */
-    public ContentLoader(InputStream xmlDocument, InputStream xmlSchema) throws IOException {
+    public ContentLoader(InputStream xmlDocument, InputStream xmlSchema) {
 
         // Call superclass with input streams to initiate utility.
         super(xmlDocument, xmlSchema);

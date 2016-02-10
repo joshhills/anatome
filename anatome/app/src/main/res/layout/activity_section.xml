@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     tools:context="io.wellbeings.anatome.Section"
     android:baselineAligned="false"
-    android:clickable="false">
+    android:clickable="false"
+    android:stretchColumns="*">
 
         <TableRow
             android:layout_width="fill_parent"

@@ -23,7 +23,13 @@ import java.lang.reflect.Constructor;
  */
 public class Section extends FragmentActivity {
 
+    // Store name of current section.
     private String section;
+
+    // Store language-dependent headers.
+    // TODO: Implement language from content loader.
+    private String interactiveHeader = "Interact";
+    private String informationHeader = "Info";
 
     /**
      * On activity creation, set up canvas.
@@ -90,54 +96,37 @@ public class Section extends FragmentActivity {
 
         /* Create interactive fragment. */
 
+        // Grab the tab host from the layout.
         FragmentTabHost mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
+        // Point content towards the right container.
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-        mTabHost.addTab(mTabHost.newTabSpec("0").setIndicator("Thing 1"), BrainWidget.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("1").setIndicator("Thing 2"), HeartWidget.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("2").setIndicator("Thing 3"), LiverWidget.class, null);
-
-        /*Fragment interactive = null;
-
-        // Assign it based on section selected.
+        // Assign interactive widget based on section selected.
         switch(section) {
             case "brain" :
-                interactive = new LiverWidget();
+                mTabHost.addTab(mTabHost.newTabSpec(interactiveHeader)
+                                .setIndicator(section.toUpperCase()),
+                        BrainWidget.class, null);
                 break;
             case "heart" :
-                interactive = new LiverWidget();
+                mTabHost.addTab(mTabHost.newTabSpec(interactiveHeader)
+                                .setIndicator(section.toUpperCase()),
+                        HeartWidget.class, null);
                 break;
             case "liver" :
-                interactive = new LiverWidget();
+                mTabHost.addTab(mTabHost.newTabSpec(interactiveHeader)
+                                .setIndicator(section.toUpperCase()),
+                        LiverWidget.class, null);
                 break;
         }
 
-        /* Update the layout.
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.activity, interactive);
-        ft.commit();
-
-        TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
-
-        TabHost.TabSpec tab1 = tabHost.newTabSpec("First Tab");
-        TabHost.TabSpec tab2 = tabHost.newTabSpec("Second Tab");
-
-        tab1.setIndicator("Tab1");
-        tab1.setContent(new Intent(this,LiverWidget.class));
-
-        tab2.setIndicator("Tab2");
-        tab2.setContent(new Intent(this,PreambleLanguage.class));
-
-        tabHost.addTab(tab1);
-        tabHost.addTab(tab2);*/
-
-
-
-
         /* Create informative fragment. */
 
+        // Add message to bundle.
+        Bundle contentBundle = new Bundle();
+        contentBundle.putString("section", section);
 
+        mTabHost.addTab(mTabHost.newTabSpec("1").setIndicator("Thing 2"), HeartWidget.class, null);
 
     }
 

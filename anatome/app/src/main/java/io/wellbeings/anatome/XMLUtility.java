@@ -25,7 +25,7 @@ import org.xml.sax.InputSource;
 abstract class XMLUtility implements Utility {
 
 	// Log status of utility.
-	private STATUS utilityStatus;
+	protected STATUS utilityStatus;
 	
 	// Hold location streams of relevant files.
 	protected InputStream xmlDocument;
@@ -45,15 +45,19 @@ abstract class XMLUtility implements Utility {
 	 * 
 	 * @param xmlStream			The '.xml' file resource as an initialized stream.
 	 * @param xmlSchemaStream 	The '.xsd' file resource as an initialized stream.
-	 * @throws IOException 			Break in the case of a fatal error.
+	 * @throws IOException 		Break in the case of a fatal error.
 	 */
-	protected XMLUtility(InputStream xmlStream, InputStream xmlSchemaStream) throws IOException {
+	protected XMLUtility(InputStream xmlStream, InputStream xmlSchemaStream) {
 		
 		this.xmlDocument = xmlStream;
 		this.xmlDocumentSchema = xmlSchemaStream;
 		
 		// Attempt to start to set-up the utility using the arguments provided.
-		utilityStatus = initialize();
+		try {
+			utilityStatus = initialize();
+		} catch (IOException e) {
+			utilityStatus = STATUS.FAIL;
+		}
 		
 	}
 	
@@ -101,7 +105,7 @@ abstract class XMLUtility implements Utility {
 			return STATUS.FAIL;
 		}
 
-		return STATUS.INACTIVE;
+		return STATUS.NONE;
 	}
 	
 	/* Feature-set to inherit. */

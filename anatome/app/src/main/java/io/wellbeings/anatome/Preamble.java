@@ -31,12 +31,8 @@ public class Preamble extends AppCompatActivity {
         setContentView(R.layout.activity_preamble);
 
         // Attempt to initiate content loading.
-        try {
-            cLoad = new ContentLoader(getResources().openRawResource(R.raw.content),
-                    getResources().openRawResource(R.raw.contentschema));
-        } catch(IOException e) {
-            // TODO: Provide visual prompt to utility failure.
-        }
+        cLoad = new ContentLoader(getResources().openRawResource(R.raw.content),
+                getResources().openRawResource(R.raw.contentschema));
 
         // TODO: PAGER TESTING
         mPager = (ViewPager) findViewById(R.id.preamble_carousel);

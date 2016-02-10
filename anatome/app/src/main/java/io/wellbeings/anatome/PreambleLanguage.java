@@ -1,7 +1,5 @@
 package io.wellbeings.anatome;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -39,16 +37,16 @@ public class PreambleLanguage extends Fragment implements View.OnClickListener {
 
         switch(v.getId()) {
             case R.id.langBtnEnglish:
-                User.getInstance().setLang("en");
-                System.out.println(User.getInstance().getLang());
+                UserUtility.getInstance().setLang("en");
+                System.out.println(UserUtility.getInstance().getLang());
                 break;
             case R.id.langBtnFrench:
-                User.getInstance().setLang("fr");
-                System.out.println(User.getInstance().getLang());
+                UserUtility.getInstance().setLang("fr");
+                System.out.println(UserUtility.getInstance().getLang());
                 break;
             case R.id.langBtnSpanish:
-                User.getInstance().setLang("es");
-                System.out.println(User.getInstance().getLang());
+                UserUtility.getInstance().setLang("es");
+                System.out.println(UserUtility.getInstance().getLang());
                 break;
         }
 
