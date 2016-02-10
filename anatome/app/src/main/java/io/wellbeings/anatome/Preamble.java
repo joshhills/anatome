@@ -1,5 +1,6 @@
 package io.wellbeings.anatome;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -26,8 +27,18 @@ public class Preamble extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // Set the correct view.
+        /* Begin app, determine flow. */
+
         super.onCreate(savedInstanceState);
+
+        // Simultaneously initiate utilities and determine existence of user profile...
+        if(UtilityManager.getUserUtility(this).getState() == STATUS.SUCCESS) {
+            // If user already exists, preamble not needed, load main scroll.
+            Intent intent = new Intent(this, MainScroll.class);
+            startActivity(intent);
+        }
+
+        // Set the correct view.
         setContentView(R.layout.activity_preamble);
 
         // Attempt to initiate content loading.

@@ -27,7 +27,6 @@
             android:name=".Section"
             android:theme="@style/AppTheme.NoActionBar" />
         />
-        <activity android:name=".UtilityManager"></activity>
     </application>
 
 </manifest>

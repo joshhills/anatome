@@ -18,8 +18,8 @@ public class BrainWidget extends Fragment implements Widget {
         // Required empty public constructor
     }
 
-    public static LiverWidget newInstance() {
-        LiverWidget fragment = new LiverWidget();
+    public static BrainWidget newInstance() {
+        BrainWidget fragment = new BrainWidget();
         Bundle args = new Bundle();
         return fragment;
     }

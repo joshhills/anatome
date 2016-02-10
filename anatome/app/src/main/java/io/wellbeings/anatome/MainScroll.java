@@ -46,7 +46,7 @@ public class MainScroll extends Activity {
     private OnClickListener navigateToSection = new OnClickListener(){
         public void onClick(View arg) {
 
-            // Retrieve the name of the section.
+            // Retrieve the name of the section, strip extra data.
             String section = arg.getResources().getResourceName(arg.getId());
             section = section.replace("io.wellbeings.anatome:id/", "");
 

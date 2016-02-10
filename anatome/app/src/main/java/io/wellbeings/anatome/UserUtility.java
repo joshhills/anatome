@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Model a user based on our applications
@@ -77,15 +78,27 @@ public class UserUtility implements Utility {
         }
     }
 
+    /**
+     * Flexible method allows for retrieval of any user setting.
+     *
+     * @param key   The name of the setting.
+     * @return      The setting as an object.
+     */
+    public Object getSetting(String key) {
+        return settings.getAll().get(key);
+    }
+
     /* Specific method for ease-of-use. */
 
+    // TODO: Fully comment with JavaDoc.
+
     /**
-     * Change the user's language, for use in
+     * Alter the user's language, for use in
      * content-loading.
      *
      * @param lang  XML-compliant abbreviated identifier.
      */
-    public void editLanguage(String lang) {
+    public void setLanguage(String lang) {
         editSetting("LANG", lang);
         editor.apply();
     }
@@ -93,15 +106,43 @@ public class UserUtility implements Utility {
         return settings.getString("LANG", "en");
     }
 
-    // TODO: Complete the shutdown method.
-    @Override
-    public STATUS shutdown() {
-        return null;
+    public void setName(String name) {
+        editor.putString("NAME", name);
     }
+    public String getName() {
+        return settings.getString("NAME", "Guest");
+    }
+
+    public void setEmail(String email) {
+        editor.putString("EMAIL", email);
+    }
+    public String getEmail() {
+        return settings.getString("EMAIL", null);
+    }
+
+    public void allowNotifications(boolean allow) {
+        editor.putBoolean("NOTIFICATIONS", allow);
+    }
+    public boolean isNotifications() {
+        return settings.getBoolean("NOTIFICATIONS", true);
+    }
+
+    public void allowNetwork(boolean allow) {
+        editor.putBoolean("NETWORK", allow);
+    }
+    public boolean isNetwork() {
+        return settings.getBoolean("NETWORK", true);
+    }
+
+    // TODO: Password!!
 
     @Override
     public STATUS getState() {
         return utilityStatus;
     }
 
+    @Override
+    public STATUS shutdown() {
+        return null;
+    }
 }
