@@ -1,21 +1,11 @@
 package io.wellbeings.anatome;
 
-import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
-
-import java.lang.reflect.Constructor;
 
 /**
  * Section loads widget navigated to,
@@ -105,19 +95,21 @@ public class Section extends FragmentActivity {
         switch(section) {
             case "brain" :
                 mTabHost.addTab(mTabHost.newTabSpec(interactiveHeader)
-                                .setIndicator(section.toUpperCase()),
+                                .setIndicator(interactiveHeader.toUpperCase()),
                         BrainWidget.class, null);
                 break;
             case "heart" :
                 mTabHost.addTab(mTabHost.newTabSpec(interactiveHeader)
-                                .setIndicator(section.toUpperCase()),
+                                .setIndicator(interactiveHeader.toUpperCase()),
                         HeartWidget.class, null);
                 break;
             case "liver" :
                 mTabHost.addTab(mTabHost.newTabSpec(interactiveHeader)
-                                .setIndicator(section.toUpperCase()),
+                                .setIndicator(interactiveHeader.toUpperCase()),
                         LiverWidget.class, null);
                 break;
+
+
         }
 
         /* Create informative fragment. */
@@ -126,7 +118,9 @@ public class Section extends FragmentActivity {
         Bundle contentBundle = new Bundle();
         contentBundle.putString("section", section);
 
-        mTabHost.addTab(mTabHost.newTabSpec("1").setIndicator("Thing 2"), HeartWidget.class, null);
+        // Add fragment with bundle.
+        mTabHost.addTab(mTabHost.newTabSpec(informationHeader).setIndicator(informationHeader), ContentFragment.class,
+                contentBundle);
 
     }
 

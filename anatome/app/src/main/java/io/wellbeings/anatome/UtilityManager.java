@@ -61,7 +61,7 @@ public class UtilityManager {
         utilities[0] = new UserUtility(ctx);
 
         // Add content-loading from local XML files.
-        utilities[1] = new ContentLoader(ctx.getResources().openRawResource(R.raw.content),
+        utilities[1] = new ContentLoader(ctx, ctx.getResources().openRawResource(R.raw.content),
                 ctx.getResources().openRawResource(R.raw.contentschema));
 
         // TODO: Add database interpolation for social and organization integration.
@@ -83,7 +83,7 @@ public class UtilityManager {
             if(utilities[i] != null) {
 
                 // If the utility has not succeeded...
-                if (utilities[i].getState() != STATUS.SUCCESS ||
+                if (utilities[i].getState() != STATUS.SUCCESS &&
                         utilities[i].getState() != STATUS.ACTIVE) {
                     // If the error was fatal, log this and break loop.
                     if (utilities[i].getState() == STATUS.FAIL) {
@@ -93,8 +93,7 @@ public class UtilityManager {
                     else {
                         errors = errors
                                 + utilities[i].getClass().toString().replace("io.wellbeings.anatome.", "")
-                                + " STATUS: "
-                                + utilities[i].getState().toString()
+                                + " " + utilities[i].getState().toString()
                                 + "\n";
                     }
                 }

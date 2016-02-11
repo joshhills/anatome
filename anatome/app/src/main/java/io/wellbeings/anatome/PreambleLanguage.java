@@ -48,9 +48,6 @@ public class PreambleLanguage extends Fragment implements View.OnClickListener {
                 break;
         }
 
-        // Make a log.
-        Log.d("User Language:", UtilityManager.getUserUtility(getContext()).getLanguage());
-
     }
 
 }

@@ -108,6 +108,7 @@ public class UserUtility implements Utility {
 
     public void setName(String name) {
         editor.putString("NAME", name);
+        editor.apply();
     }
     public String getName() {
         return settings.getString("NAME", "Guest");
@@ -115,6 +116,7 @@ public class UserUtility implements Utility {
 
     public void setEmail(String email) {
         editor.putString("EMAIL", email);
+        editor.apply();
     }
     public String getEmail() {
         return settings.getString("EMAIL", null);
@@ -122,6 +124,7 @@ public class UserUtility implements Utility {
 
     public void allowNotifications(boolean allow) {
         editor.putBoolean("NOTIFICATIONS", allow);
+        editor.apply();
     }
     public boolean isNotifications() {
         return settings.getBoolean("NOTIFICATIONS", true);
@@ -129,6 +132,7 @@ public class UserUtility implements Utility {
 
     public void allowNetwork(boolean allow) {
         editor.putBoolean("NETWORK", allow);
+        editor.apply();
     }
     public boolean isNetwork() {
         return settings.getBoolean("NETWORK", true);

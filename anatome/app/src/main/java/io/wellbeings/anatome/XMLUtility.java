@@ -1,5 +1,7 @@
 package io.wellbeings.anatome;
 
+import android.content.Context;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,6 +28,9 @@ abstract class XMLUtility implements Utility {
 
 	// Log status of utility.
 	protected STATUS utilityStatus;
+
+	// Store application context for access to file loading.
+	protected Context ctx;
 	
 	// Hold location streams of relevant files.
 	protected InputStream xmlDocument;
@@ -47,8 +52,12 @@ abstract class XMLUtility implements Utility {
 	 * @param xmlSchemaStream 	The '.xsd' file resource as an initialized stream.
 	 * @throws IOException 		Break in the case of a fatal error.
 	 */
-	protected XMLUtility(InputStream xmlStream, InputStream xmlSchemaStream) {
-		
+	protected XMLUtility(Context ctx, InputStream xmlStream, InputStream xmlSchemaStream) {
+
+		// TODO: Change this to just take the context as a parameter?
+
+		this.ctx = ctx;
+
 		this.xmlDocument = xmlStream;
 		this.xmlDocumentSchema = xmlSchemaStream;
 		

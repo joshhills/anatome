@@ -37,12 +37,10 @@ public class PreambleName extends Fragment {
     private void populateContent() {
 
         ((TextView) view.findViewById(R.id.preamble_header_name))
-                .setText(Preamble.cLoad.getNodeContentWithXPath(
-                        "application/content[@lang='en']/section[@name='preamble']/headers/header[@id='name']"));
+                .setText(UtilityManager.getContentLoader(getContext()).getHeaderText("preamble", "name"));
 
         ((TextView) view.findViewById(R.id.preamble_information_name))
-                .setText(Preamble.cLoad.getNodeContentWithXPath(
-                        "application/content[@lang='en']/section[@name='preamble']/information[@id='name']"));
+                .setText(UtilityManager.getContentLoader(getContext()).getInfoText("preamble", "name"));
 
     }
 

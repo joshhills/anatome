@@ -27,21 +27,19 @@ public class PreambleIntro extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_preamble_intro, container, false);
+
         populateContent();
-        // Inflate the layout for this fragment
+
         return view;
     }
 
     private void populateContent() {
 
-
         ((TextView) view.findViewById(R.id.preamble_header_intro))
-                .setText(Preamble.cLoad.getNodeContentWithXPath(
-                        "application/content[@lang='en']/section[@name='preamble']/headers/header[@id='intro']"));
+                .setText(UtilityManager.getContentLoader(getContext()).getHeaderText("preamble", "intro"));
 
         ((TextView) view.findViewById(R.id.preamble_information_intro))
-                .setText(Preamble.cLoad.getNodeContentWithXPath(
-                        "application/content[@lang='en']/section[@name='preamble']/information[@id='intro']"));
+                .setText(UtilityManager.getContentLoader(getContext()).getInfoText("preamble", "intro"));
 
     }
 

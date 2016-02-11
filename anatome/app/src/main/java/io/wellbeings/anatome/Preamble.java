@@ -42,7 +42,7 @@ public class Preamble extends AppCompatActivity {
         setContentView(R.layout.activity_preamble);
 
         // Attempt to initiate content loading.
-        cLoad = new ContentLoader(getResources().openRawResource(R.raw.content),
+        cLoad = new ContentLoader(this, getResources().openRawResource(R.raw.content),
                 getResources().openRawResource(R.raw.contentschema));
 
         // TODO: PAGER TESTING

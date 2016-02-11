@@ -31,19 +31,16 @@ public class PreambleLock extends Fragment {
 
         populateContent();
 
-        // Inflate the layout for this fragment
         return view;
     }
 
     private void populateContent() {
 
         ((TextView) view.findViewById(R.id.preamble_header_lock))
-                .setText(Preamble.cLoad.getNodeContentWithXPath(
-                        "application/content[@lang='en']/section[@name='preamble']/headers/header[@id='lock']"));
+                .setText(UtilityManager.getContentLoader(getContext()).getHeaderText("preamble", "lock"));
 
         ((TextView) view.findViewById(R.id.preamble_information_lock))
-                .setText(Preamble.cLoad.getNodeContentWithXPath(
-                        "application/content[@lang='en']/section[@name='preamble']/information[@id='lock']"));
+                .setText(UtilityManager.getContentLoader(getContext()).getInfoText("preamble", "lock"));
 
     }
 
