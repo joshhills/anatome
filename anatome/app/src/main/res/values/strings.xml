@@ -17,4 +17,13 @@
     <string name="generic_name">name</string>
     <string name="title_activity_section">Section</string>
 
+    <!--different drinks for liver widget
+    more to be added in the future-->
+    <string-array name="drinks">
+        <item>other</item>
+        <item>beer</item>
+        <item>vodka</item>
+        <item>alcopop</item>
+    </string-array>
+
 </resources>

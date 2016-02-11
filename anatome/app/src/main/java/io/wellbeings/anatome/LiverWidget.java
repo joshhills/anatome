@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 
 
 /**
@@ -27,6 +28,9 @@ public class LiverWidget extends Fragment implements Widget {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //spinner stuff
+        //TODO: someone please fix this
+        Spinner drinkSpinner = (Spinner) findViewById(R.id.drinkSpinner);
     }
 
     @Override
