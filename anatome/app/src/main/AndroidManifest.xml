@@ -20,10 +20,6 @@
             android:name=".MainScroll"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".HeartActivity"
-            android:label="Welcome to the heart"
-            android:theme="@style/HeartTheme" />
-        <activity
             android:name=".Section"
             android:theme="@style/AppTheme.NoActionBar" />
         />
