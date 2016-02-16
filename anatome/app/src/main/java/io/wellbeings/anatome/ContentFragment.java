@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +68,11 @@ public class ContentFragment extends Fragment implements Widget {
 
         ((TextView) view.findViewById(R.id.links)).setText(
                 UtilityManager.getContentLoader(getContext()).getHeaderText(section, "links"));
+
+        // Populate links, make them clickable.
+        ((TextView) view.findViewById(R.id.linkscontent)).setText(Html.fromHtml(
+                UtilityManager.getContentLoader(getContext()).getLinks(section)));
+        ((TextView) view.findViewById(R.id.linkscontent)).setMovementMethod(LinkMovementMethod.getInstance());
 
     }
 
