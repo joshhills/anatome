@@ -38,6 +38,8 @@
         android:layout_gravity="center_horizontal"
         android:textColor="#ffffff"
         android:textSize="30dp"
+        android:textAlignment="center"
+        android:fontFamily="@string/font_name_helvetica"
         android:textIsSelectable="true"
         android:layout_marginBottom="20dp"
         android:background="@color/heart_main_bg"/>
@@ -90,6 +92,7 @@
         android:background="@color/heart_secondary_bg"
         android:textColor="#ffffff"
         android:textSize="30dp"
+        android:fontFamily=""
         android:textAlignment="center"
         android:typeface="normal"
         android:paddingTop="10dp" />

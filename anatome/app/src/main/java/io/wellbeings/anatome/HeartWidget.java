@@ -1,5 +1,6 @@
 package io.wellbeings.anatome;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -59,6 +62,8 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         Button stopButton = (Button) v.findViewById(R.id.buttonStop);
         stopButton.setOnClickListener(this);
 
+        setDefautFont(v);
+
         return v;
     }
 
@@ -71,7 +76,8 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         circleView.startAnimation(circleAnimation);
 
         counterIsActive = true;
-        setInstructionText("Started");
+        //setInstructionText("Started");
+        counterValue = 0;
 
         counterTask = getCounterTask();
 
@@ -89,16 +95,17 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         circleView.startAnimation(circleAnimation);
 
         counterIsActive = false;
-        setInstructionText("Stopped");
+        setNumericalTimer(0);
+        //setInstructionText("Stopped");
         counterTask.cancel();
 
 
     }
 
+    // changes the timer inside the circle & changes the instructional text
     public TimerTask getCounterTask() {
 
         return new TimerTask() {
-
 
 
             @Override
@@ -159,6 +166,8 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
         TextView instructionalTextView = (TextView) (getView().findViewById(R.id.textView));
         instructionalTextView.setText(s);
+
+
     }
 
     private void setNumericalTimer(int i) {
@@ -167,5 +176,25 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
 
            counter.setText(Integer.toString(i));
+    }
+
+    private void setDefautFont(View v) {
+
+        TextView text = (TextView) (v.findViewById(R.id.textView));
+        TextView text2 = (TextView) (v.findViewById(R.id.textView2));
+        Typeface fontBariol = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Bariol.ttf");
+        text.setTypeface(fontBariol);
+        text2.setTypeface(fontBariol);
+    }
+
+    // fetches a list of strings for the instructional text
+    private List<String> getText() {
+
+        ArrayList<String> instructionalText = new ArrayList<String>();
+
+        instructionalText.add("breathe in");
+        instructionalText.add("breathe out");
+
+        return instructionalText;
     }
 }
