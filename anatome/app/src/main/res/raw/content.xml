@@ -61,10 +61,26 @@ For this reason, you may want to password-protect them.
             <links>
                 <link>
                     <name>
-                        Helpful link.
+                        Google
                     </name>
                     <source>
-                        http://www.helpfulsource.com/
+                        http://www.google.com/
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Helpful link2.
+                    </name>
+                    <source>
+                        http://www.helpfulsource.com
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Helpful link3.
+                    </name>
+                    <source>
+                        http://www.helpfulsource.com
                     </source>
                 </link>
             </links>
