@@ -13,13 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:layout_gravity="right|bottom"
-        android:background="@color/liver_main_bg">
+        android:background="@color/liver_main_bg"
+        android:id="@+id/bottomHalf">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="Go home you've had enough"
-            android:id="@+id/textView3"
+            android:id="@+id/wordOfWarning"
             android:textColor="@color/liver_main_text"
             android:textSize="30dp"
             android:textAlignment="center"
@@ -30,7 +31,7 @@
         <Spinner
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner"
+            android:id="@+id/drinkSpinner"
             android:layout_margin="20dp"
             android:background="@color/liver_secondary_bg"
             android:textColor="@color/liver_main_text"
@@ -42,7 +43,7 @@
         <Spinner
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner2"
+            android:id="@+id/volumeSpinner"
             android:layout_margin="20dp"
             android:background="@color/liver_secondary_bg"
             android:textColor="@color/liver_main_text"
@@ -54,7 +55,7 @@
         <Spinner
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner3"
+            android:id="@+id/percentageSpinner"
             android:layout_margin="20dp"
             android:background="@color/liver_secondary_bg"
             android:textColor="@color/liver_main_text"
@@ -69,7 +70,8 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal|top"
-        android:background="@color/liver_secondary_bg">
+        android:background="@color/liver_secondary_bg"
+        android:id="@+id/topHalf">
 
         <Button
             android:layout_width="wrap_content"
@@ -85,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="52dp"
             android:text="035 Units"
-            android:id="@+id/textView4"
+            android:id="@+id/unitDisplay"
             android:textColor="@color/liver_accent_text"
             android:textSize="30dp"
             android:textAlignment="center"
