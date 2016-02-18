@@ -6,7 +6,97 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="207dp"
         android:text="@string/hello_blank_fragment" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_gravity="right|bottom"
+        android:background="@color/liver_main_bg">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Go home you've had enough"
+            android:id="@+id/textView3"
+            android:textColor="@color/liver_main_text"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:textIsSelectable="true"
+            android:layout_gravity="center_horizontal|bottom" />
+
+        <Spinner
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_margin="20dp"
+            android:background="@color/liver_secondary_bg"
+            android:textColor="@color/liver_main_text"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:layout_gravity="left|top"
+            android:spinnerMode="dialog" />
+
+        <Spinner
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner2"
+            android:layout_margin="20dp"
+            android:background="@color/liver_secondary_bg"
+            android:textColor="@color/liver_main_text"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:layout_gravity="center_horizontal|top"
+            android:spinnerMode="dialog" />
+
+        <Spinner
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner3"
+            android:layout_margin="20dp"
+            android:background="@color/liver_secondary_bg"
+            android:textColor="@color/liver_main_text"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:layout_gravity="right|top"
+            android:spinnerMode="dialog" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@color/liver_secondary_bg">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="clear"
+            android:id="@+id/clearButton"
+            android:background="@color/liver_main_bg"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:layout_gravity="left|top" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:text="035 Units"
+            android:id="@+id/textView4"
+            android:textColor="@color/liver_accent_text"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:layout_gravity="center_horizontal|bottom" />
+
+        <ImageView
+            android:layout_width="182dp"
+            android:layout_height="182dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
 </FrameLayout>
