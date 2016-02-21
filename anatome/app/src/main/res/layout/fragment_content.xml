@@ -33,7 +33,8 @@
             android:id="@+id/graphic"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:contentDescription="section graphic" />
+            android:contentDescription="section graphic"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,7 +64,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
-            android:id="@+id/linkscontent" />
+            android:id="@+id/linkscontent"
+            android:textColor="#0000ff"/>
 
         <TextView
             android:layout_width="wrap_content"

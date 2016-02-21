@@ -39,4 +39,8 @@ public class LiverWidget extends Fragment implements Widget {
         return v;
     }
 
+    private double calculateUnits(double percentage, int volume){
+        return (percentage * volume)/1000;
+    }
+
 }

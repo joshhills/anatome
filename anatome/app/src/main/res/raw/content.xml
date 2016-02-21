@@ -101,7 +101,7 @@ For this reason, you may want to password-protect them.
                 <header id="tips">
                     Here's some general pointers:
                 </header>in
-                <header id="lks">
+                <header id="links">
                     Want to know more?
                 </header>
             </headers>
@@ -112,13 +112,13 @@ For this reason, you may want to password-protect them.
                 Here are some tips.
             </information>
             <information id="drinks">
-                Other,Beer,Cider,Wine,Spirit,Alcopop,Sours
+                Beer,Cider,Wine,Spirit,Alcopop,Sours,Other
             </information>
             <information id="volume">
-                Other,Pint,Half Pint,Single Measure,Double Measure,Treble Measure,Large Wine Glass,Small Wine Glass
+                Pint,Half Pint,Single Measure,Double Measure,Treble Measure,Large Wine Glass,Small Wine Glass,Other
             </information>
             <information id="percentage">
-                Other,40%,37.5%,15%,12%,10%,7.5%,5%,4%
+                40%,37.5%,15%,12%,10%,7.5%,5%,4%,Other
             </information>
             <links>
                 <link>
