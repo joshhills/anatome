@@ -8,6 +8,8 @@ import org.w3c.dom.NodeList;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Provide specific access to main content
@@ -85,6 +87,27 @@ public class ContentLoader extends XMLUtility {
 
         // Close tag and return.
         return ln + "</html>";
+
+    }
+
+    /**
+     * Retrieve informative content from node as list of strings.
+     *
+     * @param sectionName   The name of the section currently active.
+     * @param infoID        The element for which to retrieve information.
+     * @param delim         The delimiter by which to separate elements.
+     * @return              The informative content.
+     */
+    public List<String> getInfoTextAsList(String sectionName, String infoID, String delim) {
+
+        // Retrieve formatting.
+        String it = getNodeContentWithXPath("application/content[@lang='"
+                    + UtilityManager.getUserUtility(ctx).getLanguage()
+                    + "']/section[@name='"
+                    + sectionName + "']/information[@id='" + infoID + "']");
+
+        // Trim, split by delimiter and return as array.
+        return Arrays.asList(it.trim().split(delim));
 
     }
 
