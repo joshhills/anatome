@@ -108,8 +108,6 @@ public class Section extends FragmentActivity {
                                 .setIndicator(interactiveHeader.toUpperCase()),
                         LiverWidget.class, null);
                 break;
-
-
         }
 
         /* Create informative fragment. */
