@@ -51,16 +51,8 @@ public class LiverWidget extends Fragment implements Widget {
 
     }
 
-<<<<<<< HEAD
     // Attach functionality and relevant information to UI elements.
     private void initGUI() {
-=======
-    private double calculateUnits(double percentage, int volume) {
-        return (percentage * volume) / 1000;
-    }
-    // Populate spinners with related information.
-    private void initSpinners() {
->>>>>>> origin/DragonsDenProto
 
         // Retrieve references to spinners.
         Spinner drinkSpinner = (Spinner) v.findViewById(R.id.drinkSpinner);
