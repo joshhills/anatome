@@ -27,12 +27,11 @@ public class LiverWidget extends Fragment implements Widget {
     // Store view object for UI manipulation.
     private View v;
 
-    // Necessary empty creation methods.
+    /* Necessary lifecycle methods. */
     public LiverWidget() {}
     public static LiverWidget newInstance() {
         return new LiverWidget();
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +43,16 @@ public class LiverWidget extends Fragment implements Widget {
 
         // Inflate the layout for this fragment, storing view.
         v = inflater.inflate(R.layout.fragment_liver_widget, container, false);
+
+        // Initialise the GUI elements with necessary information.
+        initGUI();
+
         return v;
+
     }
 
-    // Populate spinners with related information.
-    private void initSpinners() {
+    // Attach functionality and relevant information to UI elements.
+    private void initGUI() {
 
         // Retrieve references to spinners.
         Spinner drinkSpinner = (Spinner) v.findViewById(R.id.drinkSpinner);
@@ -58,9 +62,9 @@ public class LiverWidget extends Fragment implements Widget {
         /* Populate spinner options with correct localization. */
 
         // Drink spinner listener (one instance, anonymous).
-        drinkSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        drinkSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     // TODO: Phil, fill case statements appropriately - have commented example.
                     case 0:
@@ -68,6 +72,8 @@ public class LiverWidget extends Fragment implements Widget {
                         break;
                 }
             }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
         ArrayAdapter<String> drinkAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item,
                 UtilityManager.getContentLoader(getContext()).getInfoTextAsList(SECTION, "drinks", ","));
@@ -77,15 +83,18 @@ public class LiverWidget extends Fragment implements Widget {
         drinkSpinner.setAdapter(drinkAdapter);
 
         // Volume spinner listener (one instance, anonymous).
-        volumeSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        volumeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     // TODO: Phil, fill case statements appropriately - have commented example.
                     case 0:
-                        // Perform conversion and set name.
+                        // volumeSpinner.setSelection(int);
+                        break;
                 }
             }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
     }
