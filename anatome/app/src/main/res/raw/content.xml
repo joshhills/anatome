@@ -111,6 +111,15 @@ For this reason, you may want to password-protect them.
             <information id="tips">
                 Here are some tips.
             </information>
+            <information id="drinks">
+                Other,Beer,Cider,Wine,Spirit,Alcopop,Sours
+            </information>
+            <information id="volume">
+                Other,Pint,Half Pint,Single Measure,Double Measure,Treble Measure,Large Wine Glass,Small Wine Glass
+            </information>
+            <information id="percentage">
+                Other,40%,37.5%,15%,12%,10%,7.5%,5%,4%
+            </information>
             <links>
                 <link>
                     <name>
