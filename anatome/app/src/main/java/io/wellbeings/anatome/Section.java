@@ -61,7 +61,7 @@ public class Section extends FragmentActivity {
         final int resourceId = getResources().getIdentifier(
                 section + "_ico", "drawable", getApplicationContext().getPackageName()
         );
-        ((ImageView)findViewById(R.id.section_ico)).setImageResource(resourceId);
+        ((ImageView)findViewById(R.id.section_image)).setImageResource(resourceId);
 
     }
 
