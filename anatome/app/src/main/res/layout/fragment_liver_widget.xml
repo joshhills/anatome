@@ -11,6 +11,31 @@
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@color/liver_secondary_bg"
+        android:id="@+id/topHalf">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:text="035 Units"
+            android:id="@+id/unitDisplay"
+            android:textColor="@color/liver_accent_text"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:layout_gravity="center_horizontal|bottom" />
+
+        <ImageView
+            android:layout_width="182dp"
+            android:layout_height="182dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="220dp"
         android:layout_gravity="right|bottom"
         android:background="@color/liver_main_bg"
@@ -64,41 +89,6 @@
             android:layout_gravity="right|top"
             android:spinnerMode="dialog" />
 
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_gravity="center_horizontal|top"
-        android:background="@color/liver_secondary_bg"
-        android:id="@+id/topHalf">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="34dp"
-            android:text="clear"
-            android:id="@+id/clearButton"
-            android:background="@color/liver_main_bg"
-            android:layout_margin="10dp"
-            android:padding="10dp"
-            android:layout_gravity="left|top" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="52dp"
-            android:text="035 Units"
-            android:id="@+id/unitDisplay"
-            android:textColor="@color/liver_accent_text"
-            android:textSize="30dp"
-            android:textAlignment="center"
-            android:fontFamily="@string/font_name_helvetica"
-            android:layout_gravity="center_horizontal|bottom" />
-
-        <ImageView
-            android:layout_width="182dp"
-            android:layout_height="182dp"
-            android:id="@+id/imageView"
-            android:layout_gravity="center" />
     </FrameLayout>
 
 </FrameLayout>
