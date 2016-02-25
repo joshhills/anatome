@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.List;
 public class LiverWidget extends Fragment implements Widget {
 
     /* Useful private variables. */
-
+    public double units;
     // Store name of section.
     private final String SECTION = "liver";
     // Store view object for UI manipulation.
@@ -53,11 +55,14 @@ public class LiverWidget extends Fragment implements Widget {
 
     // Attach functionality and relevant information to UI elements.
     private void initGUI() {
-
+        //TODO: this is the wrong place to initialise this variable I'll fix it later
+        units = 0;
         // Retrieve references to spinners.
         final Spinner drinkSpinner = (Spinner) v.findViewById(R.id.drinkSpinner);
         final Spinner volumeSpinner = (Spinner) v.findViewById(R.id.volumeSpinner);
         final Spinner percentageSpinner = (Spinner) v.findViewById(R.id.percentageSpinner);
+        //get button
+        Button addButton = (Button) v.findViewById(R.id.addButton);
 
         /* Populate spinner options with correct localization. */
 
@@ -148,6 +153,86 @@ public class LiverWidget extends Fragment implements Widget {
         percentageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Attach adapter.
         percentageSpinner.setAdapter(percentageAdapter);
+
+        addButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                int volume;
+                double percentage;
+                //turn volume into ml
+                switch(volumeSpinner.getSelectedItemPosition()){
+                    case 0://pint
+                        volume = 568;
+                        break;
+                    case 1://half pint
+                        volume = 284;
+                        break;
+                    case 2://single
+                        volume = 25;
+                        break;
+                    case 3://double
+                        volume = 50;
+                        break;
+                    case 4://treble
+                        volume = 75;
+                        break;
+                    case 5://large wine
+                        volume = 250;
+                        break;
+                    case 6://small wine
+                        volume = 125;
+                        break;
+                    default://other
+                        volume = 0;
+                        break;
+                }
+                //get the percentage (can probably do something cleverer than a switch in the future)
+                switch(percentageSpinner.getSelectedItemPosition()){
+                    case 0:
+                        percentage = 40;
+                        break;
+                    case 1:
+                        percentage = 37.5;
+                        break;
+                    case 2:
+                        percentage = 15;
+                        break;
+                    case 3:
+                        percentage = 12;
+                        break;
+                    case 4:
+                        percentage = 10;
+                        break;
+                    case 5:
+                        percentage = 7.5;
+                        break;
+                    case 6:
+                        percentage = 5;
+                        break;
+                    case 7:
+                        percentage = 4;
+                        break;
+                    default:
+                        percentage = 0;
+                        break;
+                }
+
+                units += (percentage*volume)/1000;//work out the units
+
+                updateUnits();
+            }
+        });
         
+    }
+
+    private void updateUnits(){
+        //get text view
+        final TextView unitDisplay = (TextView) v.findViewById(R.id.unitDisplay);
+        // the word units needs to go in the xml so we can do different languages
+        if(units != 1) {
+            unitDisplay.setText(String.format("%.1f",units) + " Units");
+        }
+        else{
+            unitDisplay.setText(String.format("%.1f",units) + " Unit");
+        }
     }
 }
