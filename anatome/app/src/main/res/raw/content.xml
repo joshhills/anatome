@@ -47,8 +47,8 @@ For this reason, you may want to password-protect them.
                 </header>
                 <header id="tips">
                     Here's some general pointers:
-                </header>
-                <header id="links">
+                </header>in
+                <header id="lks">
                     Want to know more?
                 </header>
             </headers>
@@ -92,6 +92,68 @@ For this reason, you may want to password-protect them.
                 2001-12-17T09:30:47Z
             </modified>
         </section>
+        <section name="liver">
+            <!-- Headers store titles for parts of the section. -->
+            <headers>
+                <header id="title">
+                    Drinking Stuff
+                </header>
+                <header id="tips">
+                    Here's some general pointers:
+                </header>in
+                <header id="links">
+                    Want to know more?
+                </header>
+            </headers>
+            <information id="title">
+                Here's some information about the topic.
+            </information>
+            <information id="tips">
+                Here are some tips.
+            </information>
+            <information id="drinks">
+                Beer,Cider,Wine,Spirit,Alcopop,Sours,Other
+            </information>
+            <information id="volume">
+                Pint,Half Pint,Single Measure,Double Measure,Treble Measure,Large Wine Glass,Small Wine Glass,Other
+            </information>
+            <information id="percentage">
+                40%,37.5%,15%,12%,10%,7.5%,5%,4%,Other
+            </information>
+            <links>
+                <link>
+                    <name>
+                        Change4Life
+                    </name>
+                    <source>
+                        http://www.nhs.uk/Change4Life/Pages/drink-less-alcohol.aspx
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Helpful link2.
+                    </name>
+                    <source>
+                        http://www.helpfulsource.com
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Helpful link3.
+                    </name>
+                    <source>
+                        http://www.helpfulsource.com
+                    </source>
+                </link>
+            </links>
+            <graphic>
+                ./assets/defaults/section-graphic.png
+            </graphic>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2001-12-17T09:30:47Z
+            </modified>
+        </section>
         <!-- Extra smaller parts of information. -->
         <miscellaneous>
             <notifications>
@@ -105,6 +167,6 @@ For this reason, you may want to password-protect them.
                 <label id="ok">Okay</label>
                 <label id="cancel">Cancel</label>
             </buttons>
-        </miscellaneous>
+            </miscellaneous>
     </content>
 </application>

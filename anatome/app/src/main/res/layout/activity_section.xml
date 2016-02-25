@@ -1,66 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="io.wellbeings.anatome.Section"
-    android:baselineAligned="false"
-    android:clickable="false"
-    android:stretchColumns="*">
+    >
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="back"
+            android:id="@+id/back"
+            android:layout_gravity="left|top"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/section_image"
+            android:layout_gravity="center_horizontal|top"
+            android:src="@drawable/heart_ico"
+            android:adjustViewBounds="true"
+            android:alpha="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Title"
+            android:id="@+id/section_name"
+            android:layout_gravity="right|top"
+            android:textColor="#ffffff"
+            android:background="#c34546"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="16dp"/>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.app.FragmentTabHost
+            android:id="@+id/tabhost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent">
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
 
-                <Button
-                    android:layout_width="wrap_content"
+                <TabWidget
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="&lt;"
-                    android:id="@+id/back" />
+                    android:orientation="horizontal"
+                    android:id="@+id/tabs">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Section"
-                    android:id="@+id/section_name" />
+                </TabWidget>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/section_ico" />
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/realtabcontent">
+
+                </FrameLayout>
 
             </LinearLayout>
 
-        </TableRow>
+        </android.support.v4.app.FragmentTabHost>
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/tabhostcontainer">
+    </RelativeLayout>
 
-            <android.support.v4.app.FragmentTabHost
-                android:id="@+id/tabhost"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TabWidget
-                    android:id="@+id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"/>
-            </android.support.v4.app.FragmentTabHost>
-
-            <FrameLayout
-                android:id="@+id/realtabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-
-        </TableRow>
-
-</TableLayout>
+</LinearLayout>
