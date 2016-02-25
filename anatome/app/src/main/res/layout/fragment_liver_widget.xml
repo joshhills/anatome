@@ -92,6 +92,13 @@
             android:fontFamily="@string/font_name_helvetica"
             android:layout_gravity="center" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD"
+            android:id="@+id/addButton"
+            android:layout_gravity="right|center_vertical" />
+
     </FrameLayout>
 
 </FrameLayout>

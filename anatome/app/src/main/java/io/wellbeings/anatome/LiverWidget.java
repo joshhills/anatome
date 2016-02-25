@@ -113,8 +113,7 @@ public class LiverWidget extends Fragment implements Widget {
         volumeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 7){
-                }
+                // TODO: Phil, fill case statements appropriately
             }
 
             @Override
@@ -134,10 +133,7 @@ public class LiverWidget extends Fragment implements Widget {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
-                    // TODO: Phil, fill case statements appropriately - have commented example.
-                    case 0:
-                        // percentageSpinner.setSelection(int);
-                        break;
+                    // TODO: Phil, fill case statements appropriately
                 }
             }
 
@@ -154,11 +150,4 @@ public class LiverWidget extends Fragment implements Widget {
         percentageSpinner.setAdapter(percentageAdapter);
         
     }
-
-    private int getNumberInput(){
-        int i = 0;
-
-        return i;
-    }
-
 }
