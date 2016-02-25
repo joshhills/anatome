@@ -32,6 +32,20 @@
             android:textAlignment="center"
             android:fontFamily="@string/font_name_helvetica"
             android:layout_gravity="center_horizontal|bottom" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD"
+            android:id="@+id/addButton"
+            android:layout_gravity="right|bottom" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:id="@+id/clearButton"
+            android:layout_gravity="left|bottom" />
     </FrameLayout>
 
     <FrameLayout
@@ -40,18 +54,6 @@
         android:layout_gravity="right|bottom"
         android:background="@color/liver_main_bg"
         android:id="@+id/bottomHalf">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:text="Go home you've had enough"
-            android:id="@+id/wordOfWarning"
-            android:textColor="@color/liver_main_text"
-            android:textSize="30dp"
-            android:textAlignment="center"
-            android:fontFamily="@string/font_name_helvetica"
-            android:textIsSelectable="true"
-            android:layout_gravity="center_horizontal|bottom" />
 
         <Spinner
             android:layout_width="100dp"
@@ -92,12 +94,17 @@
             android:spinnerMode="dialog"
             android:visibility="visible" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ADD"
-            android:id="@+id/addButton"
-            android:layout_gravity="right|center_vertical" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:text="Go home you've had enough"
+            android:id="@+id/wordOfWarning"
+            android:textColor="@color/liver_main_text"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:textIsSelectable="true"
+            android:layout_gravity="center_horizontal|bottom" />
 
     </FrameLayout>
 

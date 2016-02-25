@@ -61,8 +61,9 @@ public class LiverWidget extends Fragment implements Widget {
         final Spinner drinkSpinner = (Spinner) v.findViewById(R.id.drinkSpinner);
         final Spinner volumeSpinner = (Spinner) v.findViewById(R.id.volumeSpinner);
         final Spinner percentageSpinner = (Spinner) v.findViewById(R.id.percentageSpinner);
-        //get button
+        //get buttons
         Button addButton = (Button) v.findViewById(R.id.addButton);
+        Button clearButton = (Button) v.findViewById(R.id.clearButton);
 
         /* Populate spinner options with correct localization. */
 
@@ -154,12 +155,12 @@ public class LiverWidget extends Fragment implements Widget {
         // Attach adapter.
         percentageSpinner.setAdapter(percentageAdapter);
 
-        addButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        addButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 int volume;
                 double percentage;
                 //turn volume into ml
-                switch(volumeSpinner.getSelectedItemPosition()){
+                switch (volumeSpinner.getSelectedItemPosition()) {
                     case 0://pint
                         volume = 568;
                         break;
@@ -186,7 +187,7 @@ public class LiverWidget extends Fragment implements Widget {
                         break;
                 }
                 //get the percentage (can probably do something cleverer than a switch in the future)
-                switch(percentageSpinner.getSelectedItemPosition()){
+                switch (percentageSpinner.getSelectedItemPosition()) {
                     case 0:
                         percentage = 40;
                         break;
@@ -216,8 +217,15 @@ public class LiverWidget extends Fragment implements Widget {
                         break;
                 }
 
-                units += (percentage*volume)/1000;//work out the units
+                units += (percentage * volume) / 1000;//work out the units
 
+                updateUnits();
+            }
+        });
+
+        clearButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                units = 0;
                 updateUnits();
             }
         });
@@ -227,7 +235,7 @@ public class LiverWidget extends Fragment implements Widget {
     private void updateUnits(){
         //get text view
         final TextView unitDisplay = (TextView) v.findViewById(R.id.unitDisplay);
-        // the word units needs to go in the xml so we can do different languages
+        //TODO: the word "units" needs to go in the xml so we can do different languages
         if(units != 1) {
             unitDisplay.setText(String.format("%.1f",units) + " Units");
         }
