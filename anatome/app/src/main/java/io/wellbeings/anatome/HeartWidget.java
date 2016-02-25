@@ -1,7 +1,9 @@
 package io.wellbeings.anatome;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,9 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
     boolean counterIsActive;
     int counterValue = 0;
     Timer textTimer = new Timer();
+    Vibrator vibrateToUser;
+
+
 
     private TimerTask counterTask;
 
@@ -61,6 +66,11 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
         Button stopButton = (Button) v.findViewById(R.id.buttonStop);
         stopButton.setOnClickListener(this);
+
+        vibrateToUser = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
+
+
 
         setDefautFont(v);
 
@@ -122,11 +132,14 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
                             if (counterValue == 0) {
 
+                                vibrateToUser.vibrate(200);
                                 counterIsIncreasing = true;
+
                             }
 
                             if (counterValue == 5) {
 
+                                vibrateToUser.vibrate(200);
                                 counterIsIncreasing = false;
                             }
 
@@ -175,7 +188,7 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         TextView counter = (TextView) (getView().findViewById(R.id.counter));
 
 
-           counter.setText(Integer.toString(i));
+        counter.setText(Integer.toString(i));
     }
 
     private void setDefautFont(View v) {
@@ -186,6 +199,7 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         text.setTypeface(fontBariol);
         text2.setTypeface(fontBariol);
     }
+
 
     // fetches a list of strings for the instructional text
     private List<String> getText() {
