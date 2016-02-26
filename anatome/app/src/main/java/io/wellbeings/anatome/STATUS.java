@@ -15,7 +15,6 @@ public enum STATUS {
 	NONE(0, STATUS_TYPE.GENERIC, "NONE: Utility is inactive."),
 	SUCCESS(1, STATUS_TYPE.GENERIC, "SUCCESS: Operation succeeded."),
 	ACTIVE(2, STATUS_TYPE.GENERIC, "ACTIVE: Utility is active."),
-	INACTIVE(3, STATUS_TYPE.GENERIC, "INACTIVE: Utility is inactive."),
 	XML_INVALID_SCHEMA(4, STATUS_TYPE.XML, "XML: Schema supplied is invalid."),
 	XML_INVALID(5, STATUS_TYPE.XML, "XML: XML supplied does not conform to schema.");
 

@@ -8,9 +8,21 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="HeartTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/heartTitleStyle</item>
+        <item name="colorPrimary">@color/heart_secondary_bg</item>
+        <item name="android:windowBackground">@color/heart_main_bg</item>
+        <item name="colorPrimaryDark">#000000</item>
+
+    </style>
+
+    <style name="heartTitleStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">#ff0000</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

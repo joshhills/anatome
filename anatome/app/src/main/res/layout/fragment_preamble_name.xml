@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_main_bg"
+    tools:context="io.wellbeings.anatome.PreambleName"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/generic_title"
+        android:id="@+id/preamble_header_name"
+        android:textColor="@color/main_accent_text"
+        android:textSize="40sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/generic_content"
+        android:id="@+id/preamble_information_name"
+        android:textColor="@color/main_accent_text"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:layout_width="210dp"
+        android:layout_height="200dp"
+        android:id="@+id/toolbox"
+        android:contentDescription="@string/image_idcard"
+        android:src="@drawable/idcard"
+        android:layout_weight="0.04" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/generic_name"
+        android:ems="10"
+        android:textColor="@color/main_accent_text"
+        android:id="@+id/edit_name"
+        android:backgroundTint="#ffffff"
+        android:textSize="25sp" />
+
+</LinearLayout>

@@ -4,5 +4,17 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back"><![CDATA[<]]></string>
+    <string name="forward"><![CDATA[>]]></string>
+    <string name="skip">SKIP</string>
+    <string name="font_name_bariol">Bariol</string>
+    <string name="font_name_helvetica">Helvetica</string>
+    <string name="generic_title">Generic Title</string>
+    <string name="generic_content">Generic Content</string>
+    <string name="image_toolbox">Toolbox</string>
+    <string name="image_idcard">ID Card</string>
+    <string name="image_lock">Padlock</string>
+    <string name="generic_name">name</string>
+    <string name="title_activity_section">Section</string>
 
 </resources>

@@ -1,0 +1,111 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.wellbeings.anatome.LiverWidget">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="207dp"
+        android:text="@string/hello_blank_fragment" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@color/liver_secondary_bg"
+        android:id="@+id/topHalf">
+
+        <ImageView
+            android:layout_width="182dp"
+            android:layout_height="182dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:text="0 Units"
+            android:id="@+id/unitDisplay"
+            android:textColor="@color/liver_accent_text"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:layout_gravity="center_horizontal|bottom" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD"
+            android:id="@+id/addButton"
+            android:layout_gravity="right|bottom" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:id="@+id/clearButton"
+            android:layout_gravity="left|bottom" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_gravity="right|bottom"
+        android:background="@color/liver_main_bg"
+        android:id="@+id/bottomHalf">
+
+        <Spinner
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:id="@+id/drinkSpinner"
+            android:layout_margin="20dp"
+            android:background="@color/liver_secondary_bg"
+            android:textColor="@color/liver_main_text"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:layout_gravity="left|top"
+            android:spinnerMode="dialog"
+            android:visibility="visible" />
+
+        <Spinner
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:id="@+id/volumeSpinner"
+            android:layout_margin="20dp"
+            android:background="@color/liver_secondary_bg"
+            android:textColor="@color/liver_main_text"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:layout_gravity="center_horizontal|top"
+            android:spinnerMode="dialog"
+            android:visibility="visible" />
+
+        <Spinner
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:id="@+id/percentageSpinner"
+            android:layout_margin="20dp"
+            android:background="@color/liver_secondary_bg"
+            android:textColor="@color/liver_main_text"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:layout_gravity="right|top"
+            android:spinnerMode="dialog"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:text="Go home you've had enough"
+            android:id="@+id/wordOfWarning"
+            android:textColor="@color/liver_main_text"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:fontFamily="@string/font_name_helvetica"
+            android:textIsSelectable="true"
+            android:layout_gravity="center_horizontal|bottom" />
+
+    </FrameLayout>
+
+</FrameLayout>

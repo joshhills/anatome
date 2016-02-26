@@ -16,7 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainScroll"></activity>
+        <activity
+            android:name=".MainScroll"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Section"
+            android:theme="@style/AppTheme.NoActionBar" />
+        />
     </application>
 
 </manifest>
