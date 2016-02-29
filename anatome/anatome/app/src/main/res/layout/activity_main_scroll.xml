@@ -24,6 +24,15 @@
             android:id="@+id/welcome"
             android:src="@drawable/one" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Book"
+            android:id="@+id/bookButton"
+            android:layout_gravity="right"
+            android:background="#ffffffff"
+            android:textSize="10dp"/>
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -40,6 +40,11 @@ public class MainScroll extends Activity {
         findViewById(R.id.heart).setOnClickListener(navigateToSection);
         findViewById(R.id.liver).setOnClickListener(navigateToSection);
 
+
+        // ************************************************************
+        findViewById(R.id.bookButton).setOnClickListener(navigateToBookingSystem);
+        // ************************************************************
+
     }
 
     // Mutual re-usable interface type to manage section routing.
@@ -57,6 +62,16 @@ public class MainScroll extends Activity {
             // Start activity with message passed.
             startActivity(intent);
 
+        }
+    };
+
+    // ************************************************************
+    private OnClickListener navigateToBookingSystem = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Intent intent = new Intent(v.getContext(), BookingSystem.class);
+            startActivity(intent);
         }
     };
 
