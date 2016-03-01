@@ -79,13 +79,14 @@ public class BookingSystem extends AppCompatActivity {
     // true - 24-hour format
     public void timeOnClick(View view) {
 
-        new TimePickerDialog(BookingSystem.this, time,
+        new TimePickerDialog(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT, time,
                 c.get(Calendar.HOUR), c.get(Calendar.MINUTE), false).show();
+
     }
 
     public void dateOnClick(View view) {
 
-        new DatePickerDialog(BookingSystem.this, date,
+        new DatePickerDialog(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT, date,
                 c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
 
     }
