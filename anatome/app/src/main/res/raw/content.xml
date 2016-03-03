@@ -120,6 +120,25 @@ For this reason, you may want to password-protect them.
             <information id="percentage">
                 40%,37.5%,15%,12%,10%,7.5%,5%,4%,Other
             </information>
+            <!--temporary ids and information since I can't think of goo ones right now-->
+            <information id="fine">
+                DOWN IT FRESHAAAAAA!!!!!!!!!
+            </information>
+            <information id="tipsy">
+                You're almost over the guidelines
+            </information>
+            <information id="drunk">
+                You should start slowing down
+            </information>
+            <information id="crunk">
+                Now it's really time to stop
+            </information>
+            <information id="krunk">
+                You have drunk a dangerous amount of alcohol
+            </information>
+            <information id="michael watts">
+                GO HOME
+            </information>
             <links>
                 <link>
                     <name>

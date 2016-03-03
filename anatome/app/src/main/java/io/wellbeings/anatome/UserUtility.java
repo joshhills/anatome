@@ -12,6 +12,9 @@ import java.util.Map;
  */
 public class UserUtility implements Utility {
 
+    //variables for the liver widget
+
+
     // Log status of utility.
     protected STATUS utilityStatus;
 
@@ -29,7 +32,7 @@ public class UserUtility implements Utility {
      * Constructor to be called with resources
      * delivered by calling context.
      *
-     * @param ctx   The context of the application.
+     * @param ctx   The context of the application
      */
     public UserUtility(Context ctx) {
 
