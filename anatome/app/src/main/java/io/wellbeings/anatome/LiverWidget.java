@@ -61,10 +61,12 @@ public class LiverWidget extends Fragment implements Widget {
         final Spinner drinkSpinner = (Spinner) v.findViewById(R.id.drinkSpinner);
         final Spinner volumeSpinner = (Spinner) v.findViewById(R.id.volumeSpinner);
         final Spinner percentageSpinner = (Spinner) v.findViewById(R.id.percentageSpinner);
+
         //get buttons
         Button addButton = (Button) v.findViewById(R.id.addButton);
         Button clearButton = (Button) v.findViewById(R.id.clearButton);
-
+        //set the warning to the right value
+        updateWarning();
         /* Populate spinner options with correct localization. */
 
         // Drink spinner listener (one instance, anonymous).
@@ -220,6 +222,7 @@ public class LiverWidget extends Fragment implements Widget {
                 units += (percentage * volume) / 1000;//work out the units
 
                 updateUnits();
+                updateWarning();
             }
         });
 
@@ -241,6 +244,29 @@ public class LiverWidget extends Fragment implements Widget {
         }
         else{
             unitDisplay.setText(String.format("%.1f",units) + " Unit");
+        }
+    }
+
+    private void updateWarning(){
+        TextView Warning = (TextView) v.findViewById(R.id.wordOfWarning);
+
+        if(units == 0){
+            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "fine"));
+        }
+        else if(units < 2){
+            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "tipsy"));
+        }
+        else if(units < 5){
+            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "drunk"));
+        }
+        else if(units < 10){
+            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "crunk"));
+        }
+        else if(units < 15){
+            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "krunk"));
+        }
+        else{
+            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "michael watts"));
         }
     }
 }
