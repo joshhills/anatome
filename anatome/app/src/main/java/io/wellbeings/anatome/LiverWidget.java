@@ -12,7 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
-
+//not sure if this is right
+import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class LiverWidget extends Fragment implements Widget {
 
     // Attach functionality and relevant information to UI elements.
     private void initGUI() {
-        //TODO: this is the wrong place to initialise this variable I'll fix it later
+        //TODO: eventualy going to be got from user utility when I work out how to use contexts
         units = 0;
         // Retrieve references to spinners.
         final Spinner drinkSpinner = (Spinner) v.findViewById(R.id.drinkSpinner);
