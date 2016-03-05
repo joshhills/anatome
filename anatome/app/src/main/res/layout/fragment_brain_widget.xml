@@ -1,13 +1,231 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="io.wellbeings.anatome.BrainWidget">
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="io.wellbeings.anatome.aa"
+    android:background="#d67dfc">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Keep tracks of the things that make you happy:"
+        android:textColor="#f9fd80"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
-</FrameLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentTop="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_marginTop="45dp">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="376dp"
+            android:id="@+id/horizontalScrollView">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
+                    android:background="#f8f6f6">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="61dp"
+                        android:inputType="date"
+                        android:ems="10"
+
+                        android:id="@+id/etDate1"
+                        android:background="#e3bffc"
+                        android:text="1st December, 2015"
+                        android:textAlignment="center"
+                        android:textSize="22dp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="224dp"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:id="@+id/etNote1"
+                        android:hint="Enter a new note.."
+                        android:textColor="#060606" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Save"
+                        android:id="@+id/btnSave1"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:onclick = "onSaveNote1" />
+
+                    <ImageButton
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delete"
+                        android:id="@+id/btnDlt1"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:layout_marginLeft="140dp"
+                        android:onclick = "onSaveNote1"
+                        android:background= "@drawable/bin"
+                        />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
+                    android:background="#f8f6f6" >
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="61dp"
+                        android:inputType="date"
+                        android:ems="10"
+                        android:id="@+id/etDate2"
+                        android:background="#e3bffc"
+                        android:text="1st December, 2015"
+                        android:textAlignment="center"
+                        android:textSize="22dp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="224dp"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:id="@+id/etNote2"
+                        android:hint="Enter a new note"
+                        android:textColor="#060606" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="94dp"
+                        android:layout_height="37dp"
+                        android:text="Save"
+                        android:id="@+id/btnSave2"
+                        android:textColor="@color/abc_primary_text_material_dark" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
+                    android:background="#f8f6f6" >
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="61dp"
+                        android:inputType="date"
+                        android:ems="10"
+                        android:id="@+id/etDate3"
+                        android:background="#e3bffc"
+                        android:text="1st December, 2015"
+                        android:textAlignment="center"
+                        android:textSize="22dp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="224dp"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:id="@+id/etNote3"
+                        android:hint="Enter a new note"
+                        android:textColor="#060606" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="94dp"
+                        android:layout_height="37dp"
+                        android:text="Save"
+                        android:id="@+id/btnSave3"
+                        android:textColor="@color/abc_primary_text_material_dark" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
+                    android:background="#f8f6f6" >
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="61dp"
+                        android:inputType="date"
+                        android:ems="10"
+                        android:id="@+id/etDate4"
+                        android:background="#e3bffc"
+                        android:text="1st December, 2015"
+                        android:textAlignment="center"
+                        android:textSize="22dp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="224dp"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:id="@+id/etNote4"
+                        android:hint="Enter a new note"
+                        android:textColor="#060606" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="94dp"
+                        android:layout_height="37dp"
+                        android:text="Save"
+                        android:id="@+id/btnSave4"
+                        android:textColor="@color/abc_primary_text_material_dark" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+</RelativeLayout>
