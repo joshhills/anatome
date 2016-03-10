@@ -24,7 +24,7 @@ import java.util.List;
 public class LiverWidget extends Fragment implements Widget {
 
     /* Useful private variables. */
-    public double units;
+
     // Store name of section.
     private final String SECTION = "liver";
     // Store view object for UI manipulation.
@@ -56,8 +56,7 @@ public class LiverWidget extends Fragment implements Widget {
 
     // Attach functionality and relevant information to UI elements.
     private void initGUI() {
-        //TODO: eventualy going to be got from user utility when I work out how to use contexts
-        units = 0;
+
         // Retrieve references to spinners.
         final Spinner drinkSpinner = (Spinner) v.findViewById(R.id.drinkSpinner);
         final Spinner volumeSpinner = (Spinner) v.findViewById(R.id.volumeSpinner);
@@ -66,8 +65,8 @@ public class LiverWidget extends Fragment implements Widget {
         //get buttons
         Button addButton = (Button) v.findViewById(R.id.addButton);
         Button clearButton = (Button) v.findViewById(R.id.clearButton);
-        //set the warning to the right value
-        updateWarning();
+        //get the display to say the right number
+        updateDisplay();
         /* Populate spinner options with correct localization. */
 
         // Drink spinner listener (one instance, anonymous).
@@ -220,54 +219,60 @@ public class LiverWidget extends Fragment implements Widget {
                         break;
                 }
 
-                units += (percentage * volume) / 1000;//work out the units
+                setUnits(getUnits() + ((percentage * volume) / 1000));//work out the units and add them to the unit amount
 
-                updateUnits();
-                updateWarning();
+                updateDisplay();
             }
         });
 
         clearButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                units = 0;
-                updateUnits();
+                setUnits(0);
+                updateDisplay();
             }
         });
         
     }
 
-    private void updateUnits(){
+    private void updateDisplay(){
         //get text view
         final TextView unitDisplay = (TextView) v.findViewById(R.id.unitDisplay);
-        //TODO: the word "units" needs to go in the xml so we can do different languages
-        if(units != 1) {
-            unitDisplay.setText(String.format("%.1f",units) + " Units");
-        }
-        else{
-            unitDisplay.setText(String.format("%.1f",units) + " Unit");
-        }
-    }
-
-    private void updateWarning(){
         TextView Warning = (TextView) v.findViewById(R.id.wordOfWarning);
 
-        if(units == 0){
+        //updating unit display
+        //TODO: the word "units" needs to go in the xml so we can do different languages
+        if(getUnits() != 1) {
+            unitDisplay.setText(String.format("%.1f",getUnits()) + " Units");
+        }
+        else{
+            unitDisplay.setText(String.format("%.1f",getUnits()) + " Unit");
+        }
+
+        //updating warning
+        if(getUnits() == 0){
             Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "fine"));
         }
-        else if(units < 2){
+        else if(getUnits() < 2){
             Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "tipsy"));
         }
-        else if(units < 5){
+        else if(getUnits() < 5){
             Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "drunk"));
         }
-        else if(units < 10){
+        else if(getUnits() < 10){
             Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "crunk"));
         }
-        else if(units < 15){
+        else if(getUnits() < 15){
             Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "krunk"));
         }
         else{
             Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "michael watts"));
         }
+    }
+
+    private double getUnits(){
+        return UtilityManager.getUserUtility(getActivity()).getUnits();
+    }
+    private void setUnits(double units){
+        UtilityManager.getUserUtility(getActivity()).setUnits(units);
     }
 }

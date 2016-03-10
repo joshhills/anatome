@@ -13,7 +13,7 @@ import java.util.Map;
 public class UserUtility implements Utility {
 
     //variables for the liver widget
-    private int units;
+    private double units;
 
     // Log status of utility.
     protected STATUS utilityStatus;
@@ -41,8 +41,8 @@ public class UserUtility implements Utility {
 
         utilityStatus = initialize();
 
-        //units just set to stupid big number for testing
-        units = 200;
+        //units start at zero
+        units = 0;
 
     }
 
@@ -157,10 +157,10 @@ public class UserUtility implements Utility {
     }
 
     //getters and setters
-    public int getUnits(){
+    public double getUnits(){
         return units;
     }
-    public void setUnits(int units){
+    public void setUnits(double units){
         this.units = units;
     }
 }
