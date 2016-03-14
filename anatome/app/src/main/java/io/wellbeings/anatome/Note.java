@@ -1,7 +1,7 @@
 package io.wellbeings.anatome;
 
 /**
- * Created by Calum & Ahm on 29/11/2015.
+ * Created by Calum on 29/11/2015.
  */
 public class Note {
     //string storing the note's content

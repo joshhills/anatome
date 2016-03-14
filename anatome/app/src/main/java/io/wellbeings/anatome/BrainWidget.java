@@ -1,7 +1,7 @@
 package io.wellbeings.anatome;
 
 /**
- * Created by Calum & Ahm on 29/11/2015.
+ * Created by Calum on 29/11/2015.
  */
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Menu;
@@ -20,8 +21,10 @@ import android.widget.EditText;
 import io.wellbeings.anatome.Note;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
@@ -32,6 +35,7 @@ public class BrainWidget extends Fragment implements Widget {
 
     // Store view object for UI manipulation.
     private View v;
+    private static final String FILE_NAME = "my_file";
     //declare variables for the graphical parts of the widget
     Button saveButton;
     ImageButton deleteButton;
@@ -53,9 +57,27 @@ public class BrainWidget extends Fragment implements Widget {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setContentView(R.layout.fragment_brain_widget);
+    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        Log.d("OnCreateView", "onCreateView called.");
+
+        // Inflate the layout for this fragment, storing view.
+        v = inflater.inflate(R.layout.fragment_brain_widget, container, false);
+
+        //could initialise graphics here
+        initGUI();
+
+        return v;
+
+    }
+
+    private void initGUI() {
+        Log.d("INITGUI: ", "initGUI called");
+        getActivity().setContentView(R.layout.fragment_brain_widget);
         //Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
@@ -76,8 +98,12 @@ public class BrainWidget extends Fragment implements Widget {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("OnClick Listener","Onclick called");
                 //create a note object based on user input
-                note.setContent(noteInput.getText().toString());
+                if(noteInput.getText().toString() != null) {
+                    note.setContent(noteInput.getText().toString());
+                }
+                else note.setContent("");
 
                 //add note to list
                 noteList.add(note);
@@ -88,21 +114,11 @@ public class BrainWidget extends Fragment implements Widget {
         });
 
         //load in the notes list data
-        getList();
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment, storing view.
-        v = inflater.inflate(R.layout.fragment_brain_widget, container, false);
-
-        //could initialise graphics here
-
-        return v;
-
+        noteList = getList();
+        Log.d("GetList","getList was got with " + noteList);
+        if(!noteList.isEmpty()) {
+            noteInput.setHint(noteList.get(0).getContent());
+        }
     }
 /*
     @Override
@@ -127,35 +143,34 @@ public class BrainWidget extends Fragment implements Widget {
         return super.onOptionsItemSelected(item);
     }*/
 
-    public void getList() {
-        //find out if a list has been saved to phone
-        String fileURL = "/appname/data.xml";
-        String file = android.os.Environment.getExternalStorageDirectory().getPath() + fileURL;
-        File f = new File(file);
-        //if one has been found, load it
-        if(f.exists()) {
-            return;
-        } else {
-            //otherwise create a new list
-            noteList = new ArrayList<Note>();
-            saveList(noteList);
+    public List<Note> getList() {
+        try{
+            Log.d("GetList","getList called");
+            return FileOperationHelper.getInstance().loadArrayList(getActivity().getApplicationContext(), FILE_NAME);
+
+        }
+        catch (IOException e){
+            e.printStackTrace();
+            return new ArrayList<Note>();
         }
     }
 
     public void saveList(List<Note> list) {
-        //create a new fileOutput stream
-        /*NOTE: selected private because it may contain sensitive infomation
-            that shouldn't be used in other apps*/
-        try{
-            ObjectOutputStream out;
-            File outFile = new File(Environment.getExternalStorageDirectory(), "brain.txt");
-            out = new ObjectOutputStream(new FileOutputStream(outFile));
-            out.writeObject(noteList);
-            out.close();
-        }
-        catch(Exception e) {
+        try {
+            Log.d("SaveList","SaveList was called");
+            FileOperationHelper.getInstance().saveArrayList(getActivity().getApplicationContext(), FILE_NAME, list);
+            Log.d("SaveList","finished doing the save");
+        } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void deleteNote() {
+        //remove note from list
+
+        //save the updated list
+
+        //play delete animation
     }
 
 }
