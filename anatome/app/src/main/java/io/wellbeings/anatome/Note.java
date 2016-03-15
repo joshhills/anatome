@@ -7,7 +7,7 @@ public class Note {
     //string storing the note's content
     private String content;
     public String getContent(){
-        return new String(content);
+        return content;
     }
     public void setContent(String content) {
         this.content = content;
@@ -16,7 +16,7 @@ public class Note {
     //String storing the note's creation date
     private String creationDate;
     public String getCreationDate(){
-        return new String(creationDate);
+        return creationDate;
     }
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
