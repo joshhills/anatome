@@ -21,4 +21,14 @@ public class Note {
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
+
+    //constructor
+    public Note(String creationDate, String content) {
+        this.creationDate = creationDate;
+        this.content = content;
+    }
+
+    public String toString() {
+        return this.getCreationDate() + this.getContent();
+    }
 }

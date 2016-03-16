@@ -48,6 +48,9 @@ public class BrainWidget extends Fragment implements Widget {
     //list storing all the happynotes saved to file
     List<Note> noteList;
 
+    //filename for persistent data
+    private static final String FILE_NAME = "brain";
+
     //required empty constructor
     public BrainWidget() { }
     //method for creating a new instance of this class
@@ -69,6 +72,8 @@ public class BrainWidget extends Fragment implements Widget {
 
         //get buttons --couldn't rename the id without an exception
         saveButton = (Button) v.findViewById(R.id.addButton);
+        deleteButton = (ImageButton) v.findViewById(R.id.btnDlt1);
+        noteInput = (EditText) v.findViewById(R.id.etNote1);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -77,19 +82,26 @@ public class BrainWidget extends Fragment implements Widget {
             }
         });
 
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                List<Note> testList = getList();
+                Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
         return v;
     }
 
     //method for loading the notes into the fragment
     public List<Note> getList() {
-        //try{
+        try{
             Log.d("GetList","getList called");
-            //return loadArrayList(getActivity().getApplicationContext(), FILE_NAME);
-        //}
-       //catch (IOException e){
-            //e.printStackTrace();
+            return loadArrayList(getActivity().getApplicationContext(), FILE_NAME);
+        }
+       catch (IOException e){
+            e.printStackTrace();
             return new ArrayList<Note>();
-        //}
+        }
     }
 
     //saveList method used in an onClickHandler in BrainWidget
@@ -99,14 +111,15 @@ public class BrainWidget extends Fragment implements Widget {
     public void saveList(View v) {
         try {
         Log.d("savelist", "SaveList was called");
-        saveArrayList(getActivity().getApplicationContext(), "brain", noteList);
+            Note note = new Note("Example", noteInput.getText().toString());
+        saveArrayList(getActivity().getApplicationContext(), FILE_NAME, noteList);
         Log.d("SaveList", "finished doing the save");
         } catch (IOException e) {
          e.printStackTrace();
         }
     }
 
-    public void saveArrayList(Context context, String filename, List<Note> data) throws IOException {
+    private void saveArrayList(Context context, String filename, List<Note> data) throws IOException {
         FileOutputStream fileOutputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(data);
@@ -114,6 +127,32 @@ public class BrainWidget extends Fragment implements Widget {
         fileOutputStream.close();
         Toast.makeText(context, "The contents are saved in the file.", Toast.LENGTH_LONG).show();
     }
+
+    private List<Note> loadArrayList(Context context, String filename) throws IOException {
+        ArrayList<Note> readBack = new ArrayList<Note>();
+
+        try {
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois= new ObjectInputStream(fis);
+            noteList = (ArrayList<Note>)ois.readObject();
+            if(noteList==null){
+                Log.e("null", "The noteList was read in as null.");
+                noteList=new ArrayList<Note>();
+            }
+            ois.close();
+            return noteList;
+        }
+        catch(ClassNotFoundException ex)
+        {
+            Log.e("loadlist","class not found fam",ex);
+            return new ArrayList<Note>();
+        }
+        catch(IOException ex) {
+            Log.e("loadlist", "io problem fam", ex);
+            return new ArrayList<Note>();
+        }
+    }
+
 
     //method for deleting a note
     private void delete() {
