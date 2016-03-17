@@ -1,9 +1,11 @@
 package io.wellbeings.anatome;
 
+import java.io.Serializable;
+
 /**
  * Created by Calum on 29/11/2015.
  */
-public class Note {
+public class Note implements Serializable {
     //string storing the note's content
     private String content;
     public String getContent(){
@@ -28,6 +30,7 @@ public class Note {
         this.content = content;
     }
 
+    @Override
     public String toString() {
         return this.getCreationDate() + this.getContent();
     }
