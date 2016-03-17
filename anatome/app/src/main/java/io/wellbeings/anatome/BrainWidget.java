@@ -49,7 +49,7 @@ public class BrainWidget extends Fragment implements Widget {
     List<Note> noteList;
 
     //filename for persistent data
-    private static final String FILE_NAME = "brain";
+    private static final String FILE_NAME = "brain.txt";
 
     //required empty constructor
     public BrainWidget() { }
@@ -74,6 +74,9 @@ public class BrainWidget extends Fragment implements Widget {
         saveButton = (Button) v.findViewById(R.id.addButton);
         deleteButton = (ImageButton) v.findViewById(R.id.btnDlt1);
         noteInput = (EditText) v.findViewById(R.id.etNote1);
+
+        //initialise list of notes
+        noteList = new ArrayList<Note>();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -110,8 +113,9 @@ public class BrainWidget extends Fragment implements Widget {
     //fuck you Android
     public void saveList(View v) {
         try {
-        Log.d("savelist", "SaveList was called");
             Note note = new Note("Example", noteInput.getText().toString());
+            noteList.add(note);
+            Log.d("tostring", "Note: " +noteInput.getText().toString());
         saveArrayList(getActivity().getApplicationContext(), FILE_NAME, noteList);
         Log.d("SaveList", "finished doing the save");
         } catch (IOException e) {
@@ -125,14 +129,14 @@ public class BrainWidget extends Fragment implements Widget {
         objectOutputStream.writeObject(data);
         objectOutputStream.flush();
         fileOutputStream.close();
-        Toast.makeText(context, "The contents are saved in the file.", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "The contents are saved in the file" + getList(), Toast.LENGTH_LONG).show();
     }
 
     private List<Note> loadArrayList(Context context, String filename) throws IOException {
         ArrayList<Note> readBack = new ArrayList<Note>();
 
         try {
-            FileInputStream fis = new FileInputStream(filename);
+            FileInputStream fis = getActivity().openFileInput(filename);
             ObjectInputStream ois= new ObjectInputStream(fis);
             noteList = (ArrayList<Note>)ois.readObject();
             if(noteList==null){
