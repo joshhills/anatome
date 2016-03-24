@@ -3,7 +3,10 @@ package io.wellbeings.anatome;
 /**
  * Created by Calum on 29/11/2015.
  */
+import android.app.ActionBar;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.os.Environment;
@@ -34,7 +37,10 @@ import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
 import android.net.Uri;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class BrainWidget extends Fragment implements Widget {
@@ -70,29 +76,78 @@ public class BrainWidget extends Fragment implements Widget {
         // Inflate the layout for this fragment, storing view.
         v = inflater.inflate(R.layout.fragment_brain_widget, container, false);
 
-        //get buttons --couldn't rename the id without an exception
-        saveButton = (Button) v.findViewById(R.id.addButton);
-        deleteButton = (ImageButton) v.findViewById(R.id.btnDlt1);
-        noteInput = (EditText) v.findViewById(R.id.etNote1);
-
-        //initialise list of notes
+        //initialise list of notes from file
+        //noteList = getList();
         noteList = new ArrayList<Note>();
+        noteList.add(new Note("1st January", "helloworld"));
+        noteList.add(new Note("12th March", "CalumRUles"));
+
+        //initialise the graphics for each note in the noteList
+        for(int i = 0; i < noteList.size(); i++) {
+            initNote(i);
+        }
+
+        //add another note for the latest one
+        initNote(-1);
+
+        return v;
+    }
+
+    //method for initialising notes
+    //index is set to -1 for a note not part of the noteList
+    private void initNote(int index) {
+        //obtain the horizontal scroll view that stores the notes
+        LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
+
+        //create a LinearLayout element
+        LinearLayout ll = new LinearLayout(getContext());
+        ll.setOrientation(LinearLayout.VERTICAL);
+
+        //add the note's date textView
+        TextView date = new TextView(getContext());
+        if(index < 0) date.setText("1st December");
+        else date.setText(noteList.get(index).getCreationDate());
+        ll.addView(date);
+
+        //add the note's text input
+        noteInput = new EditText(getContext());
+        noteInput.setLayoutParams(new ActionBar.LayoutParams(800, 800));
+        if(index < 0) noteInput.setText("1st December");
+        else noteInput.setText(noteList.get(index).getContent());
+        ll.addView(noteInput);
+
+        //add the save button
+        saveButton = new Button(getContext());
+        saveButton.setText("Save");
+        saveButton.setLayoutParams(new ActionBar.LayoutParams(400,120));
+        ll.addView(saveButton);
+
+        //add the delete button
+        deleteButton = new ImageButton(getContext());
+        Drawable d = Drawable.createFromPath("@drawable/bin.png");
+        deleteButton.setImageDrawable(d);
+        ll.addView(deleteButton);
+
+        //change background colour of the linearLayout to white
+        ll.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        //add Layout to the scrollview
+        scroll.addView(ll);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("hello", "OI OI");
                 saveList(v);
-            }
-        });
-
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
                 List<Note> testList = getList();
                 Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
             }
         });
 
-        return v;
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     //method for loading the notes into the fragment
@@ -102,7 +157,6 @@ public class BrainWidget extends Fragment implements Widget {
             return loadArrayList(getActivity().getApplicationContext(), FILE_NAME);
         }
        catch (IOException e){
-            e.printStackTrace();
             return new ArrayList<Note>();
         }
     }
@@ -159,11 +213,11 @@ public class BrainWidget extends Fragment implements Widget {
 
 
     //method for deleting a note
-    private void delete() {
+    private void delete(int id) {
         //remove note from list
-
+        //noteList.remove(id);
         //save the updated list
-
+        saveList(v);
         //play delete animation
     }
 

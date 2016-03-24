@@ -1,6 +1,7 @@
 package io.wellbeings.anatome;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * Created by Calum on 29/11/2015.
@@ -24,10 +25,19 @@ public class Note implements Serializable {
         this.creationDate = creationDate;
     }
 
+    //integer of creation time in seconds (unique id)
+    private int id;
+    public int getId() {
+        int i = id;
+        return i;
+    }
+
     //constructor
     public Note(String creationDate, String content) {
         this.creationDate = creationDate;
         this.content = content;
+        Calendar c = Calendar.getInstance();
+        id = c.get(Calendar.SECOND);
     }
 
     @Override
