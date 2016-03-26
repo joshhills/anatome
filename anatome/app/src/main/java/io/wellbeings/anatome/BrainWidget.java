@@ -95,12 +95,12 @@ public class BrainWidget extends Fragment implements Widget {
 
     //method for initialising notes
     //index is set to -1 for a note not part of the noteList
-    private void initNote(int index) {
+    private void initNote(final int index) {
         //obtain the horizontal scroll view that stores the notes
         LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
 
         //create a LinearLayout element
-        LinearLayout ll = new LinearLayout(getContext());
+        final LinearLayout ll = new LinearLayout(getContext());
         ll.setOrientation(LinearLayout.VERTICAL);
 
         //add the note's date textView
@@ -145,7 +145,15 @@ public class BrainWidget extends Fragment implements Widget {
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //remove the UI for this note
+                ll.removeAllViews();
 
+                //remove note from list
+                noteList.remove(index);
+
+                //save the updated list
+                saveList(v);
+                //play delete animation
             }
         });
     }
@@ -167,11 +175,8 @@ public class BrainWidget extends Fragment implements Widget {
     //fuck you Android
     public void saveList(View v) {
         try {
-            Note note = new Note("Example", noteInput.getText().toString());
-            noteList.add(note);
-            Log.d("tostring", "Note: " +noteInput.getText().toString());
-        saveArrayList(getActivity().getApplicationContext(), FILE_NAME, noteList);
-        Log.d("SaveList", "finished doing the save");
+            saveArrayList(getActivity().getApplicationContext(), FILE_NAME, noteList);
+            Log.d("SaveList", "finished doing the save");
         } catch (IOException e) {
          e.printStackTrace();
         }
@@ -209,16 +214,6 @@ public class BrainWidget extends Fragment implements Widget {
             Log.e("loadlist", "io problem fam", ex);
             return new ArrayList<Note>();
         }
-    }
-
-
-    //method for deleting a note
-    private void delete(int id) {
-        //remove note from list
-        //noteList.remove(id);
-        //save the updated list
-        saveList(v);
-        //play delete animation
     }
 
 }
