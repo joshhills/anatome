@@ -21,7 +21,7 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="376dp"
-        android:layout_alignParentBottom="true">
+        android:layout_above="@+id/btnSave1">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -33,4 +33,14 @@
 
         </LinearLayout>
     </HorizontalScrollView>
+    <Button
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/btnSave1"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:clickable="true"/>
 </RelativeLayout>

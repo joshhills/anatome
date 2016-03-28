@@ -84,20 +84,31 @@ public class BrainWidget extends Fragment implements Widget {
 
         //initialise the graphics for each note in the noteList
         for(int i = 0; i < noteList.size(); i++) {
-            initNote(i);
+            initNote(noteList.get(i));
         }
 
         //add another note for the latest one
-        initNote(-1);
+        initNote(new Note("28th March",""));
+
+        //initialise the saveButton and its onClick listener
+        saveButton = (Button) v.findViewById(R.id.btnSave1);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("hello", "OI OI");
+                saveList(v);
+                List<Note> testList = getList();
+                Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         return v;
     }
 
     //method for initialising notes
     //index is set to -1 for a note not part of the noteList
-    private void initNote(final int index) {
+    private void initNote(final Note note) {
         //obtain the horizontal scroll view that stores the notes
-        LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
+        final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
 
         //create a LinearLayout element
         final LinearLayout ll = new LinearLayout(getContext());
@@ -105,22 +116,14 @@ public class BrainWidget extends Fragment implements Widget {
 
         //add the note's date textView
         TextView date = new TextView(getContext());
-        if(index < 0) date.setText("1st December");
-        else date.setText(noteList.get(index).getCreationDate());
+        date.setText(note.getCreationDate());
         ll.addView(date);
 
         //add the note's text input
         noteInput = new EditText(getContext());
         noteInput.setLayoutParams(new ActionBar.LayoutParams(800, 800));
-        if(index < 0) noteInput.setText("1st December");
-        else noteInput.setText(noteList.get(index).getContent());
+        noteInput.setText(note.getContent());
         ll.addView(noteInput);
-
-        //add the save button
-        saveButton = new Button(getContext());
-        saveButton.setText("Save");
-        saveButton.setLayoutParams(new ActionBar.LayoutParams(400,120));
-        ll.addView(saveButton);
 
         //add the delete button
         deleteButton = new ImageButton(getContext());
@@ -134,22 +137,14 @@ public class BrainWidget extends Fragment implements Widget {
         //add Layout to the scrollview
         scroll.addView(ll);
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d("hello", "OI OI");
-                saveList(v);
-                List<Note> testList = getList();
-                Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //remove the UI for this note
                 ll.removeAllViews();
+                scroll.removeView(ll);
 
                 //remove note from list
-                noteList.remove(index);
+                noteList.remove(note);
 
                 //save the updated list
                 saveList(v);
@@ -169,10 +164,7 @@ public class BrainWidget extends Fragment implements Widget {
         }
     }
 
-    //saveList method used in an onClickHandler in BrainWidget
-    //as of yet there is no logical explanation for why Android insists on forcing me to do this
-    //no other solutions work and 8 hours is too long to spend on a button
-    //fuck you Android
+    //method for saving the list of notes within the BrainWidget fragment
     public void saveList(View v) {
         try {
             saveArrayList(getActivity().getApplicationContext(), FILE_NAME, noteList);
