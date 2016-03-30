@@ -87,6 +87,9 @@ public class BrainWidget extends Fragment implements Widget {
             initNote(noteList.get(i));
         }
 
+        Note newun = new Note("12th Oct", "oioi");
+        noteList.add(newun);
+        initNote(newun);
         //add another note for the latest one
         initNote(new Note("28th March",""));
 
@@ -158,13 +161,15 @@ public class BrainWidget extends Fragment implements Widget {
                 Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
 
                 Log.d("REMOVAL", "Pre: "+ noteList);
+                Log.d("REMOVAL", "Equal?" + noteList.get(0) + " " + noteList.get(0).equals(note));
                 //remove note from list
-                for(int i = 0; i < noteList.size(); i++) {
+                noteList.remove(note);
+                /*for(int i = 0; i < noteList.size(); i++) {
                     Note temp = noteList.get(i);
                     if(note.equals(temp)) {
                         noteList.remove(i);
                     }
-                }
+                }*/
                 Log.d("REMOVAL", "Post: " + noteList);
 
                 Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
@@ -208,19 +213,19 @@ public class BrainWidget extends Fragment implements Widget {
     }
 
     private List<Note> loadArrayList(Context context, String filename) throws IOException {
-        ArrayList<Note> readBack = new ArrayList<Note>();
+        ArrayList<Note> readBack;
 
         try {
             FileInputStream fis = getActivity().openFileInput(filename);
             ObjectInputStream ois= new ObjectInputStream(fis);
-            noteList = (ArrayList<Note>)ois.readObject();
-            if(noteList==null){
+            readBack = (ArrayList<Note>)ois.readObject();
+            if(readBack==null){
                 Log.e("null", "The noteList was read in as null.");
-                noteList=new ArrayList<Note>();
+                readBack=new ArrayList<Note>();
             }
             ois.close();
             fis.close();
-            return noteList;
+            return new ArrayList<Note>(readBack);
         }
         catch(ClassNotFoundException ex)
         {
