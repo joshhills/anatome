@@ -7,6 +7,9 @@ import java.util.Calendar;
  * Created by Calum on 29/11/2015.
  */
 public class Note implements Serializable {
+    //Setting the SUID
+    static final long serialVersionUID = 176903428466484737L;
+
     //string storing the note's content
     private String content;
     public String getContent(){
@@ -25,23 +28,22 @@ public class Note implements Serializable {
         this.creationDate = creationDate;
     }
 
-    //integer of creation time in seconds (unique id)
-    private int id;
-    public int getId() {
-        int i = id;
-        return i;
-    }
-
     //constructor
     public Note(String creationDate, String content) {
         this.creationDate = creationDate;
         this.content = content;
-        Calendar c = Calendar.getInstance();
-        id = c.get(Calendar.SECOND);
     }
 
     @Override
     public String toString() {
         return this.getCreationDate() + this.getContent();
+    }
+
+    public boolean equals(Note note) {
+        if(this.creationDate == note.getCreationDate()
+                && this.content == note.getContent()) {
+            return true;
+        }
+        return false;
     }
 }

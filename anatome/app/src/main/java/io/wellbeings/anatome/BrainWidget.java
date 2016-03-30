@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -35,6 +36,8 @@ import java.io.StreamCorruptedException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
+
 import android.content.Context;
 import android.net.Uri;
 import android.widget.HorizontalScrollView;
@@ -46,13 +49,12 @@ import android.widget.Toast;
 public class BrainWidget extends Fragment implements Widget {
     // Store view object for UI manipulation.
     private View v;
+
     //declare variables for the graphical parts of the widget
     Button saveButton;
-    Button testButton;
-    ImageButton deleteButton;
-    EditText noteInput;
+
     //list storing all the happynotes saved to file
-    List<Note> noteList;
+    public static List<Note> noteList;
 
     //filename for persistent data
     private static final String FILE_NAME = "brain.txt";
@@ -77,10 +79,8 @@ public class BrainWidget extends Fragment implements Widget {
         v = inflater.inflate(R.layout.fragment_brain_widget, container, false);
 
         //initialise list of notes from file
-        //noteList = getList();
-        noteList = new ArrayList<Note>();
-        noteList.add(new Note("1st January", "helloworld"));
-        noteList.add(new Note("12th March", "CalumRUles"));
+        noteList = getList();
+        Log.d("noteListInit", noteList.toString());
 
         //initialise the graphics for each note in the noteList
         for(int i = 0; i < noteList.size(); i++) {
@@ -94,10 +94,22 @@ public class BrainWidget extends Fragment implements Widget {
         saveButton = (Button) v.findViewById(R.id.btnSave1);
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("hello", "OI OI");
-                saveList(v);
+                //add most recent note to list
+                /*
+                LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+                LinearLayout endNote = (LinearLayout) scroll.getChildAt(scroll.getChildCount() - 1);
+                EditText content = (EditText) endNote.getChildAt(endNote.getChildCount() -2);
+                TextView creationDate = (TextView) endNote.getChildAt(endNote.getChildCount() -3);
+                noteList.add(new Note(creationDate.getText().toString(),
+                        content.getText().toString()));*/
+
+                //update the list's state
+                saveList();
                 List<Note> testList = getList();
                 Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
+
+                //add another note to the end of the list
+                initNote(new Note("28th March", ""));
             }
         });
 
@@ -120,13 +132,13 @@ public class BrainWidget extends Fragment implements Widget {
         ll.addView(date);
 
         //add the note's text input
-        noteInput = new EditText(getContext());
+        EditText noteInput = new EditText(getContext());
         noteInput.setLayoutParams(new ActionBar.LayoutParams(800, 800));
         noteInput.setText(note.getContent());
         ll.addView(noteInput);
 
         //add the delete button
-        deleteButton = new ImageButton(getContext());
+        ImageButton deleteButton = new ImageButton(getContext());
         Drawable d = Drawable.createFromPath("@drawable/bin.png");
         deleteButton.setImageDrawable(d);
         ll.addView(deleteButton);
@@ -143,11 +155,22 @@ public class BrainWidget extends Fragment implements Widget {
                 ll.removeAllViews();
                 scroll.removeView(ll);
 
+                Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
+
+                Log.d("REMOVAL", "Pre: "+ noteList);
                 //remove note from list
-                noteList.remove(note);
+                for(int i = 0; i < noteList.size(); i++) {
+                    Note temp = noteList.get(i);
+                    if(note.equals(temp)) {
+                        noteList.remove(i);
+                    }
+                }
+                Log.d("REMOVAL", "Post: " + noteList);
+
+                Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
 
                 //save the updated list
-                saveList(v);
+                saveList();
                 //play delete animation
             }
         });
@@ -164,8 +187,8 @@ public class BrainWidget extends Fragment implements Widget {
         }
     }
 
-    //method for saving the list of notes within the BrainWidget fragment
-    public void saveList(View v) {
+    //method for updating the contents of the list in file
+    public void saveList() {
         try {
             saveArrayList(getActivity().getApplicationContext(), FILE_NAME, noteList);
             Log.d("SaveList", "finished doing the save");
@@ -179,6 +202,7 @@ public class BrainWidget extends Fragment implements Widget {
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(data);
         objectOutputStream.flush();
+        objectOutputStream.close();
         fileOutputStream.close();
         Toast.makeText(context, "The contents are saved in the file" + getList(), Toast.LENGTH_LONG).show();
     }
@@ -195,15 +219,16 @@ public class BrainWidget extends Fragment implements Widget {
                 noteList=new ArrayList<Note>();
             }
             ois.close();
+            fis.close();
             return noteList;
         }
         catch(ClassNotFoundException ex)
         {
-            Log.e("loadlist","class not found fam",ex);
+            Log.e("loadlist","class not found",ex);
             return new ArrayList<Note>();
         }
         catch(IOException ex) {
-            Log.e("loadlist", "io problem fam", ex);
+            Log.e("loadlist", "io problem", ex);
             return new ArrayList<Note>();
         }
     }
