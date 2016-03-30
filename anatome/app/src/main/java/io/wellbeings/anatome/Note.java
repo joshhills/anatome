@@ -39,7 +39,12 @@ public class Note implements Serializable {
         return this.getCreationDate() + this.getContent();
     }
 
-    public boolean equals(Note note) {
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || !(o instanceof Note)) return false;
+        if(o == this) return true;
+
+        Note note = (Note)o;
         if(this.creationDate == note.getCreationDate()
                 && this.content == note.getContent()) {
             return true;
