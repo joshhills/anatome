@@ -7,6 +7,7 @@ import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.os.Environment;
@@ -83,13 +84,10 @@ public class BrainWidget extends Fragment implements Widget {
         Log.d("noteListInit", noteList.toString());
 
         //initialise the graphics for each note in the noteList
-        for(int i = 0; i < noteList.size(); i++) {
+        for(int i = noteList.size()-1; i >= 0; i--) {
             initNote(noteList.get(i));
         }
 
-        Note newun = new Note("12th Oct", "oioi");
-        noteList.add(newun);
-        initNote(newun);
         //add another note for the latest one
         initNote(new Note("28th March",""));
 
@@ -98,11 +96,10 @@ public class BrainWidget extends Fragment implements Widget {
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //add most recent note to list
-                /*
-                LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
-                LinearLayout endNote = (LinearLayout) scroll.getChildAt(scroll.getChildCount() - 1);
-                EditText content = (EditText) endNote.getChildAt(endNote.getChildCount() -2);
-                TextView creationDate = (TextView) endNote.getChildAt(endNote.getChildCount() -3);
+                /*LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+                LinearLayout endNote = (LinearLayout) scroll.getChildAt((scroll.getChildCount() - 1));
+                EditText content = (EditText) endNote.getChildAt((endNote.getChildCount() -2));
+                TextView creationDate = (TextView) endNote.getChildAt((endNote.getChildCount() -3));
                 noteList.add(new Note(creationDate.getText().toString(),
                         content.getText().toString()));*/
 
@@ -150,7 +147,7 @@ public class BrainWidget extends Fragment implements Widget {
         ll.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
         //add Layout to the scrollview
-        scroll.addView(ll);
+        scroll.addView(ll,0);
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
