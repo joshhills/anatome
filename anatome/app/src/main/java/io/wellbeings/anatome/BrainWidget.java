@@ -91,18 +91,21 @@ public class BrainWidget extends Fragment implements Widget {
         //add another note for the latest one
         initNote(new Note("28th March",""));
 
+        //obtain the scroll LinearLayout used in the onclick listener
+        final LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+
         //initialise the saveButton and its onClick listener
         saveButton = (Button) v.findViewById(R.id.btnSave1);
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //add most recent note to list
-                /*LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
-                LinearLayout endNote = (LinearLayout) scroll.getChildAt((scroll.getChildCount() - 1));
-                EditText content = (EditText) endNote.getChildAt((endNote.getChildCount() -2));
-                TextView creationDate = (TextView) endNote.getChildAt((endNote.getChildCount() -3));
-                noteList.add(new Note(creationDate.getText().toString(),
-                        content.getText().toString()));*/
-
+                if(scroll.getChildCount() > 0) {
+                    //add most recent note to list
+                    LinearLayout endNote = (LinearLayout) scroll.getChildAt(0);
+                    TextView creationDate = (TextView) endNote.getChildAt(0);
+                    EditText content = (EditText) endNote.getChildAt(1);
+                    noteList.add(new Note(creationDate.getText().toString(),
+                            content.getText().toString()));
+                }
                 //update the list's state
                 saveList();
                 List<Note> testList = getList();
