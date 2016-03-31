@@ -5,6 +5,7 @@ package io.wellbeings.anatome;
  */
 import android.app.ActionBar;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
@@ -142,7 +143,9 @@ public class BrainWidget extends Fragment implements Widget {
 
         //add the delete button
         ImageButton deleteButton = new ImageButton(getContext());
-        Drawable d = Drawable.createFromPath("@drawable/bin.png");
+        //must use depreciated version because minimum API is set to 15.
+        //we could include theme as a second param (not depreciated) but this requires API level 21
+        Drawable d = getResources().getDrawable(R.drawable.bin);
         deleteButton.setImageDrawable(d);
         ll.addView(deleteButton);
 
