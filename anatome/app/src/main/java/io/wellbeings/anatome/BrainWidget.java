@@ -87,26 +87,29 @@ public class BrainWidget extends Fragment implements Widget {
         //initialise the graphics for each note in the noteList
         for(int i = noteList.size()-1; i >= 0; i--) {
             initNote(noteList.get(i));
+            initDeleteButton(noteList.get(i));
         }
 
         //add another note for the latest one
         initNote(new Note("28th March",""));
 
-        //obtain the scroll LinearLayout used in the onclick listener
-        final LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
-
         //initialise the saveButton and its onClick listener
         saveButton = (Button) v.findViewById(R.id.btnSave1);
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(scroll.getChildCount() > 0) {
-                    //add most recent note to list
-                    LinearLayout endNote = (LinearLayout) scroll.getChildAt(0);
-                    TextView creationDate = (TextView) endNote.getChildAt(0);
-                    EditText content = (EditText) endNote.getChildAt(1);
-                    noteList.add(new Note(creationDate.getText().toString(),
-                            content.getText().toString()));
+                Note note;
+                try {
+                    //retrieve the most recent note
+                    note = getMostRecentNote();
+                    //add the note to list
+                    noteList.add(note);
+                    //give the new note a delete button
+                    initDeleteButton(note);
                 }
+                catch(NullPointerException e) {
+                    Log.e("save", "no children in scroll");
+                }
+
                 //update the list's state
                 saveList();
                 List<Note> testList = getList();
@@ -118,6 +121,25 @@ public class BrainWidget extends Fragment implements Widget {
         });
 
         return v;
+    }
+
+    //method for obtaining most recent note
+    private Note getMostRecentNote() throws NullPointerException {
+        //obtain the scroll LinearLayout used in the onclick listener
+        LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+
+        //assert that there must be at least one note
+        if(scroll.getChildCount() > 0) {
+            //add most recent note to list
+            LinearLayout endNote = (LinearLayout) scroll.getChildAt(0);
+            TextView creationDate = (TextView) endNote.getChildAt(0);
+            EditText content = (EditText) endNote.getChildAt(1);
+            return new Note(creationDate.getText().toString(),
+                    content.getText().toString());
+        }
+        else {
+            throw new NullPointerException();
+        }
     }
 
     //method for initialising notes
@@ -141,38 +163,48 @@ public class BrainWidget extends Fragment implements Widget {
         noteInput.setText(note.getContent());
         ll.addView(noteInput);
 
+        //change background colour of the linearLayout to white
+        ll.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        //add Layout to the scrollview
+        scroll.addView(ll, 0);
+    }
+
+    //method for adding a delete button to a note
+    private void initDeleteButton(final Note note) {
+        //obtain the note's linear layout
+        final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
+        final LinearLayout endNote = (LinearLayout)scroll.getChildAt(0);
+
         //add the delete button
         ImageButton deleteButton = new ImageButton(getContext());
         //must use depreciated version because minimum API is set to 15.
         //we could include theme as a second param (not depreciated) but this requires API level 21
         Drawable d = getResources().getDrawable(R.drawable.bin);
         deleteButton.setImageDrawable(d);
-        ll.addView(deleteButton);
-
-        //change background colour of the linearLayout to white
-        ll.setBackgroundColor(Color.parseColor("#FFFFFF"));
-
-        //add Layout to the scrollview
-        scroll.addView(ll,0);
+        endNote.addView(deleteButton);
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //remove the UI for this note
-                ll.removeAllViews();
-                scroll.removeView(ll);
+                endNote.removeAllViews();
+                scroll.removeView(endNote);
 
                 Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
 
-                Log.d("REMOVAL", "Pre: "+ noteList);
+                Log.d("REMOVAL", "Pre: " + noteList);
                 Log.d("REMOVAL", "Equal?" + noteList.get(0) + " " + noteList.get(0).equals(note));
-                //remove note from list
-                noteList.remove(note);
-                /*for(int i = 0; i < noteList.size(); i++) {
+                //remove all matching notes from list
+                for (int i = 0; i < noteList.size(); i++) {
                     Note temp = noteList.get(i);
-                    if(note.equals(temp)) {
-                        noteList.remove(i);
+                    Log.d("REMOVAL", "temp = " + temp.toString());
+                    Log.d("REMOVAL", "note = " + note.toString());
+                    if (temp.equals(note)) {
+                        Log.d("REMOVAL", "temp made match");
+                        noteList.remove(temp);
                     }
-                }*/
+                }
+                //noteList.remove(note);
                 Log.d("REMOVAL", "Post: " + noteList);
 
                 Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
