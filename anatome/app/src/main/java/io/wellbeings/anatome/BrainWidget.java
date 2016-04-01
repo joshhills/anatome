@@ -159,7 +159,7 @@ public class BrainWidget extends Fragment implements Widget {
 
         //add the note's text input
         EditText noteInput = new EditText(getContext());
-        noteInput.setLayoutParams(new ActionBar.LayoutParams(800, 800));
+        noteInput.setLayoutParams(new ActionBar.LayoutParams(500, 500));
         noteInput.setText(note.getContent());
         ll.addView(noteInput);
 
