@@ -46,6 +46,13 @@
             android:text="Clear"
             android:id="@+id/clearButton"
             android:layout_gravity="left|bottom" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UNDO"
+            android:id="@+id/undoButton"
+            android:layout_gravity="right|center_vertical" />
     </FrameLayout>
 
     <FrameLayout
