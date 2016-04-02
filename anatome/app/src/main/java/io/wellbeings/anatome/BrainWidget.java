@@ -177,9 +177,13 @@ public class BrainWidget extends Fragment implements Widget {
         final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
         final LinearLayout endNote = (LinearLayout)scroll.getChildAt(0);
 
+        //when a note is deletable it should also be uneditable
+        EditText noteInput = (EditText)endNote.getChildAt(1);
+        noteInput.setEnabled(false);
+
         //add the delete button
         ImageButton deleteButton = new ImageButton(getContext());
-        //must use depreciated version because minimum API is set to 15.
+        //must use depreciated version because minimum API is set to 16.
         //we could include theme as a second param (not depreciated) but this requires API level 21
         Drawable d = getResources().getDrawable(R.drawable.bin);
         deleteButton.setImageDrawable(d);
