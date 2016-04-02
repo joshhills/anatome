@@ -38,6 +38,7 @@ import java.io.OutputStreamWriter;
 import java.io.StreamCorruptedException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -92,7 +93,7 @@ public class BrainWidget extends Fragment implements Widget {
         }
 
         //add another note for the latest one
-        initNote(new Note("28th March",""));
+        initNote(new Note(getCurrentDate(),""));
 
         //initialise the saveButton and its onClick listener
         saveButton = (Button) v.findViewById(R.id.btnSave1);
@@ -117,7 +118,7 @@ public class BrainWidget extends Fragment implements Widget {
                 Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
 
                 //add another note to the end of the list
-                initNote(new Note("28th March", ""));
+                initNote(new Note(getCurrentDate(), ""));
             }
         });
 
@@ -225,7 +226,7 @@ public class BrainWidget extends Fragment implements Widget {
     public List<Note> getList() {
         try{
             Log.d("GetList","getList called");
-            return loadArrayList(getActivity().getApplicationContext(), FILE_NAME);
+            return loadArrayList(FILE_NAME);
         }
        catch (IOException e){
             return new ArrayList<Note>();
@@ -252,7 +253,7 @@ public class BrainWidget extends Fragment implements Widget {
         Toast.makeText(context, "The contents are saved in the file" + getList(), Toast.LENGTH_LONG).show();
     }
 
-    private List<Note> loadArrayList(Context context, String filename) throws IOException {
+    private List<Note> loadArrayList(String filename) throws IOException {
         ArrayList<Note> readBack;
 
         try {
@@ -276,6 +277,13 @@ public class BrainWidget extends Fragment implements Widget {
             Log.e("loadlist", "io problem", ex);
             return new ArrayList<Note>();
         }
+    }
+
+    //method for retrieving the current date
+    public static String getCurrentDate() {
+        Calendar c = Calendar.getInstance();
+        String date = c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR);
+        return date;
     }
 
 }
