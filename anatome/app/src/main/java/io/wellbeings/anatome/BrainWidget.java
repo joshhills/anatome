@@ -32,8 +32,12 @@ public class BrainWidget extends Fragment implements Widget {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_brain_widget, container, false);
+
+        NotificationHandler.pushNotification(getContext(),"Brain Widget", "Hello World!");
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_brain_widget, container, false);
+        return v;
     }
 
 }
