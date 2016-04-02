@@ -2,6 +2,7 @@ package io.wellbeings.anatome;
 
 /**
  * Created by Calum on 29/11/2015.
+ * Purpose: To define the functionality of the brain section of the app
  */
 import android.app.ActionBar;
 import android.content.DialogInterface;

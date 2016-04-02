@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 /**
  * Created by Calum on 29/11/2015.
+ * Purpose: To model the behaviour of note objects which a user's thoughts are recorded with
  */
 public class Note implements Serializable {
     //Setting the SUID
