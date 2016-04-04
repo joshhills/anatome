@@ -56,6 +56,8 @@ public class BrainWidget extends Fragment implements Widget {
 
     //declare variables for the graphical parts of the widget
     Button saveButton;
+    ImageButton leftArrow;
+    ImageButton rightArrow;
 
     //list storing all the happynotes saved to file
     public static List<Note> noteList;
@@ -95,8 +97,18 @@ public class BrainWidget extends Fragment implements Widget {
         //add another note for the latest one
         initNote(new Note(getCurrentDate(),""));
 
-        //initialise the saveButton and its onClick listener
+        //initialise the buttons at the foot of the fragment
         saveButton = (Button) v.findViewById(R.id.btnSave1);
+        leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
+        rightArrow = (ImageButton) v.findViewById(R.id.rightArrow);
+
+        //define the appearance of the left and right arrows
+        Drawable left = getResources().getDrawable(R.mipmap.leftarrow);
+        Drawable right = getResources().getDrawable(R.mipmap.rightarrow);
+        leftArrow.setImageDrawable(left);
+        rightArrow.setImageDrawable(right);
+
+        //define the behaviour of saveButton on click
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Note note;
