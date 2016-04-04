@@ -61,6 +61,9 @@ public class BrainWidget extends Fragment implements Widget {
 
     //list storing all the happynotes saved to file
     public static List<Note> noteList;
+    //integer storing the current page of notes displayed
+    //5 notes are displayed per page, indexing starts at 1
+    private int noteListPage;
 
     //filename for persistent data
     private static final String FILE_NAME = "brain.txt";
@@ -88,15 +91,28 @@ public class BrainWidget extends Fragment implements Widget {
         noteList = getList();
         Log.d("noteListInit", noteList.toString());
 
-        //initialise the graphics for each note in the noteList
-        for(int i = noteList.size()-1; i >= 0; i--) {
-            initNote(noteList.get(i));
-            initDeleteButton(noteList.get(i));
+        //initialise the graphics for the first five notes in the noteList
+        for(int i = 4; i >= 0; i--) {
+            if(i < noteList.size()) {
+                initNote(noteList.get(i),0);
+                initDeleteButton(noteList.get(i),0);
+            }
         }
 
-        //add another note for the latest one
-        initNote(new Note(getCurrentDate(),""));
+        //initialise the noteListPage to 1 (first index)
+        noteListPage = 1;
 
+        //add another note for the latest one
+        initNote(new Note(getCurrentDate(), ""),0);
+
+        //initialise the control panel for saving and navigation
+        initControlPanel(v);
+
+        return v;
+    }
+
+    //method for initialising the save, left and right buttons
+    private void initControlPanel(View v) {
         //initialise the buttons at the foot of the fragment
         saveButton = (Button) v.findViewById(R.id.btnSave1);
         leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
@@ -112,7 +128,7 @@ public class BrainWidget extends Fragment implements Widget {
                     //add the note to list
                     noteList.add(note);
                     //give the new note a delete button
-                    initDeleteButton(note);
+                    initDeleteButton(note,0);
                 }
                 catch(NullPointerException e) {
                     Log.e("save", "no children in scroll");
@@ -124,16 +140,94 @@ public class BrainWidget extends Fragment implements Widget {
                 Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
 
                 //add another note to the end of the list
-                initNote(new Note(getCurrentDate(), ""));
+                initNote(new Note(getCurrentDate(), ""),0);
             }
         });
 
-        return v;
+        //define the behaviour of the left arrow
+        leftArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateLeft();
+            }
+        });
+
+        //define the behaviour of the right arrow
+        rightArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateRight();
+            }
+        });
+    }
+
+    //method for replacing the current notes on screen with the next 5 most recent
+    private void navigateLeft() {
+        //assert that it is not currently the first page
+        if(noteListPage > 1) {
+            //remove the notes on display from view
+            LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+            int maxIndex = scroll.getChildCount() - 1;
+            //note: i must be greater than 0 to factor in the unsaved note
+            for(int i = maxIndex; i > 0; i--) {
+                scroll.removeViewAt(i);
+            }
+
+            //decrement the page number
+            noteListPage--;
+
+            //calculate the highest index note covered by the page number
+            maxIndex = (noteListPage * 5) - 1;
+            int minIndex = maxIndex - 4;
+            Log.d("noteListPage","maxIndex: " + maxIndex + " minIndex: " + minIndex);
+
+            //add the five notes associated to the page number to view
+            for(int i = maxIndex; i >= minIndex; i--) {
+                initNote(noteList.get(i), 1);
+                initDeleteButton(noteList.get(i), 1);
+            }
+        }
+        else Log.d("noteListPage","noteListPage was <= 1");
+    }
+
+    //method for replacing the current notes on screen with the next 5 least recent
+    private void navigateRight() {
+        //assert that there are older notes to navigate to
+        //multiplied by 5 for the number of notes per page
+        if ((noteListPage * 5) < noteList.size()) {
+            //remove the notes on display from view
+            LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+            int maxIndex = scroll.getChildCount() - 1;
+            //note: i must be greater than 0 to factor in the unsaved note
+            for(int i = maxIndex; i > 0; i--) {
+                scroll.removeViewAt(i);
+            }
+
+            //increment the page number
+            noteListPage++;
+
+            //calculate the highest index note covered by the page number
+            Log.d("noteListPage", "noteListPage = " + noteListPage);
+            maxIndex = (noteListPage * 5) - 1;
+            int minIndex = maxIndex - 4;
+            Log.d("noteListPage","maxIndex: " + maxIndex + " minIndex: " + minIndex);
+
+            //add the five notes associated to the page number to view
+            for(int i = maxIndex; i >= minIndex; i--) {
+                Log.d("noteListPage", "i = " + i);
+                if(i >= noteList.size()) {
+                    Log.d("noteListPage", "i exceeded the noteList size");
+                    continue; //skip if there is no note at this index
+                }
+                initNote(noteList.get(i), 1);
+                initDeleteButton(noteList.get(i), 1);
+            }
+        } else Log.d("noteListPage", "noteListPage * 5 exceeded noteList size");
     }
 
     //method for obtaining most recent note
     private Note getMostRecentNote() throws NullPointerException {
-        //obtain the scroll LinearLayout used in the onclick listener
+        //obtain the scroll LinearLayout
         LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
 
         //assert that there must be at least one note
@@ -152,7 +246,8 @@ public class BrainWidget extends Fragment implements Widget {
 
     //method for initialising notes
     //index is set to -1 for a note not part of the noteList
-    private void initNote(final Note note) {
+    private void initNote(final Note note, int index) {
+        Log.d("noteListPage", "initNote called.");
         //obtain the horizontal scroll view that stores the notes
         final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
 
@@ -175,14 +270,14 @@ public class BrainWidget extends Fragment implements Widget {
         ll.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
         //add Layout to the scrollview
-        scroll.addView(ll, 0);
+        scroll.addView(ll, index);
     }
 
     //method for adding a delete button to a note
-    private void initDeleteButton(final Note note) {
+    private void initDeleteButton(final Note note, int index) {
         //obtain the note's linear layout
         final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
-        final LinearLayout endNote = (LinearLayout)scroll.getChildAt(0);
+        final LinearLayout endNote = (LinearLayout)scroll.getChildAt(index);
 
         //when a note is deletable it should also be uneditable
         EditText noteInput = (EditText)endNote.getChildAt(1);
