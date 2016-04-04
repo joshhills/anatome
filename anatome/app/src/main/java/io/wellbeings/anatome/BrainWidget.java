@@ -103,7 +103,7 @@ public class BrainWidget extends Fragment implements Widget {
         noteListPage = 1;
 
         //add another note for the latest one
-        initNote(new Note(getCurrentDate(), ""),0);
+        initNote(new Note(getCurrentDate(), ""), 0);
 
         //initialise the control panel for saving and navigation
         initControlPanel(v);
@@ -166,18 +166,13 @@ public class BrainWidget extends Fragment implements Widget {
         //assert that it is not currently the first page
         if(noteListPage > 1) {
             //remove the notes on display from view
-            LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
-            int maxIndex = scroll.getChildCount() - 1;
-            //note: i must be greater than 0 to factor in the unsaved note
-            for(int i = maxIndex; i > 0; i--) {
-                scroll.removeViewAt(i);
-            }
+            removeDisplayedSavedNotes();
 
             //decrement the page number
             noteListPage--;
 
             //calculate the highest index note covered by the page number
-            maxIndex = (noteListPage * 5) - 1;
+            int maxIndex = (noteListPage * 5) - 1;
             int minIndex = maxIndex - 4;
             Log.d("noteListPage","maxIndex: " + maxIndex + " minIndex: " + minIndex);
 
@@ -196,19 +191,14 @@ public class BrainWidget extends Fragment implements Widget {
         //multiplied by 5 for the number of notes per page
         if ((noteListPage * 5) < noteList.size()) {
             //remove the notes on display from view
-            LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
-            int maxIndex = scroll.getChildCount() - 1;
-            //note: i must be greater than 0 to factor in the unsaved note
-            for(int i = maxIndex; i > 0; i--) {
-                scroll.removeViewAt(i);
-            }
+            removeDisplayedSavedNotes();
 
             //increment the page number
             noteListPage++;
 
             //calculate the highest index note covered by the page number
             Log.d("noteListPage", "noteListPage = " + noteListPage);
-            maxIndex = (noteListPage * 5) - 1;
+            int maxIndex = (noteListPage * 5) - 1;
             int minIndex = maxIndex - 4;
             Log.d("noteListPage","maxIndex: " + maxIndex + " minIndex: " + minIndex);
 
@@ -223,6 +213,23 @@ public class BrainWidget extends Fragment implements Widget {
                 initDeleteButton(noteList.get(i), 1);
             }
         } else Log.d("noteListPage", "noteListPage * 5 exceeded noteList size");
+    }
+
+    //method used in navigation for removing all displayed saved notes
+    private void removeDisplayedSavedNotes() {
+        try {
+            LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+            int maxIndex = scroll.getChildCount() - 1;
+            //note: i must be greater than 0 to factor in the unsaved note
+            for (int i = maxIndex; i > 0; i--) {
+                scroll.removeViewAt(i);
+            }
+        }
+        catch(Exception e) {
+            //if something goes wrong, continue, it is not a critical operation
+            e.printStackTrace();
+            return;
+        }
     }
 
     //method for obtaining most recent note
