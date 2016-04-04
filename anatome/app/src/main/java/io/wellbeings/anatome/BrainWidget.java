@@ -102,12 +102,6 @@ public class BrainWidget extends Fragment implements Widget {
         leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
         rightArrow = (ImageButton) v.findViewById(R.id.rightArrow);
 
-        //define the appearance of the left and right arrows
-        Drawable left = getResources().getDrawable(R.mipmap.leftarrow);
-        Drawable right = getResources().getDrawable(R.mipmap.rightarrow);
-        leftArrow.setImageDrawable(left);
-        rightArrow.setImageDrawable(right);
-
         //define the behaviour of saveButton on click
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -200,6 +194,7 @@ public class BrainWidget extends Fragment implements Widget {
         //we could include theme as a second param (not depreciated) but this requires API level 21
         Drawable d = getResources().getDrawable(R.drawable.bin);
         deleteButton.setImageDrawable(d);
+        deleteButton.setBackground(null); //make background transparent
         endNote.addView(deleteButton);
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
