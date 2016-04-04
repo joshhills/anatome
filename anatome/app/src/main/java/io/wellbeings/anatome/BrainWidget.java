@@ -126,7 +126,7 @@ public class BrainWidget extends Fragment implements Widget {
                     //retrieve the most recent note
                     note = getMostRecentNote();
                     //add the note to list
-                    noteList.add(note);
+                    noteList.add(0,note);
                     //give the new note a delete button
                     initDeleteButton(note,0);
                 }
