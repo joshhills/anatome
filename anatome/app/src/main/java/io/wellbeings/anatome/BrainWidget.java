@@ -118,6 +118,9 @@ public class BrainWidget extends Fragment implements Widget {
         leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
         rightArrow = (ImageButton) v.findViewById(R.id.rightArrow);
 
+        //obtain scroll view used in the save button's onclick listener
+        final LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+
         //define the behaviour of saveButton on click
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -129,6 +132,12 @@ public class BrainWidget extends Fragment implements Widget {
                     noteList.add(0,note);
                     //give the new note a delete button
                     initDeleteButton(note,0);
+                    //ensure that no more than 5 notes are on display at once
+                    if(scroll.getChildCount() > 5) {
+                        Log.d("save", "too many children, will remove at last index");
+                        //remove the oldest note from display
+                        removedDisplayedSavedNote(5);
+                    }
                 }
                 catch(NullPointerException e) {
                     Log.e("save", "no children in scroll");
@@ -215,6 +224,18 @@ public class BrainWidget extends Fragment implements Widget {
         } else Log.d("noteListPage", "noteListPage * 5 exceeded noteList size");
     }
 
+    //method for removing a specific note from UI
+    private void removedDisplayedSavedNote(int index) {
+        try {
+            LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+            scroll.removeViewAt(index);
+        }
+        catch(Exception e) {
+            //if something goes wrong, continue, it is not a critical operation
+            Log.e("removeUI", "something went wrong");
+            return;
+        }
+    }
     //method used in navigation for removing all displayed saved notes
     private void removeDisplayedSavedNotes() {
         try {
@@ -227,7 +248,7 @@ public class BrainWidget extends Fragment implements Widget {
         }
         catch(Exception e) {
             //if something goes wrong, continue, it is not a critical operation
-            e.printStackTrace();
+            Log.e("removeUI", "something went wrong");
             return;
         }
     }
