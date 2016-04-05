@@ -332,26 +332,27 @@ public class BrainWidget extends Fragment implements Widget {
                 int maxIndex = (noteListPage * 5) - 1;
 
                 //remove all matching notes from list
-                for (int i = 0; i < noteList.size(); i++) {
+                /*for (int i = 0; i < noteList.size(); i++) {
                     Note temp = noteList.get(i);
                     Log.d("REMOVAL", "temp = " + temp.toString());
                     Log.d("REMOVAL", "note = " + note.toString());
                     if (temp.equals(note)) {
                         Log.d("REMOVAL", "temp made match");
                         noteList.remove(temp);
-                        //load in a new note to take its place on the UI if it exists
-                        if (scroll.getChildCount() > 4) {
-                            if(noteList.size() > maxIndex) {
-                                Log.d("REMOVAL", "should be good to remove the maxIndex at index 5");
-                                initNote(noteList.get(maxIndex), 5);
-                                initDeleteButton(noteList.get(maxIndex), 5);
-                            }
-                            else Log.d("REMOVAL", "maxIndex exceeded final index");
-                        }
-                        else Log.d("REMOVAL", "getChildCount 4 or less");
                     }
+                }*/
+
+                noteList.remove(note);
+                //load in a new note to take its place on the UI if it exists
+                if (scroll.getChildCount() > 4) {
+                    if(noteList.size() > maxIndex) {
+                        Log.d("REMOVAL", "should be good to remove the maxIndex at index 5");
+                        initNote(noteList.get(maxIndex), 5);
+                        initDeleteButton(noteList.get(maxIndex), 5);
+                    }
+                    else Log.d("REMOVAL", "maxIndex exceeded final index, maxIndex: " + maxIndex + " noteList size: " + noteList.size());
                 }
-                //noteList.remove(note);
+                else Log.d("REMOVAL", "getChildCount 4 or less");
 
                 //save the updated list
                 saveList();
