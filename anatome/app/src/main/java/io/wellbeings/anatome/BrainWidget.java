@@ -6,7 +6,9 @@ package io.wellbeings.anatome;
  */
 import android.app.ActionBar;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,8 +25,12 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.content.Context;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -291,7 +297,7 @@ public class BrainWidget extends Fragment implements Widget {
         noteInput.setEnabled(false);
 
         //add the delete button
-        ImageButton deleteButton = new ImageButton(getContext());
+        final ImageButton deleteButton = new ImageButton(getContext());
         //must use depreciated version because minimum API is set to 16.
         //we could include theme as a second param (not depreciated) but this requires API level 21
         Drawable d = getResources().getDrawable(R.drawable.bin);
@@ -301,37 +307,56 @@ public class BrainWidget extends Fragment implements Widget {
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //set up resources for animation
+                final ImageView smokeCloudImg = new ImageView(getContext());
+                smokeCloudImg.setBackgroundResource(R.drawable.smoke);
+                final AnimationDrawable smokeCloud =
+                        (AnimationDrawable) smokeCloudImg.getBackground();
+
+                //calculate the index endNote is at for animating
+                int index = scroll.indexOfChild(endNote);
+
                 //remove the UI for this note
                 endNote.removeAllViews();
                 scroll.removeView(endNote);
 
-                Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
+                // play the destruction animation
+                // note: a margin has been given to position the animation more centrally to the note
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 150, 0, 0);
+                smokeCloudImg.setLayoutParams(params);
+                scroll.addView(smokeCloudImg, index);
+                smokeCloud.start();
+
+                //wait for animation to finish before removing it
+                Handler handler = new Handler();
+                //after the duration of the animation, send for its removal
+                handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            smokeCloud.stop();
+                                            scroll.removeView(smokeCloudImg);
+                                        }
+                                    },280);
+
+                        Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
 
                 //calculate the index in noteList the final note displayed is
                 int maxIndex = (noteListPage * 5) - 1;
 
-                //remove all matching notes from list
-                /*for (int i = 0; i < noteList.size(); i++) {
-                    Note temp = noteList.get(i);
-                    Log.d("REMOVAL", "temp = " + temp.toString());
-                    Log.d("REMOVAL", "note = " + note.toString());
-                    if (temp.equals(note)) {
-                        Log.d("REMOVAL", "temp made match");
-                        noteList.remove(temp);
-                    }
-                }*/
-
                 noteList.remove(note);
                 //load in a new note to take its place on the UI if it exists
                 if (scroll.getChildCount() > 4) {
-                    if(noteList.size() > maxIndex) {
+                    if (noteList.size() > maxIndex) {
                         Log.d("REMOVAL", "should be good to remove the maxIndex at index 5");
                         initNote(noteList.get(maxIndex), 5);
                         initDeleteButton(noteList.get(maxIndex), 5);
-                    }
-                    else Log.d("REMOVAL", "maxIndex exceeded final index, maxIndex: " + maxIndex + " noteList size: " + noteList.size());
-                }
-                else Log.d("REMOVAL", "getChildCount 4 or less");
+                    } else
+                        Log.d("REMOVAL", "maxIndex exceeded final index, maxIndex: " + maxIndex + " noteList size: " + noteList.size());
+                } else Log.d("REMOVAL", "getChildCount 4 or less");
 
                 //save the updated list
                 saveList();

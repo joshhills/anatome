@@ -32,7 +32,6 @@
             android:layout_height="match_parent"
             android:weightSum="1"
             android:id="@+id/noteScroll"
-            android:animateLayoutChanges="true"
             >
 
 
