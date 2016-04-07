@@ -5,10 +5,16 @@ package io.wellbeings.anatome;
  * Purpose: To define the functionality of the brain section of the app
  */
 import android.app.ActionBar;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +23,8 @@ import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,13 +44,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class BrainWidget extends Fragment implements Widget {
+
     // Store view object for UI manipulation.
     private View v;
 
     //declare variables for the graphical parts of the widget
-    Button saveButton;
+    Button saveButton, btnCamera;
+    ImageView ivImage;
     ImageButton leftArrow;
     ImageButton rightArrow;
+
+    private MediaPlayer mediaPlayer;
+    private MediaRecorder recorder;
+    private String OUTPUT_FILE;
+
+    private static final int CAM_REQUEST = 1;
 
     //list storing all the happynotes saved to file
     public static List<Note> noteList;
@@ -71,6 +87,8 @@ public class BrainWidget extends Fragment implements Widget {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment, storing view.
         v = inflater.inflate(R.layout.fragment_brain_widget, container, false);
+
+        OUTPUT_FILE = Environment.getExternalStorageDirectory() + "/audiorecorder.3gpp";
 
         //initialise list of notes from file
         noteList = getList();
@@ -335,14 +353,14 @@ public class BrainWidget extends Fragment implements Widget {
                 Handler handler = new Handler();
                 //after the duration of the animation, send for its removal
                 handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            smokeCloud.stop();
-                                            scroll.removeView(smokeCloudImg);
-                                        }
-                                    },280);
+                    @Override
+                    public void run() {
+                        smokeCloud.stop();
+                        scroll.removeView(smokeCloudImg);
+                    }
+                }, 280);
 
-                        Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
+                Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
 
                 //calculate the index in noteList the final note displayed is
                 int maxIndex = (noteListPage * 5) - 1;
@@ -428,5 +446,123 @@ public class BrainWidget extends Fragment implements Widget {
         String date = c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR);
         return date;
     }
+
+
+    public void onCamera(View V){
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAM_REQUEST);
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CAM_REQUEST) {
+            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            ivImage.setImageBitmap(thumbnail);
+        }
+    }
+
+    public void onStartRecording(View v){
+        try{
+            beginRecording();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void onStopRecording(View v){
+
+        try{
+            stopRecording();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void onPlay(View v){
+        try{
+            playRecording();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void onPause(View v){
+        try{
+            stopPlayback();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public void beginRecording() throws IOException {
+        ditchMediaRecorder();
+        File outFile = new File(OUTPUT_FILE);
+        if (outFile.exists())
+            outFile.delete();
+
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        recorder.setOutputFile(OUTPUT_FILE);
+        try{
+            recorder.prepare();
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+
+        recorder.start();
+
+
+    }
+
+    private void ditchMediaRecorder() {
+        if(recorder != null)
+            recorder.release();
+    }
+
+    public void stopRecording(){
+        if(recorder != null)
+            recorder.stop();
+
+    }
+
+    public void playRecording() throws IOException {
+        ditchMediaPlayer();
+        mediaPlayer=new MediaPlayer();
+        mediaPlayer.setDataSource(OUTPUT_FILE);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
+
+    }
+
+    private void ditchMediaPlayer() {
+        if(mediaPlayer != null){
+            try{
+                mediaPlayer.release();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void stopPlayback(){
+        if(mediaPlayer != null)
+            mediaPlayer.stop();
+
+    }
+
+
+
+
 
 }

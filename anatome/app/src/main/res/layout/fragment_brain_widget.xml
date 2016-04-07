@@ -38,15 +38,28 @@
         </LinearLayout>
     </HorizontalScrollView>
     <Button
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/btnSave1"
         android:textColor="@color/abc_primary_text_material_dark"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnCamera"
+        android:layout_toEndOf="@+id/btnCamera" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Camera"
+        android:id="@+id/btnCamera"
+        android:onClick="onCamera"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/leftArrow"
+        android:layout_toEndOf="@+id/leftArrow" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -66,4 +79,50 @@
         android:layout_alignParentEnd="true"
         android:src="@mipmap/rightarrow"
         android:background="@null"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop "
+        android:id="@+id/btnStop"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnStartRecording"
+        android:layout_toEndOf="@+id/btnStartRecording"
+        android:onClick="onStopRecording"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:id="@+id/btnStartRecording"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnSave1"
+        android:layout_toEndOf="@+id/btnSave1"
+        android:onClick="onStartRecording"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play"
+        android:id="@+id/btnPlay"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnStop"
+        android:layout_toEndOf="@+id/btnStop"
+        android:onClick="onPlay"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pause"
+        android:id="@+id/btnPause"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnPlay"
+        android:layout_toEndOf="@+id/btnPlay"
+        android:onClick="onPause"/>
+
+
 </RelativeLayout>
