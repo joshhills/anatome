@@ -1,5 +1,6 @@
 package io.wellbeings.anatome;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
+import android.content.DialogInterface;
 
 /**
  * Interactive subsection hinging on body part
@@ -61,6 +63,8 @@ public class LiverWidget extends Fragment implements Widget {
         // Get buttons
         Button addButton = (Button) v.findViewById(R.id.liver_add_button);
         Button clearButton = (Button) v.findViewById(R.id.liver_add_button);
+        Button undoButton = (Button) v.findViewById(R.id.liver_undo_button);
+
         updateDisplay();
 
         // Get the text warning.
@@ -99,6 +103,7 @@ public class LiverWidget extends Fragment implements Widget {
                         volumeSpinner.setSelection(2);//single measure
                         percentageSpinner.setSelection(2);//15%
                         break;
+
                 }
             }
 
@@ -160,12 +165,48 @@ public class LiverWidget extends Fragment implements Widget {
                         volume = 0;
                         break;
                 }
+
                 // Get percentage.
                 percentage = Integer.parseInt(percentageSpinner.getSelectedItem().toString()
                         .replace("%",""));
 
                 // Work out the units and add them to the unit amount.
                 setUnits(getUnits() + ((percentage * volume) / 1000));
+
+                //get the percentage (can probably do something cleverer than a switch in the future)
+                switch (percentageSpinner.getSelectedItemPosition()) {
+                    case 0:
+                        percentage = 40;
+                        break;
+                    case 1:
+                        percentage = 37.5;
+                        break;
+                    case 2:
+                        percentage = 15;
+                        break;
+                    case 3:
+                        percentage = 12;
+                        break;
+                    case 4:
+                        percentage = 10;
+                        break;
+                    case 5:
+                        percentage = 7.5;
+                        break;
+                    case 6:
+                        percentage = 5;
+                        break;
+                    case 7:
+                        percentage = 4;
+                        break;
+                    default:
+                        percentage = 0;
+                        break;
+                }
+
+                //setUnits(getUnits() + ((percentage * volume) / 1000));//work out the units and add them to the unit amount
+                addDrink((percentage * volume) / 1000);
+
                 updateDisplay();
             }
         });
@@ -174,6 +215,13 @@ public class LiverWidget extends Fragment implements Widget {
         clearButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 setUnits(0);
+                updateDisplay();
+            }
+        });
+
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                UtilityManager.getUserUtility(getActivity()).removeDrink();
                 updateDisplay();
             }
         });
@@ -218,11 +266,35 @@ public class LiverWidget extends Fragment implements Widget {
     }
 
     /* Helper methods to retrieve semi-persistent information. */
+    private int otherDialog(String title, int layout){
+        int i = 0;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(title);
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        builder.setView(inflater.inflate(layout, null))
+                .setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+        return i;
+    }
 
     private double getUnits(){
         return UtilityManager.getUserUtility(getActivity()).getUnits();
     }
+
     private void setUnits(double units){
         UtilityManager.getUserUtility(getActivity()).setUnits(units);
+    }
+
+    private void addDrink(double units){
+        UtilityManager.getUserUtility(getActivity()).addDrink(units);
     }
 }
