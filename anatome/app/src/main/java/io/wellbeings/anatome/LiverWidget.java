@@ -3,6 +3,7 @@ package io.wellbeings.anatome;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class LiverWidget extends Fragment implements Widget {
 
         // Get buttons
         Button addButton = (Button) v.findViewById(R.id.liver_add_button);
-        Button clearButton = (Button) v.findViewById(R.id.liver_add_button);
+        Button clearButton = (Button) v.findViewById(R.id.liver_clear_button);
         Button undoButton = (Button) v.findViewById(R.id.liver_undo_button);
 
         updateDisplay();
@@ -170,8 +171,6 @@ public class LiverWidget extends Fragment implements Widget {
                 percentage = Integer.parseInt(percentageSpinner.getSelectedItem().toString()
                         .replace("%",""));
 
-                // Work out the units and add them to the unit amount.
-                setUnits(getUnits() + ((percentage * volume) / 1000));
 
                 //get the percentage (can probably do something cleverer than a switch in the future)
                 switch (percentageSpinner.getSelectedItemPosition()) {
@@ -204,7 +203,6 @@ public class LiverWidget extends Fragment implements Widget {
                         break;
                 }
 
-                //setUnits(getUnits() + ((percentage * volume) / 1000));//work out the units and add them to the unit amount
                 addDrink((percentage * volume) / 1000);
 
                 updateDisplay();

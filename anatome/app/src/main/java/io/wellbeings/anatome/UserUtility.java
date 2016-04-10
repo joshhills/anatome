@@ -2,6 +2,7 @@ package io.wellbeings.anatome;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.Map;
