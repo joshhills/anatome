@@ -169,7 +169,7 @@ public class LiverWidget extends Fragment implements Widget {
 
                 // Get percentage.
                 percentage = Integer.parseInt(percentageSpinner.getSelectedItem().toString()
-                        .replace("%",""));
+                        .replace("%", ""));
 
 
                 //get the percentage (can probably do something cleverer than a switch in the future)
@@ -226,12 +226,14 @@ public class LiverWidget extends Fragment implements Widget {
 
     }
 
+    /* Visual methods. */
+
     // Update the display to reflect changes in unit calculation.
     private void updateDisplay(){
 
         // Retrieve references to text elements.
         final TextView unitDisplay = (TextView) v.findViewById(R.id.liver_unit_display);
-        TextView Warning = (TextView) v.findViewById(R.id.liver_warning);
+        TextView warning = (TextView) v.findViewById(R.id.liver_warning);
 
         // Update unit display.
         //TODO: the word "units" needs to go in the xml so we can do different languages
@@ -242,28 +244,42 @@ public class LiverWidget extends Fragment implements Widget {
             unitDisplay.setText(String.format("%.1f",getUnits()) + " Unit");
         }
 
-        // Update warning.
+        // Update warnings.
+        TextView thresholdWarning = (TextView) v.findViewById(R.id.liver_threshold_warning);
         if(getUnits() == 0){
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-1"));
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-1"));
+            thresholdWarning.setVisibility(View.GONE);
         }
-        else if(getUnits() < 2){
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-2"));
+        else if(getUnits() < 2) {
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-2"));
+            thresholdWarning.setVisibility(View.GONE);
         }
-        else if(getUnits() < 5){
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-3"));
+        else if(getUnits() < 5) {
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-3"));
+            thresholdWarning.setVisibility(View.VISIBLE);
         }
-        else if(getUnits() < 10){
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-4"));
+        else if(getUnits() < 10) {
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-4"));
+            thresholdWarning.setVisibility(View.VISIBLE);
         }
-        else if(getUnits() < 15){
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-5"));
+        else if(getUnits() < 15) {
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-5"));
+            thresholdWarning.setVisibility(View.VISIBLE);
         }
         else{
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-6"));
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-6"));
+            thresholdWarning.setVisibility(View.VISIBLE);
         }
     }
 
+    private void pushVisualTransition(int state) {
+
+        
+
+    }
+
     /* Helper methods to retrieve semi-persistent information. */
+
     private int otherDialog(String title, int layout){
         int i = 0;
 

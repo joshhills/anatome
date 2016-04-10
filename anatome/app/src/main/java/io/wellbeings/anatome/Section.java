@@ -2,7 +2,9 @@ package io.wellbeings.anatome;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTabHost;
@@ -119,6 +121,9 @@ public class Section extends FragmentActivity {
         // Add fragment with bundle.
         mTabHost.addTab(mTabHost.newTabSpec(informationHeader).setIndicator(informationHeader), ContentFragment.class,
                 contentBundle);
+
+        mTabHost.getTabWidget().getChildAt(0).getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+        mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
 
     }
 
