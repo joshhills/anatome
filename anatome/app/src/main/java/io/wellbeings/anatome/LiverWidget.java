@@ -65,6 +65,7 @@ public class LiverWidget extends Fragment implements Widget {
         //get buttons
         Button addButton = (Button) v.findViewById(R.id.addButton);
         Button clearButton = (Button) v.findViewById(R.id.clearButton);
+        Button undoButton = (Button) v.findViewById(R.id.undoButton);
         //get the display to say the right number
         updateDisplay();
         /* Populate spinner options with correct localization. */
@@ -107,8 +108,10 @@ public class LiverWidget extends Fragment implements Widget {
                         */
                 }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
         ArrayAdapter<String> drinkAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item,
                 UtilityManager.getContentLoader(getContext()).getInfoTextAsList(SECTION, "drinks", ","));
@@ -219,8 +222,8 @@ public class LiverWidget extends Fragment implements Widget {
                         break;
                 }
 
-                setUnits(getUnits() + ((percentage * volume) / 1000));//work out the units and add them to the unit amount
-
+                //setUnits(getUnits() + ((percentage * volume) / 1000));//work out the units and add them to the unit amount
+                addDrink((percentage * volume) / 1000);
                 updateDisplay();
             }
         });
@@ -228,6 +231,13 @@ public class LiverWidget extends Fragment implements Widget {
         clearButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 setUnits(0);
+                updateDisplay();
+            }
+        });
+
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                UtilityManager.getUserUtility(getActivity()).removeDrink();
                 updateDisplay();
             }
         });
@@ -274,5 +284,8 @@ public class LiverWidget extends Fragment implements Widget {
     }
     private void setUnits(double units){
         UtilityManager.getUserUtility(getActivity()).setUnits(units);
+    }
+    private void addDrink(double units){
+        UtilityManager.getUserUtility(getActivity()).addDrink(units);
     }
 }
