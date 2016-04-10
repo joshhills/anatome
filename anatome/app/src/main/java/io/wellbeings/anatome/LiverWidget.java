@@ -1,7 +1,6 @@
 package io.wellbeings.anatome;
 
-import android.content.Context;
-import android.net.Uri;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,10 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
-//not sure if this is right
-import android.content.Context;
-import java.util.ArrayList;
-import java.util.List;
+import android.content.DialogInterface;
 
 
 /**
@@ -100,7 +96,7 @@ public class LiverWidget extends Fragment implements Widget {
                         volumeSpinner.setSelection(2);//single measure
                         percentageSpinner.setSelection(2);//15%
                         break;
-                    /*commented out because i dont think this part is needed
+                    /*
                     default://other
                         volumeSpinner.setSelection(7);//other
                         percentageSpinner.setSelection(8);//other
@@ -143,8 +139,8 @@ public class LiverWidget extends Fragment implements Widget {
         percentageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    // TODO: Phil, fill case statements appropriately
+                if(position == 8){
+                    otherDialogue("Enter a percentage", R.layout.dialog_liver_percentage);
                 }
             }
 
@@ -279,12 +275,35 @@ public class LiverWidget extends Fragment implements Widget {
         }
     }
 
+    //method to make dialogue box
+    private int otherDialogue(String title, int layout){
+        int i = 0;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(title);
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        builder.setView(inflater.inflate(layout, null))
+                .setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+        return i;
+    }
+
     private double getUnits(){
         return UtilityManager.getUserUtility(getActivity()).getUnits();
     }
+
     private void setUnits(double units){
         UtilityManager.getUserUtility(getActivity()).setUnits(units);
     }
+
     private void addDrink(double units){
         UtilityManager.getUserUtility(getActivity()).addDrink(units);
     }
