@@ -140,7 +140,7 @@ public class LiverWidget extends Fragment implements Widget {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 8){
-                    otherDialogue("Enter a percentage", R.layout.dialog_liver_percentage);
+                    otherDialog("Enter a percentage", R.layout.dialog_liver_percentage);
                 }
             }
 
@@ -276,7 +276,7 @@ public class LiverWidget extends Fragment implements Widget {
     }
 
     //method to make dialogue box
-    private int otherDialogue(String title, int layout){
+    private int otherDialog(String title, int layout){
         int i = 0;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
