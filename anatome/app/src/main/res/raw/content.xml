@@ -26,7 +26,7 @@ There's some minor information necessary to set you going so you can use your ne
             </information>
             <information id="name">
                 Firstly, what should we call you?
-                
+
 (If you're worried about privacy, now's the time to re-invent yourself. Otherwise, we'll remember you as 'guest'!)
             </information>
             <information id="lock">
@@ -47,8 +47,8 @@ For this reason, you may want to password-protect them.
                 </header>
                 <header id="tips">
                     Here's some general pointers:
-                </header>in
-                <header id="lks">
+                </header>
+                <header id="links">
                     Want to know more?
                 </header>
             </headers>
@@ -100,7 +100,7 @@ For this reason, you may want to password-protect them.
                 </header>
                 <header id="tips">
                     Here's some general pointers:
-                </header>in
+                </header>
                 <header id="links">
                     Want to know more?
                 </header>
@@ -121,23 +121,29 @@ For this reason, you may want to password-protect them.
                 40%,37.5%,15%,12%,10%,7.5%,5%,4%,Other
             </information>
             <!--temporary ids and information since I can't think of goo ones right now-->
-            <information id="fine">
+            <information id="threshold-1">
                 DOWN IT FRESHAAAAAA!!!!!!!!!
             </information>
-            <information id="tipsy">
+            <information id="threshold-2">
                 You're almost over the guidelines
             </information>
-            <information id="drunk">
+            <information id="threshhold-3">
                 You should start slowing down
             </information>
-            <information id="crunk">
+            <information id="threshold-4">
                 Now it's really time to stop
             </information>
-            <information id="krunk">
+            <information id="threshold-5">
                 You have drunk a dangerous amount of alcohol
             </information>
-            <information id="michael watts">
+            <information id="threshold-6">
                 GO HOME
+            </information>
+            <information id="units">
+                Units
+            </information>
+            <information id="threshold-warning">
+                This is over the government recommended daily allowance.
             </information>
             <links>
                 <link>
