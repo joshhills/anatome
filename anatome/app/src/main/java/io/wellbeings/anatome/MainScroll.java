@@ -1,10 +1,14 @@
 package io.wellbeings.anatome;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.content.Intent;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 /**
  * Main activity handles navigation to custom
@@ -12,6 +16,7 @@ import android.content.Intent;
  * launchpad for app's key features.
  */
 public class MainScroll extends Activity {
+
 
     /**
      * On activity creation, set up canvas.
@@ -40,6 +45,11 @@ public class MainScroll extends Activity {
         findViewById(R.id.heart).setOnClickListener(navigateToSection);
         findViewById(R.id.liver).setOnClickListener(navigateToSection);
 
+
+        // ************************************************************
+        findViewById(R.id.bookingInfoButton).setOnClickListener(navigateToBookingSystem);
+        // ************************************************************
+
     }
 
     // Mutual re-usable interface type to manage section routing.
@@ -60,4 +70,33 @@ public class MainScroll extends Activity {
         }
     };
 
+    // ************************************************************
+    private OnClickListener navigateToBookingSystem = new OnClickListener() {
+       @Override
+       public void onClick(View v) {
+
+           ImageButton book = (ImageButton) v;
+           ImageButton arrow = (ImageButton) findViewById(R.id.bookButtonOnMainScroll);
+           ImageView bgImage = (ImageView) findViewById(R.id.bookingSystemBackgroundKite);
+
+           book.setVisibility(View.INVISIBLE);
+           bgImage.setImageResource(R.drawable.bookingbg);
+
+           AssetManager assetManager = getAssets();
+           Typeface customFontBariol = Typeface.createFromAsset(assetManager, "fonts/Bariol.ttf");
+           Typeface customFontHelvetica = Typeface.createFromAsset(assetManager, "fonts/Helvetica.ttf");
+
+           arrow.setVisibility(View.VISIBLE);
+
+           arrow.setOnClickListener(new OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   Intent intent = new Intent(v.getContext(), BookingSystem.class);
+                   startActivity(intent);
+               }
+           });
+
+
+        }
+    };
 }

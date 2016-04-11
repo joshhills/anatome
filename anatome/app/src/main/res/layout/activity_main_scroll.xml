@@ -5,8 +5,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/scrollView"
-    android:background="@color/main_main_bg"
-    android:fillViewport="false">
+        android:background="@color/main_main_bg"
+        android:fillViewport="false">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -16,6 +16,43 @@
         tools:context="io.wellbeings.anatome.MainScroll"
         android:orientation="vertical">
 
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/bookingSystemBackgroundKite"
+                android:src="@drawable/kite"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
+
+            <ImageButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:id="@+id/bookingInfoButton"
+                android:layout_gravity="center_horizontal|bottom"
+                android:src="@drawable/book"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="#09849a"
+                android:scaleType="fitXY" />
+
+            <ImageButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:id="@+id/bookButtonOnMainScroll"
+                android:layout_gravity="right|bottom"
+                android:layout_marginBottom="24dp"
+                android:src="@drawable/arrow_32"
+                android:layout_marginRight="20dp"
+                android:visibility="invisible"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="#09849a"
+                android:scaleType="fitXY"/>
+
+        </FrameLayout>
 
         <ImageView
             android:layout_width="match_parent"
