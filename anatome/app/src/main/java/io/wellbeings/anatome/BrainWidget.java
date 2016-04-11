@@ -5,13 +5,17 @@ package io.wellbeings.anatome;
  * Purpose: To define the functionality of the brain section of the app
  */
 import android.app.ActionBar;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -28,6 +32,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -49,16 +54,22 @@ public class BrainWidget extends Fragment implements Widget {
     private View v;
 
     //declare variables for the graphical parts of the widget
-    Button saveButton, btnCamera;
+    Button saveButton, galleryButton;
+
+    //imageview to display a photo
     ImageView ivImage;
+
+
     ImageButton leftArrow;
     ImageButton rightArrow;
 
+    //for audio capture
     private MediaPlayer mediaPlayer;
     private MediaRecorder recorder;
     private String OUTPUT_FILE;
 
-    private static final int CAM_REQUEST = 1;
+    //for gallery
+    private static final int RESULT_LOAD_IMG = 1;
 
     //list storing all the happynotes saved to file
     public static List<Note> noteList;
@@ -79,7 +90,10 @@ public class BrainWidget extends Fragment implements Widget {
     }
     //onCreate method
     @Override
-    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
+    public void onCreate(Bundle savedInstanceState) {
+
+
+        super.onCreate(savedInstanceState); }
 
     //onCreateView method (when this fragment is navigated to)
     @Override
@@ -88,7 +102,13 @@ public class BrainWidget extends Fragment implements Widget {
         // Inflate the layout for this fragment, storing view.
         v = inflater.inflate(R.layout.fragment_brain_widget, container, false);
 
+        //for the camera
         OUTPUT_FILE = Environment.getExternalStorageDirectory() + "/audiorecorder.3gpp";
+
+
+
+
+
 
         //initialise list of notes from file
         noteList = getList();
@@ -120,6 +140,8 @@ public class BrainWidget extends Fragment implements Widget {
         saveButton = (Button) v.findViewById(R.id.btnSave1);
         leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
         rightArrow = (ImageButton) v.findViewById(R.id.rightArrow);
+//        ivImage = (ImageView) v.findViewById(R.id.ivImage);
+        galleryButton = (Button) v.findViewById(R.id.btnGallery);
 
         //obtain scroll view used in the save button's onclick listener
         final LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
@@ -146,15 +168,40 @@ public class BrainWidget extends Fragment implements Widget {
                     Log.e("save", "no children in scroll");
                 }
 
-                //update the list's state
-                saveList();
+
+//                btnGallery.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    //open gallery
+//                    Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                     //start the activity and pass the data
+//                     startActivityForResult(i, RESULT_LOAD_IMG);
+//                }
+//                });
+
+                        //update the list's state
+                        saveList();
                 List<Note> testList = getList();
                 Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
 
+
                 //add another note to the end of the list
-                initNote(new Note(getCurrentDate(), ""),0);
+                initNote(new Note(getCurrentDate(), ""), 0);
             }
         });
+
+         galleryButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+             //open gallery
+             Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+             //start the activity and pass the data
+             startActivityForResult(i, RESULT_LOAD_IMG);
+             }
+         });
+
+
 
         //define the behaviour of the left arrow
         leftArrow.setOnClickListener(new View.OnClickListener() {
@@ -448,118 +495,132 @@ public class BrainWidget extends Fragment implements Widget {
     }
 
 
-    public void onCamera(View V){
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAM_REQUEST);
-
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CAM_REQUEST) {
-            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-            ivImage.setImageBitmap(thumbnail);
-        }
-    }
 
-    public void onStartRecording(View v){
-        try{
-            beginRecording();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        if (requestCode == RESULT_LOAD_IMG) {
+            // Let's read picked image data - its URI
+            Uri pickedImage = data.getData();
+            // Let's read picked image path using content resolver
+            String[] filePath = {MediaStore.Images.Media.DATA};
 
-    }
+         ContentResolver contentResolverU = ContentResolverUltility.tryGetContentResolver(getContext());
+           Cursor cursor = contentResolverU.query(pickedImage, filePath, null, null, null);
+            cursor.moveToFirst();
+            String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
 
-    public void onStopRecording(View v){
+            // Now we need to set the GUI ImageView data with data read from the picked file.
+//            ivImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));
 
-        try{
-            stopRecording();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void onPlay(View v){
-        try{
-            playRecording();
-        } catch (Exception e){
-            e.printStackTrace();
+            // At the end remember to close the cursor or you will end with the RuntimeException!
+            cursor.close();
+//            Toast.makeText(this, "Image picked from gallery", Toast.LENGTH_LONG).show();
         }
 
     }
 
-    public void onPause(View v){
-        try{
-            stopPlayback();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
 
 
-    public void beginRecording() throws IOException {
-        ditchMediaRecorder();
-        File outFile = new File(OUTPUT_FILE);
-        if (outFile.exists())
-            outFile.delete();
-
-        recorder = new MediaRecorder();
-        recorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        recorder.setOutputFile(OUTPUT_FILE);
-        try{
-            recorder.prepare();
-        }catch (Exception e){
-            e.printStackTrace();
-
-        }
-
-        recorder.start();
-
-
-    }
-
-    private void ditchMediaRecorder() {
-        if(recorder != null)
-            recorder.release();
-    }
-
-    public void stopRecording(){
-        if(recorder != null)
-            recorder.stop();
-
-    }
-
-    public void playRecording() throws IOException {
-        ditchMediaPlayer();
-        mediaPlayer=new MediaPlayer();
-        mediaPlayer.setDataSource(OUTPUT_FILE);
-        mediaPlayer.prepare();
-        mediaPlayer.start();
-
-    }
-
-    private void ditchMediaPlayer() {
-        if(mediaPlayer != null){
-            try{
-                mediaPlayer.release();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void stopPlayback(){
-        if(mediaPlayer != null)
-            mediaPlayer.stop();
-
-    }
+//
+//    public void onStartRecording(View v){
+//        try{
+//            beginRecording();
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//    }
+//
+//    public void onStopRecording(View v){
+//
+//        try{
+//            stopRecording();
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void onPlay(View v){
+//        try{
+//            playRecording();
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//    }
+//
+//    public void onPause(View v){
+//        try{
+//            stopPlayback();
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//
+//
+//    public void beginRecording() throws IOException {
+//        ditchMediaRecorder();
+//        File outFile = new File(OUTPUT_FILE);
+//        if (outFile.exists())
+//            outFile.delete();
+//
+//        recorder = new MediaRecorder();
+//        recorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+//        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+//        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+//        recorder.setOutputFile(OUTPUT_FILE);
+//        try{
+//            recorder.prepare();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//
+//        }
+//
+//        recorder.start();
+//
+//
+//    }
+//
+//    private void ditchMediaRecorder() {
+//        if(recorder != null)
+//            recorder.release();
+//    }
+//
+//    public void stopRecording(){
+//        if(recorder != null)
+//            recorder.stop();
+//
+//    }
+//
+//    public void playRecording() throws IOException {
+//        ditchMediaPlayer();
+//        mediaPlayer=new MediaPlayer();
+//        mediaPlayer.setDataSource(OUTPUT_FILE);
+//        mediaPlayer.prepare();
+//        mediaPlayer.start();
+//
+//    }
+//
+//    private void ditchMediaPlayer() {
+//        if(mediaPlayer != null){
+//            try{
+//                mediaPlayer.release();
+//            } catch (Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+//
+//    public void stopPlayback(){
+//        if(mediaPlayer != null)
+//            mediaPlayer.stop();
+//
+//    }
 
 
 
