@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:id="@+id/title"
+            android:id="@+id/content_title"
             android:paddingBottom="14dp" />
 
 
@@ -24,13 +24,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
-            android:id="@+id/titlecontent"
+            android:id="@+id/content_titlecontent"
             android:paddingBottom="14dp" />
 
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/graphic"
+            android:id="@+id/content_graphic"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
             android:contentDescription="section graphic"
@@ -41,14 +41,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:id="@+id/tips"
+            android:id="@+id/content_tips"
             android:paddingBottom="14dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
-            android:id="@+id/tipscontent"
+            android:id="@+id/content_tipscontent"
             android:paddingBottom="14dp" />
 
         <TextView
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:id="@+id/links"
+            android:id="@+id/content_links"
             android:paddingBottom="14dp" />
 
         <TextView
@@ -64,15 +64,35 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
-            android:id="@+id/linkscontent"
+            android:id="@+id/content_linkscontent"
             android:textColor="#0000ff"/>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/content_comments_container"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Small Text"
+                    android:id="@+id/textView3" />
+            </LinearLayout>
+        </ScrollView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
-            android:id="@+id/modified" />
+            android:id="@+id/content_modified" />
 
     </LinearLayout>
 

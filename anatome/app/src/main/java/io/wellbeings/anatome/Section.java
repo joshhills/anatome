@@ -122,6 +122,7 @@ public class Section extends FragmentActivity {
         mTabHost.addTab(mTabHost.newTabSpec(informationHeader).setIndicator(informationHeader), ContentFragment.class,
                 contentBundle);
 
+        // Alter the dimensions of the tabs programatically.
         mTabHost.getTabWidget().getChildAt(0).getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
         mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
 

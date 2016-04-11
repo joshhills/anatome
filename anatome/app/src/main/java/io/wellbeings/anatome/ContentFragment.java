@@ -45,6 +45,7 @@ public class ContentFragment extends Fragment implements Widget {
         section = getArguments().getString("section");
 
         populateContent();
+        loadComments();
 
         return view;
     }
@@ -73,6 +74,14 @@ public class ContentFragment extends Fragment implements Widget {
         ((TextView) view.findViewById(R.id.linkscontent)).setText(Html.fromHtml(
                 UtilityManager.getContentLoader(getContext()).getLinks(section)));
         ((TextView) view.findViewById(R.id.linkscontent)).setMovementMethod(LinkMovementMethod.getInstance());
+
+    }
+
+    // Load custom social aspect of app via comments.
+    private void loadComments() {
+
+        // Get outer container.
+
 
     }
 
