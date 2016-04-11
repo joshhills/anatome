@@ -59,8 +59,12 @@ public class Preamble extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+
+                // Retrieve the fragment.
                 PreambleCarousel fragment = (PreambleCarousel) getSupportFragmentManager().findFragmentById(R.id.carousel_fragment);
+
                 fragment.changeTab(position);
+
             }
 
         });
@@ -96,8 +100,6 @@ public class Preamble extends AppCompatActivity {
 
     }
 
-    public void onFragmentInteraction(Uri uri){
-        //you can leave it empty
-    }
+    public void onFragmentInteraction(Uri uri){}
 
 }

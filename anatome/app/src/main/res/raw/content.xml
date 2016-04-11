@@ -29,6 +29,12 @@ There's some minor information necessary to set you going so you can use your ne
 
 (If you're worried about privacy, now's the time to re-invent yourself. Otherwise, we'll remember you as 'guest'!)
             </information>
+            <information id="username-hint">
+                name
+            </information>
+            <information id="email-hint">
+                login@university.ac.uk
+            </information>
             <information id="lock">
                 You can use our interactive sections to store personal information.
 
@@ -185,13 +191,20 @@ For this reason, you may want to password-protect them.
                 <notification id="token" graphic="./assets/defaults/toast-graphic.png">
                     This is a pushed notification.
                 </notification>
+                <notification id="email-empty" graphic="./assets/defaults/toast-graphic.png">
+                    You can set your name and email in the settings at a later time.
+                </notification>
+                <notification id="email-invalid" graphic="./assets/defaults/toast-graphic.png">
+                    The email entered is not a valid email address. Please try again.
+                </notification>
             </notifications>
             <buttons>
                 <label id="next">Next</label>
                 <label id="back">Back</label>
                 <label id="ok">Okay</label>
                 <label id="cancel">Cancel</label>
+                <label id="oops">Oops!</label>
             </buttons>
-            </miscellaneous>
+        </miscellaneous>
     </content>
 </application>
