@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class Loading extends Activity {
 
-    private static final int SPLASH_DURATION = 6000;
+    private static final int SPLASH_DURATION = 4000;
     private boolean mBackBtnPress;
     private TextView mText;
     private Handler mHandler;
