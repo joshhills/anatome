@@ -10,11 +10,11 @@
         <activity
             android:name=".Preamble"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".MainScroll"
@@ -29,6 +29,14 @@
             android:name=".TestLayout"
             android:theme="@style/AppTheme.NoActionBar" />
         />
+        <activity
+            android:name=".Loading"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_1"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_2"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_3"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_4"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_5"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_6"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_7"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_8"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_9"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_10"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_11"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_12"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_13"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_14"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_15"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_16"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_17"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_18"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_19"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_20"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_21"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_22"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_23"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_24"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_25"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_26"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_27"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_28"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_29"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_30"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_31"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_32"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_33"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_34"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_35"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_36"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/eye_37"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_38"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_39"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_40"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/eye_41"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_42"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_43"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_44"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_45"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_46"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_47"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_48"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_49"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_50"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_51"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_52"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_53"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_54"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_55"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_56"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_57"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_58"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_59"/>
+
+    -<item
+    android:duration="40"
+    android:drawable="@drawable/eye_60"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/eye_61"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_62"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_63"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_64"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_65"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_66"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_67"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_68"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_69"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_70"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_71"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_72"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_73"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/eye_74"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_75"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/eye_76"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_77"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_78"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_79"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_80"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_81"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_82"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_83"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_84"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_85"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_86"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_87"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_88"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_89"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_90"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_91"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_92"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_93"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_94"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_95"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_96"/>
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/eye_97"/>
+
+
+</animation-list>

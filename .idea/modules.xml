@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/anatome.iml" filepath="$PROJECT_DIR$/anatome.iml" />
+      <module fileurl="file://$PROJECT_DIR$/anatome/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/23.1.1.iml" filepath="$PROJECT_DIR$/anatome/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/23.1.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/anatome/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/23.1.1.iml" filepath="$PROJECT_DIR$/anatome/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/23.1.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/anatome/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/23.1.1.iml" filepath="$PROJECT_DIR$/anatome/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/23.1.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/anatome/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/23.1.1.iml" filepath="$PROJECT_DIR$/anatome/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/23.1.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/anatome-merge.iml" filepath="$PROJECT_DIR$/anatome-merge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/anatome/app/build/intermediates/manifest/androidTest/debug/debug.iml" filepath="$PROJECT_DIR$/anatome/app/build/intermediates/manifest/androidTest/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/anatome/app/build/intermediates/manifests/full/debug/debug.iml" filepath="$PROJECT_DIR$/anatome/app/build/intermediates/manifests/full/debug/debug.iml" />
       <module fileurl="file://$PROJECT_DIR$/anatome/app/src/main/main.iml" filepath="$PROJECT_DIR$/anatome/app/src/main/main.iml" />
     </modules>
   </component>
