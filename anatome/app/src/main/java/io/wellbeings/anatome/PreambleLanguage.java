@@ -36,6 +36,7 @@ public class PreambleLanguage extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+        // Set languages and advance carousel.
         switch(v.getId()) {
             case R.id.langBtnEnglish:
                 UtilityManager.getUserUtility(getContext()).setLanguage("en");
@@ -47,6 +48,7 @@ public class PreambleLanguage extends Fragment implements View.OnClickListener {
                 UtilityManager.getUserUtility(getContext()).setLanguage("es");
                 break;
         }
+        Preamble.mPager.setCurrentItem(1);
 
     }
 

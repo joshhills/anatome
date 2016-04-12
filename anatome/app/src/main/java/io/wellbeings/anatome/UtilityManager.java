@@ -64,11 +64,15 @@ public class UtilityManager {
         utilities[1] = new ContentLoader(ctx, ctx.getResources().openRawResource(R.raw.content),
                 ctx.getResources().openRawResource(R.raw.contentschema));
 
+        utilities[2] = new ThemeUtility(ctx);
+
         // TODO: Add database interpolation for social and organization integration.
 
     }
 
-    // Check for status errors to determine flow of app.
+    /**
+     * Check for status errors to determine flow of app. This is for developers only!
+     */
     private void handleErrors() {
 
         // Store state of errors.
@@ -158,6 +162,10 @@ public class UtilityManager {
 
     public static ContentLoader getContentLoader(Context ctx) {
         return (ContentLoader) getUtility(ctx, ContentLoader.class);
+    }
+
+    public static ThemeUtility getThemeUtility(Context ctx) {
+        return (ThemeUtility) getUtility(ctx, ThemeUtility.class);
     }
 
     /**

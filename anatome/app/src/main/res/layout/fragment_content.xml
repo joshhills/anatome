@@ -68,23 +68,17 @@
             android:textColor="#0000ff"/>
 
         <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/content_comments_container"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Small Text"
-                    android:id="@+id/textView3" />
-            </LinearLayout>
+                android:background="@drawable/rounded_corners_bg"></LinearLayout>
         </ScrollView>
 
         <TextView
