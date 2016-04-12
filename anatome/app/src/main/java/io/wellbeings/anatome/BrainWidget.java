@@ -329,6 +329,7 @@ public class BrainWidget extends Fragment implements Widget {
         //obtain the horizontal scroll view that stores the notes
         final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
 
+
         //create a LinearLayout element
         final LinearLayout ll = new LinearLayout(getContext());
         ll.setOrientation(LinearLayout.VERTICAL);
@@ -340,7 +341,7 @@ public class BrainWidget extends Fragment implements Widget {
 
         //add the note's text input
         EditText noteInput = new EditText(getContext());
-        noteInput.setLayoutParams(new ActionBar.LayoutParams(500, 500));
+        noteInput.setLayoutParams(new ActionBar.LayoutParams(400, 400));
         noteInput.setText(note.getContent());
         ll.addView(noteInput);
 

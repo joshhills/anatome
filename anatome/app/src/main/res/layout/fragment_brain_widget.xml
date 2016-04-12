@@ -15,16 +15,18 @@
         android:textColor="#f9fd80"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:layout_above="@+id/horizontalScrollView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView3" />
+        android:id="@+id/textView3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="40dp" />
 
     <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="330dp"
-        android:layout_above="@+id/btnSave1"
-        android:id="@+id/horizontalScrollView">
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:id="@+id/horizontalScrollView"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -37,6 +39,53 @@
 
         </LinearLayout>
     </HorizontalScrollView>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/leftArrow"
+        android:src="@mipmap/leftarrow"
+        android:background="@null"
+        android:layout_gravity="center_vertical"
+        android:layout_alignTop="@+id/rightArrow"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rightArrow"
+        android:src="@mipmap/rightarrow"
+        android:background="@null"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/horizontalScrollView"
+        android:layout_toEndOf="@+id/horizontalScrollView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="And throw away the thoughts that don&apos;t.."
+        android:textColor="#f9fd80"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/horizontalScrollView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:id="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#ffffff"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_alignEnd="@+id/textView5"
+        android:layout_above="@+id/btnSave1"
+        android:layout_below="@+id/textView5" />
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -54,29 +103,10 @@
         android:layout_height="wrap_content"
         android:text="Gallery"
         android:id="@+id/btnGallery"
-        android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/btnSave1"
-        android:layout_toStartOf="@+id/btnSave1" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/leftArrow"
-        android:layout_alignBottom="@+id/btnSave1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@mipmap/leftarrow"
-        android:background="@null"/>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rightArrow"
-        android:layout_alignBottom="@+id/btnSave1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:src="@mipmap/rightarrow"
-        android:background="@null"/>
+        android:layout_toStartOf="@+id/btnSave1"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>
