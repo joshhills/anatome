@@ -229,8 +229,8 @@ public class BrainWidget extends Fragment implements Widget {
 
             //add the five notes associated to the page number to view
             for(int i = maxIndex; i >= minIndex; i--) {
-                initNote(noteList.get(i), 1);
-                initDeleteButton(noteList.get(i), 1);
+                initNote(noteList.get(i), 0);
+                initDeleteButton(noteList.get(i), 0);
             }
         }
         else Log.d("noteListPage","noteListPage was <= 1");
@@ -260,8 +260,8 @@ public class BrainWidget extends Fragment implements Widget {
                     Log.d("noteListPage", "i exceeded the noteList size");
                     continue; //skip if there is no note at this index
                 }
-                initNote(noteList.get(i), 1);
-                initDeleteButton(noteList.get(i), 1);
+                initNote(noteList.get(i), 0);
+                initDeleteButton(noteList.get(i), 0);
             }
         } else Log.d("noteListPage", "noteListPage * 5 exceeded noteList size");
     }
@@ -283,8 +283,7 @@ public class BrainWidget extends Fragment implements Widget {
         try {
             LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
             int maxIndex = scroll.getChildCount() - 1;
-            //note: i must be greater than 0 to factor in the unsaved note
-            for (int i = maxIndex; i > 0; i--) {
+            for (int i = maxIndex; i >= 0; i--) {
                 scroll.removeViewAt(i);
             }
         }
