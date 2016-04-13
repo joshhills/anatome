@@ -19,6 +19,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +48,24 @@ public class ContentFragment extends Fragment implements Widget {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        Context ctx = getContext();
+        String test;
+        ArrayList<HashMap<String, String>> commentList;
+
+        DbUtility db = new DbUtility();
+        try {
+            test = db.new GetDataJSON("comment", "liver", ctx).execute().get();
+            System.out.println("/////////" + test);
+
+            //this is now a list oh hashmaps containing the name and comment.
+            commentList = db.parseComment(test);
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -39,6 +39,8 @@ public class DbUtility{
     private static final String TAG_RESULTS = "result";
     private static final String TAG_DATE = "App_Date";
     private static final String TAG_TIME = "App_Time";
+    private static final String TAG_COM = "Com_Text";
+    private static final String TAG_COM_NAME = "Student_Name";
     HashMap<String, String> finalMap = new HashMap<>();
     JSONArray array = null;
 
@@ -65,6 +67,30 @@ public class DbUtility{
         addToDb(data, param);
     }
 
+    public ArrayList<HashMap<String, String>> parseComment(String result) {
+        ArrayList<HashMap<String, String>> commentList = new ArrayList<HashMap<String, String>>();
+        try {
+            JSONObject jsonObj = new JSONObject(result);
+            array = jsonObj.getJSONArray(TAG_RESULTS);
+
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject c = array.getJSONObject(i);
+                String name = c.getString(TAG_COM_NAME);
+                String comment = c.getString(TAG_COM);
+
+                HashMap<String, String> comments = new HashMap<>();
+
+                comments.put(TAG_COM_NAME, name);
+                comments.put(TAG_COM, comment);
+                commentList.add(comments);
+            }
+            return commentList;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public HashMap<String, String> parseAppointment(String result) {
         try {
@@ -90,10 +116,6 @@ public class DbUtility{
         return null;
     }
 
-    public HashMap<String, String> parseComment(String result) {
-
-    return null;
-    }
 
     void addToDb(final List<NameValuePair> data, final String param){
         class ExecutePost extends AsyncTask<String, Void, String> {
@@ -134,10 +156,12 @@ public class DbUtility{
            // public AsyncResponse delegate = null;
             private String choice;
             private Context ctx;
+            private String area;
 
-            public GetDataJSON(String choice, Context ctx) {
+            public GetDataJSON(String choice, String area, Context ctx) {
                 this.choice = choice;
                 this.ctx = ctx;
+                this.area = area;
 
             }
 
@@ -149,7 +173,7 @@ public class DbUtility{
 
                 DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
 
-                HttpPost httppost = new HttpPost("http://team9.esy.es/testing.php?type=" + choice.toLowerCase() + "&email=" + UtilityManager.getUserUtility(ctx).getEmail());
+                HttpPost httppost = new HttpPost("http://team9.esy.es/testing.php?type=" + choice.toLowerCase() + "&email=" + UtilityManager.getUserUtility(ctx).getEmail() + "&area=" + area);
 
                 // Depends on your web service
                 httppost.setHeader("Content-type", "application/json");

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -46,7 +47,7 @@ public class TestLayout extends AppCompatActivity {
 
         DbUtility db = new DbUtility();
         try {
-            test = db.new GetDataJSON("app", ctx).execute().get();
+            test = db.new GetDataJSON("app", "none", ctx).execute().get();
             System.out.println("/////////" + test);
             appointments = db.parseAppointment(test);
 
@@ -58,6 +59,7 @@ public class TestLayout extends AppCompatActivity {
         }catch(Exception e) {
             e.printStackTrace();
         }
+
     }
 
 }
