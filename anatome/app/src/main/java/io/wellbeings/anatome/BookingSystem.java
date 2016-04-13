@@ -27,6 +27,7 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class BookingSystem extends AppCompatActivity {
 
+    // Private fields.
     private TextView mSetDate, mSetTime, mBookingTitle;
     private Button mBackFromBooking, mBook;
     final Calendar c = Calendar.getInstance();
