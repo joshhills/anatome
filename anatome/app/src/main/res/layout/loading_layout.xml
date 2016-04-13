@@ -10,7 +10,6 @@
         android:id="@+id/eyeball_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/eyeball_animation"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 

@@ -67,6 +67,7 @@ public class ContentFragment extends Fragment implements Widget {
     private void populateContent() {
 
         /* Style background elements. */
+
         ((LinearLayout) view.findViewById(R.id.content_container)).setBackgroundColor(
                 ContextCompat.getColor(getContext(),
                         UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_bg"))
@@ -114,7 +115,10 @@ public class ContentFragment extends Fragment implements Widget {
 
         /* Load graphical element. */
 
-        ((ImageView) view.findViewById(R.id.content_graphic)).setImageDrawable();
+        final int resourceId = getResources().getIdentifier(
+                section + "_ico", "drawable", getContext().getPackageName()
+        );
+        ((ImageView) view.findViewById(R.id.content_graphic)).setImageResource(resourceId);
 
     }
 
