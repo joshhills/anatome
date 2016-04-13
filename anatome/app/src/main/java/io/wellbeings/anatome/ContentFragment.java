@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -65,27 +66,55 @@ public class ContentFragment extends Fragment implements Widget {
     // Populate frame UI components with local information.
     private void populateContent() {
 
-        /* Sequentially populate pre-determined key sections of content. */
+        /* Style background elements. */
+        ((LinearLayout) view.findViewById(R.id.content_container)).setBackgroundColor(
+                ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_bg"))
+        );
+
+        /* Sequentially populate and style pre-determined key sections of content. */
 
         ((TextView) view.findViewById(R.id.content_title)).setText(
                 UtilityManager.getContentLoader(getContext()).getHeaderText(section, "title"));
+        ((TextView) view.findViewById(R.id.content_title)).setTextColor(ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
+        );
 
         ((TextView) view.findViewById(R.id.content_titlecontent)).setText(
                 UtilityManager.getContentLoader(getContext()).getInfoText(section, "title"));
+        ((TextView) view.findViewById(R.id.content_titlecontent)).setTextColor(ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
+        );
 
         ((TextView) view.findViewById(R.id.content_tips)).setText(
                 UtilityManager.getContentLoader(getContext()).getHeaderText(section, "tips"));
+        ((TextView) view.findViewById(R.id.content_tips)).setTextColor(ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
+        );
 
         ((TextView) view.findViewById(R.id.content_tipscontent)).setText(
                 UtilityManager.getContentLoader(getContext()).getInfoText(section, "tips"));
+        ((TextView) view.findViewById(R.id.content_tipscontent)).setTextColor(ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
+        );
 
         ((TextView) view.findViewById(R.id.content_links)).setText(
                 UtilityManager.getContentLoader(getContext()).getHeaderText(section, "links"));
+        ((TextView) view.findViewById(R.id.content_links)).setTextColor(ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
+        );
 
         // Populate links, make them clickable.
         ((TextView) view.findViewById(R.id.content_linkscontent)).setText(Html.fromHtml(
                 UtilityManager.getContentLoader(getContext()).getLinks(section)));
         ((TextView) view.findViewById(R.id.content_linkscontent)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) view.findViewById(R.id.content_linkscontent)).setTextColor(ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
+        );
+
+        /* Load graphical element. */
+
+        ((ImageView) view.findViewById(R.id.content_graphic)).setImageDrawable();
 
     }
 
@@ -115,7 +144,7 @@ public class ContentFragment extends Fragment implements Widget {
             commentView.setTextColor(ContextCompat.getColor(getContext(),
                             UtilityManager.getThemeUtility(getContext()).getColour(section + "_secondary_bg"))
             );
-            commentView.setTextSize(16);
+            commentView.setTextSize(18);
             commentView.setLayoutParams(new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
@@ -128,7 +157,7 @@ public class ContentFragment extends Fragment implements Widget {
             authorView.setTextColor(ContextCompat.getColor(getContext(),
                             UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
             );
-            authorView.setTextSize(14);
+            authorView.setTextSize(16);
             authorView.setLayoutParams(new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
