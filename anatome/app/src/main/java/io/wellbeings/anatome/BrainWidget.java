@@ -57,6 +57,8 @@ public class BrainWidget extends Fragment implements Widget {
     Button saveButton, galleryButton;
     ImageButton leftArrow;
     ImageButton rightArrow;
+    EditText newNoteContent;
+    ImageButton deleteButton;
 
     //imageview to display a photo
     ImageView ivImage;
@@ -118,9 +120,6 @@ public class BrainWidget extends Fragment implements Widget {
         //initialise the noteListPage to 1 (first index)
         noteListPage = 1;
 
-        //add another note for the latest one
-        initNote(new Note(getCurrentDate(), ""), 0);
-
         //initialise the control panel for saving and navigation
         initControlPanel(v);
 
@@ -129,36 +128,39 @@ public class BrainWidget extends Fragment implements Widget {
 
     //method for initialising the save, left and right buttons
     private void initControlPanel(View v) {
-        //initialise the buttons at the foot of the fragment
-        saveButton = (Button) v.findViewById(R.id.btnSave1);
+        //retrieve the two navigation buttons
         leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
         rightArrow = (ImageButton) v.findViewById(R.id.rightArrow);
 //        ivImage = (ImageView) v.findViewById(R.id.ivImage);
-        galleryButton = (Button) v.findViewById(R.id.btnGallery);
 
         //obtain scroll view used in the save button's onclick listener
         final LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
 
+        //retrieve the elements of the new note
+        newNoteContent = (EditText) v.findViewById(R.id.newNoteContent);
+        deleteButton = (ImageButton) v.findViewById(R.id.deleteButton);
+        saveButton = (Button) v.findViewById(R.id.btnSave1);
+        galleryButton = (Button) v.findViewById(R.id.btnGallery);
+
         //define the behaviour of saveButton on click
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Note note;
-                try {
-                    //retrieve the most recent note
-                    note = getMostRecentNote();
-                    //add the note to list
-                    noteList.add(0,note);
-                    //give the new note a delete button
-                    initDeleteButton(note,0);
-                    //ensure that no more than 5 notes are on display at once
-                    if(scroll.getChildCount() > 5) {
-                        Log.d("save", "too many children, will remove at last index");
-                        //remove the oldest note from display
-                        removedDisplayedSavedNote(5);
-                    }
-                }
-                catch(NullPointerException e) {
-                    Log.e("save", "no children in scroll");
+                //create a note object out of the new notes details
+                String date = getCurrentDate();
+                String content = newNoteContent.getText().toString();
+                Note note = new Note(date, content);
+
+                //add the note to list
+                noteList.add(0, note);
+
+                //initialise the graphics of the note
+                initNote(note,0);
+                initDeleteButton(note,0);
+                //ensure that no more than 5 notes are on display at once
+                if(scroll.getChildCount() > 5) {
+                    Log.d("save", "too many children, will remove at last index");
+                    //remove the oldest note from display
+                    removedDisplayedSavedNote(5);
                 }
 
 
@@ -173,14 +175,13 @@ public class BrainWidget extends Fragment implements Widget {
 //                }
 //                });
 
-                        //update the list's state
-                        saveList();
+                //update the list's state
+                saveList();
                 List<Note> testList = getList();
                 Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
 
-
-                //add another note to the end of the list
-                initNote(new Note(getCurrentDate(), ""), 0);
+                //reset the content of the new note
+                newNoteContent.setText("");
             }
         });
 
@@ -193,8 +194,6 @@ public class BrainWidget extends Fragment implements Widget {
              startActivityForResult(i, RESULT_LOAD_IMG);
              }
          });
-
-
 
         //define the behaviour of the left arrow
         leftArrow.setOnClickListener(new View.OnClickListener() {
@@ -293,25 +292,6 @@ public class BrainWidget extends Fragment implements Widget {
             //if something goes wrong, continue, it is not a critical operation
             Log.e("removeUI", "something went wrong");
             return;
-        }
-    }
-
-    //method for obtaining most recent note
-    private Note getMostRecentNote() throws NullPointerException {
-        //obtain the scroll LinearLayout
-        LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
-
-        //assert that there must be at least one note
-        if(scroll.getChildCount() > 0) {
-            //add most recent note to list
-            LinearLayout endNote = (LinearLayout) scroll.getChildAt(0);
-            TextView creationDate = (TextView) endNote.getChildAt(0);
-            EditText content = (EditText) endNote.getChildAt(1);
-            return new Note(creationDate.getText().toString(),
-                    content.getText().toString());
-        }
-        else {
-            throw new NullPointerException();
         }
     }
 
