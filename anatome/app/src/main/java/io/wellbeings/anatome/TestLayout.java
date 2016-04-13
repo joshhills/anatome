@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 /**
  * Created by bettinaalexieva on 15/03/2016.
  */
@@ -37,12 +39,26 @@ public class TestLayout extends AppCompatActivity {
             }
         });
 
-        TextView t = (TextView) findViewById(R.id.bookedDate);
-        TextView y = (TextView) findViewById(R.id.bookedTime);
+
         Context ctx = TestLayout.this;
+        String test;
+        HashMap<String, String> appointments = new HashMap<>();
 
         DbUtility db = new DbUtility();
-        db.getUserComments(ctx);
+        db.getAppointment(ctx);
+        try {
+            test = db.new GetDataJSON("app", ctx).execute().get();
+            System.out.println("/////////" + test);
+            appointments = db.parseAppointment(test);
 
+            TextView timeView = (TextView)findViewById(R.id.bookedTime);
+            TextView dateView = (TextView)findViewById(R.id.bookedDate);
+
+            dateView.setText(appointments.get("App_Date").toString());
+            timeView.setText(appointments.get("App_Time").toString());
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
     }
+
 }

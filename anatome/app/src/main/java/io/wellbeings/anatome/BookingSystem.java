@@ -152,6 +152,8 @@ public class BookingSystem extends AppCompatActivity {
         List<NameValuePair> data = new ArrayList<>();
         data.add(new BasicNameValuePair("time", time));
         data.add(new BasicNameValuePair("date", newDate));
+        data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(BookingSystem.this).getName()));
+        data.add(new BasicNameValuePair("email", UtilityManager.getUserUtility(BookingSystem.this).getEmail()));
 
         DatabaseUtility db = new DatabaseUtility();
 

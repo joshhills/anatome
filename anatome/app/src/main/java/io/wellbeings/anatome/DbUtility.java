@@ -2,13 +2,16 @@ package io.wellbeings.anatome;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.widget.ImageView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Map;
 
 import cz.msebera.android.httpclient.HttpEntity;
@@ -20,33 +23,70 @@ import cz.msebera.android.httpclient.params.BasicHttpParams;
 /**
  * Created by Callum on 13/04/16.
  */
-public class DbUtility {
-    public Map<String, String> mapping;
+
+public class DbUtility implements AsyncResponse{
+
+
     String myJSON;
-    JSONObject finalJSON;
+    private static final String TAG_RESULTS = "result";
+    private static final String TAG_DATE = "App_Date";
+    private static final String TAG_TIME = "App_Time";
+    HashMap<String, String> finalMap = new HashMap<>();
+    JSONArray array = null;
 
 
-    public void getUserComments(Context ctx) {
-        String choice = "comm";
+
+    public void getAppointment(Context ctx) {
+        String choice = "app";
         Context con = ctx;
 
-        GetDataJSON task = new GetDataJSON(choice, con);
-
+        GetDataJSON aysncTask = new GetDataJSON(choice, con);
+        //aysncTask.delegate = this;
         try {
             //wait for task to finish
-            task.execute().get();
-            //this fails
-            System.out.println(finalJSON.toString());
+            aysncTask.execute();
         }catch(Exception e) {
             e.printStackTrace();
         }
 
     }
 
+    @Override
+    public void processFinish(String output) {
+        System.out.println(output);
+        parseAppointment(output);
+    }
+
+    public HashMap<String, String> parseAppointment(String result) {
+        try {
+            JSONObject jsonObj = new JSONObject(result);
+            array = jsonObj.getJSONArray(TAG_RESULTS);
+            HashMap<String, String> appointments = new HashMap<>();
+            for (int i = 0; i < 2; i++) {
+                JSONObject c = array.getJSONObject(i);
+                String id = c.getString(TAG_DATE);
+                String name = c.getString(TAG_TIME);
+
+                appointments.put(TAG_DATE, id);
+                appointments.put(TAG_TIME, name);
+
+                return appointments;
+            }
 
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
 
-        class GetDataJSON extends AsyncTask<String, Void, String> {
+    public HashMap<String, String> getFinalMap() {
+        return finalMap;
+    }
+
+    public class GetDataJSON extends AsyncTask<String, Void, String> {
+           // public AsyncResponse delegate = null;
             private String choice;
             private Context ctx;
 
@@ -101,15 +141,7 @@ public class DbUtility {
 
             @Override
             protected void onPostExecute(String result) {
-                myJSON = result;
-                //here i would like to pass the result back to the calling class but i cant get that to work...
-                //any ideas?
-                try {
-                    //save to global
-                    finalJSON = new JSONObject(myJSON);
-                }catch(Exception e) {
-                    e.printStackTrace();
-                }
+                //delegate.processFinish(result);
             }
         }
 
