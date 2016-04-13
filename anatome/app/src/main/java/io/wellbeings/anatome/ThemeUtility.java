@@ -57,7 +57,6 @@ public class ThemeUtility implements Utility {
 
         for(int i=0; i < colours.length; i++) {
             appColours.put(names[i], colours[i]);
-            Log.d("Colours", names[i] + " " + colours[i]);
         }
 
         return STATUS.SUCCESS;
