@@ -4,6 +4,7 @@ package io.wellbeings.anatome;
  * Created by Callum on 26/02/16.
  */
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,13 +34,12 @@ public class DatabaseUtility {
 
     String myJSON;
     private static final String TAG_RESULTS = "result";
-    private static final String TAG_DATE = "date";
-    private static final String TAG_TIME = "time";
-    private static final String TAG_COM = "Com_Text";
-    private static final String TAG_COM_NAME = "Student_Name";
+    private static final String TAG_DATE = "App_Date";
+    private static final String TAG_TIME = "App_Time";
     JSONArray array = null;
-    ArrayList<HashMap<String, String>> personList;
-    ListView list;
+    TextView dateView;
+    TextView timeView;
+
 
      void addToDb(final List<NameValuePair> data, final String param){
         class ExecutePost extends AsyncTask<String, Void, String> {
@@ -76,10 +76,18 @@ public class DatabaseUtility {
         s.execute();
     }
 
-    public void getData(final String choice, final TextView datetextView, final TextView timetextView) {
+    public void grabApp(final String choice, final TextView datetextView, final TextView timetextView, Context ctx) {
+        this.dateView = datetextView;
+        this.timeView = timetextView;
+
+        getData(choice, ctx);
+
+
+    }
+
+    public void getData(final String choice, final Context con) {
         class GetDataJSON extends AsyncTask<String, Void, String>{
-            final TextView dateView = datetextView;
-            final TextView timeView = timetextView;
+            final Context ctx = con;
 
 
             @Override
@@ -88,7 +96,7 @@ public class DatabaseUtility {
 
                 DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
 
-                HttpPost httppost = new HttpPost("http://team9.esy.es/testing.php?type=" + choice.toLowerCase());
+                HttpPost httppost = new HttpPost("http://team9.esy.es/testing.php?type=" + choice.toLowerCase() + "&email=" + UtilityManager.getUserUtility(ctx).getEmail());
 
                 // Depends on your web service
                 httppost.setHeader("Content-type", "application/json");
@@ -164,7 +172,7 @@ public class DatabaseUtility {
                     e.printStackTrace();
                 }
 
-                if(b.equals("date")) {
+                if(b.equals("App_Date")) {
                    Appointmentshow();
                 }
                 else if(b.equals("Student_Name")){
@@ -174,7 +182,11 @@ public class DatabaseUtility {
         }
 
         GetDataJSON g = new GetDataJSON();
-        g.execute();
+        try{
+        g.execute().get();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -50,7 +50,7 @@ public class UtilityManager {
 
         init();
 
-        handleErrors();
+        // handleErrors();
 
     }
 
@@ -72,7 +72,7 @@ public class UtilityManager {
 
     /**
      * Check for status errors to determine flow of app. This is for developers only!
-     */
+     *
     private void handleErrors() {
 
         // Store state of errors.
@@ -142,6 +142,7 @@ public class UtilityManager {
         alert.show();
 
     }
+    */
 
     private Utility[] getUtilities() {
         return utilities;

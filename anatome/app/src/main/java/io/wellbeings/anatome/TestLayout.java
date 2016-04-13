@@ -1,5 +1,6 @@
 package io.wellbeings.anatome;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -38,9 +39,10 @@ public class TestLayout extends AppCompatActivity {
 
         TextView t = (TextView) findViewById(R.id.bookedDate);
         TextView y = (TextView) findViewById(R.id.bookedTime);
+        Context ctx = TestLayout.this;
 
         DatabaseUtility db = new DatabaseUtility();
-        db.getData("app", t, y);
+        db.grabApp("app", t, y, ctx);
 
     }
 }

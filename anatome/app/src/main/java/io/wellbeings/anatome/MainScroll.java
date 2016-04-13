@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Main activity handles navigation to custom
@@ -75,20 +76,23 @@ public class MainScroll extends Activity {
        @Override
        public void onClick(View v) {
 
-           ImageButton book = (ImageButton) v;
-           ImageButton arrow = (ImageButton) findViewById(R.id.bookButtonOnMainScroll);
-           ImageView bgImage = (ImageView) findViewById(R.id.bookingSystemBackgroundKite);
+           TextView needMoreHelpText = (TextView) findViewById(R.id.needMoreHelpText);
+           ImageButton infoButtonOnMainScroll = (ImageButton) v;
+           ImageButton bookImageButtonOnMainScroll = (ImageButton) findViewById(R.id.bookButtonOnMainScroll);
 
-           book.setVisibility(View.INVISIBLE);
-           bgImage.setImageResource(R.drawable.bookingbg);
+           infoButtonOnMainScroll.setVisibility(View.INVISIBLE);
+           //needMoreHelpText.setVisibility(View.INVISIBLE);
+
 
            AssetManager assetManager = getAssets();
            Typeface customFontBariol = Typeface.createFromAsset(assetManager, "fonts/Bariol.ttf");
            Typeface customFontHelvetica = Typeface.createFromAsset(assetManager, "fonts/Helvetica.ttf");
 
-           arrow.setVisibility(View.VISIBLE);
+           needMoreHelpText.setTextSize(20);
+           needMoreHelpText.setText("Book an appointment with \nthe Wellbeing Service");
+           bookImageButtonOnMainScroll.setVisibility(View.VISIBLE);
 
-           arrow.setOnClickListener(new OnClickListener() {
+           bookImageButtonOnMainScroll.setOnClickListener(new OnClickListener() {
                @Override
                public void onClick(View v) {
                    Intent intent = new Intent(v.getContext(), BookingSystem.class);
