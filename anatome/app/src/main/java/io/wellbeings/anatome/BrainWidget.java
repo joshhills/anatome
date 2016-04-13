@@ -70,6 +70,8 @@ public class BrainWidget extends Fragment implements Widget {
 
     //for gallery
     private static final int RESULT_LOAD_IMG = 1;
+    //constant for the a note's width in display
+    private static final int NOTE_WIDTH = 400;
 
     //list storing all the happynotes saved to file
     public static List<Note> noteList;
@@ -333,15 +335,26 @@ public class BrainWidget extends Fragment implements Widget {
         //create a LinearLayout element
         final LinearLayout ll = new LinearLayout(getContext());
         ll.setOrientation(LinearLayout.VERTICAL);
+        //define layout parameters for the container
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(NOTE_WIDTH,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+        //set a margin to be maintained between notes
+        params.setMargins(10,0,0,0);
+        ll.setLayoutParams(params);
 
         //add the note's date textView
         TextView date = new TextView(getContext());
         date.setText(note.getCreationDate());
+        //set the date's weight
+        date.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, 0,0.5f));
         ll.addView(date);
 
         //add the note's text input
         EditText noteInput = new EditText(getContext());
-        noteInput.setLayoutParams(new ActionBar.LayoutParams(400, 400));
+        noteInput.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, 0,5f));
         noteInput.setText(note.getContent());
         ll.addView(noteInput);
 
@@ -369,6 +382,9 @@ public class BrainWidget extends Fragment implements Widget {
         Drawable d = getResources().getDrawable(R.drawable.bin);
         deleteButton.setImageDrawable(d);
         deleteButton.setBackground(null); //make background transparent
+        //set the weight of the delete button in attached note
+        deleteButton.setLayoutParams(
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0,1.5f));
         endNote.addView(deleteButton);
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
