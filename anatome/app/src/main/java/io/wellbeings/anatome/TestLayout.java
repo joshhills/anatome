@@ -41,8 +41,8 @@ public class TestLayout extends AppCompatActivity {
         TextView y = (TextView) findViewById(R.id.bookedTime);
         Context ctx = TestLayout.this;
 
-        DatabaseUtility db = new DatabaseUtility();
-        db.grabApp("app", t, y, ctx);
+        DbUtility db = new DbUtility();
+        db.getUserComments(ctx);
 
     }
 }

@@ -2,6 +2,7 @@ package io.wellbeings.anatome;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.ImageView;
 
 import org.json.JSONObject;
 
@@ -21,25 +22,39 @@ import cz.msebera.android.httpclient.params.BasicHttpParams;
  */
 public class DbUtility {
     public Map<String, String> mapping;
+    String myJSON;
+    JSONObject finalJSON;
 
-    public Map getUserComments(Context ctx) {
+
+    public void getUserComments(Context ctx) {
         String choice = "comm";
-        JSONObject JSONresult;
+        Context con = ctx;
 
-        getData(choice, ctx);
+        GetDataJSON task = new GetDataJSON(choice, con);
 
-        return null;
+        try {
+            //wait for task to finish
+            task.execute().get();
+            //this fails
+            System.out.println(finalJSON.toString());
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-    //this is task where choice for example "App" would be used to get appointments
-    public void getData(final String choice, final Context con) {
 
 
 
         class GetDataJSON extends AsyncTask<String, Void, String> {
-            final Context ctx = con;
-            String myJSON;
-            JSONObject finalJSON;
+            private String choice;
+            private Context ctx;
+
+            public GetDataJSON(String choice, Context ctx) {
+                this.choice = choice;
+                this.ctx = ctx;
+
+            }
 
             //sets up http request to the php files
             //all this works correctly
@@ -90,6 +105,7 @@ public class DbUtility {
                 //here i would like to pass the result back to the calling class but i cant get that to work...
                 //any ideas?
                 try {
+                    //save to global
                     finalJSON = new JSONObject(myJSON);
                 }catch(Exception e) {
                     e.printStackTrace();
@@ -97,16 +113,6 @@ public class DbUtility {
             }
         }
 
-        //this executes the whole request
-        GetDataJSON g = new GetDataJSON();
-            try {
-                g.execute().get();
-            }catch(Exception e) {
-                e.printStackTrace();
-            }
-
-
-    }
 
 
 }
