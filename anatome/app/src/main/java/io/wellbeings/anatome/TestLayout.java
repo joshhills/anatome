@@ -45,7 +45,6 @@ public class TestLayout extends AppCompatActivity {
         HashMap<String, String> appointments = new HashMap<>();
 
         DbUtility db = new DbUtility();
-        db.getAppointment(ctx);
         try {
             test = db.new GetDataJSON("app", ctx).execute().get();
             System.out.println("/////////" + test);
