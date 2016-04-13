@@ -33,9 +33,52 @@
         >
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"></LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="#FFFFFF">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:id="@+id/newNoteControlPanel">
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Save"
+                    android:id="@+id/btnSave1"
+                    android:textColor="@color/abc_primary_text_material_dark"
+                    android:clickable="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true" />
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Gallery"
+                    android:id="@+id/btnGallery"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <ImageButton
             android:layout_width="0dp"
@@ -111,36 +154,6 @@
             android:layout_alignEnd="@+id/sadNoteText"
             android:layout_above="@+id/btnSave1"
             android:layout_below="@+id/sadNoteText" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:id="@+id/btnSave1"
-            android:textColor="@color/abc_primary_text_material_dark"
-            android:clickable="true"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gallery"
-            android:id="@+id/btnGallery"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/btnSave1"
-            android:layout_toStartOf="@+id/btnSave1"
-            android:visibility="invisible" />
 
     </LinearLayout>
 

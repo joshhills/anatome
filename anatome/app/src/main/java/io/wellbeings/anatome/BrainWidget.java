@@ -55,13 +55,11 @@ public class BrainWidget extends Fragment implements Widget {
 
     //declare variables for the graphical parts of the widget
     Button saveButton, galleryButton;
+    ImageButton leftArrow;
+    ImageButton rightArrow;
 
     //imageview to display a photo
     ImageView ivImage;
-
-
-    ImageButton leftArrow;
-    ImageButton rightArrow;
 
     //for audio capture
     private MediaPlayer mediaPlayer;
@@ -93,8 +91,6 @@ public class BrainWidget extends Fragment implements Widget {
     //onCreate method
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState); }
 
     //onCreateView method (when this fragment is navigated to)
@@ -106,11 +102,6 @@ public class BrainWidget extends Fragment implements Widget {
 
         //for the camera
         OUTPUT_FILE = Environment.getExternalStorageDirectory() + "/audiorecorder.3gpp";
-
-
-
-
-
 
         //initialise list of notes from file
         noteList = getList();
@@ -324,13 +315,14 @@ public class BrainWidget extends Fragment implements Widget {
         }
     }
 
-    //method for initialising notes
-    //index is set to -1 for a note not part of the noteList
+    /*
+        methods for initialising notes
+     */
+    //method for displaying a saved note
     private void initNote(final Note note, int index) {
         Log.d("noteListPage", "initNote called.");
         //obtain the horizontal scroll view that stores the notes
         final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
-
 
         //create a LinearLayout element
         final LinearLayout ll = new LinearLayout(getContext());
@@ -511,8 +503,6 @@ public class BrainWidget extends Fragment implements Widget {
         return date;
     }
 
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -538,9 +528,6 @@ public class BrainWidget extends Fragment implements Widget {
         }
 
     }
-
-
-
 
 //
 //    public void onStartRecording(View v){
@@ -638,9 +625,4 @@ public class BrainWidget extends Fragment implements Widget {
 //            mediaPlayer.stop();
 //
 //    }
-
-
-
-
-
 }
