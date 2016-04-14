@@ -73,7 +73,7 @@ public class BrainWidget extends Fragment implements Widget {
     //for gallery
     private static final int RESULT_LOAD_IMG = 1;
     //constant for the a note's width in display
-    private static final int NOTE_WIDTH = 400;
+    private static final int NOTE_WIDTH = 450;
 
     //list storing all the happynotes saved to file
     public static List<Note> noteList;
@@ -109,12 +109,20 @@ public class BrainWidget extends Fragment implements Widget {
 
         //initialise list of notes from file
         noteList = getList();
-        Log.d("noteListInit", noteList.toString());
 
-        //initialise the graphics for the first five notes in the noteList
-        for(int i = 4; i >= 0; i--) {
-            if(i < noteList.size()) {
-                initNote(noteList.get(i),0);
+        //if there aren't any notes then display the tutorial note
+        if(noteList.size() == 0) {
+            Note note = new Note(getCurrentDate(),
+                    "Create your first note by editing the template to the left of this note and clicking save!" +
+                            "You can delete notes by pressing the bin at the bottom of said note.");
+            initNote(note,0);
+        }
+        else {
+            //initialise the graphics for the first five notes in the noteList
+            for(int i = 4; i >= 0; i--) {
+                if(i < noteList.size()) {
+                    initNote(noteList.get(i),0);
+                }
             }
         }
 
@@ -342,7 +350,8 @@ public class BrainWidget extends Fragment implements Widget {
         noteInput.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, 0,5f));
         noteInput.setText(note.getContent());
-        noteInput.setEnabled(false); //disable editing of saved note
+        noteInput.setTextSize(13f);
+        noteInput.setFocusable(false); //disable editing of saved note
         ll.addView(noteInput);
 
         //add the delete button
