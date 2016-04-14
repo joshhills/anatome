@@ -514,7 +514,8 @@ public class BrainWidget extends Fragment implements Widget {
     //method for retrieving the current date
     public static String getCurrentDate() {
         Calendar c = Calendar.getInstance();
-        String date = c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR);
+        String date =  c.get(Calendar.DAY_OF_MONTH) + "/"
+                + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.YEAR);
         return date;
     }
 
