@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -59,6 +60,7 @@ public class BrainWidget extends Fragment implements Widget {
     ImageButton rightArrow;
     EditText newNoteContent;
     ImageButton deleteButton;
+    ImageButton negativeDeleteButton;
 
     //imageview to display a photo
     ImageView ivImage;
@@ -140,6 +142,8 @@ public class BrainWidget extends Fragment implements Widget {
         deleteButton = (ImageButton) v.findViewById(R.id.deleteButton);
         saveButton = (Button) v.findViewById(R.id.btnSave1);
         galleryButton = (Button) v.findViewById(R.id.btnGallery);
+        //retreive the negative note's delete button
+        negativeDeleteButton = (ImageButton) v.findViewById(R.id.negativeDelete);
 
         //define the behaviour of saveButton on click
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -206,6 +210,19 @@ public class BrainWidget extends Fragment implements Widget {
             @Override
             public void onClick(View v) {
                 navigateRight();
+            }
+        });
+
+        //define the behaviour of the negative note's delete button
+        negativeDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //play the delete animation to simulate destroying the note
+                /*
+                    NOTE: a negative value indicates to the function that the note
+                    being deleted is the negative note at the bottom of the layout
+                 */
+                playDeleteAnimation(-1);
             }
         });
     }
@@ -342,12 +359,6 @@ public class BrainWidget extends Fragment implements Widget {
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //set up resources for animation
-                final ImageView smokeCloudImg = new ImageView(getContext());
-                smokeCloudImg.setBackgroundResource(R.drawable.smoke);
-                final AnimationDrawable smokeCloud =
-                        (AnimationDrawable) smokeCloudImg.getBackground();
-
                 //calculate the index endNote is at for animating
                 int index = scroll.indexOfChild(ll);
 
@@ -356,26 +367,7 @@ public class BrainWidget extends Fragment implements Widget {
                 scroll.removeView(ll);
 
                 // play the destruction animation
-                // note: a margin has been given to position the animation more centrally to the note
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(0, 150, 0, 0);
-                smokeCloudImg.setLayoutParams(params);
-                scroll.addView(smokeCloudImg, index);
-                smokeCloud.start();
-
-                //wait for animation to finish before removing it
-                Handler handler = new Handler();
-                //after the duration of the animation, send for its removal
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        smokeCloud.stop();
-                        scroll.removeView(smokeCloudImg);
-                    }
-                }, 280);
+                playDeleteAnimation(index);
 
                 Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
 
@@ -403,6 +395,63 @@ public class BrainWidget extends Fragment implements Widget {
 
         //add Layout to the scrollview
         scroll.addView(ll, index);
+    }
+
+    //method for playing the smoke cloud animation associated to deletion
+    public void playDeleteAnimation(int index) {
+        //set up resources for animation
+        final ImageView smokeCloudImg = new ImageView(getContext());
+        smokeCloudImg.setBackgroundResource(R.drawable.smoke);
+        final AnimationDrawable smokeCloud =
+                (AnimationDrawable) smokeCloudImg.getBackground();
+        //create LayoutParamaters for the animation
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        //linearLayout will be the container of the note being deleted
+        final LinearLayout container;
+        //obtain the negative thought EditText
+        EditText negativeText = (EditText)v.findViewById(R.id.negativeEditText);
+
+        //a negative index indicates the note being deleted is the "negative thought note"
+        if(index < 0){
+            //obtain the linear layout holding the negative note
+            container = (LinearLayout)v.findViewById(R.id.negativeNote);
+            //temporarily remove the negative thought EditText
+            negativeText.setText("");
+            container.removeView(negativeText);
+            //set margin placing the animation more centrally for the note
+            params.setMargins(300, 0, 0, 0);
+            smokeCloudImg.setLayoutParams(params);
+            //add the animation in its place
+            container.addView(smokeCloudImg,0);
+        }
+        //a positive index indicates the note being deleted is saved in the scroll
+        else {
+            //obtain the horizontal scroll view that stores the notes
+            container = (LinearLayout)v.findViewById(R.id.noteScroll);
+            //set margin placing the animation more centrally for a note
+            params.setMargins(0, 150, 0, 0);
+            smokeCloudImg.setLayoutParams(params);
+            //add the animation to the scrollview
+            container.addView(smokeCloudImg, index);
+        }
+        smokeCloud.start();
+        //wait for animation to finish before removing it
+        Handler handler = new Handler();
+        //after the duration of the animation, send for its removal
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                smokeCloud.stop();
+                container.removeView(smokeCloudImg);
+            }
+        }, 280);
+
+        //if necessary, re-add the negative thoughts view
+        if(index < 0) container.addView(negativeText,0);
     }
 
     //method for loading the notes into the fragment

@@ -59,7 +59,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:id="@+id/deleteButton"/>
+                    android:id="@+id/deleteButton"
+                    android:src="@drawable/bin"/>
                 <Button
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="0dp"
@@ -126,39 +127,48 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="And throw away the thoughts that don&apos;t.."
+        android:textColor="#f9fd80"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:id="@+id/sadNoteText"
+        android:layout_below="@+id/horizontalScrollView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
+        android:id="@+id/negativeNote"
+        android:background="#ffffff"
         >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="And throw away the thoughts that don&apos;t.."
-            android:textColor="#f9fd80"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:id="@+id/sadNoteText"
-            android:layout_below="@+id/horizontalScrollView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
         <EditText
-            android:layout_width="300dp"
-            android:layout_height="70dp"
-            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:id="@+id/negativeEditText"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:background="#ffffff"
             android:layout_alignRight="@+id/sadNoteText"
             android:layout_alignEnd="@+id/sadNoteText"
             android:layout_above="@+id/btnSave1"
             android:layout_below="@+id/sadNoteText" />
 
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:id="@+id/negativeDelete"
+            android:src="@drawable/bin"
+            android:background="@null"/>
+
     </LinearLayout>
-
-
 </LinearLayout>
