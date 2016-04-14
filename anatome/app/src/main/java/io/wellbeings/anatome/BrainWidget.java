@@ -113,7 +113,6 @@ public class BrainWidget extends Fragment implements Widget {
         for(int i = 4; i >= 0; i--) {
             if(i < noteList.size()) {
                 initNote(noteList.get(i),0);
-                initDeleteButton(noteList.get(i),0);
             }
         }
 
@@ -155,7 +154,6 @@ public class BrainWidget extends Fragment implements Widget {
 
                 //initialise the graphics of the note
                 initNote(note,0);
-                initDeleteButton(note,0);
                 //ensure that no more than 5 notes are on display at once
                 if(scroll.getChildCount() > 5) {
                     Log.d("save", "too many children, will remove at last index");
@@ -230,7 +228,6 @@ public class BrainWidget extends Fragment implements Widget {
             //add the five notes associated to the page number to view
             for(int i = maxIndex; i >= minIndex; i--) {
                 initNote(noteList.get(i), 0);
-                initDeleteButton(noteList.get(i), 0);
             }
         }
         else Log.d("noteListPage","noteListPage was <= 1");
@@ -261,7 +258,6 @@ public class BrainWidget extends Fragment implements Widget {
                     continue; //skip if there is no note at this index
                 }
                 initNote(noteList.get(i), 0);
-                initDeleteButton(noteList.get(i), 0);
             }
         } else Log.d("noteListPage", "noteListPage * 5 exceeded noteList size");
     }
@@ -322,29 +318,15 @@ public class BrainWidget extends Fragment implements Widget {
                 LinearLayout.LayoutParams.MATCH_PARENT, 0,0.5f));
         ll.addView(date);
 
+        //TODO: display either image, audio or text depending on content
+
         //add the note's text input
         EditText noteInput = new EditText(getContext());
         noteInput.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, 0,5f));
         noteInput.setText(note.getContent());
+        noteInput.setEnabled(false); //disable editing of saved note
         ll.addView(noteInput);
-
-        //change background colour of the linearLayout to white
-        ll.setBackgroundColor(Color.parseColor("#FFFFFF"));
-
-        //add Layout to the scrollview
-        scroll.addView(ll, index);
-    }
-
-    //method for adding a delete button to a note
-    private void initDeleteButton(final Note note, int index) {
-        //obtain the note's linear layout
-        final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
-        final LinearLayout endNote = (LinearLayout)scroll.getChildAt(index);
-
-        //when a note is deletable it should also be uneditable
-        EditText noteInput = (EditText)endNote.getChildAt(1);
-        noteInput.setEnabled(false);
 
         //add the delete button
         final ImageButton deleteButton = new ImageButton(getContext());
@@ -355,8 +337,8 @@ public class BrainWidget extends Fragment implements Widget {
         deleteButton.setBackground(null); //make background transparent
         //set the weight of the delete button in attached note
         deleteButton.setLayoutParams(
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0,1.5f));
-        endNote.addView(deleteButton);
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.5f));
+        ll.addView(deleteButton);
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -367,11 +349,11 @@ public class BrainWidget extends Fragment implements Widget {
                         (AnimationDrawable) smokeCloudImg.getBackground();
 
                 //calculate the index endNote is at for animating
-                int index = scroll.indexOfChild(endNote);
+                int index = scroll.indexOfChild(ll);
 
                 //remove the UI for this note
-                endNote.removeAllViews();
-                scroll.removeView(endNote);
+                ll.removeAllViews();
+                scroll.removeView(ll);
 
                 // play the destruction animation
                 // note: a margin has been given to position the animation more centrally to the note
@@ -406,7 +388,6 @@ public class BrainWidget extends Fragment implements Widget {
                     if (noteList.size() > maxIndex) {
                         Log.d("REMOVAL", "should be good to remove the maxIndex at index 5");
                         initNote(noteList.get(maxIndex), 5);
-                        initDeleteButton(noteList.get(maxIndex), 5);
                     } else
                         Log.d("REMOVAL", "maxIndex exceeded final index, maxIndex: " + maxIndex + " noteList size: " + noteList.size());
                 } else Log.d("REMOVAL", "getChildCount 4 or less");
@@ -416,6 +397,12 @@ public class BrainWidget extends Fragment implements Widget {
                 //play delete animation
             }
         });
+
+        //change background colour of the linearLayout to white
+        ll.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        //add Layout to the scrollview
+        scroll.addView(ll, index);
     }
 
     //method for loading the notes into the fragment
