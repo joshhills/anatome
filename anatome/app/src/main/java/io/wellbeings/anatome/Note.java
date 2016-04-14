@@ -1,5 +1,7 @@
 package io.wellbeings.anatome;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -28,6 +30,17 @@ public class Note implements Serializable {
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
+
+    /*private String imageContent;
+    public String getImageContent() { return imageContent; }
+    public void setImageContent(String imageContent) {
+        this.imageContent = imageContent;
+    }
+    //method returns true if the content is an image
+    public boolean hasImageContent() {
+        if(imageContent == null) return true;
+        else return false;
+    }*/
 
     //constructor
     public Note(String creationDate, String content) {
