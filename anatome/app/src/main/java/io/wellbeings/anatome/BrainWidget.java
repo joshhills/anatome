@@ -161,47 +161,18 @@ public class BrainWidget extends Fragment implements Widget {
                 String content = newNoteContent.getText().toString();
                 Note note = new Note(date, content);
 
-                //add the note to list
-                noteList.add(0, note);
-
-                //initialise the graphics of the note
-                initNote(note,0);
-                //ensure that no more than 5 notes are on display at once
-                if(scroll.getChildCount() > 5) {
-                    Log.d("save", "too many children, will remove at last index");
-                    //remove the oldest note from display
-                    removedDisplayedSavedNote(5);
-                }
-
-
-//                btnGallery.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    //open gallery
-//                    Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                     //start the activity and pass the data
-//                     startActivityForResult(i, RESULT_LOAD_IMG);
-//                }
-//                });
-
-                //update the list's state
-                saveList();
-                List<Note> testList = getList();
-                Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
-
-                //reset the content of the new note
-                newNoteContent.setText("");
+                //save the note
+                saveNote(note);
             }
         });
 
          galleryButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-             //open gallery
-             Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-             //start the activity and pass the data
-             startActivityForResult(i, RESULT_LOAD_IMG);
+                //open gallery
+                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                //start the activity and pass the data
+                startActivityForResult(i, RESULT_LOAD_IMG);
              }
          });
 
@@ -343,16 +314,33 @@ public class BrainWidget extends Fragment implements Widget {
                 LinearLayout.LayoutParams.MATCH_PARENT, 0,0.5f));
         ll.addView(date);
 
-        //TODO: display either image, audio or text depending on content
+        /*
+            Load in the content of the note object
+         */
+        //re-define new parameters suitable for the content view
+        params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, 0, 5f);
 
-        //add the note's text input
-        EditText noteInput = new EditText(getContext());
-        noteInput.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, 0,5f));
-        noteInput.setText(note.getContent());
-        noteInput.setTextSize(13f);
-        noteInput.setFocusable(false); //disable editing of saved note
-        ll.addView(noteInput);
+        //if the content is image-related, load in an image
+        if(note.hasImageContent()) {
+            ImageView iv = new ImageView(getContext());
+            iv.setLayoutParams(params);
+            //retrieve the image content and add it to view
+            String imageDir = note.getImageDirectory();
+            ivImage.setImageBitmap(BitmapFactory.decodeFile(imageDir));
+            ll.addView(ivImage);
+        }
+
+        //else, the content is text based
+        else {
+            //add the note's text input
+            EditText noteInput = new EditText(getContext());
+            noteInput.setLayoutParams(params);
+            noteInput.setText(note.getContent());
+            noteInput.setTextSize(13f);
+            noteInput.setFocusable(false); //disable editing of saved note
+            ll.addView(noteInput);
+        }
 
         //add the delete button
         final ImageButton deleteButton = new ImageButton(getContext());
@@ -474,6 +462,32 @@ public class BrainWidget extends Fragment implements Widget {
         }
     }
 
+    //method for saving a new note
+    public void saveNote(Note note) {
+        //obtain the scroll view the note will be displayed in
+        final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
+
+        //add the note to list
+        noteList.add(0, note);
+
+        //initialise the graphics of the note
+        initNote(note,0);
+        //ensure that no more than 5 notes are on display at once
+        if(scroll.getChildCount() > 5) {
+            Log.d("save", "too many children, will remove at last index");
+            //remove the oldest note from display
+            removedDisplayedSavedNote(5);
+        }
+
+        //update the list's state
+        saveList();
+        List<Note> testList = getList();
+        Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
+
+        //reset the content of the new note
+        newNoteContent.setText("");
+    }
+
     //method for updating the contents of the list in file
     public void saveList() {
         try {
@@ -544,12 +558,16 @@ public class BrainWidget extends Fragment implements Widget {
             cursor.moveToFirst();
             String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
 
-            // Now we need to set the GUI ImageView data with data read from the picked file.
-//            ivImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));
+            //create a note object with the image directory
+            String date = getCurrentDate();
+            Note note = new Note(date, "");
+            note.setImageContent(imagePath);
 
-            // At the end remember to close the cursor or you will end with the RuntimeException!
+            //save the note to file and display in the scroll view
+            saveNote(note);
+
+            //close the cursor to avoid a runtime exception
             cursor.close();
-//            Toast.makeText(this, "Image picked from gallery", Toast.LENGTH_LONG).show();
         }
 
     }

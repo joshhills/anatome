@@ -24,23 +24,30 @@ public class Note implements Serializable {
 
     //String storing the note's creation date
     private String creationDate;
-    public String getCreationDate(){
+    public String getCreationDate() {
         return creationDate;
     }
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-    /*private String imageContent;
-    public String getImageContent() { return imageContent; }
-    public void setImageContent(String imageContent) {
-        this.imageContent = imageContent;
+    //String storing the directory of any selected image content
+    private String imageDirectory;
+    public String getImageDirectory() {
+        //protect against nullPointers
+        if(hasImageContent() == false){
+            return "";
+        }
+        return imageDirectory;
+    }
+    public void setImageContent(String imageDirectory) {
+        this.imageDirectory = imageDirectory;
     }
     //method returns true if the content is an image
     public boolean hasImageContent() {
-        if(imageContent == null) return true;
+        if(imageDirectory == null) return true;
         else return false;
-    }*/
+    }
 
     //constructor
     public Note(String creationDate, String content) {
