@@ -45,8 +45,8 @@ public class Note implements Serializable {
     }
     //method returns true if the content is an image
     public boolean hasImageContent() {
-        if(imageDirectory == null) return true;
-        else return false;
+        if(imageDirectory == null) return false;
+        else return true;
     }
 
     //constructor
