@@ -546,28 +546,29 @@ public class BrainWidget extends Fragment implements Widget {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         if (requestCode == RESULT_LOAD_IMG) {
-            // Let's read picked image data - its URI
             Uri pickedImage = data.getData();
-            // Let's read picked image path using content resolver
-            String[] filePath = {MediaStore.Images.Media.DATA};
+            //check the data is not null
+            if(pickedImage != null) {
+                // Let's read picked image path using content resolver
+                String[] filePath = {MediaStore.Images.Media.DATA};
 
-         ContentResolver contentResolverU = ContentResolverUltility.tryGetContentResolver(getContext());
-           Cursor cursor = contentResolverU.query(pickedImage, filePath, null, null, null);
-            cursor.moveToFirst();
-            String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+                ContentResolver contentResolverU = ContentResolverUltility.tryGetContentResolver(getContext());
+                Cursor cursor = contentResolverU.query(pickedImage, filePath, null, null, null);
+                cursor.moveToFirst();
+                String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
 
-            //create a note object with the image directory
-            String date = getCurrentDate();
-            Note note = new Note(date, "");
-            note.setImageContent(imagePath);
+                //create a note object with the image directory
+                String date = getCurrentDate();
+                Note note = new Note(date, "");
+                note.setImageContent(imagePath);
 
-            //save the note to file and display in the scroll view
-            saveNote(note);
+                //save the note to file and display in the scroll view
+                saveNote(note);
 
-            //close the cursor to avoid a runtime exception
-            cursor.close();
+                //close the cursor to avoid a runtime exception
+                cursor.close();
+            }
         }
 
     }
