@@ -547,9 +547,9 @@ public class BrainWidget extends Fragment implements Widget {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RESULT_LOAD_IMG) {
-            Uri pickedImage = data.getData();
             //check the data is not null
-            if(pickedImage != null) {
+            if (data != null) {
+                Uri pickedImage = data.getData();
                 // Let's read picked image path using content resolver
                 String[] filePath = {MediaStore.Images.Media.DATA};
 
