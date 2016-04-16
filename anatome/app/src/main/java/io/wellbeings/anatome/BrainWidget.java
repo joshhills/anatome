@@ -31,6 +31,7 @@ import android.widget.EditText;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,9 +62,6 @@ public class BrainWidget extends Fragment implements Widget {
     EditText newNoteContent;
     ImageButton deleteButton;
     ImageButton negativeDeleteButton;
-
-    //imageview to display a photo
-    ImageView ivImage;
 
     //for audio capture
     private MediaPlayer mediaPlayer;
@@ -327,8 +325,8 @@ public class BrainWidget extends Fragment implements Widget {
             iv.setLayoutParams(params);
             //retrieve the image content and add it to view
             String imageDir = note.getImageDirectory();
-            ivImage.setImageBitmap(BitmapFactory.decodeFile(imageDir));
-            ll.addView(ivImage);
+            iv.setImageBitmap(BitmapFactory.decodeFile(imageDir));
+            ll.addView(iv);
         }
 
         //else, the content is text based
@@ -525,11 +523,11 @@ public class BrainWidget extends Fragment implements Widget {
         }
         catch(ClassNotFoundException ex)
         {
-            Log.e("loadlist","class not found",ex);
+            Log.e("loadlist","class not found");
             return new ArrayList<Note>();
         }
         catch(IOException ex) {
-            Log.e("loadlist", "io problem", ex);
+            Log.e("loadlist", "io problem");
             return new ArrayList<Note>();
         }
     }
