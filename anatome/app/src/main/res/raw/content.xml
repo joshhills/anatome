@@ -112,34 +112,47 @@ For this reason, you may want to password-protect them.
                 </header>
             </headers>
             <information id="title">
-                Here's some information about the topic.
+                Coming to university can be a stressful and overwhelming experience, but don’t despair!
+                Understanding your feelings and how to cope is the first step to feeling like you are back on track.
+
+                First let’s understand what depression is and how it can make you feel:
+                Students that experience depression may suffer from extended periods of sadness, a feeling of hopelessness, lack of motivation and self-belief.
+                It is also worth noting that depression can also affect how you feel physically.
+                Signs of this may include a feeling of fatigue, insomnia or constant sleeping.
+                The severity of these feeling can vary between students.
+                For some these symptoms can subside over time, however, it is always worth being aware of how you can cope and the advice you can seek.
             </information>
             <information id="tips">
-                Here are some tips.
+                •	Maintain a positive attitude. Try replacing negative thought with positive ones.
+                •	Keep to a routine and plan your days. Having structure will make you feel more at ease.
+                •	Remember, you are not the only one who feels this way, you are not alone.
+                Consider reaching out to those close to you such as family and friends.
+                •	Use our app to book an appointment with the Student wellbeing here at Newcastle University or contact them directly: 0191 208 3333.
+
             </information>
             <links>
                 <link>
                     <name>
-                        Google
+                        NHS
                     </name>
                     <source>
-                        http://www.google.com/
+                        http://www.nhs.uk/Conditions/Depression/Pages/Introduction.aspx
                     </source>
                 </link>
                 <link>
                     <name>
-                        Helpful link2.
+                        mentalhealth.org
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        http://www.mentalhealth.org.uk/help-information/mental-health-a-z/D/depression/
                     </source>
                 </link>
                 <link>
                     <name>
-                        Helpful link3.
+                        Mind
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        http://www.mind.org.uk/information-support/types-of-mental-health-problems/depression/#.VlR2xuonyUk
                     </source>
                 </link>
             </links>
