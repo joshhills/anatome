@@ -45,6 +45,18 @@
                 android:textAlignment="center"
                 android:layout_marginTop="4dp"
                 android:textColor="#09849a" />
+
+            <ImageButton
+                android:layout_width="64dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/bookingOptions"
+                android:layout_gravity="right|top"
+                style="?android:attr/borderlessButtonStyle"
+                android:src="@drawable/booking_options_icon"
+                android:longClickable="true" />
+
         </FrameLayout>
 
         <RelativeLayout

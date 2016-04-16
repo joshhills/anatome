@@ -114,7 +114,8 @@ public class ContentFragment extends Fragment implements Widget {
 
         /* Load graphical element. */
 
-        ((ImageView) view.findViewById(R.id.content_graphic)).setImageDrawable();
+        //*******************
+        // ((ImageView) view.findViewById(R.id.content_graphic)).setImageDrawable();
 
     }
 

@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -27,14 +30,42 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class BookingSystem extends AppCompatActivity {
 
+    final Calendar c = Calendar.getInstance();
     private TextView mSetDate, mSetTime, mBookingTitle;
     private Button mBackFromBooking, mBook;
-    final Calendar c = Calendar.getInstance();
+    private ImageButton mOptions;
+
+
+    private RadioGroup radioGroup;
+    private RadioButton selectedRadioBtn;
+    private Button saveBtn;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booking_layout);
+
+
+        mOptions = (ImageButton) findViewById(R.id.bookingOptions);
+        mOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                toOptions();
+            }
+        });
+
+
+
+
+
+
+
+
+
 
 
         mSetDate = (TextView) findViewById(R.id.setDate);
@@ -195,4 +226,32 @@ public class BookingSystem extends AppCompatActivity {
         return customFont;
     }
 
+    private void toOptions() {
+
+        setContentView(R.layout.booking_options_layout);
+    }
+
+    public void selectGender(View v) {
+
+        boolean checked = ((RadioButton) v).isChecked();
+
+        switch (v.getId()) {
+
+            case R.id.radio_woman:
+                if(checked) {
+                    Toast.makeText(BookingSystem.this, "Woman", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.radio_man:
+                if(checked) {
+                    Toast.makeText(BookingSystem.this, "Man", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.radio_nopreference:
+                if(checked) {
+                    Toast.makeText(BookingSystem.this, "None", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
 }
