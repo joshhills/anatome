@@ -2,8 +2,6 @@ package io.wellbeings.anatome;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.widget.ImageView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,7 +13,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
@@ -34,14 +31,11 @@ import cz.msebera.android.httpclient.params.BasicHttpParams;
 
 public class DbUtility{
 
-
-    String myJSON;
     private static final String TAG_RESULTS = "result";
     private static final String TAG_DATE = "App_Date";
     private static final String TAG_TIME = "App_Time";
     private static final String TAG_COM = "Com_Text";
     private static final String TAG_COM_NAME = "Student_Name";
-    HashMap<String, String> finalMap = new HashMap<>();
     JSONArray array = null;
 
     public void addAppointment(String time, String date, Context ctx) {
@@ -65,6 +59,44 @@ public class DbUtility{
         data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(ctx).getName()));
 
         addToDb(data, param);
+    }
+
+    public HashMap<String, String> getAppointment(Context ctx) {
+        String result;
+        HashMap<String, String> appointments;
+
+        try {
+            GetDataJSON g = new GetDataJSON("app", "none", ctx);
+            result = g.execute().get();
+            appointments = parseAppointment(result);
+
+            return appointments;
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public ArrayList<HashMap<String, String>> getComments(String area, Context ctx) {
+        String result;
+        ArrayList<HashMap<String, String>> commentList;
+
+        try {
+            GetDataJSON g = new GetDataJSON("comment", "liver", ctx);
+            result = g.execute().get();
+
+            commentList = parseComment(result);
+
+            return commentList;
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
     }
 
     public ArrayList<HashMap<String, String>> parseComment(String result) {

@@ -52,20 +52,14 @@ public class ContentFragment extends Fragment implements Widget {
         super.onCreate(savedInstanceState);
 
         Context ctx = getContext();
-        String test;
         ArrayList<HashMap<String, String>> commentList;
 
         DbUtility db = new DbUtility();
-        try {
-            test = db.new GetDataJSON("comment", "liver", ctx).execute().get();
-            System.out.println("/////////" + test);
 
-            //this is now a list oh hashmaps containing the name and comment.
-            commentList = db.parseComment(test);
+        commentList = db.getComments("liver", ctx);
 
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
+        //now use commentList to fill comments
+
     }
 
     @Override

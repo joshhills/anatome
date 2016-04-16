@@ -42,23 +42,17 @@ public class TestLayout extends AppCompatActivity {
 
 
         Context ctx = TestLayout.this;
-        String test;
-        HashMap<String, String> appointments = new HashMap<>();
+        HashMap<String, String> appointments;
 
         DbUtility db = new DbUtility();
-        try {
-            test = db.new GetDataJSON("app", "none", ctx).execute().get();
-            System.out.println("/////////" + test);
-            appointments = db.parseAppointment(test);
 
-            TextView timeView = (TextView)findViewById(R.id.bookedTime);
-            TextView dateView = (TextView)findViewById(R.id.bookedDate);
+        appointments = db.getAppointment(ctx);
 
-            dateView.setText(appointments.get("App_Date").toString());
-            timeView.setText(appointments.get("App_Time").toString());
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
+        TextView timeView = (TextView)findViewById(R.id.bookedTime);
+        TextView dateView = (TextView)findViewById(R.id.bookedDate);
+
+        dateView.setText(appointments.get("App_Date").toString());
+        timeView.setText(appointments.get("App_Time").toString());
 
     }
 
