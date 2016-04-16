@@ -46,7 +46,8 @@ public class BookingSystem extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.booking_layout);
+        //setContentView(R.layout.booking_layout);
+        setGeneralContentView();
 
 
         mOptions = (ImageButton) findViewById(R.id.bookingOptions);
@@ -58,16 +59,7 @@ public class BookingSystem extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
-
-
-
+        /*
         mSetDate = (TextView) findViewById(R.id.setDate);
         mSetTime = (TextView) findViewById(R.id.setTime);
         mBackFromBooking = (Button) findViewById(R.id.backFromBooking);
@@ -103,7 +95,7 @@ public class BookingSystem extends AppCompatActivity {
 
         //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
 
-        setCurrentDateOnView();
+        setCurrentDateOnView();*/
     }
 
     TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
@@ -229,6 +221,13 @@ public class BookingSystem extends AppCompatActivity {
     private void toOptions() {
 
         setContentView(R.layout.booking_options_layout);
+        Button back = (Button) findViewById(R.id.backFromGenderOptionsButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setGeneralContentView();
+            }
+        });
     }
 
     public void selectGender(View v) {
@@ -253,5 +252,50 @@ public class BookingSystem extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    public void setGeneralContentView() {
+
+        setContentView(R.layout.booking_layout);
+
+        mSetDate = (TextView) findViewById(R.id.setDate);
+        mSetTime = (TextView) findViewById(R.id.setTime);
+        mBackFromBooking = (Button) findViewById(R.id.backFromBooking);
+        mBook = (Button) findViewById(R.id.bookFromBooking);
+        mBookingTitle = (TextView) findViewById(R.id.bookingTitle);
+
+        Typeface customFont = defineCustomFont();
+
+        mSetDate.setTypeface(customFont);
+        mSetTime.setTypeface(customFont);
+        mBackFromBooking.setTypeface(customFont);
+        mBook.setTypeface(customFont);
+        mBookingTitle.setTypeface(customFont);
+
+        mBackFromBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toMainScroll();
+                // postBooking();
+            }
+        });
+
+        mBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postBooking();
+                disableBookButton();
+                //switchView();
+                Intent intent = new Intent(BookingSystem.this, TestLayout.class);
+                startActivity(intent);
+            }
+        });
+
+        //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
+
+        setCurrentDateOnView();
+
+
+
     }
 }
