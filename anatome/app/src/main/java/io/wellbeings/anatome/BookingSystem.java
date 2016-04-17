@@ -39,7 +39,8 @@ public class BookingSystem extends AppCompatActivity {
     private TextView mSetDate, mSetTime, mBookingTitle;
     private Button mBackFromBooking, mBook;
     private ImageButton mOptions;
-    private String[] appointments = {"England", "Scotland", "Wales"};
+    private String[] appointments;
+    final Calendar c = Calendar.getInstance();
 
 
     @Override
@@ -59,13 +60,6 @@ public class BookingSystem extends AppCompatActivity {
         //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
 
         setCurrentDateOnView();
-
-       /* DbUtility db = new DbUtility();
-        String [] test;
-        test = db.getAvailable(BookingSystem.this, "2016-02-22");
-        for(int i = 0; i < test.length; i++) {
-            System.out.println(test[i]);
-        }*/
 
     }
 
@@ -92,10 +86,32 @@ public class BookingSystem extends AppCompatActivity {
 
     // true - 24-hour format
     public void timeOnClick(View view) {
+        DbUtility db = new DbUtility();
+
+        String date = mSetDate.getText().toString();
+        String newDate = null;
+
+        SimpleDateFormat initial = new SimpleDateFormat("dd-MM-yy");
+        SimpleDateFormat needed = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            newDate = needed.format(initial.parse(date));
+            appointments = db.getAvailable(BookingSystem.this, newDate.toString());
+
+            for(int i = 0; i < appointments.length; i++) {
+                System.out.println(appointments[i]);
+            }
+
+
+
+        }catch(Exception e) {
+            System.out.println("Error: Unable to parse date");
+        }
+
 
         RelativeLayout linearLayout = new RelativeLayout(BookingSystem.this);
         final NumberPicker aNumberPicker = new NumberPicker(BookingSystem.this);
-        aNumberPicker.setMaxValue(2);
+        aNumberPicker.setMaxValue(appointments.length - 1);
         aNumberPicker.setMinValue(0);
         aNumberPicker.setDisplayedValues(appointments);
 
