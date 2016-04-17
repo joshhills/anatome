@@ -76,20 +76,29 @@ public class DatabaseUtility {
         s.execute();
     }
 
+
+    /*JOSH LOOK HERE*/
+
+    //call this from other class passing in textview(i know this is probably a bad idea but i dont understand the alternative)
     public void grabApp(final String choice, final TextView datetextView, final TextView timetextView, Context ctx) {
+
+        //store text views as globals for use in the aysnc
         this.dateView = datetextView;
         this.timeView = timetextView;
 
+        //call aysnc
         getData(choice, ctx);
 
 
     }
 
+    //this is task where choice for example "App" would be used to get appointments
     public void getData(final String choice, final Context con) {
         class GetDataJSON extends AsyncTask<String, Void, String>{
             final Context ctx = con;
 
-
+            //sets up http request to the php files
+            //all this works correctly
             @Override
             protected String doInBackground(String... params) {
 
@@ -130,7 +139,11 @@ public class DatabaseUtility {
                 return result;
             }
 
-            public void Appointmentshow() {
+
+            //this would be called from onPostExecute it is used to split up the JSON and set the text fields
+            //would be better in the calling class
+
+          /*  public void Appointmentshow() {
 
                 try {
                     JSONObject jsonObj = new JSONObject(myJSON);
@@ -154,33 +167,17 @@ public class DatabaseUtility {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
+            } */
 
             @Override
             protected void onPostExecute(String result) {
                 myJSON = result;
-                String b = "none";
-                try {
-                    JSONObject jsonObj = new JSONObject(myJSON);
-                    array = jsonObj.getJSONArray(TAG_RESULTS);
-                    JSONArray holder = null;
-                    JSONObject c = array.getJSONObject(0);
-                    holder = c.names();
-                    b = holder.getString(0);
-                    System.out.println("/////////////////"+b);
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-
-                if(b.equals("App_Date")) {
-                   Appointmentshow();
-                }
-                else if(b.equals("Student_Name")){
-                   // Commentshow();
-                }
+               //here i would like to pass the result back to the calling class but i cant get that to work...
+                //any ideas?
             }
         }
 
+        //this executes the whole request
         GetDataJSON g = new GetDataJSON();
         try{
         g.execute().get();

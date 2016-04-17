@@ -147,16 +147,9 @@ public class BookingSystem extends AppCompatActivity {
         }catch(Exception e) {
             System.out.println("Error: Unable to parse date");
         }
-        //defines fact we are posting an appointment
-        String param = "app";
 
-        List<NameValuePair> data = new ArrayList<>();
-        data.add(new BasicNameValuePair("time", time));
-        data.add(new BasicNameValuePair("date", newDate));
-
-        DatabaseUtility db = new DatabaseUtility();
-
-        db.addToDb(data, param);
+        DbUtility db = new DbUtility();
+        db.addAppointment(time, newDate, BookingSystem.this);
         Toast.makeText(BookingSystem.this, "Appointment Booked", Toast.LENGTH_SHORT).show();
     }
 

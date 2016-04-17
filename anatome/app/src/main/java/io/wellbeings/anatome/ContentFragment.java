@@ -19,6 +19,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +48,18 @@ public class ContentFragment extends Fragment implements Widget {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        Context ctx = getContext();
+        ArrayList<HashMap<String, String>> commentList;
+
+        DbUtility db = new DbUtility();
+
+        commentList = db.getComments("liver", ctx);
+
+        //now use commentList to fill comments
+
     }
 
     @Override
