@@ -220,7 +220,7 @@ public class BookingSystem extends AppCompatActivity {
 
     private void toOptions() {
 
-        setContentView(R.layout.booking_options_layout);
+        setContentView(R.layout.booking_options_test);
         Button back = (Button) findViewById(R.id.backFromGenderOptionsButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
