@@ -291,6 +291,15 @@ public class BookingSystem extends AppCompatActivity {
             }
         });
 
+        mOptions = (ImageButton) findViewById(R.id.bookingOptions);
+        mOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                toOptions();
+            }
+        });
+
         //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
 
         setCurrentDateOnView();
