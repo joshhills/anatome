@@ -185,7 +185,6 @@ public class DbUtility{
     }
 
     public class GetDataJSON extends AsyncTask<String, Void, String> {
-           // public AsyncResponse delegate = null;
             private String choice;
             private Context ctx;
             private String area;
