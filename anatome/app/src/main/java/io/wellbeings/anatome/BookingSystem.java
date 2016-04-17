@@ -1,21 +1,26 @@
 package io.wellbeings.anatome;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -34,6 +39,7 @@ public class BookingSystem extends AppCompatActivity {
     private TextView mSetDate, mSetTime, mBookingTitle;
     private Button mBackFromBooking, mBook;
     private ImageButton mOptions;
+    private String[] appointments = {"England", "Scotland", "Wales"};
 
 
     @Override
@@ -75,8 +81,41 @@ public class BookingSystem extends AppCompatActivity {
     // true - 24-hour format
     public void timeOnClick(View view) {
 
-        new TimePickerDialog(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT, time,
-                c.get(Calendar.HOUR), c.get(Calendar.MINUTE), false).show();
+        RelativeLayout linearLayout = new RelativeLayout(BookingSystem.this);
+        final NumberPicker aNumberPicker = new NumberPicker(BookingSystem.this);
+        aNumberPicker.setMaxValue(2);
+        aNumberPicker.setMinValue(0);
+        aNumberPicker.setDisplayedValues(appointments);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
+        RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        numPicerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+        linearLayout.setLayoutParams(params);
+        linearLayout.addView(aNumberPicker,numPicerParams);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT);
+        alertDialogBuilder.setTitle("Select the time of your appointment:");
+        alertDialogBuilder.setView(linearLayout);
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                System.out.println("Value Selected : " + aNumberPicker.getValue());
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public void dateOnClick(View view) {
