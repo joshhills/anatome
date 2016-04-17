@@ -15,64 +15,86 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/title"
-            android:paddingBottom="14dp" />
+            android:text="Title"
+            android:id="@+id/content_title"
+            android:paddingBottom="14dp"
+            android:textSize="24dp" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/titlecontent"
-            android:paddingBottom="14dp" />
+            android:text="Title content."
+            android:id="@+id/content_titlecontent"
+            android:paddingBottom="14dp"
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/graphic"
+            android:id="@+id/content_graphic"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
             android:contentDescription="section graphic"
-            />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/tips"
-            android:paddingBottom="14dp" />
+            android:text="Tips"
+            android:id="@+id/content_tips"
+            android:paddingBottom="14dp"
+            android:textSize="24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/tipscontent"
-            android:paddingBottom="14dp" />
+            android:text="Tip"
+            android:id="@+id/content_tipscontent"
+            android:paddingBottom="14dp"
+            android:textSize="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/links"
-            android:paddingBottom="14dp" />
+            android:text="Links"
+            android:id="@+id/content_links"
+            android:paddingBottom="14dp"
+            android:textSize="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Link"
+            android:id="@+id/content_linkscontent"
+            android:textSize="18dp" />
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/content_comments_container"
+                android:background="@drawable/rounded_corners_bg"></LinearLayout>
+        </ScrollView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
-            android:id="@+id/linkscontent"
-            android:textColor="#0000ff"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/modified" />
+            android:id="@+id/content_modified"
+            android:textStyle="italic"
+            android:textColor="#ffffff" />
 
     </LinearLayout>
 

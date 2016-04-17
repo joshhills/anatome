@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.wellbeings.anatome">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,19 +16,33 @@
         <activity
             android:name=".Preamble"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
+
         <activity
             android:name=".MainScroll"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Section"
             android:theme="@style/AppTheme.NoActionBar" />
-        />
+        <activity
+            android:name=".BookingSystem"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TestLayout"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Loading"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".Settings"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
     <uses-permission android:name="android.permission.VIBRATE" />

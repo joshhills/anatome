@@ -1,111 +1,138 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.wellbeings.anatome.LiverWidget">
+    tools:context="io.wellbeings.anatome.LiverWidget"
+    android:background="@color/liver_main_bg">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="207dp"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:id="@+id/liver_illustration"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="45" />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_gravity="center_horizontal|top"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
         android:background="@color/liver_secondary_bg"
-        android:id="@+id/topHalf">
+        android:id="@+id/liver_unit_manipulation"
+        android:layout_weight="12"
+        android:gravity="center_vertical">
 
-        <ImageView
-            android:layout_width="182dp"
-            android:layout_height="182dp"
-            android:id="@+id/imageView"
-            android:layout_gravity="center" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="CLR"
+            android:id="@+id/liver_clear_button"
+            android:layout_weight="16.5" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="UNDO"
+            android:id="@+id/liver_undo_button"
+            android:layout_weight="16.5" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="52dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="0 Units"
-            android:id="@+id/unitDisplay"
+            android:id="@+id/liver_unit_display"
             android:textColor="@color/liver_accent_text"
             android:textSize="30dp"
             android:textAlignment="center"
             android:fontFamily="@string/font_name_helvetica"
-            android:layout_gravity="center_horizontal|bottom" />
+            android:layout_weight="33" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="ADD"
-            android:id="@+id/addButton"
-            android:layout_gravity="right|bottom" />
+            android:id="@+id/liver_add_button"
+            android:layout_weight="33" />
+    </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clear"
-            android:id="@+id/clearButton"
-            android:layout_gravity="left|bottom" />
-    </FrameLayout>
-
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_gravity="right|bottom"
-        android:background="@color/liver_main_bg"
-        android:id="@+id/bottomHalf">
+        android:layout_height="0dp"
+        android:background="#89754b"
+        android:id="@+id/liver_selection"
+        android:layout_weight="12"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <Spinner
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:id="@+id/drinkSpinner"
-            android:layout_margin="20dp"
-            android:background="@color/liver_secondary_bg"
+            android:id="@+id/liver_drink_spinner"
+            android:background="#a59777"
             android:textColor="@color/liver_main_text"
             android:textAlignment="center"
             android:fontFamily="@string/font_name_helvetica"
-            android:layout_gravity="left|top"
             android:spinnerMode="dialog"
             android:visibility="visible" />
 
         <Spinner
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:id="@+id/volumeSpinner"
+            android:id="@+id/liver_volume_spinner"
             android:layout_margin="20dp"
-            android:background="@color/liver_secondary_bg"
+            android:background="#a59777"
             android:textColor="@color/liver_main_text"
             android:textAlignment="center"
             android:fontFamily="@string/font_name_helvetica"
-            android:layout_gravity="center_horizontal|top"
             android:spinnerMode="dialog"
             android:visibility="visible" />
 
         <Spinner
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:id="@+id/percentageSpinner"
-            android:layout_margin="20dp"
-            android:background="@color/liver_secondary_bg"
+            android:id="@+id/liver_percentage_spinner"
+            android:background="#a59777"
             android:textColor="@color/liver_main_text"
             android:textAlignment="center"
             android:fontFamily="@string/font_name_helvetica"
-            android:layout_gravity="right|top"
             android:spinnerMode="dialog"
             android:visibility="visible" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/liver_information"
+        android:layout_weight="31"
+        android:orientation="vertical"
+        android:background="@color/liver_secondary_bg"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:text="Go home you've had enough"
-            android:id="@+id/wordOfWarning"
-            android:textColor="@color/liver_main_text"
-            android:textSize="30dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/liver_threshold_warning"
+            android:textColor="@color/liver_accent_text"
+            android:textSize="18dp"
             android:textAlignment="center"
             android:fontFamily="@string/font_name_helvetica"
             android:textIsSelectable="true"
-            android:layout_gravity="center_horizontal|bottom" />
+            android:text="Warning"
+            android:layout_weight="25"
+            android:layout_gravity="top" />
 
-    </FrameLayout>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="awdawd"
+                android:id="@+id/liver_warning"
+                android:textColor="@color/liver_main_text"
+                android:textSize="26dp"
+                android:textAlignment="center"
+                android:fontFamily="@string/font_name_helvetica"
+                android:textIsSelectable="true"
+            android:layout_weight="75" />
+    </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

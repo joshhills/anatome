@@ -17,9 +17,60 @@
         android:orientation="vertical">
 
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/bookingSystemBackgroundKite"
+                android:src="@drawable/kite"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
+
+            <ImageButton
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:id="@+id/bookButtonOnMainScroll"
+                android:layout_gravity="right|bottom"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/book"
+                android:layout_marginRight="16dp"
+                android:visibility="invisible"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="#09849a"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Need more help ?"
+                android:id="@+id/needMoreHelpText"
+                android:layout_gravity="left|bottom"
+                android:textColor="@android:color/black"
+                android:textSize="32dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="16dp"/>
+
+            <ImageButton
+                android:layout_width="48dp"
+                android:layout_height="44dp"
+                android:id="@+id/bookingInfoButton"
+                android:layout_gravity="right|bottom"
+                android:src="@drawable/info_grey"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="#09849a"
+                android:scaleType="fitXY"
+                android:layout_marginRight="14dp"
+                android:layout_marginBottom="20dp"/>
+
+        </FrameLayout>
 
         <ImageView
             android:layout_width="match_parent"

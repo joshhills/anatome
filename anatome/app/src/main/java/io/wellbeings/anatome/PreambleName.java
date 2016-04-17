@@ -7,12 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
 public class PreambleName extends Fragment {
 
-    View view;
+    private static View view;
 
     public PreambleName() {
         // Required empty public constructor
@@ -34,7 +35,10 @@ public class PreambleName extends Fragment {
         return view;
     }
 
+    // Initialise GUI elements.
     private void populateContent() {
+
+        /* Tutorialised information. */
 
         ((TextView) view.findViewById(R.id.preamble_header_name))
                 .setText(UtilityManager.getContentLoader(getContext()).getHeaderText("preamble", "name"));
@@ -42,6 +46,25 @@ public class PreambleName extends Fragment {
         ((TextView) view.findViewById(R.id.preamble_information_name))
                 .setText(UtilityManager.getContentLoader(getContext()).getInfoText("preamble", "name"));
 
+        /* Input types. */
+
+        ((EditText) view.findViewById(R.id.preamble_user_name)).setHint(
+                UtilityManager.getContentLoader(getContext()).getInfoText("preamble", "username-hint")
+        );
+        ((EditText) view.findViewById(R.id.preamble_email)).setHint(
+                UtilityManager.getContentLoader(getContext()).getInfoText("preamble", "email-hint")
+        );
+
+    }
+
+    /* Get crucial variables within fragment. */
+
+    public static String getCurrentName() {
+        return ((EditText) view.findViewById(R.id.preamble_user_name)).getText().toString();
+    }
+
+    public static String getCurrentEmail() {
+        return ((EditText) view.findViewById(R.id.preamble_email)).getText().toString();
     }
 
 }

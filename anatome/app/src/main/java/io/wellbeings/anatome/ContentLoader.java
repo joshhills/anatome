@@ -111,4 +111,34 @@ public class ContentLoader extends XMLUtility {
 
     }
 
+    /**
+     * Get the miscellaneous notification content for the whole application.
+     *
+     * @param notificationID    The element for which to retrieve information.
+     * @return                  The notification content.
+     */
+    public String getNotificationText(String notificationID) {
+
+        return getNodeContentWithXPath("application/content[@lang='"
+                + UtilityManager.getUserUtility(ctx).getLanguage()
+                + "']/miscellaneous/notifications/notification[@id='"
+                + notificationID + "']");
+
+    }
+
+    /**
+     * Get the miscellaneous notification content for the whole application.
+     *
+     * @param buttonID  The element for which to retrieve information.
+     * @return          The button name content.
+     */
+    public String getButtonText(String buttonID) {
+
+        return getNodeContentWithXPath("application/content[@lang='"
+                + UtilityManager.getUserUtility(ctx).getLanguage()
+                + "']/miscellaneous/buttons/label[@id='"
+                + buttonID + "']");
+
+    }
+
 }

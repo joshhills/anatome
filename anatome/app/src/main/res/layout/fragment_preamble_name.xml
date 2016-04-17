@@ -38,11 +38,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="@string/generic_name"
         android:ems="10"
         android:textColor="@color/main_accent_text"
-        android:id="@+id/edit_name"
+        android:id="@+id/preamble_user_name"
         android:backgroundTint="#ffffff"
-        android:textSize="25sp" />
+        android:textSize="20sp"
+        android:maxLines="1" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:textColor="@color/main_accent_text"
+        android:id="@+id/preamble_email"
+        android:backgroundTint="#ffffff"
+        android:textSize="20sp"
+        android:maxLines="1" />
 
 </LinearLayout>

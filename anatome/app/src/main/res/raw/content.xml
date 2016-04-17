@@ -26,8 +26,14 @@ There's some minor information necessary to set you going so you can use your ne
             </information>
             <information id="name">
                 Firstly, what should we call you?
-                
+
 (If you're worried about privacy, now's the time to re-invent yourself. Otherwise, we'll remember you as 'guest'!)
+            </information>
+            <information id="username-hint">
+                name
+            </information>
+            <information id="email-hint">
+                login@university.ac.uk
             </information>
             <information id="lock">
                 You can use our interactive sections to store personal information.
@@ -39,16 +45,16 @@ For this reason, you may want to password-protect them.
                 2001-12-17T09:30:47Z
             </modified>
         </section>
-        <section name="brain">
+        <section name="heart">
             <!-- Headers store titles for parts of the section. -->
             <headers>
                 <header id="title">
-                    Mental Health
+                    Heart
                 </header>
                 <header id="tips">
                     Here's some general pointers:
-                </header>in
-                <header id="lks">
+                </header>
+                <header id="links">
                     Want to know more?
                 </header>
             </headers>
@@ -92,51 +98,69 @@ For this reason, you may want to password-protect them.
                 2001-12-17T09:30:47Z
             </modified>
         </section>
-        <section name="heart">
+
+
+
+        <section name="brain">
             <!-- Headers store titles for parts of the section. -->
             <headers>
                 <header id="title">
-                    Anxiety
+                    Mental Health
                 </header>
                 <header id="tips">
                     Here's some general pointers:
-                </header>in
-                <header id="lks">
+                </header>
+                <header id="links">
                     Want to know more?
                 </header>
             </headers>
             <information id="title">
+
                 Here's some information about the topic.
             </information>
             <information id="tips">
-                Here are some tips.
+                •	Maintain a positive attitude. Try replacing negative thought with positive ones.
+                •	Keep to a routine and plan your days. Having structure will make you feel more at ease.
+                •	Remember, you are not the only one who feels this way, you are not alone.
+                Consider reaching out to those close to you such as family and friends.
+                •	Use our app to book an appointment with the Student wellbeing here at Newcastle University or contact them directly: 0191 208 3333.
             </information>
             <information id="instructional_text">
                 Take a deep breathe in and count to 5,Remember we are here to help
+                Coming to university can be a stressful and overwhelming experience, but don’t despair!
+                Understanding your feelings and how to cope is the first step to feeling like you are back on track.
+
+                First let’s understand what depression is and how it can make you feel:
+                Students that experience depression may suffer from extended periods of sadness, a feeling of hopelessness, lack of motivation and self-belief.
+                It is also worth noting that depression can also affect how you feel physically.
+                Signs of this may include a feeling of fatigue, insomnia or constant sleeping.
+                The severity of these feeling can vary between students.
+                For some these symptoms can subside over time, however, it is always worth being aware of how you can cope and the advice you can seek.
             </information>
+
             <links>
                 <link>
                     <name>
-                        Google
+                        NHS
                     </name>
                     <source>
-                        http://www.google.com/
+                        http://www.nhs.uk/Conditions/Depression/Pages/Introduction.aspx
                     </source>
                 </link>
                 <link>
                     <name>
-                        Helpful link2.
+                        mentalhealth.org
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        http://www.mentalhealth.org.uk/help-information/mental-health-a-z/D/depression/
                     </source>
                 </link>
                 <link>
                     <name>
-                        Helpful link3.
+                        Mind
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        http://www.mind.org.uk/information-support/types-of-mental-health-problems/depression/#.VlR2xuonyUk
                     </source>
                 </link>
             </links>
@@ -156,7 +180,7 @@ For this reason, you may want to password-protect them.
                 </header>
                 <header id="tips">
                     Here's some general pointers:
-                </header>in
+                </header>
                 <header id="links">
                     Want to know more?
                 </header>
@@ -175,6 +199,31 @@ For this reason, you may want to password-protect them.
             </information>
             <information id="percentage">
                 40%,37.5%,15%,12%,10%,7.5%,5%,4%,Other
+            </information>
+            <!--temporary ids and information since I can't think of goo ones right now-->
+            <information id="threshold-1">
+                DOWN IT FRESHAAAAAA!!!!!!!!!
+            </information>
+            <information id="threshold-2">
+                You're almost over the guidelines
+            </information>
+            <information id="threshhold-3">
+                You should start slowing down
+            </information>
+            <information id="threshold-4">
+                Now it's really time to stop
+            </information>
+            <information id="threshold-5">
+                You have drunk a dangerous amount of alcohol
+            </information>
+            <information id="threshold-6">
+                GO HOME
+            </information>
+            <information id="units">
+                Units
+            </information>
+            <information id="threshold-warning">
+                This is over the government recommended daily allowance.
             </information>
             <links>
                 <link>
@@ -216,13 +265,20 @@ For this reason, you may want to password-protect them.
                 <notification id="token" graphic="./assets/defaults/toast-graphic.png">
                     This is a pushed notification.
                 </notification>
+                <notification id="email-empty" graphic="./assets/defaults/toast-graphic.png">
+                    You can set your name and email in the settings at a later time.
+                </notification>
+                <notification id="email-invalid" graphic="./assets/defaults/toast-graphic.png">
+                    The email entered is not a valid email address. Please try again.
+                </notification>
             </notifications>
             <buttons>
                 <label id="next">Next</label>
                 <label id="back">Back</label>
                 <label id="ok">Okay</label>
                 <label id="cancel">Cancel</label>
+                <label id="oops">Oops!</label>
             </buttons>
-            </miscellaneous>
+        </miscellaneous>
     </content>
 </application>
