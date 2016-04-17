@@ -74,6 +74,14 @@ public class BookingSystem extends AppCompatActivity {
         //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
 
         setCurrentDateOnView();
+
+       /* DbUtility db = new DbUtility();
+        String [] test;
+        test = db.getAvailable(BookingSystem.this, "2016-02-22");
+        for(int i = 0; i < test.length; i++) {
+            System.out.println(test[i]);
+        }*/
+
     }
 
     TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {

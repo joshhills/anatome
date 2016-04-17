@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -75,6 +76,23 @@ public class DbUtility{
         }catch(Exception e) {
             e.printStackTrace();
         }
+
+        return null;
+    }
+
+    public String[] getAvailable(Context ctx, String date) {
+        String result;
+        String [] available;
+
+        try {
+            GetDataJSON g = new GetDataJSON("available", date, ctx);
+            result = g.execute().get();
+            available = parseAvailable(result);
+            return available;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
 
         return null;
     }
@@ -144,6 +162,26 @@ public class DbUtility{
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+        return null;
+    }
+
+    public String[] parseAvailable(String result) {
+        try {
+            JSONObject jsonObj = new JSONObject(result);
+            array = jsonObj.getJSONArray(TAG_RESULTS);
+            String [] available = new String[array.length()];
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject c = array.getJSONObject(i);
+                String time = c.getString(TAG_TIME);
+
+                available[i] = time;
+            }
+
+            return available;
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
