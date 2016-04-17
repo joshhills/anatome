@@ -35,7 +35,11 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class BookingSystem extends AppCompatActivity {
 
+<<<<<<< HEAD
     // Private fields.
+=======
+    final Calendar c = Calendar.getInstance();
+>>>>>>> Bettina
     private TextView mSetDate, mSetTime, mBookingTitle;
     private Button mBackFromBooking, mBook;
     private ImageButton mOptions;
@@ -55,6 +59,7 @@ public class BookingSystem extends AppCompatActivity {
                 toOptions();
             }
         });
+<<<<<<< HEAD
 
         //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
 
@@ -67,6 +72,8 @@ public class BookingSystem extends AppCompatActivity {
             System.out.println(test[i]);
         }*/
 
+=======
+>>>>>>> Bettina
     }
 
     TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {

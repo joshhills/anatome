@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/main_main_bg</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/dark_blue_accent</item>
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
