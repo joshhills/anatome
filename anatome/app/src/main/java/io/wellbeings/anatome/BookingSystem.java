@@ -1,18 +1,26 @@
 package io.wellbeings.anatome;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -27,52 +35,40 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class BookingSystem extends AppCompatActivity {
 
+    // Private fields.
     private TextView mSetDate, mSetTime, mBookingTitle;
     private Button mBackFromBooking, mBook;
+    private ImageButton mOptions;
+    private String[] appointments;
     final Calendar c = Calendar.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.booking_layout);
+        setGeneralContentView();
 
-
-        mSetDate = (TextView) findViewById(R.id.setDate);
-        mSetTime = (TextView) findViewById(R.id.setTime);
-        mBackFromBooking = (Button) findViewById(R.id.backFromBooking);
-        mBook = (Button) findViewById(R.id.bookFromBooking);
-        mBookingTitle = (TextView) findViewById(R.id.bookingTitle);
-
-        Typeface customFont = defineCustomFont();
-
-        mSetDate.setTypeface(customFont);
-        mSetTime.setTypeface(customFont);
-        mBackFromBooking.setTypeface(customFont);
-        mBook.setTypeface(customFont);
-        mBookingTitle.setTypeface(customFont);
-
-        mBackFromBooking.setOnClickListener(new View.OnClickListener() {
+        mOptions = (ImageButton) findViewById(R.id.bookingOptions);
+        mOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toMainScroll();
-                // postBooking();
-            }
-        });
 
-        mBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                postBooking();
-                disableBookButton();
-                //switchView();
-                Intent intent = new Intent(BookingSystem.this, TestLayout.class);
-                startActivity(intent);
+                toOptions();
             }
         });
 
         //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
 
+        DbUtility db = new DbUtility();
+        String[] coord;
+        coord = db.getLatLong(BookingSystem.this);
+
+        for(int i = 0; i < coord.length; i++) {
+            System.out.println(coord[i]);
+        }
+
         setCurrentDateOnView();
+
     }
 
     TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
@@ -98,10 +94,64 @@ public class BookingSystem extends AppCompatActivity {
 
     // true - 24-hour format
     public void timeOnClick(View view) {
+        DbUtility db = new DbUtility();
 
-        new TimePickerDialog(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT, time,
-                c.get(Calendar.HOUR), c.get(Calendar.MINUTE), false).show();
+        String date = mSetDate.getText().toString();
+        String newDate = null;
 
+        SimpleDateFormat initial = new SimpleDateFormat("dd-MM-yy");
+        SimpleDateFormat needed = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            newDate = needed.format(initial.parse(date));
+            appointments = db.getAvailable(BookingSystem.this, newDate.toString());
+
+            for(int i = 0; i < appointments.length; i++) {
+                System.out.println(appointments[i]);
+            }
+
+
+
+        }catch(Exception e) {
+            System.out.println("Error: Unable to parse date");
+        }
+
+
+        RelativeLayout linearLayout = new RelativeLayout(BookingSystem.this);
+        final NumberPicker aNumberPicker = new NumberPicker(BookingSystem.this);
+        aNumberPicker.setMaxValue(appointments.length - 1);
+        aNumberPicker.setMinValue(0);
+        aNumberPicker.setDisplayedValues(appointments);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
+        RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        numPicerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+        linearLayout.setLayoutParams(params);
+        linearLayout.addView(aNumberPicker,numPicerParams);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT);
+        alertDialogBuilder.setTitle("Select the time of your appointment:");
+        alertDialogBuilder.setView(linearLayout);
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                System.out.println("Value Selected : " + aNumberPicker.getValue());
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public void dateOnClick(View view) {
@@ -112,7 +162,6 @@ public class BookingSystem extends AppCompatActivity {
         dp.getDatePicker().setMinDate(newdate.getTime());
         dp.getDatePicker().setMaxDate(newdate.getTime() + 1209600000);
         dp.show();
-
     }
 
     // Formats date & time
@@ -146,16 +195,9 @@ public class BookingSystem extends AppCompatActivity {
         }catch(Exception e) {
             System.out.println("Error: Unable to parse date");
         }
-        //defines fact we are posting an appointment
-        String param = "app";
 
-        List<NameValuePair> data = new ArrayList<>();
-        data.add(new BasicNameValuePair("time", time));
-        data.add(new BasicNameValuePair("date", newDate));
-
-        DatabaseUtility db = new DatabaseUtility();
-
-        db.addToDb(data, param);
+        DbUtility db = new DbUtility();
+        db.addAppointment(time, newDate, BookingSystem.this);
         Toast.makeText(BookingSystem.this, "Appointment Booked", Toast.LENGTH_SHORT).show();
     }
 
@@ -164,23 +206,6 @@ public class BookingSystem extends AppCompatActivity {
         mBook.setEnabled(false);
         mBook.setTextColor(Color.parseColor("#BBBBBB"));
     }
-
-   /* private void switchView() {
-
-        setContentView(R.layout.test_layout);
-
-        Button backBtn = (Button)findViewById(R.id.backFromBooked);
-
-        Typeface customFont = defineCustomFont();
-        backBtn.setTypeface(customFont);
-
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toMainScroll();
-            }
-        });
-    }*/
 
     private void toMainScroll() {
         Intent i = new Intent(BookingSystem.this, MainScroll.class);
@@ -195,4 +220,114 @@ public class BookingSystem extends AppCompatActivity {
         return customFont;
     }
 
+    private void toOptions() {
+
+        setContentView(R.layout.booking_options_layout);
+
+        Typeface customFont = defineCustomFont();
+        Button back = (Button) findViewById(R.id.backFromGenderOptionsButton);
+        Button save = (Button) findViewById(R.id.saveGenderOptionsButton);
+        TextView firstLine = (TextView) findViewById(R.id.genderOptionsFirstLine);
+        TextView secondLine = (TextView) findViewById(R.id.genderOptionsSecondLine);
+        RadioButton rb1 = (RadioButton) findViewById(R.id.radio_woman);
+        RadioButton rb2 = (RadioButton) findViewById(R.id.radio_man);
+        RadioButton rb3 = (RadioButton) findViewById(R.id.radio_nopreference);
+
+        back.setTypeface(customFont);
+        save.setTypeface(customFont);
+        firstLine.setTypeface(customFont);
+        secondLine.setTypeface(customFont);
+        rb1.setTypeface(customFont);
+        rb2.setTypeface(customFont);
+        rb3.setTypeface(customFont);
+
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setGeneralContentView();
+            }
+        });
+    }
+
+    public void selectGender(View v) {
+
+        boolean checked = ((RadioButton) v).isChecked();
+
+        switch (v.getId()) {
+
+            case R.id.radio_woman:
+                if(checked) {
+                    Toast.makeText(BookingSystem.this, "Woman", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.radio_man:
+                if(checked) {
+                    Toast.makeText(BookingSystem.this, "Man", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.radio_nopreference:
+                if(checked) {
+                    Toast.makeText(BookingSystem.this, "None", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
+    public void setGeneralContentView() {
+
+        setContentView(R.layout.booking_layout);
+
+        mSetDate = (TextView) findViewById(R.id.setDate);
+        mSetTime = (TextView) findViewById(R.id.setTime);
+        mBackFromBooking = (Button) findViewById(R.id.backFromBooking);
+        mBook = (Button) findViewById(R.id.bookFromBooking);
+        mBookingTitle = (TextView) findViewById(R.id.bookingTitle);
+
+        Typeface customFont = defineCustomFont();
+
+        mSetDate.setTypeface(customFont);
+        mSetTime.setTypeface(customFont);
+        mBackFromBooking.setTypeface(customFont);
+        mBook.setTypeface(customFont);
+        mBookingTitle.setTypeface(customFont);
+
+        mBackFromBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toMainScroll();
+            }
+        });
+
+        mBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postBooking();
+                disableBookButton();
+                //switchView();
+                Intent intent = new Intent(BookingSystem.this, TestLayout.class);
+                startActivity(intent);
+            }
+        });
+
+        mOptions = (ImageButton) findViewById(R.id.bookingOptions);
+        mOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                toOptions();
+            }
+        });
+
+        mOptions = (ImageButton) findViewById(R.id.bookingOptions);
+        mOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                toOptions();
+            }
+        });
+
+        setCurrentDateOnView();
+    }
 }
