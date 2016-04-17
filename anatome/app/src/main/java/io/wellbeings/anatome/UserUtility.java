@@ -2,9 +2,11 @@ package io.wellbeings.anatome;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * Model a user based on our applications
@@ -14,6 +16,7 @@ public class UserUtility implements Utility {
 
     //variables for the liver widget
     private double units;
+    private Stack<Double> drinks;
 
     // Log status of utility.
     protected STATUS utilityStatus;
@@ -43,6 +46,7 @@ public class UserUtility implements Utility {
 
         //units start at zero
         units = 0;
+        drinks = new Stack<Double>();
 
     }
 
@@ -162,5 +166,19 @@ public class UserUtility implements Utility {
     }
     public void setUnits(double units){
         this.units = units;
+        //empty the stack since the drinks dont match the units anymore
+        drinks = new Stack<Double>();
+    }
+    public void addDrink(double drink){
+        units += drink;
+        drinks.push(drink);
+    }
+    public void removeDrink(){
+        if(!drinks.empty()) {
+            units -= drinks.pop();
+            if(units < 0){
+                units = 0;
+            }
+        }
     }
 }

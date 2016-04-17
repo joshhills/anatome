@@ -227,11 +227,6 @@ abstract class XMLUtility implements Utility {
 
 	}
 	
-	// TODO: Implement node-writing function.
-	protected STATUS writeNodeToFile() {
-		return STATUS.NONE;
-	}
-	
 	@Override
 	public STATUS getState() {
 		return utilityStatus;

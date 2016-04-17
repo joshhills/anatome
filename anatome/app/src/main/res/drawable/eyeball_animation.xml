@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_1"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_2"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_3"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_4"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_5"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_6"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_7"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_8"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_9"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_10"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_11"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_12"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_13"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_14"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_15"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_16"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_17"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_18"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_19"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_20"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_21"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_22"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_23"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_24"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_25"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_26"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_27"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_28"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_29"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_30"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_31"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_32"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_33"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_34"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_35"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_36"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_37"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_38"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_39"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_40"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_41"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_42"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_43"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_44"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_45"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_46"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_47"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_48"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_49"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_50"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_51"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_52"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_53"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_54"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_55"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_56"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_57"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_58"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_59"/>-->
+
+    -<item
+    android:duration="40"
+    android:drawable="@drawable/look_60"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_61"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_62"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_63"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_64"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_65"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_66"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_67"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_68"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_69"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_70"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_71"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_72"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_73"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_74"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_75"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_76"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_77"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_78"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_79"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_80"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_81"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_82"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_83"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_84"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_85"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_86"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_87"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_88"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_89"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_90"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_91"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_92"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_93"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_94"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_95"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_96"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_97"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_98"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_99"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_100"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_101"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_102"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_103"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_104"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_105"/>-->
+
+    <item
+        android:duration="40"
+        android:drawable="@drawable/look_106"/>
+
+    <!--<item
+        android:duration="40"
+        android:drawable="@drawable/look_107"/>-->
+
+
+
+</animation-list>

@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentManager;
 
 public class Preamble extends AppCompatActivity {
 
-    // TODO: PAGER TESTING
     public static final int NUM_STEPS = 4;
     public static ViewPager mPager;
     private PagerAdapter mPagerAdapter;
@@ -31,13 +30,6 @@ public class Preamble extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        // Simultaneously initiate utilities and determine existence of user profile...
-        if(UtilityManager.getUserUtility(this).getState() == STATUS.SUCCESS) {
-            // If user already exists, preamble not needed, load main scroll.
-            Intent intent = new Intent(this, MainScroll.class);
-            startActivity(intent);
-        }
-
         // Set the correct view.
         setContentView(R.layout.activity_preamble);
 
@@ -45,7 +37,6 @@ public class Preamble extends AppCompatActivity {
         cLoad = new ContentLoader(this, getResources().openRawResource(R.raw.content),
                 getResources().openRawResource(R.raw.contentschema));
 
-        // TODO: PAGER TESTING
         mPager = (ViewPager) findViewById(R.id.preamble_carousel);
         mPagerAdapter = new MyPageAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
@@ -59,8 +50,12 @@ public class Preamble extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+
+                // Retrieve the fragment.
                 PreambleCarousel fragment = (PreambleCarousel) getSupportFragmentManager().findFragmentById(R.id.carousel_fragment);
+
                 fragment.changeTab(position);
+
             }
 
         });
@@ -96,8 +91,6 @@ public class Preamble extends AppCompatActivity {
 
     }
 
-    public void onFragmentInteraction(Uri uri){
-        //you can leave it empty
-    }
+    public void onFragmentInteraction(Uri uri){}
 
 }

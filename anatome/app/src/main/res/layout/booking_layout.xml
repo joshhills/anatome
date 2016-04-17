@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/clouds"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.92">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:id="@+id/backFromBooking"
+                android:layout_gravity="left|top"
+                style="?android:attr/borderlessButtonStyle"
+                android:textSize="26dp"
+                android:textColor="#09849a"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Book an \nAppointment"
+                android:id="@+id/bookingTitle"
+                android:layout_gravity="center_horizontal|top"
+                android:textSize="30dp"
+                android:textAlignment="center"
+                android:layout_marginTop="4dp"
+                android:textColor="#09849a" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.06">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="6">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.6"></FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="dd-MM-yy"
+                        android:id="@+id/setDate"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginTop="18dp"
+                        android:onClick="dateOnClick"
+                        android:textSize="28dp"
+                        android:textColor="#09849a" />
+                </FrameLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.18"></FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.06">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="7">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5.5"></FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="hh:mm a"
+                        android:id="@+id/setTime"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginTop="18dp"
+                        android:onClick="timeOnClick"
+                        android:textSize="28dp"
+                        android:textColor="#09849a" />
+                </FrameLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.92">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Book"
+                android:id="@+id/bookFromBooking"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="28dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:textSize="30dp"
+                android:textColor="#09849a"/>
+        </FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>

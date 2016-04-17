@@ -1,9 +1,9 @@
 package io.wellbeings.anatome;
 
-import android.content.Context;
-import android.net.Uri;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
-//not sure if this is right
-import android.content.Context;
-import java.util.ArrayList;
-import java.util.List;
-
+import android.content.DialogInterface;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Interactive subsection hinging on body part
+ * provides a unit calculator to monitor
+ * alcohol consumption of user.
+ *
+ * @author Team WellBeings - Josh, Phil
  */
 public class LiverWidget extends Fragment implements Widget {
 
@@ -39,7 +39,6 @@ public class LiverWidget extends Fragment implements Widget {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,23 +57,29 @@ public class LiverWidget extends Fragment implements Widget {
     private void initGUI() {
 
         // Retrieve references to spinners.
-        final Spinner drinkSpinner = (Spinner) v.findViewById(R.id.drinkSpinner);
-        final Spinner volumeSpinner = (Spinner) v.findViewById(R.id.volumeSpinner);
-        final Spinner percentageSpinner = (Spinner) v.findViewById(R.id.percentageSpinner);
+        final Spinner drinkSpinner = (Spinner) v.findViewById(R.id.liver_drink_spinner);
+        final Spinner volumeSpinner = (Spinner) v.findViewById(R.id.liver_volume_spinner);
+        final Spinner percentageSpinner = (Spinner) v.findViewById(R.id.liver_percentage_spinner);
 
-        //get buttons
-        Button addButton = (Button) v.findViewById(R.id.addButton);
-        Button clearButton = (Button) v.findViewById(R.id.clearButton);
-        //get the display to say the right number
+        // Get buttons
+        Button addButton = (Button) v.findViewById(R.id.liver_add_button);
+        Button clearButton = (Button) v.findViewById(R.id.liver_clear_button);
+        Button undoButton = (Button) v.findViewById(R.id.liver_undo_button);
+
         updateDisplay();
+
+        // Get the text warning.
+        ((TextView) v.findViewById(R.id.liver_threshold_warning)).setText(
+                UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-warning")
+        );
+
         /* Populate spinner options with correct localization. */
 
-        // Drink spinner listener (one instance, anonymous).
         drinkSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Intuitively fill the next options based on initial selection.
                 switch (position) {
-                    // TODO: Phil, fill case statements appropriately - have commented example.
                     case 0://beer
                         volumeSpinner.setSelection(0);//pint
                         percentageSpinner.setSelection(7);//4%
@@ -99,16 +104,13 @@ public class LiverWidget extends Fragment implements Widget {
                         volumeSpinner.setSelection(2);//single measure
                         percentageSpinner.setSelection(2);//15%
                         break;
-                    /*commented out because i dont think this part is needed
-                    default://other
-                        volumeSpinner.setSelection(7);//other
-                        percentageSpinner.setSelection(8);//other
-                        break;
-                        */
+
                 }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
         ArrayAdapter<String> drinkAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item,
                 UtilityManager.getContentLoader(getContext()).getInfoTextAsList(SECTION, "drinks", ","));
@@ -117,38 +119,12 @@ public class LiverWidget extends Fragment implements Widget {
         // Attach adapter.
         drinkSpinner.setAdapter(drinkAdapter);
 
-        // Volume spinner listener (one instance, anonymous).
-        volumeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: Phil, fill case statements appropriately
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
         ArrayAdapter<String> volumeAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item,
                 UtilityManager.getContentLoader(getContext()).getInfoTextAsList(SECTION, "volume", ","));
         // Set style.
         volumeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Attach adapter.
         volumeSpinner.setAdapter(volumeAdapter);
-
-        // percentage spinner listener (one instance, anonymous).
-        percentageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    // TODO: Phil, fill case statements appropriately
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
 
         ArrayAdapter<String> percentageAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item,
                 UtilityManager.getContentLoader(getContext()).getInfoTextAsList(SECTION, "percentage", ","));
@@ -157,11 +133,13 @@ public class LiverWidget extends Fragment implements Widget {
         // Attach adapter.
         percentageSpinner.setAdapter(percentageAdapter);
 
+        // Attach functionality to the add button.
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                // Store accumulative values.
                 int volume;
                 double percentage;
-                //turn volume into ml
+                // Perform unit conversion to get volume.
                 switch (volumeSpinner.getSelectedItemPosition()) {
                     case 0://pint
                         volume = 568;
@@ -188,6 +166,12 @@ public class LiverWidget extends Fragment implements Widget {
                         volume = 0;
                         break;
                 }
+
+                // Get percentage.
+                percentage = Integer.parseInt(percentageSpinner.getSelectedItem().toString()
+                        .replace("%", ""));
+
+
                 //get the percentage (can probably do something cleverer than a switch in the future)
                 switch (percentageSpinner.getSelectedItemPosition()) {
                     case 0:
@@ -219,27 +203,39 @@ public class LiverWidget extends Fragment implements Widget {
                         break;
                 }
 
-                setUnits(getUnits() + ((percentage * volume) / 1000));//work out the units and add them to the unit amount
+                addDrink((percentage * volume) / 1000);
 
                 updateDisplay();
             }
         });
 
+        // Attach functionality to the clear button.
         clearButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 setUnits(0);
                 updateDisplay();
             }
         });
-        
+
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                UtilityManager.getUserUtility(getActivity()).removeDrink();
+                updateDisplay();
+            }
+        });
+
     }
 
-    private void updateDisplay(){
-        //get text view
-        final TextView unitDisplay = (TextView) v.findViewById(R.id.unitDisplay);
-        TextView Warning = (TextView) v.findViewById(R.id.wordOfWarning);
+    /* Visual methods. */
 
-        //updating unit display
+    // Update the display to reflect changes in unit calculation.
+    private void updateDisplay(){
+
+        // Retrieve references to text elements.
+        final TextView unitDisplay = (TextView) v.findViewById(R.id.liver_unit_display);
+        TextView warning = (TextView) v.findViewById(R.id.liver_warning);
+
+        // Update unit display.
         //TODO: the word "units" needs to go in the xml so we can do different languages
         if(getUnits() != 1) {
             unitDisplay.setText(String.format("%.1f",getUnits()) + " Units");
@@ -248,31 +244,71 @@ public class LiverWidget extends Fragment implements Widget {
             unitDisplay.setText(String.format("%.1f",getUnits()) + " Unit");
         }
 
-        //updating warning
+        // Update warnings.
+        TextView thresholdWarning = (TextView) v.findViewById(R.id.liver_threshold_warning);
         if(getUnits() == 0){
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "fine"));
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-1"));
+            thresholdWarning.setVisibility(View.GONE);
         }
-        else if(getUnits() < 2){
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "tipsy"));
+        else if(getUnits() < 2) {
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-2"));
+            thresholdWarning.setVisibility(View.GONE);
         }
-        else if(getUnits() < 5){
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "drunk"));
+        else if(getUnits() < 5) {
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-3"));
+            thresholdWarning.setVisibility(View.VISIBLE);
         }
-        else if(getUnits() < 10){
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "crunk"));
+        else if(getUnits() < 10) {
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-4"));
+            thresholdWarning.setVisibility(View.VISIBLE);
         }
-        else if(getUnits() < 15){
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "krunk"));
+        else if(getUnits() < 15) {
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-5"));
+            thresholdWarning.setVisibility(View.VISIBLE);
         }
         else{
-            Warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "michael watts"));
+            warning.setText(UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "threshold-6"));
+            thresholdWarning.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void pushVisualTransition(int state) {
+
+        
+
+    }
+
+    /* Helper methods to retrieve semi-persistent information. */
+
+    private int otherDialog(String title, int layout){
+        int i = 0;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(title);
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        builder.setView(inflater.inflate(layout, null))
+                .setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+        return i;
     }
 
     private double getUnits(){
         return UtilityManager.getUserUtility(getActivity()).getUnits();
     }
+
     private void setUnits(double units){
         UtilityManager.getUserUtility(getActivity()).setUnits(units);
+    }
+
+    private void addDrink(double units){
+        UtilityManager.getUserUtility(getActivity()).addDrink(units);
     }
 }
