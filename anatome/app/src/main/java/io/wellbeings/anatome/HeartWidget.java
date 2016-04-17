@@ -30,6 +30,9 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
     int counterValue = 0;
     Timer textTimer = new Timer();
     Vibrator vibrateToUser;
+    List<String> instructionalText;
+    // Store name of section.
+    private final String SECTION = "heart";
 
 
 
@@ -69,10 +72,10 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
         vibrateToUser = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
-
-
+        instructionalText = getInstructions();
 
         setDefautFont(v);
+        
 
         return v;
     }
@@ -134,6 +137,7 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
                                 vibrateToUser.vibrate(200);
                                 counterIsIncreasing = true;
+                                setInstructionText(instructionalText.get(0));
 
                             }
 
@@ -141,6 +145,7 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
                                 vibrateToUser.vibrate(200);
                                 counterIsIncreasing = false;
+                                setInstructionText(instructionalText.get(1));
                             }
 
                             if (counterIsIncreasing) {
@@ -202,13 +207,9 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
 
     // fetches a list of strings for the instructional text
-    private List<String> getText() {
+    private List<String> getInstructions() {
 
-        ArrayList<String> instructionalText = new ArrayList<String>();
+        return UtilityManager.getContentLoader(getContext()).getInfoTextAsList(SECTION, "instructional_text", ",");
 
-        instructionalText.add("breathe in");
-        instructionalText.add("breathe out");
-
-        return instructionalText;
     }
 }

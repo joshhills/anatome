@@ -5,8 +5,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/scrollView"
-    android:background="@color/main_main_bg"
-    android:fillViewport="false">
+        android:background="@color/main_main_bg"
+        android:fillViewport="false">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -17,41 +17,93 @@
         android:orientation="vertical">
 
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:id="@+id/welcome"
-            android:src="@drawable/one" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:id="@+id/brain"
-            android:src="@drawable/two" />
+            android:id="@+id/mainscroll_background"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+
+            />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
             android:adjustViewBounds="true"
             android:id="@+id/heart"
-            android:src="@drawable/three" />
+            android:layout_marginTop="540dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
+
+
+        <RelativeLayout android:id="@+id/brain_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/liver_back"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:adjustViewBounds="true"
+                android:id="@+id/brain"
+                android:layout_alignTop="@+id/view"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp"
+
+               />
+
+            <io.wellbeings.anatome.ElectricView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:id="@+id/view"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:id="@+id/liver_back"
+            android:layout_alignTop="@+id/heart"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="366dp" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:id="@+id/liver"
-            android:src="@drawable/four" />
+            android:layout_alignTop="@+id/liver_back"
+            android:layout_centerHorizontal="true" />
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:id="@+id/footer"
-            android:src="@drawable/five" />
+            android:layout_below="@+id/mainscroll_background"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
 
+            />
+
+        </RelativeLayout>
     </LinearLayout>
  </ScrollView>
 
