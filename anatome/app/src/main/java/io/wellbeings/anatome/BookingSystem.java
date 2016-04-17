@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -36,19 +35,10 @@ public class BookingSystem extends AppCompatActivity {
     private ImageButton mOptions;
 
 
-    private RadioGroup radioGroup;
-    private RadioButton selectedRadioBtn;
-    private Button saveBtn;
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.booking_layout);
         setGeneralContentView();
-
 
         mOptions = (ImageButton) findViewById(R.id.bookingOptions);
         mOptions.setOnClickListener(new View.OnClickListener() {
@@ -58,44 +48,6 @@ public class BookingSystem extends AppCompatActivity {
                 toOptions();
             }
         });
-
-        /*
-        mSetDate = (TextView) findViewById(R.id.setDate);
-        mSetTime = (TextView) findViewById(R.id.setTime);
-        mBackFromBooking = (Button) findViewById(R.id.backFromBooking);
-        mBook = (Button) findViewById(R.id.bookFromBooking);
-        mBookingTitle = (TextView) findViewById(R.id.bookingTitle);
-
-        Typeface customFont = defineCustomFont();
-
-        mSetDate.setTypeface(customFont);
-        mSetTime.setTypeface(customFont);
-        mBackFromBooking.setTypeface(customFont);
-        mBook.setTypeface(customFont);
-        mBookingTitle.setTypeface(customFont);
-
-        mBackFromBooking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toMainScroll();
-                // postBooking();
-            }
-        });
-
-        mBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                postBooking();
-                disableBookButton();
-                //switchView();
-                Intent intent = new Intent(BookingSystem.this, TestLayout.class);
-                startActivity(intent);
-            }
-        });
-
-        //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
-
-        setCurrentDateOnView();*/
     }
 
     TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
@@ -124,7 +76,6 @@ public class BookingSystem extends AppCompatActivity {
 
         new TimePickerDialog(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT, time,
                 c.get(Calendar.HOUR), c.get(Calendar.MINUTE), false).show();
-
     }
 
     public void dateOnClick(View view) {
@@ -135,7 +86,6 @@ public class BookingSystem extends AppCompatActivity {
         dp.getDatePicker().setMinDate(newdate.getTime());
         dp.getDatePicker().setMaxDate(newdate.getTime() + 1209600000);
         dp.show();
-
     }
 
     // Formats date & time
@@ -188,23 +138,6 @@ public class BookingSystem extends AppCompatActivity {
         mBook.setTextColor(Color.parseColor("#BBBBBB"));
     }
 
-   /* private void switchView() {
-
-        setContentView(R.layout.test_layout);
-
-        Button backBtn = (Button)findViewById(R.id.backFromBooked);
-
-        Typeface customFont = defineCustomFont();
-        backBtn.setTypeface(customFont);
-
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toMainScroll();
-            }
-        });
-    }*/
-
     private void toMainScroll() {
         Intent i = new Intent(BookingSystem.this, MainScroll.class);
         startActivity(i);
@@ -220,7 +153,7 @@ public class BookingSystem extends AppCompatActivity {
 
     private void toOptions() {
 
-        setContentView(R.layout.booking_options_test);
+        setContentView(R.layout.booking_options_layout);
         Button back = (Button) findViewById(R.id.backFromGenderOptionsButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -276,7 +209,6 @@ public class BookingSystem extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toMainScroll();
-                // postBooking();
             }
         });
 
@@ -300,11 +232,15 @@ public class BookingSystem extends AppCompatActivity {
             }
         });
 
-        //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
+        mOptions = (ImageButton) findViewById(R.id.bookingOptions);
+        mOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                toOptions();
+            }
+        });
 
         setCurrentDateOnView();
-
-
-
     }
 }
