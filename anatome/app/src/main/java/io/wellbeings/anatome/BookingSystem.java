@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -154,7 +155,25 @@ public class BookingSystem extends AppCompatActivity {
     private void toOptions() {
 
         setContentView(R.layout.booking_options_layout);
+
+        Typeface customFont = defineCustomFont();
         Button back = (Button) findViewById(R.id.backFromGenderOptionsButton);
+        Button save = (Button) findViewById(R.id.saveGenderOptionsButton);
+        TextView firstLine = (TextView) findViewById(R.id.genderOptionsFirstLine);
+        TextView secondLine = (TextView) findViewById(R.id.genderOptionsSecondLine);
+        RadioButton rb1 = (RadioButton) findViewById(R.id.radio_woman);
+        RadioButton rb2 = (RadioButton) findViewById(R.id.radio_man);
+        RadioButton rb3 = (RadioButton) findViewById(R.id.radio_nopreference);
+
+        back.setTypeface(customFont);
+        save.setTypeface(customFont);
+        firstLine.setTypeface(customFont);
+        secondLine.setTypeface(customFont);
+        rb1.setTypeface(customFont);
+        rb2.setTypeface(customFont);
+        rb3.setTypeface(customFont);
+
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -32,7 +32,8 @@
                 android:layout_gravity="left|top"
                 style="?android:attr/borderlessButtonStyle"
                 android:textSize="26dp"
-                android:textColor="#09849a"/>
+                android:textColor="#09849a"
+                android:textAllCaps="false" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,17 +140,43 @@
             android:layout_height="match_parent"
             android:layout_weight="0.92">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Book"
-                android:id="@+id/bookFromBooking"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="28dp"
-                style="?android:attr/borderlessButtonStyle"
-                android:textSize="30dp"
-                android:textColor="#09849a"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.24">
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Book"
+                        android:id="@+id/bookFromBooking"
+                        android:layout_gravity="center_horizontal|bottom"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:textSize="30dp"
+                        android:textColor="#09849a"
+                        android:textAllCaps="false" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.32"></FrameLayout>
+            </LinearLayout>
+
         </FrameLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

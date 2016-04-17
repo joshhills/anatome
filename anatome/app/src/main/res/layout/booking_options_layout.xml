@@ -10,7 +10,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/booking_options_aircraft"
+        android:src="@drawable/booking_options_aircraft_small"
         android:scaleType="fitXY"
         android:adjustViewBounds="true" />
 
@@ -33,7 +33,9 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 style="?android:attr/borderlessButtonStyle"
-                android:textColor="#ffffffff" />
+                android:textColor="#ffffffff"
+                android:textSize="28dp"
+                android:textAllCaps="false" />
 
         </FrameLayout>
 
@@ -61,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Who do you want"
-                        android:id="@+id/textView4"
+                        android:id="@+id/genderOptionsFirstLine"
                         android:layout_gravity="center"
                         android:textSize="28dp"
                         android:textColor="#FF09849A" />
@@ -76,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="to meet ?"
-                        android:id="@+id/textView5"
+                        android:id="@+id/genderOptionsSecondLine"
                         android:layout_gravity="center"
                         android:textSize="28dp"
                         android:textColor="#FF09849A" />
@@ -166,7 +168,9 @@
                 android:id="@+id/saveGenderOptionsButton"
                 android:layout_gravity="center"
                 style="?android:attr/borderlessButtonStyle"
-                android:textColor="#ffffffff" />
+                android:textColor="#ffffffff"
+                android:textSize="28dp"
+                android:textAllCaps="false" />
         </FrameLayout>
 
     </LinearLayout>
