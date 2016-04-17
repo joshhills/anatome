@@ -79,7 +79,7 @@ public class ElectricView extends View {
                 int randomy = random.nextInt(100) - 50;
 
                 // find the center point
-                Point start = new Point(this.getMeasuredWidth()/2 + randomx,  this.getMeasuredHeight()/2 + randomy);
+                Point start = new Point(this.getMeasuredWidth()/2 + randomx,  this.getMeasuredHeight()/4 + randomy);
 
                 points.add(start);
 

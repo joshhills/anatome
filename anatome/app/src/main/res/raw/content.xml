@@ -64,6 +64,8 @@ For this reason, you may want to password-protect them.
             <information id="tips">
                 Here are some tips.
             </information>
+            <information id="instructional_text">
+            </information>
             <links>
                 <link>
                     <name>
@@ -126,7 +128,7 @@ For this reason, you may want to password-protect them.
                 •	Use our app to book an appointment with the Student wellbeing here at Newcastle University or contact them directly: 0191 208 3333.
             </information>
             <information id="instructional_text">
-                Take a deep breathe in and count to 5,Remember we are here to help
+                Take a deep breath in and count to 5, Remember we are here to help
                 Coming to university can be a stressful and overwhelming experience, but don’t despair!
                 Understanding your feelings and how to cope is the first step to feeling like you are back on track.
 

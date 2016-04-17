@@ -16,12 +16,6 @@
         tools:context="io.wellbeings.anatome.MainScroll"
         android:orientation="vertical">
 
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -72,47 +66,52 @@
 
         </FrameLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@android:color/white"></TextView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:id="@+id/mainscroll_background"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-
             />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2000dp"
+            android:orientation="vertical"
+
+            android:gravity="top"
+            android:layout_alignBottom="@+id/mainscroll_background"
+            android:layout_alignParentTop="true"
+            android:weightSum="5249">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:adjustViewBounds="true"
-            android:id="@+id/heart"
-            android:layout_marginTop="540dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="260"
+            ></ImageView>
+
 
 
         <RelativeLayout android:id="@+id/brain_group"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/liver_back"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_height="0dp"
+            android:layout_weight="1262">
 
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:adjustViewBounds="true"
                 android:id="@+id/brain"
-                android:layout_alignTop="@+id/view"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="20dp"
-
                />
 
             <io.wellbeings.anatome.ElectricView
@@ -121,40 +120,48 @@
                 android:id="@+id/view"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignBottom="@+id/brain"
                 android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 
         <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/heart"
+            android:layout_weight="1200"
+            />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="761">
+            <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:id="@+id/liver_back"
-            android:layout_alignTop="@+id/heart"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="366dp" />
+            android:id="@+id/liver_back" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:id="@+id/liver"
-            android:layout_alignTop="@+id/liver_back"
-            android:layout_centerHorizontal="true" />
+            />
+
+    </RelativeLayout>
+
+        </LinearLayout>
+
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:id="@+id/footer"
-            android:layout_below="@+id/mainscroll_background"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-
             />
-
-        </RelativeLayout>
     </LinearLayout>
  </ScrollView>
 

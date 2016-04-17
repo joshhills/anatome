@@ -75,7 +75,7 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.liver_front)
                 .dontTransform()
-                .override(1080, 761)
+                .override(1080, 662)
                 .animate(R.anim.liver_animation)
                 .into((ImageView) findViewById(R.id.liver));
 
@@ -84,7 +84,7 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.liver_back)
                 .dontTransform()
-                .override(1080, 761)
+                .override(1080, 662)
                 .into((ImageView) findViewById(R.id.liver_back));
 
         //load the footer

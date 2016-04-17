@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -106,6 +107,10 @@ public class ContentLoader extends XMLUtility {
                     + "']/section[@name='"
                     + sectionName + "']/information[@id='" + infoID + "']");
 
+        if (it == null) {
+
+            return new ArrayList<String>();
+        }
         // Trim, split by delimiter and return as array.
         return Arrays.asList(it.trim().split(delim));
 
