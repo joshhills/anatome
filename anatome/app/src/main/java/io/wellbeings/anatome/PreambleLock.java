@@ -62,7 +62,7 @@ public class PreambleLock extends Fragment {
             public void onClick(View v) {
 
                 // Create overarching interaction.
-                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
                 builder.setTitle("Set Password");
 
                 // Create input.

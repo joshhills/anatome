@@ -71,7 +71,7 @@ public class Loading extends Activity {
                     if(UtilityManager.getUserUtility(getApplicationContext()).getPassword() != null) {
 
                         // Create password input.
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(Loading.this);
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(Loading.this, AlertDialog.THEME_HOLO_LIGHT);
                         builder.setTitle("Input Password");
                         builder.setCancelable(false);
                         final EditText pwInput = new EditText(Loading.this);
