@@ -6,6 +6,7 @@
     <color name="main_main_bg">#54d3e2</color>
     <color name="main_main_text">#000000</color>
     <color name="main_accent_text">#ffffff</color>
+    <color name="electric_bolt">#cefffb</color>
     <!-- Mental Health Section. -->
     <color name="brain_main_bg">#8b6eb0</color>
     <color name="brain_secondary_bg">#432a64</color>
