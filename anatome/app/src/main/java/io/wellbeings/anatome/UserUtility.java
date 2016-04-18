@@ -14,10 +14,6 @@ import java.util.Stack;
  */
 public class UserUtility implements Utility {
 
-    //variables for the liver widget
-    private double units;
-    private Stack<Double> drinks;
-
     // Log status of utility.
     protected STATUS utilityStatus;
 
@@ -30,6 +26,13 @@ public class UserUtility implements Utility {
     // Store user settings.
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
+
+    // General persistent user storage (only active in app lifecycle).
+    private final int PASSWORD_LENGTH = 4;
+
+    // Liver widget persistent user storage (only active in app lifecycle).
+    private double units;
+    private Stack<Double> drinks;
 
     /**
      * Constructor to be called with resources
@@ -100,8 +103,6 @@ public class UserUtility implements Utility {
 
     /* Specific method for ease-of-use. */
 
-    // TODO: Fully comment with JavaDoc.
-
     /**
      * Alter the user's language, for use in
      * content-loading.
@@ -148,6 +149,10 @@ public class UserUtility implements Utility {
         return settings.getBoolean("NETWORK", true);
     }
 
+    public int getPASSWORD_SIZE() {
+        return PASSWORD_SIZE;
+    }
+
     // TODO: Password!!
 
     @Override
@@ -160,7 +165,10 @@ public class UserUtility implements Utility {
         return null;
     }
 
-    //getters and setters
+    /*
+     * Provide accessor methods for fields stored only during
+     * application lifecycle.
+     */
     public double getUnits(){
         return units;
     }
