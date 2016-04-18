@@ -62,6 +62,21 @@ public class DbUtility{
         addToDb(data, param);
     }
 
+    public void addAppointmentsToDate (String[] dates) {
+        String[] times = {"09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
+                "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"};
+
+        for(int i = 0; i < dates.length; i++) {
+            for(int j = 0; j < times.length; j++) {
+                List<NameValuePair> data = new ArrayList<>();
+                data.add(new BasicNameValuePair("date", dates[i]));
+                data.add(new BasicNameValuePair("time", times[j]));
+
+                addToDb(data, "fill");
+            }
+        }
+    }
+
     public HashMap<String, String> getAppointment(Context ctx) {
         String result;
         HashMap<String, String> appointments;
