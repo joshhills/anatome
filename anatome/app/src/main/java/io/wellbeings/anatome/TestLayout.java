@@ -57,7 +57,7 @@ public class TestLayout extends AppCompatActivity {
         dateView.setText(date);
         timeView.setText(time);
 
-        NotificationHandler.pushNotification(TestLayout.this, "Your Appointment", "Success your appointment had been booked!/nTime: " + time + "/nDate: " + date);
+        NotificationHandler.pushNotification(TestLayout.this, "Booked Appointment:", "Time: " + time + "/nDate: " + date);
 
     }
 

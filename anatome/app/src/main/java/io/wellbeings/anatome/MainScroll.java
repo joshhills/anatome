@@ -1,7 +1,9 @@
 package io.wellbeings.anatome;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -103,30 +105,51 @@ public class MainScroll extends Activity {
                @Override
                public void onClick(View v) {
 
-                   Context ctx = MainScroll.this;
-                   HashMap<String, String> appointments;
-                   DbUtility db = new DbUtility();
+                   String email = UtilityManager.getUserUtility(MainScroll.this).getEmail();
 
-                   appointments = db.getAppointment(ctx);
+                   if(email == null || "".equals(email.trim())) {
 
-                   String date;
-                   Boolean check;
+                       AlertDialog.Builder builder = new AlertDialog.Builder(MainScroll.this, AlertDialog.THEME_HOLO_LIGHT);
 
-                   try{
-                       date = appointments.get("App_Date").toString();
-                       check = true;
-                   }catch(Exception e) {
-                       check = false;
-                   }
+                       builder.setMessage("You must set your email in settings to book an appointment!")
+                               .setCancelable(false)
+                               .setPositiveButton("Okay",
+                                       new DialogInterface.OnClickListener() {
+                                           public void onClick(DialogInterface dialog, int id) {
+                                               dialog.cancel();
+                                           }
+                                       });
 
-                   if(check) {
-                       Intent intent = new Intent(v.getContext(), TestLayout.class);
-                       startActivity(intent);
-                   }
-                   else {
+                       AlertDialog alert = builder.create();
+                       alert.show();
 
-                       Intent intent = new Intent(v.getContext(), BookingSystem.class);
-                       startActivity(intent);
+                   }else {
+
+                       Context ctx = MainScroll.this;
+                       HashMap<String, String> appointments;
+                       DbUtility db = new DbUtility();
+
+                       appointments = db.getAppointment(ctx);
+
+                       String date;
+                       Boolean check;
+
+                       try {
+                           date = appointments.get("App_Date").toString();
+                           check = true;
+                       } catch (Exception e) {
+                           check = false;
+                       }
+
+                       if (check) {
+                           Intent intent = new Intent(v.getContext(), TestLayout.class);
+                           startActivity(intent);
+                       } else {
+
+                           Intent intent = new Intent(v.getContext(), BookingSystem.class);
+                           startActivity(intent);
+                       }
+
                    }
                }
            });
