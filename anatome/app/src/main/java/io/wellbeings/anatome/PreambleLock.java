@@ -85,7 +85,7 @@ public class PreambleLock extends Fragment {
                         // Reset the input.
                         final EditText pwConfirm = new EditText(getContext());
                         pwConfirm.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        pwConfirm.setFilters(new InputFilter[] {new InputFilter.LengthFilter(
+                        pwConfirm.setFilters(new InputFilter[]{new InputFilter.LengthFilter(
                                 UtilityManager.getUserUtility(getContext()).getPASSWORD_LENGTH()
                         )});
                         builder.setView(pwConfirm);
@@ -99,6 +99,9 @@ public class PreambleLock extends Fragment {
                                     // Display visual feedback.
                                     Toast.makeText(getContext(), "Password set.",
                                             Toast.LENGTH_SHORT).show();
+                                    // Store password.
+                                    UtilityManager.getUserUtility(getContext()).setPassword(
+                                            pwConfirm.getText().toString());
                                     // Continue to main activity.
                                     Intent intent = new Intent(getActivity(), MainScroll.class);
                                     startActivity(intent);

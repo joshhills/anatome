@@ -72,6 +72,7 @@ public class UserUtility implements Utility {
      */
     public void reset() {
         editor.clear();
+        editor.commit();
     }
 
     /**

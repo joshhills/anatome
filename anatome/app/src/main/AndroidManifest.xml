@@ -18,7 +18,8 @@
         android:supportsRtl="true">
         <activity
             android:name=".Preamble"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />ty>
+
         <activity
             android:name=".MainScroll"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -39,7 +40,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>" />
         <activity
             android:name=".Settings"
             android:theme="@style/AppTheme.NoActionBar" />
