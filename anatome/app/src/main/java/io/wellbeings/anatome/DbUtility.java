@@ -297,7 +297,6 @@ public class DbUtility{
             @Override
             protected String doInBackground(String... params) {
 
-
                 DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
 
                 HttpPost httppost = new HttpPost("http://team9.esy.es/testing.php?type=" + choice.toLowerCase() + "&email=" + UtilityManager.getUserUtility(ctx).getEmail() + "&area=" + area);
@@ -334,11 +333,6 @@ public class DbUtility{
                 return result;
             }
 
-
-            @Override
-            protected void onPostExecute(String result) {
-                //delegate.processFinish(result);
-            }
         }
 
 
