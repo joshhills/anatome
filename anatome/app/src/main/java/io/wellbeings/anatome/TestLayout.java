@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created by bettinaalexieva on 15/03/2016.
  */
@@ -37,12 +40,25 @@ public class TestLayout extends AppCompatActivity {
             }
         });
 
-        TextView t = (TextView) findViewById(R.id.bookedDate);
-        TextView y = (TextView) findViewById(R.id.bookedTime);
-        Context ctx = TestLayout.this;
 
-        DatabaseUtility db = new DatabaseUtility();
-        db.grabApp("app", t, y, ctx);
+        Context ctx = TestLayout.this;
+        HashMap<String, String> appointments;
+
+        DbUtility db = new DbUtility();
+
+        appointments = db.getAppointment(ctx);
+
+        TextView timeView = (TextView)findViewById(R.id.bookedTime);
+        TextView dateView = (TextView)findViewById(R.id.bookedDate);
+
+        String date = appointments.get("App_Date").toString();
+        String time = appointments.get("App_Time").toString();
+
+        dateView.setText(date);
+        timeView.setText(time);
+
+        NotificationHandler.pushNotification(TestLayout.this, "Your Appointment", "Success your appointment had been booked!/nTime: " + time + "/nDate: " + date);
 
     }
+
 }

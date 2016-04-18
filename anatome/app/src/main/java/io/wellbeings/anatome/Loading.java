@@ -1,6 +1,8 @@
 package io.wellbeings.anatome;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -8,9 +10,13 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
@@ -27,27 +33,6 @@ public class Loading extends Activity {
     private TextView mText;
     private Handler mHandler;
     private STATUS okGo;
-
-    FasterAnimationsContainer mFasterAnimationsContainer;
-    private static final int[] IMAGE_RESOURCES = { R.drawable.look_2,
-            R.drawable.look_4, R.drawable.look_6, R.drawable.look_8,
-            R.drawable.look_10, R.drawable.look_12, R.drawable.look_14,
-            R.drawable.look_16, R.drawable.look_18, R.drawable.look_20,
-            R.drawable.look_22, R.drawable.look_24, R.drawable.look_26,
-            R.drawable.look_28, R.drawable.look_30, R.drawable.look_32,
-            R.drawable.look_34, R.drawable.look_36, R.drawable.look_38,
-            R.drawable.look_40, R.drawable.look_42, R.drawable.look_44,
-            R.drawable.look_46, R.drawable.look_48, R.drawable.look_50,
-            R.drawable.look_52, R.drawable.look_54, R.drawable.look_56,
-            R.drawable.look_58, R.drawable.look_60, R.drawable.look_62,
-            R.drawable.look_64, R.drawable.look_66, R.drawable.look_68,
-            R.drawable.look_70, R.drawable.look_72, R.drawable.look_74,
-            R.drawable.look_76, R.drawable.look_78, R.drawable.look_80,
-            R.drawable.look_82, R.drawable.look_84, R.drawable.look_86,
-            R.drawable.look_88, R.drawable.look_90, R.drawable.look_92,
-            R.drawable.look_94, R.drawable.look_96, R.drawable.look_98,
-            R.drawable.look_100, R.drawable.look_102, R.drawable.look_104,
-            R.drawable.look_106};
 
     private static final int ANIMATION_INTERVAL = 100;// 500ms
 
@@ -66,6 +51,10 @@ public class Loading extends Activity {
             }
             protected void onPostExecute(STATUS status) {
                 // Set status to what was returned.
+
+                // TODO: REMOVE THIS
+                UtilityManager.getUserUtility(getApplicationContext()).reset();
+
                 okGo = status;
             }
         }.execute();
@@ -75,16 +64,69 @@ public class Loading extends Activity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Idle during async task.
-                while(okGo == STATUS.NONE) {}
-                // mFasterAnimationsContainer.stop();
+                // Simple idle during async task.
+                while(okGo == null) {}
+
                 // If user profile absent...
-                if(okGo == STATUS.FAIL) {
+                if(okGo == STATUS.NONE) {
+
                     // Set one up.
                     Intent i = new Intent(Loading.this, Preamble.class);
                     Loading.this.startActivity(i);
+
                 }
                 else if (okGo == STATUS.SUCCESS){
+
+                    // Check for the existence of a user password.
+                    if(UtilityManager.getUserUtility(getApplicationContext()).getPassword() != null) {
+
+                        // Create password input.
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                        builder.setTitle("Input Password");
+                        builder.setCancelable(false);
+                        final EditText pwInput = new EditText(getApplicationContext());
+
+                        // Force numerical keyboard and hidden values.
+                        pwInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        // Force maximum length.
+                        pwInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(
+                                UtilityManager.getUserUtility(getApplicationContext()).getPASSWORD_LENGTH()
+                        )});
+                        builder.setView(pwInput);
+
+                        // Dictate what the buttons do.
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // If the password is correct.
+                                if (pwInput.getText().toString() ==
+                                        UtilityManager.getUserUtility(getApplicationContext()).getPassword()) {
+                                    dialog.dismiss();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Incorrect password.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        builder.setNegativeButton("RESET", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Erase user data in order to continue.
+                                UtilityManager.getUserUtility(getApplicationContext()).reset();
+                                dialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Profile erased.",
+                                        Toast.LENGTH_SHORT).show();
+                                // Set-up new profile.
+                                Intent i = new Intent(Loading.this, Preamble.class);
+                                Loading.this.startActivity(i);
+                            }
+                        });
+
+                        // Show the now prepared dialog.
+                        builder.show();
+
+                    }
+
                     // Go to main scroll.
                     Intent i = new Intent(Loading.this, MainScroll.class);
                     Loading.this.startActivity(i);
@@ -107,16 +149,6 @@ public class Loading extends Activity {
 
         // Begin loading icon animation.
         ImageView imageView = (ImageView) findViewById(R.id.eyeball_image);
-
-        /*mFasterAnimationsContainer = FasterAnimationsContainer
-                .getInstance(imageView);
-        mFasterAnimationsContainer.addAllFrames(IMAGE_RESOURCES,
-                ANIMATION_INTERVAL);
-        mFasterAnimationsContainer.start();
-
-        // Glide.with(this).load(R.drawable.eyeball_animation).into(mImageViewFilling);
-        // ((AnimationDrawable) mImageViewFilling.getDrawable()).start();*/
-
 
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView);
         Glide.with(this).load(R.drawable.animtwo).into(imageViewTarget);

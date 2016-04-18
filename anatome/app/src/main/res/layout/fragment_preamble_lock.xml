@@ -28,7 +28,7 @@
     <ImageView
         android:layout_width="210dp"
         android:layout_height="200dp"
-        android:id="@+id/toolbox"
+        android:id="@+id/preamble_toolbox_graphic"
         android:contentDescription="@string/image_lock"
         android:src="@drawable/lock"
         android:layout_weight="0.04" />
@@ -37,8 +37,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Set Password"
-        android:id="@+id/setpassword"
+        android:id="@+id/preamble_password"
         android:layout_marginTop="20dp"
-        android:theme="@android:style/Theme.Holo" />
+        android:theme="@android:style/Theme.Holo"
+        android:background="@drawable/rounded_corners_bg"
+        android:textColor="#000000" />
 
 </LinearLayout>

@@ -16,5 +16,6 @@
     <string name="image_lock">Padlock</string>
     <string name="generic_name">name</string>
     <string name="title_activity_section">Section</string>
+    <string name="title_activity_awdawd">Map</string>
 
 </resources>

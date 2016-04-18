@@ -14,10 +14,6 @@ import java.util.Stack;
  */
 public class UserUtility implements Utility {
 
-    //variables for the liver widget
-    private double units;
-    private Stack<Double> drinks;
-
     // Log status of utility.
     protected STATUS utilityStatus;
 
@@ -31,6 +27,13 @@ public class UserUtility implements Utility {
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
 
+    // General persistent user storage (only active in app lifecycle).
+    private final int PASSWORD_LENGTH = 4;
+
+    // Liver 'widget' persistent user storage (only active in app lifecycle).
+    private double units = 0;
+    private Stack<Double> drinks = new Stack<Double>();
+
     /**
      * Constructor to be called with resources
      * delivered by calling context.
@@ -43,10 +46,6 @@ public class UserUtility implements Utility {
         this.ctx = ctx;
 
         utilityStatus = initialize();
-
-        //units start at zero
-        units = 0;
-        drinks = new Stack<Double>();
 
     }
 
@@ -66,6 +65,13 @@ public class UserUtility implements Utility {
             return STATUS.SUCCESS;
         }
 
+    }
+
+    /**
+     * Reset user settings, erasing their profile.
+     */
+    public void reset() {
+        editor.clear();
     }
 
     /**
@@ -99,8 +105,6 @@ public class UserUtility implements Utility {
     }
 
     /* Specific method for ease-of-use. */
-
-    // TODO: Fully comment with JavaDoc.
 
     /**
      * Alter the user's language, for use in
@@ -148,7 +152,16 @@ public class UserUtility implements Utility {
         return settings.getBoolean("NETWORK", true);
     }
 
-    // TODO: Password!!
+    public int getPASSWORD_LENGTH() {
+        return PASSWORD_LENGTH;
+    }
+    public void setPassword(String password) {
+        editor.putString("PASSWORD", password);
+        editor.apply();
+    }
+    public String getPassword() {
+        return settings.getString("PASSWORD", null);
+    }
 
     @Override
     public STATUS getState() {
@@ -160,7 +173,10 @@ public class UserUtility implements Utility {
         return null;
     }
 
-    //getters and setters
+    /*
+     * Provide accessor methods for fields stored only during
+     * application lifecycle.
+     */
     public double getUnits(){
         return units;
     }
