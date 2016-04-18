@@ -60,25 +60,27 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:id="@+id/deleteButton"
-                    android:src="@drawable/bin"/>
-                <Button
+                    android:src="@drawable/bin"
+                    android:background="@null"/>
+                <ImageButton
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Save"
                     android:id="@+id/btnSave1"
-                    android:textColor="@color/abc_primary_text_material_dark"
                     android:clickable="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true" />
-                <Button
+                    android:src="@drawable/save"
+                    android:background="@null"/>
+                <ImageButton
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Gallery"
-                    android:id="@+id/btnGallery" />
+                    android:id="@+id/btnGallery"
+                    android:src="@drawable/photograph"
+                    android:background="@null"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -164,7 +166,7 @@
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             android:id="@+id/negativeDelete"
             android:src="@drawable/bin"
             android:background="@null"/>
