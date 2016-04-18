@@ -120,7 +120,7 @@ public class PreambleCarousel extends Fragment {
 
             // If the email is blank, remind the user they may put one in at a later date.
             if(email == null || "".equals(email.trim())) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
 
                 builder.setMessage(UtilityManager.getContentLoader(getContext()).getNotificationText("email-empty"))
                         .setCancelable(false)
@@ -136,7 +136,7 @@ public class PreambleCarousel extends Fragment {
             }
             else if(!matcher.matches()) {
                 // Display error prompt.
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
 
                 builder.setTitle(UtilityManager.getContentLoader(getContext()).getButtonText("oops"))
                         .setMessage(UtilityManager.getContentLoader(getContext()).getNotificationText("email-invalid"))

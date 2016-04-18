@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,12 +30,9 @@ public class Loading extends Activity {
 
     // Store useful private fields.
     private static final int SPLASH_DURATION = 4000;
-    private boolean mBackBtnPress;
     private TextView mText;
     private Handler mHandler;
     private STATUS okGo;
-
-    private static final int ANIMATION_INTERVAL = 100;// 500ms
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +49,6 @@ public class Loading extends Activity {
             }
             protected void onPostExecute(STATUS status) {
                 // Set status to what was returned.
-
-                // TODO: REMOVE THIS
-                UtilityManager.getUserUtility(getApplicationContext()).reset();
-
                 okGo = status;
             }
         }.execute();
@@ -64,27 +58,23 @@ public class Loading extends Activity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 // Simple idle during async task.
                 while(okGo == null) {}
 
-                // If user profile absent...
-                if(okGo == STATUS.NONE) {
+               // Log.d("DDD", UtilityManager.getUserUtility(getApplicationContext()).getPassword());
 
-                    // Set one up.
-                    Intent i = new Intent(Loading.this, Preamble.class);
-                    Loading.this.startActivity(i);
-
-                }
-                else if (okGo == STATUS.SUCCESS){
+                // If a user profile exists.
+                if (okGo == STATUS.SUCCESS) {
 
                     // Check for the existence of a user password.
                     if(UtilityManager.getUserUtility(getApplicationContext()).getPassword() != null) {
 
                         // Create password input.
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(Loading.this, AlertDialog.THEME_HOLO_LIGHT);
                         builder.setTitle("Input Password");
                         builder.setCancelable(false);
-                        final EditText pwInput = new EditText(getApplicationContext());
+                        final EditText pwInput = new EditText(Loading.this);
 
                         // Force numerical keyboard and hidden values.
                         pwInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -94,42 +84,54 @@ public class Loading extends Activity {
                         )});
                         builder.setView(pwInput);
 
-                        // Dictate what the buttons do.
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // If the password is correct.
-                                if (pwInput.getText().toString() ==
-                                        UtilityManager.getUserUtility(getApplicationContext()).getPassword()) {
-                                    dialog.dismiss();
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Incorrect password.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                        // Dictate how the buttons should look.
+                        builder.setPositiveButton("OK", null);
                         builder.setNegativeButton("RESET", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Erase user data in order to continue.
                                 UtilityManager.getUserUtility(getApplicationContext()).reset();
                                 dialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "Profile erased.",
+                                Toast.makeText(Loading.this, "Profile erased.",
                                         Toast.LENGTH_SHORT).show();
                                 // Set-up new profile.
                                 Intent i = new Intent(Loading.this, Preamble.class);
                                 Loading.this.startActivity(i);
                             }
                         });
-
-                        // Show the now prepared dialog.
-                        builder.show();
+                        // Show and override positive button.
+                        final AlertDialog pwScreen = builder.create();
+                        pwScreen.show();
+                        pwScreen.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // If the password is correct.
+                                if (pwInput.getText().toString().equals(
+                                        UtilityManager.getUserUtility(getApplicationContext()).getPassword())) {
+                                    pwScreen.dismiss();
+                                    // OK to navigate to main scroll.
+                                    Intent i = new Intent(Loading.this, MainScroll.class);
+                                    Loading.this.startActivity(i);
+                                } else {
+                                    Toast.makeText(Loading.this, "Incorrect password.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
 
                     }
+                    else {
+                        // Go to main scroll.
+                        Intent i = new Intent(Loading.this, MainScroll.class);
+                        Loading.this.startActivity(i);
+                    }
+                }
+                else {
 
-                    // Go to main scroll.
-                    Intent i = new Intent(Loading.this, MainScroll.class);
+                    // Otherwise user profile does not exist, so set one up.
+                    Intent i = new Intent(Loading.this, Preamble.class);
                     Loading.this.startActivity(i);
+
                 }
             }
         }, SPLASH_DURATION);

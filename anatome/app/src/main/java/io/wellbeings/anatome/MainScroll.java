@@ -116,8 +116,7 @@ public class MainScroll extends Activity {
             ((ImageButton) findViewById(R.id.settingsImage)).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), Settings.class);
-                    startActivity(intent);
+                    startActivity(new Intent(MainScroll.this, Settings.class));
                 }
             });
 
