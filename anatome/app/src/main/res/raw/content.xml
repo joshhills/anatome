@@ -49,7 +49,7 @@ For this reason, you may want to password-protect them.
             <!-- Headers store titles for parts of the section. -->
             <headers>
                 <header id="title">
-                    Heart
+                    Anxiety
                 </header>
                 <header id="tips">
                     Here's some general pointers:
@@ -60,6 +60,7 @@ For this reason, you may want to password-protect them.
             </headers>
             <information id="title">
                 Here's some information about the topic.
+
             </information>
             <information id="tips">
                 Here are some tips.
@@ -67,26 +68,26 @@ For this reason, you may want to password-protect them.
             <links>
                 <link>
                     <name>
-                        Google
+                        Anxiety and panic attacks
                     </name>
                     <source>
-                        http://www.google.com/
+                        http://www.mind.org.uk/information-support/types-of-mental-health-problems/anxiety-and-panic-attacks/#.VrnW-tuLRD8
                     </source>
                 </link>
                 <link>
                     <name>
-                        Helpful link2.
+                        Anxiety
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        http://www.moodjuice.scot.nhs.uk/anxiety.asp
                     </source>
                 </link>
                 <link>
                     <name>
-                        Helpful link3.
+                        Generalised anxiety disorder
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        http://www.nhs.uk/Conditions/Anxiety/Pages/Introduction.aspx
                     </source>
                 </link>
             </links>

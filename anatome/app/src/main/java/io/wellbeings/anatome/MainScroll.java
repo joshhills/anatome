@@ -22,7 +22,7 @@ public class MainScroll extends Activity {
     /**
      * On activity creation, set up canvas.
      *
-     * @param savedInstanceState    Previously cached state.
+     * @param savedInstanceState Previously cached state.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +51,14 @@ public class MainScroll extends Activity {
         findViewById(R.id.bookingInfoButton).setOnClickListener(navigateToBookingSystem);
         // ************************************************************
 
+        // ************************************************************
+        findViewById(R.id.settingsImage).setOnClickListener(navigateToSettings);
+        // ************************************************************
+
     }
 
     // Mutual re-usable interface type to manage section routing.
-    private OnClickListener navigateToSection = new OnClickListener(){
+    private OnClickListener navigateToSection = new OnClickListener() {
         public void onClick(View arg) {
 
             // Retrieve the name of the section, strip extra data.
@@ -73,32 +77,49 @@ public class MainScroll extends Activity {
 
     // ************************************************************
     private OnClickListener navigateToBookingSystem = new OnClickListener() {
-       @Override
-       public void onClick(View v) {
+        @Override
+        public void onClick(View v) {
 
-           TextView needMoreHelpText = (TextView) findViewById(R.id.needMoreHelpText);
-           ImageButton infoButtonOnMainScroll = (ImageButton) v;
-           ImageButton bookImageButtonOnMainScroll = (ImageButton) findViewById(R.id.bookButtonOnMainScroll);
+            TextView needMoreHelpText = (TextView) findViewById(R.id.needMoreHelpText);
+            ImageButton infoButtonOnMainScroll = (ImageButton) v;
+            ImageButton bookImageButtonOnMainScroll = (ImageButton) findViewById(R.id.bookButtonOnMainScroll);
 
-           infoButtonOnMainScroll.setVisibility(View.INVISIBLE);
-           //needMoreHelpText.setVisibility(View.INVISIBLE);
+            infoButtonOnMainScroll.setVisibility(View.INVISIBLE);
+            //needMoreHelpText.setVisibility(View.INVISIBLE);
 
 
-           AssetManager assetManager = getAssets();
-           Typeface customFontBariol = Typeface.createFromAsset(assetManager, "fonts/Bariol.ttf");
-           Typeface customFontHelvetica = Typeface.createFromAsset(assetManager, "fonts/Helvetica.ttf");
+            AssetManager assetManager = getAssets();
+            Typeface customFontBariol = Typeface.createFromAsset(assetManager, "fonts/Bariol.ttf");
+            Typeface customFontHelvetica = Typeface.createFromAsset(assetManager, "fonts/Helvetica.ttf");
 
-           needMoreHelpText.setTextSize(20);
-           needMoreHelpText.setText("Book an appointment with \nthe Wellbeing Service");
-           bookImageButtonOnMainScroll.setVisibility(View.VISIBLE);
+            needMoreHelpText.setTextSize(20);
+            needMoreHelpText.setText("Book an appointment with \nthe Wellbeing Service");
+            bookImageButtonOnMainScroll.setVisibility(View.VISIBLE);
 
-           bookImageButtonOnMainScroll.setOnClickListener(new OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   Intent intent = new Intent(v.getContext(), BookingSystem.class);
-                   startActivity(intent);
-               }
-           });
+            bookImageButtonOnMainScroll.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), BookingSystem.class);
+                    startActivity(intent);
+                }
+            });
+
+
+        }
+    };
+
+    private OnClickListener navigateToSettings = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+
+            ((ImageButton) findViewById(R.id.settingsImage)).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), Settings.class);
+                    startActivity(intent);
+                }
+            });
 
 
         }
