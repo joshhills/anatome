@@ -96,16 +96,13 @@ public class MainScroll extends Activity {
             needMoreHelpText.setText("Book an appointment with \nthe Wellbeing Service");
             bookImageButtonOnMainScroll.setVisibility(View.VISIBLE);
 
-           bookImageButtonOnMainScroll.setOnClickListener(new OnClickListener() {
-               @Override
-               public void onClick(View v) {
-
-                   //add appointment check here
-
-                   Intent intent = new Intent(v.getContext(), BookingSystem.class);
-                   startActivity(intent);
-               }
-           });
+            bookImageButtonOnMainScroll.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), BookingSystem.class);
+                    startActivity(intent);
+                }
+            });
 
 
         }
@@ -116,12 +113,25 @@ public class MainScroll extends Activity {
         public void onClick(View v) {
 
 
+<<<<<<< Updated upstream
             ((ImageButton) findViewById(R.id.settingsImage)).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(MainScroll.this, Settings.class));
                 }
             });
+=======
+           bookImageButtonOnMainScroll.setOnClickListener(new OnClickListener() {
+               @Override
+               public void onClick(View v) {
+
+                   //add appointment check here
+
+                   Intent intent = new Intent(v.getContext(), BookingSystem.class);
+                   startActivity(intent);
+               }
+           });
+>>>>>>> Stashed changes
 
 
         }
