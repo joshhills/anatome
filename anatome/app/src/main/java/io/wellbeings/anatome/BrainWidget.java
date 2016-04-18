@@ -50,6 +50,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 public class BrainWidget extends Fragment implements Widget {
 
     // Store view object for UI manipulation.
@@ -286,13 +288,42 @@ public class BrainWidget extends Fragment implements Widget {
      */
     //method for displaying a saved note
     private void initNote(final Note note, int index) {
-        Log.d("noteListPage", "initNote called.");
         //obtain the horizontal scroll view that stores the notes
         final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
 
         //create a LinearLayout element
-        final LinearLayout ll = new LinearLayout(getContext());
-        ll.setOrientation(LinearLayout.VERTICAL);
+        //final LinearLayout ll = new LinearLayout(getContext());
+        LayoutInflater inflater;
+        inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        final LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.note_layout,scroll,false);
+
+        //final LinearLayout ll = (LinearLayout)getResources().getLayout(R.layout.note_layout);
+        TextView date = (TextView)ll.findViewById(R.id.date);
+        date.setText(getCurrentDate());
+
+        //if the note has image content
+        if(note.hasImageContent()) {
+            ImageView iv = (ImageView)ll.findViewById(R.id.imageContent);
+
+            //retrieve the image content and add it to view
+            String imageDir = note.getImageDirectory();
+            iv.setImageBitmap(BitmapFactory.decodeFile(imageDir));
+            iv.setVisibility(View.VISIBLE); //make the image content visible
+        }
+
+        //else, the content is text based
+        else {
+            //add the note's text input
+            TextView noteInput = (TextView)ll.findViewById(R.id.textContent);
+            //noteInput.setLayoutParams(params);
+            noteInput.setText(note.getContent());
+            //noteInput.setTextSize(13f);
+            //noteInput.setFocusable(false); //disable editing of saved note
+            //ll.addView(noteInput);
+        }
+
+        /*ll.setOrientation(LinearLayout.VERTICAL);
         //define layout parameters for the container
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(NOTE_WIDTH,
@@ -307,13 +338,13 @@ public class BrainWidget extends Fragment implements Widget {
         //set the date's weight
         date.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, 0,0.5f));
-        ll.addView(date);
+        ll.addView(date);*/
 
         /*
             Load in the content of the note object
          */
         //re-define new parameters suitable for the content view
-        params = new LinearLayout.LayoutParams(
+        /*params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, 0, 5f);
 
         //if the content is image-related, load in an image
@@ -335,19 +366,20 @@ public class BrainWidget extends Fragment implements Widget {
             noteInput.setTextSize(13f);
             noteInput.setFocusable(false); //disable editing of saved note
             ll.addView(noteInput);
-        }
+        }*/
 
         //add the delete button
-        final ImageButton deleteButton = new ImageButton(getContext());
+        //final ImageButton deleteButton = new ImageButton(getContext());
+        final ImageButton deleteButton = (ImageButton)ll.findViewById(R.id.delete);
         //must use depreciated version because minimum API is set to 16.
         //we could include theme as a second param (not depreciated) but this requires API level 21
-        Drawable d = getResources().getDrawable(R.drawable.bin);
+        /*Drawable d = getResources().getDrawable(R.drawable.bin);
         deleteButton.setImageDrawable(d);
         deleteButton.setBackground(null); //make background transparent
         //set the weight of the delete button in attached note
         deleteButton.setLayoutParams(
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f));
-        ll.addView(deleteButton);
+        ll.addView(deleteButton);*/
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -383,7 +415,7 @@ public class BrainWidget extends Fragment implements Widget {
         });
 
         //change background colour of the linearLayout to white
-        ll.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        //ll.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
         //add Layout to the scrollview
         scroll.addView(ll, index);
