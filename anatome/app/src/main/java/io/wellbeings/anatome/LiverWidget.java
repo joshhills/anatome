@@ -3,12 +3,12 @@ package io.wellbeings.anatome;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,7 +19,7 @@ import android.content.DialogInterface;
  * provides a unit calculator to monitor
  * alcohol consumption of user.
  *
- * @author Team WellBeings - Josh, Phil
+ * @author Team WellBeings - Phil, Josh
  */
 public class LiverWidget extends Fragment implements Widget {
 
@@ -29,6 +29,8 @@ public class LiverWidget extends Fragment implements Widget {
     private final String SECTION = "liver";
     // Store view object for UI manipulation.
     private View v;
+    //special final value for the dialog boxes when you chose other
+    private double otherDouble;
 
     /* Necessary lifecycle methods. */
     public LiverWidget() {}
@@ -126,12 +128,27 @@ public class LiverWidget extends Fragment implements Widget {
         // Attach adapter.
         volumeSpinner.setAdapter(volumeAdapter);
 
+
+
         ArrayAdapter<String> percentageAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item,
                 UtilityManager.getContentLoader(getContext()).getInfoTextAsList(SECTION, "percentage", ","));
         // Set style.
         percentageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Attach adapter.
         percentageSpinner.setAdapter(percentageAdapter);
+
+        percentageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 8){
+                    otherDialog("enter volume", R.layout.dialog_liver_percentage);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         // Attach functionality to the add button.
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -140,67 +157,23 @@ public class LiverWidget extends Fragment implements Widget {
                 int volume;
                 double percentage;
                 // Perform unit conversion to get volume.
-                switch (volumeSpinner.getSelectedItemPosition()) {
-                    case 0://pint
-                        volume = 568;
-                        break;
-                    case 1://half pint
-                        volume = 284;
-                        break;
-                    case 2://single
-                        volume = 25;
-                        break;
-                    case 3://double
-                        volume = 50;
-                        break;
-                    case 4://treble
-                        volume = 75;
-                        break;
-                    case 5://large wine
-                        volume = 250;
-                        break;
-                    case 6://small wine
-                        volume = 125;
-                        break;
-                    default://other
-                        volume = 0;
-                        break;
+                int[] volumeArray = {568, 284, 25, 50, 75, 250, 125};
+                int pos = volumeSpinner.getSelectedItemPosition();
+                if(pos < 7) {
+                    volume = volumeArray[pos];
+                }
+                else{
+                    volume = 0;
                 }
 
                 // Get percentage.
-                percentage = Integer.parseInt(percentageSpinner.getSelectedItem().toString()
-                        .replace("%", ""));
-
-
-                //get the percentage (can probably do something cleverer than a switch in the future)
-                switch (percentageSpinner.getSelectedItemPosition()) {
-                    case 0:
-                        percentage = 40;
-                        break;
-                    case 1:
-                        percentage = 37.5;
-                        break;
-                    case 2:
-                        percentage = 15;
-                        break;
-                    case 3:
-                        percentage = 12;
-                        break;
-                    case 4:
-                        percentage = 10;
-                        break;
-                    case 5:
-                        percentage = 7.5;
-                        break;
-                    case 6:
-                        percentage = 5;
-                        break;
-                    case 7:
-                        percentage = 4;
-                        break;
-                    default:
-                        percentage = 0;
-                        break;
+                if(percentageSpinner.getSelectedItemPosition() < 8) {
+                    percentage = Integer.parseInt(percentageSpinner.getSelectedItem().toString()
+                            .replace("%", ""));
+                }
+                else {
+                    //going to be replaced by the custom value
+                    percentage = 0.0;
                 }
 
                 addDrink((percentage * volume) / 1000);
@@ -278,26 +251,32 @@ public class LiverWidget extends Fragment implements Widget {
 
     }
 
-    /* Helper methods to retrieve semi-persistent information. */
 
-    private int otherDialog(String title, int layout){
-        int i = 0;
+    private void otherDialog(String title, int layout){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(title);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(layout, null))
+        final View myView = inflater.inflate(layout, null);
+        builder.setView(myView)
                 .setPositiveButton("Enter", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        //get text out of text box
+                        EditText myTextBox = (EditText) myView.findViewById(R.id.liver_edit_text);
+                        //get text from edit text
+                        String number = myTextBox.getText().toString();
+                        //Try-catch structure unnecessary as the input is resticted by the xml document (dialog_liver_percentage).
+                        otherDouble = Double.parseDouble(number);
+
+                        //close dialog box
                         dialog.cancel();
                     }
                 });
 
         AlertDialog alert = builder.create();
         alert.show();
-
-        return i;
     }
 
     private double getUnits(){
