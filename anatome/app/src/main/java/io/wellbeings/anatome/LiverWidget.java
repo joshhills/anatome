@@ -128,6 +128,18 @@ public class LiverWidget extends Fragment implements Widget {
         // Attach adapter.
         volumeSpinner.setAdapter(volumeAdapter);
 
+        volumeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 7) {
+                    otherDialog("enter volume", R.layout.dialog_other_option);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
 
         ArrayAdapter<String> percentageAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item,
@@ -141,7 +153,7 @@ public class LiverWidget extends Fragment implements Widget {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 8){
-                    otherDialog("enter volume", R.layout.dialog_liver_percentage);
+                    otherDialog("enter percentage", R.layout.dialog_other_option);
                 }
             }
 
@@ -267,7 +279,7 @@ public class LiverWidget extends Fragment implements Widget {
                         EditText myTextBox = (EditText) myView.findViewById(R.id.liver_edit_text);
                         //get text from edit text
                         String number = myTextBox.getText().toString();
-                        //Try-catch structure unnecessary as the input is resticted by the xml document (dialog_liver_percentage).
+                        //Try-catch structure unnecessary as the input is resticted by the xml document (dialog_other_option).
                         otherDouble = Double.parseDouble(number);
 
                         //close dialog box
