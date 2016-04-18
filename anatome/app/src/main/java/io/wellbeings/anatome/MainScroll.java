@@ -1,6 +1,7 @@
 package io.wellbeings.anatome;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -10,6 +11,8 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.HashMap;
 
 /**
  * Main activity handles navigation to custom
@@ -100,10 +103,31 @@ public class MainScroll extends Activity {
                @Override
                public void onClick(View v) {
 
-                   //add appointment check here
+                   Context ctx = MainScroll.this;
+                   HashMap<String, String> appointments;
+                   DbUtility db = new DbUtility();
 
-                   Intent intent = new Intent(v.getContext(), BookingSystem.class);
-                   startActivity(intent);
+                   appointments = db.getAppointment(ctx);
+
+                   String date;
+                   Boolean check;
+
+                   try{
+                       date = appointments.get("App_Date").toString();
+                       check = true;
+                   }catch(Exception e) {
+                       check = false;
+                   }
+
+                   if(check) {
+                       Intent intent = new Intent(v.getContext(), TestLayout.class);
+                       startActivity(intent);
+                   }
+                   else {
+
+                       Intent intent = new Intent(v.getContext(), BookingSystem.class);
+                       startActivity(intent);
+                   }
                }
            });
 
