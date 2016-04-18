@@ -23,7 +23,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="40dp"
+        android:textAlignment="center" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -140,7 +141,8 @@
         android:id="@+id/sadNoteText"
         android:layout_below="@+id/horizontalScrollView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textAlignment="center" />
 
     <LinearLayout
         android:orientation="vertical"
