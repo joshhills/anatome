@@ -30,9 +30,9 @@ public class UserUtility implements Utility {
     // General persistent user storage (only active in app lifecycle).
     private final int PASSWORD_LENGTH = 4;
 
-    // Liver widget persistent user storage (only active in app lifecycle).
-    private double units;
-    private Stack<Double> drinks;
+    // Liver 'widget' persistent user storage (only active in app lifecycle).
+    private double units = 0;
+    private Stack<Double> drinks = new Stack<Double>();
 
     /**
      * Constructor to be called with resources
@@ -46,10 +46,6 @@ public class UserUtility implements Utility {
         this.ctx = ctx;
 
         utilityStatus = initialize();
-
-        //units start at zero
-        units = 0;
-        drinks = new Stack<Double>();
 
     }
 
@@ -69,6 +65,13 @@ public class UserUtility implements Utility {
             return STATUS.SUCCESS;
         }
 
+    }
+
+    /**
+     * Reset user settings, erasing their profile.
+     */
+    public void reset() {
+        editor.clear();
     }
 
     /**
@@ -149,11 +152,16 @@ public class UserUtility implements Utility {
         return settings.getBoolean("NETWORK", true);
     }
 
-    public int getPASSWORD_SIZE() {
-        return PASSWORD_SIZE;
+    public int getPASSWORD_LENGTH() {
+        return PASSWORD_LENGTH;
     }
-
-    // TODO: Password!!
+    public void setPassword(String password) {
+        editor.putString("PASSWORD", password);
+        editor.apply();
+    }
+    public String getPassword() {
+        return settings.getString("PASSWORD", null);
+    }
 
     @Override
     public STATUS getState() {

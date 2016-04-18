@@ -39,6 +39,8 @@
         android:text="Set Password"
         android:id="@+id/preamble_password"
         android:layout_marginTop="20dp"
-        android:theme="@android:style/Theme.Holo" />
+        android:theme="@android:style/Theme.Holo"
+        android:background="@drawable/rounded_corners_bg"
+        android:textColor="#000000" />
 
 </LinearLayout>
