@@ -24,4 +24,6 @@
     <color name="liver_secondary_bg">#594020</color>
     <color name="liver_main_text">#ffffff</color>
     <color name="liver_accent_text">#e4c351</color>
+    <!--Booking System. -->
+    <color name="dark_blue_accent">#194E68</color>
 </resources>

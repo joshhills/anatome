@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/aircraft_background_booking_options"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/booking_options_aircraft_small"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.38">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:id="@+id/backFromGenderOptionsButton"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="#ffffffff"
+                android:textSize="28dp"
+                android:textAllCaps="false" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.24">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.245"></FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.23">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Who would you"
+                        android:id="@+id/genderOptionsFirstLine"
+                        android:layout_gravity="center"
+                        android:textSize="28dp"
+                        android:textColor="#FF09849A" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.225">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="like to meet ?"
+                        android:id="@+id/genderOptionsSecondLine"
+                        android:layout_gravity="center"
+                        android:textSize="28dp"
+                        android:textColor="#FF09849A" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.29"></FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.28">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.99"></FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.11">
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/radioGroupGender"
+                        android:layout_above="@+id/saveGenderPreferenceButton"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="43dp"
+                        >
+
+                        <RadioButton
+                            android:id="@+id/radio_woman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Woman"
+                            android:onClick="selectGender"
+                            android:checked="false"
+                            android:textColor="#ffffffff"
+                            android:textSize="22dp"
+                            />
+
+                        <RadioButton
+                            android:id="@+id/radio_man"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Man"
+                            android:onClick="selectGender"
+                            android:textColor="#ffffffff"
+                            android:textSize="22dp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_nopreference"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No preference"
+                            android:onClick="selectGender"
+                            android:checked="false"
+                            android:textColor="#ffffffff"
+                            android:textSize="22dp" />
+                    </RadioGroup>
+                </FrameLayout>
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:id="@+id/saveGenderOptionsButton"
+                android:layout_gravity="center"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="#ffffffff"
+                android:textSize="28dp"
+                android:textAllCaps="false" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

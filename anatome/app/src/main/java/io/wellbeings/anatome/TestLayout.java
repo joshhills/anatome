@@ -51,8 +51,13 @@ public class TestLayout extends AppCompatActivity {
         TextView timeView = (TextView)findViewById(R.id.bookedTime);
         TextView dateView = (TextView)findViewById(R.id.bookedDate);
 
-        dateView.setText(appointments.get("App_Date").toString());
-        timeView.setText(appointments.get("App_Time").toString());
+        String date = appointments.get("App_Date").toString();
+        String time = appointments.get("App_Time").toString();
+
+        dateView.setText(date);
+        timeView.setText(time);
+
+        NotificationHandler.pushNotification(TestLayout.this, "Your Appointment", "Success your appointment had been booked!/nTime: " + time + "/nDate: " + date);
 
     }
 

@@ -36,6 +36,7 @@ public class DbUtility{
     private static final String TAG_TIME = "App_Time";
     private static final String TAG_COM = "Com_Text";
     private static final String TAG_COM_NAME = "Student_Name";
+    private static final String TAG_LatLong = "LatLong";
     JSONArray array = null;
 
     public void addAppointment(String time, String date, Context ctx) {
@@ -79,6 +80,23 @@ public class DbUtility{
         return null;
     }
 
+    public String[] getAvailable(Context ctx, String date) {
+        String result;
+        String [] available;
+
+        try {
+            GetDataJSON g = new GetDataJSON("available", date, ctx);
+            result = g.execute().get();
+            available = parseAvailable(result);
+            return available;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+
     public ArrayList<HashMap<String, String>> getComments(String area, Context ctx) {
         String result;
         ArrayList<HashMap<String, String>> commentList;
@@ -90,6 +108,26 @@ public class DbUtility{
             commentList = parseComment(result);
 
             return commentList;
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+
+    public String[] getLatLong(Context ctx) {
+        String result;
+        String[] latLong;
+
+        try {
+            GetDataJSON g = new GetDataJSON("org", "none", ctx);
+            result = g.execute().get();
+
+            latLong = parseLatLong(result);
+
+            return latLong;
 
         }catch(Exception e) {
             e.printStackTrace();
@@ -144,6 +182,49 @@ public class DbUtility{
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+        return null;
+    }
+
+    public String[] parseAvailable(String result) {
+        try {
+            JSONObject jsonObj = new JSONObject(result);
+            array = jsonObj.getJSONArray(TAG_RESULTS);
+            String [] available = new String[array.length()];
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject c = array.getJSONObject(i);
+                String time = c.getString(TAG_TIME);
+
+                available[i] = time;
+            }
+
+            return available;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String[] parseLatLong(String result) {
+        String[] latLong = new String[2];
+
+        try{
+            JSONObject jsonObj = new JSONObject(result);
+            array = jsonObj.getJSONArray(TAG_RESULTS);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject c = array.getJSONObject(i);
+                String temp = c.getString(TAG_LatLong);
+
+                String lat = temp.substring( 0, temp.indexOf(","));
+                String llong = temp.substring(temp.indexOf(",")+1, temp.length());
+                latLong[0] = lat;
+                latLong[1] = llong;
+
+                return latLong;
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
