@@ -2,8 +2,10 @@ package io.wellbeings.anatome;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -63,7 +65,13 @@ public class Section extends FragmentActivity {
         final int resourceId = getResources().getIdentifier(
                 section + "_ico", "drawable", getApplicationContext().getPackageName()
         );
-        ((ImageView)findViewById(R.id.section_image)).setImageResource(resourceId);
+
+        //final int colorId = UtilityManager.getThemeUtility(this).getColour(section + "_secondary_bg");
+        final int colorId = (ContextCompat.getColor(this,
+                UtilityManager.getThemeUtility(this).getColour(section + "_secondary_bg")));
+
+                ((ImageView) findViewById(R.id.section_image)).setImageResource(resourceId);
+        ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(colorId);
 
     }
 

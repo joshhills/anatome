@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -23,7 +22,7 @@ public class TestLayout extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_layout);
+        setContentView(R.layout.booking_details);
 
 
         mBackFromBooked = (Button)findViewById(R.id.backFromBooked);
