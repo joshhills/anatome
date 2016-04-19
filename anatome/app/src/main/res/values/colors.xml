@@ -10,11 +10,13 @@
     <!-- Mental Health Section. -->
     <color name="brain_main_bg">#8b6eb0</color>
     <color name="brain_secondary_bg">#432a64</color>
+    <color name="brain_back_btn_bg">#654989</color>
     <color name="brain_main_text">#ffffff</color>
     <color name="brain_accent_text">#f2df73</color>
     <!-- Mood Section. -->
     <color name="heart_main_bg">#de6363</color>
     <color name="heart_secondary_bg">#7c2727</color>
+    <color name="heart_back_btn_bg">#A64C4C</color>
     <color name="heart_main_text">#ffffff</color>
     <color name="heart_accent_text">#f2df73</color>
     <color name="heart_button_panel_bg">#983838</color>
@@ -22,6 +24,7 @@
     <!-- Substance Section. -->
     <color name="liver_main_bg">#e9df9e</color>
     <color name="liver_secondary_bg">#594020</color>
+    <color name="liver_back_btn_bg">#71593B</color>
     <color name="liver_main_text">#ffffff</color>
     <color name="liver_accent_text">#e4c351</color>
     <!--Booking System. -->

@@ -1,13 +1,18 @@
 package io.wellbeings.anatome;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTabHost;
 
@@ -66,12 +71,22 @@ public class Section extends FragmentActivity {
                 section + "_ico", "drawable", getApplicationContext().getPackageName()
         );
 
-        //final int colorId = UtilityManager.getThemeUtility(this).getColour(section + "_secondary_bg");
-        final int colorId = (ContextCompat.getColor(this,
+        final int secondaryColourId = (ContextCompat.getColor(this,
                 UtilityManager.getThemeUtility(this).getColour(section + "_secondary_bg")));
 
-                ((ImageView) findViewById(R.id.section_image)).setImageResource(resourceId);
-        ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(colorId);
+        final int backBtnColourId = (ContextCompat.getColor(this,
+                UtilityManager.getThemeUtility(this).getColour(section + "_back_btn_bg")));
+
+        final int mainColourId = (ContextCompat.getColor(this,
+                UtilityManager.getThemeUtility(this).getColour(section + "_main_bg")));
+
+
+        ((ImageView) findViewById(R.id.section_image)).setImageResource(resourceId);
+        ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(secondaryColourId);
+        ((Button) findViewById(R.id.back)).setBackgroundColor(backBtnColourId);
+        ((TextView) findViewById(R.id.section_name)).setBackgroundColor(secondaryColourId);
+        ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
+
 
     }
 
@@ -133,7 +148,6 @@ public class Section extends FragmentActivity {
         // Alter the dimensions of the tabs programatically.
         mTabHost.getTabWidget().getChildAt(0).getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
         mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
-
     }
 
 }
