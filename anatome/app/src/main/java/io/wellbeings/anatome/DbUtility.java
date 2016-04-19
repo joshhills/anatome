@@ -80,7 +80,7 @@ public class DbUtility implements Utility {
      * @param time  The time of the appointment.
      * @param date  The date of the appointment.
      */
-    public void addAppointment(String time, String date) {
+    public void addAppointment(String time, String date, String pref) {
 
         // Select function.
         String param = "app";
@@ -89,6 +89,7 @@ public class DbUtility implements Utility {
         List<NameValuePair> data = new ArrayList<>();
         data.add(new BasicNameValuePair("time", time));
         data.add(new BasicNameValuePair("date", date));
+        data.add(new BasicNameValuePair("pref", pref));
         data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(ctx).getName()));
         data.add(new BasicNameValuePair("email", UtilityManager.getUserUtility(ctx).getEmail()));
 
