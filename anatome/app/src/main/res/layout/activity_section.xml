@@ -21,8 +21,8 @@
             android:layout_gravity="left|top"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150px"
+            android:layout_height="150px"
             android:id="@+id/section_image"
             android:layout_gravity="center_horizontal|top"
             android:src="@drawable/heart_ico"
