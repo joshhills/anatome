@@ -3,6 +3,7 @@ package io.wellbeings.anatome;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +30,10 @@ public class LiverWidget extends Fragment implements Widget {
     private final String SECTION = "liver";
     // Store view object for UI manipulation.
     private View v;
-    //special final value for the dialog boxes when you chose other
-    private double otherDouble;
+    //variables for working out units
+    private int volume;//volume in ml
+    private double percentage;//percentage of alcohol
+
 
     /* Necessary lifecycle methods. */
     public LiverWidget() {}
@@ -132,7 +135,7 @@ public class LiverWidget extends Fragment implements Widget {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 7) {
-                    otherDialog("enter volume", R.layout.dialog_other_option);
+                    otherDialog("enter volume", R.layout.dialog_other_option, 1);
                 }
             }
 
@@ -153,7 +156,7 @@ public class LiverWidget extends Fragment implements Widget {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 8){
-                    otherDialog("enter percentage", R.layout.dialog_other_option);
+                    otherDialog("enter percentage", R.layout.dialog_other_option, 0);
                 }
             }
 
@@ -165,27 +168,17 @@ public class LiverWidget extends Fragment implements Widget {
         // Attach functionality to the add button.
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Store accumulative values.
-                int volume;
-                double percentage;
                 // Perform unit conversion to get volume.
                 int[] volumeArray = {568, 284, 25, 50, 75, 250, 125};
                 int pos = volumeSpinner.getSelectedItemPosition();
                 if(pos < 7) {
                     volume = volumeArray[pos];
                 }
-                else{
-                    volume = 0;
-                }
 
                 // Get percentage.
                 if(percentageSpinner.getSelectedItemPosition() < 8) {
                     percentage = Integer.parseInt(percentageSpinner.getSelectedItem().toString()
                             .replace("%", ""));
-                }
-                else {
-                    //going to be replaced by the custom value
-                    percentage = 0.0;
                 }
 
                 addDrink((percentage * volume) / 1000);
@@ -264,7 +257,7 @@ public class LiverWidget extends Fragment implements Widget {
     }
 
 
-    private void otherDialog(String title, int layout){
+    private void otherDialog(String title, int layout,final int percentageOrVolume/*0 for percentage 1 for volume (temporary name)*/){
 
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -280,7 +273,19 @@ public class LiverWidget extends Fragment implements Widget {
                         //get text from edit text
                         String number = myTextBox.getText().toString();
                         //Try-catch structure unnecessary as the input is resticted by the xml document (dialog_other_option).
-                        otherDouble = Double.parseDouble(number);
+                        double input = Double.parseDouble(number);
+                        //checks whether to set volume or percentage
+                        if(percentageOrVolume == 0){//set percentage
+                            if(input > 100){
+                                percentage = 100;
+                            }
+                            else{
+                                percentage = input;
+                            }
+                        }
+                        else if(percentageOrVolume == 1){
+                            volume = (int)input;
+                        }
 
                         //close dialog box
                         dialog.cancel();
