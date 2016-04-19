@@ -10,18 +10,21 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/top_section_layout"
+        >
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="back"
             android:id="@+id/back"
-            android:layout_gravity="left|top"/>
+            android:layout_gravity="left|top"
+            android:textColor="#ffffffff"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="170px"
+            android:layout_height="170px"
             android:id="@+id/section_image"
             android:layout_gravity="center_horizontal|top"
             android:src="@drawable/heart_ico"
@@ -36,7 +39,6 @@
             android:id="@+id/section_name"
             android:layout_gravity="right|top"
             android:textColor="#ffffff"
-            android:background="#c34546"
             android:layout_marginRight="36dp"
             android:layout_marginTop="16dp"/>
 

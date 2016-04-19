@@ -1,13 +1,20 @@
 package io.wellbeings.anatome;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTabHost;
+
+import org.w3c.dom.Text;
 
 /**
  * Section loads widget navigated to,
@@ -54,6 +61,8 @@ public class Section extends FragmentActivity {
     // Alter colour and headers accordingly.
     private void initDisplay() {
 
+
+
         // Set correct header, capitalising first letter.
         ((TextView)findViewById(R.id.section_name)).setText(
                 section.substring(0, 1).toUpperCase() +
@@ -63,7 +72,24 @@ public class Section extends FragmentActivity {
         final int resourceId = getResources().getIdentifier(
                 section + "_ico", "drawable", getApplicationContext().getPackageName()
         );
-        ((ImageView)findViewById(R.id.section_image)).setImageResource(resourceId);
+
+        //setupColors(section);
+
+        //final int colorId = UtilityManager.getThemeUtility(this).getColour(section + "_secondary_bg");
+        //final int colorId = getResources().getColor(R.color.heart_main_bg);
+        //final int backButtonColorId = UtilityManager.getThemeUtility(this).getColour(section + "_back_button_bg");
+
+        ((ImageView) findViewById(R.id.section_image)).setImageResource(resourceId);
+        ((FrameLayout) findViewById(R.id.top_section_layout)).setBackgroundColor(ContextCompat.getColor(this,
+                        UtilityManager.getThemeUtility(this).getColour(section + "_secondary_bg"))
+        );
+
+
+        //((TextView) findViewById(R.id.section_name)).setBackgroundColor(colorId);
+        //((Button) findViewById(R.id.back)).setBackgroundColor(backButtonColorId);
+
+
+
 
     }
 
@@ -126,6 +152,33 @@ public class Section extends FragmentActivity {
         mTabHost.getTabWidget().getChildAt(0).getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
         mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
 
+    }
+
+    public void setupColors(String section) {
+
+        int secondaryId, btnId;
+
+        switch(section) {
+
+            case "brain":
+                secondaryId = getResources().getColor(R.color.brain_secondary_bg);
+                btnId = getResources().getColor(R.color.brain_back_button_bg);
+                ((FrameLayout) findViewById(R.id.top_section_layout)).setBackgroundColor(secondaryId);
+                ((Button) findViewById(R.id.back)).setBackgroundColor(btnId);
+                break;
+            case "heart":
+                secondaryId = getResources().getColor(R.color.heart_secondary_bg);
+                btnId = getResources().getColor(R.color.heart_back_button_bg);
+                ((FrameLayout) findViewById(R.id.top_section_layout)).setBackgroundColor(secondaryId);
+                ((Button) findViewById(R.id.back)).setBackgroundColor(btnId);
+                break;
+            case "liver":
+                secondaryId = getResources().getColor(R.color.liver_secondary_bg);
+                btnId = getResources().getColor(R.color.liver_back_button_bg);
+                ((FrameLayout) findViewById(R.id.top_section_layout)).setBackgroundColor(secondaryId);
+                ((Button) findViewById(R.id.back)).setBackgroundColor(btnId);
+                break;
+        }
     }
 
 }

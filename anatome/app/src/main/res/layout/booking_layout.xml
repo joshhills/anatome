@@ -130,7 +130,8 @@
                         android:layout_marginTop="18dp"
                         android:onClick="timeOnClick"
                         android:textSize="28dp"
-                        android:textColor="#09849a" />
+                        android:textColor="#09849a"
+                        android:editable="false" />
                 </FrameLayout>
             </LinearLayout>
         </RelativeLayout>

@@ -3,6 +3,8 @@ package io.wellbeings.anatome;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -81,6 +83,7 @@ public class ThemeUtility implements Utility {
      * @return  The resource ID for the matched colour.
      */
     public static int getColour(String colour) {
+
         return appColours.get(colour);
     }
 

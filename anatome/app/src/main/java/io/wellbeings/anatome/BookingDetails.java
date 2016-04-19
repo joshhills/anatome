@@ -9,29 +9,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by bettinaalexieva on 15/03/2016.
  */
-public class TestLayout extends AppCompatActivity {
+public class BookingDetails extends AppCompatActivity {
 
     private Button mBackFromBooked;
+    private TextView mTimeBooked, mDateBooked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_layout);
+        setContentView(R.layout.booking_details_layout);
 
+        Typeface customFont = defineCustomFont();
 
         mBackFromBooked = (Button)findViewById(R.id.backFromBooked);
+        mBackFromBooked.setTypeface(customFont);
 
-        AssetManager assetManager = getAssets();
-        Typeface customFont = Typeface.createFromAsset(assetManager, "fonts/champagne.ttf");
+        mTimeBooked = (TextView) findViewById(R.id.bookedTime);
+        mTimeBooked.setTypeface(customFont);
 
-        //mBackFromBooked.setTypeface(customFont);
+        mDateBooked = (TextView) findViewById(R.id.bookedDate);
+        mDateBooked.setTypeface(customFont);
+
         mBackFromBooked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,8 +43,7 @@ public class TestLayout extends AppCompatActivity {
             }
         });
 
-
-        Context ctx = TestLayout.this;
+        Context ctx = BookingDetails.this;
         HashMap<String, String> appointments;
 
         DbUtility db = new DbUtility();
@@ -53,7 +55,13 @@ public class TestLayout extends AppCompatActivity {
 
         dateView.setText(appointments.get("App_Date").toString());
         timeView.setText(appointments.get("App_Time").toString());
-
     }
 
+    private Typeface defineCustomFont() {
+
+        AssetManager assetManager = getAssets();
+        Typeface customFont = Typeface.createFromAsset(assetManager, "fonts/champagne.ttf");
+
+        return customFont;
+    }
 }

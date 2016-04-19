@@ -3,6 +3,7 @@ package io.wellbeings.anatome;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -22,6 +25,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.Inflater;
 
 import cz.msebera.android.httpclient.client.cache.Resource;
 
@@ -29,6 +33,7 @@ import cz.msebera.android.httpclient.client.cache.Resource;
  *  This class handles the loading of section information.
  */
 public class ContentFragment extends Fragment implements Widget {
+
 
     // Store content view.
     View view;
@@ -59,7 +64,6 @@ public class ContentFragment extends Fragment implements Widget {
         commentList = db.getComments("liver", ctx);
 
         //now use commentList to fill comments
-
     }
 
     @Override
@@ -77,6 +81,8 @@ public class ContentFragment extends Fragment implements Widget {
 
     // Populate frame UI components with local information.
     private void populateContent() {
+
+
 
         /* Style background elements. */
 
@@ -132,7 +138,17 @@ public class ContentFragment extends Fragment implements Widget {
         );
         ((ImageView) view.findViewById(R.id.content_graphic)).setImageResource(resourceId);
 
+
+        view.findViewById(R.id.top_section_layout).setBackgroundColor(Color.BLUE);
+        view.findViewById(R.id.back).setBackgroundColor(Color.YELLOW);
+
     }
+
+
+
+
+
+
 
     // Load custom social aspect of app via comments.
     private void loadComments() {
@@ -193,7 +209,6 @@ public class ContentFragment extends Fragment implements Widget {
             ll.addView(v);
 
         }
-
     }
 
 }

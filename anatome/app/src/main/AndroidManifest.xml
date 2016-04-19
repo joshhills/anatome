@@ -32,7 +32,7 @@
             android:name=".BookingSystem"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TestLayout"
+            android:name=".BookingDetails"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".Loading"
