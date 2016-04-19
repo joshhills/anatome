@@ -51,10 +51,17 @@ public class MainScroll extends Activity {
 
         // load the background image
         Glide.with(this)
-                .load(R.drawable.mainscroll_background)
+                .load(R.drawable.mainscroll_background_upper)
                 .dontTransform()
-                .override(1080, 5249)
-                .into((ImageView) findViewById(R.id.mainscroll_background));
+                .override(1080, 2727)
+                .into((ImageView) findViewById(R.id.mainscroll_background_upper));
+
+        // load the background image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_background_lower)
+                .dontTransform()
+                .override(1080, 2640)
+                .into((ImageView) findViewById(R.id.mainscroll_background_lower));
 
         // load the heart image
         Glide.with(this)
