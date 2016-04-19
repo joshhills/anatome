@@ -49,7 +49,7 @@ For this reason, you may want to password-protect them.
             <!-- Headers store titles for parts of the section. -->
             <headers>
                 <header id="title">
-                    Heart
+                    Anxiety
                 </header>
                 <header id="tips">
                     Here's some general pointers:
@@ -60,33 +60,36 @@ For this reason, you may want to password-protect them.
             </headers>
             <information id="title">
                 Here's some information about the topic.
+
             </information>
             <information id="tips">
                 Here are some tips.
             </information>
+            <information id="instructional_text">
+            </information>
             <links>
                 <link>
                     <name>
-                        Google
+                        Anxiety and panic attacks
                     </name>
                     <source>
-                        http://www.google.com/
+                        http://www.mind.org.uk/information-support/types-of-mental-health-problems/anxiety-and-panic-attacks/#.VrnW-tuLRD8
                     </source>
                 </link>
                 <link>
                     <name>
-                        Helpful link2.
+                        Anxiety
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        http://www.moodjuice.scot.nhs.uk/anxiety.asp
                     </source>
                 </link>
                 <link>
                     <name>
-                        Helpful link3.
+                        Generalised anxiety disorder
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        http://www.nhs.uk/Conditions/Anxiety/Pages/Introduction.aspx
                     </source>
                 </link>
             </links>
@@ -98,6 +101,9 @@ For this reason, you may want to password-protect them.
                 2001-12-17T09:30:47Z
             </modified>
         </section>
+
+
+
         <section name="brain">
             <!-- Headers store titles for parts of the section. -->
             <headers>
@@ -112,6 +118,18 @@ For this reason, you may want to password-protect them.
                 </header>
             </headers>
             <information id="title">
+
+                Here's some information about the topic.
+            </information>
+            <information id="tips">
+                •	Maintain a positive attitude. Try replacing negative thought with positive ones.
+                •	Keep to a routine and plan your days. Having structure will make you feel more at ease.
+                •	Remember, you are not the only one who feels this way, you are not alone.
+                Consider reaching out to those close to you such as family and friends.
+                •	Use our app to book an appointment with the Student wellbeing here at Newcastle University or contact them directly: 0191 208 3333.
+            </information>
+            <information id="instructional_text">
+                Take a deep breath in and count to 5, Remember we are here to help
                 Coming to university can be a stressful and overwhelming experience, but don’t despair!
                 Understanding your feelings and how to cope is the first step to feeling like you are back on track.
 
@@ -122,14 +140,7 @@ For this reason, you may want to password-protect them.
                 The severity of these feeling can vary between students.
                 For some these symptoms can subside over time, however, it is always worth being aware of how you can cope and the advice you can seek.
             </information>
-            <information id="tips">
-                •	Maintain a positive attitude. Try replacing negative thought with positive ones.
-                •	Keep to a routine and plan your days. Having structure will make you feel more at ease.
-                •	Remember, you are not the only one who feels this way, you are not alone.
-                Consider reaching out to those close to you such as family and friends.
-                •	Use our app to book an appointment with the Student wellbeing here at Newcastle University or contact them directly: 0191 208 3333.
 
-            </information>
             <links>
                 <link>
                     <name>
@@ -194,7 +205,7 @@ For this reason, you may want to password-protect them.
             </information>
             <!--temporary ids and information since I can't think of goo ones right now-->
             <information id="threshold-1">
-                DOWN IT FRESHAAAAAA!!!!!!!!!
+                You haven't drank anything yet
             </information>
             <information id="threshold-2">
                 You're almost over the guidelines

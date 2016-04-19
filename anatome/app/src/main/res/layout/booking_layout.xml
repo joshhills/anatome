@@ -131,7 +131,11 @@
                         android:onClick="timeOnClick"
                         android:textSize="28dp"
                         android:textColor="#09849a"
+<<<<<<< HEAD
                         android:editable="false" />
+=======
+                        android:editable="true" />
+>>>>>>> master
                 </FrameLayout>
             </LinearLayout>
         </RelativeLayout>

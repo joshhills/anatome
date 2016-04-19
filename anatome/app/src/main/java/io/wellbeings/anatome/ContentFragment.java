@@ -52,6 +52,7 @@ public class ContentFragment extends Fragment implements Widget {
     }
 
     @Override
+<<<<<<< HEAD
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -67,6 +68,8 @@ public class ContentFragment extends Fragment implements Widget {
     }
 
     @Override
+=======
+>>>>>>> master
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -157,17 +160,17 @@ public class ContentFragment extends Fragment implements Widget {
         LinearLayout ll = (LinearLayout) view.findViewById(R.id.content_comments_container);
 
         // Retrieve user comments.
-        Map<String,String> comments = new HashMap<String,String>();
+        // ArrayList<HashMap<String, String>> commentList =
 
         /******************/
         // TODO: Remove this test block.
-        comments.put("This is a comment, did you know? I swear, it is! How weird is that, but seriously you should kill yourself.", "Paul Oslow");
-        comments.put("This is a comment, awdgj  af ghat, but serioawdg j fifapwfawf ill yourself.", "Wiidg Ethox");
-        comments.put("This is a comment, did you know? awjf  aiwz gpaw jpw joptjrdhjp sop jjpa.", "Adma Aholdems");
-        comments.put("This is a comment, did you know? I swear, it is! How weird is that, but seriously you should kill yourself.", "Paul Oslow");
+        // comments.put("This is a comment, did you know? I swear, it is! How weird is that, but seriously you should kill yourself.", "Paul Oslow");
+        // comments.put("This is a comment, awdgj  af ghat, but serioawdg j fifapwfawf ill yourself.", "Wiidg Ethox");
+        // comments.put("This is a comment, did you know? awjf  aiwz gpaw jpw joptjrdhjp sop jjpa.", "Adma Aholdems");
+        // comments.put("This is a comment, did you know? I swear, it is! How weird is that, but seriously you should kill yourself.", "Paul Oslow");
         /******************/
 
-        // Create visual element for every comment.
+        /* Create visual element for every comment.
         for(String comment : comments.keySet()) {
 
             // Set and style comment content.
@@ -208,7 +211,12 @@ public class ContentFragment extends Fragment implements Widget {
                     UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text")));
             ll.addView(v);
 
+<<<<<<< HEAD
         }
+=======
+        }*/
+
+>>>>>>> master
     }
 
 }

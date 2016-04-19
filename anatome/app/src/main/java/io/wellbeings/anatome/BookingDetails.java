@@ -46,15 +46,24 @@ public class BookingDetails extends AppCompatActivity {
         Context ctx = BookingDetails.this;
         HashMap<String, String> appointments;
 
-        DbUtility db = new DbUtility();
-
-        appointments = db.getAppointment(ctx);
+        appointments = UtilityManager.getDbUtility(this).getAppointment();
 
         TextView timeView = (TextView)findViewById(R.id.bookedTime);
         TextView dateView = (TextView)findViewById(R.id.bookedDate);
 
+<<<<<<< HEAD:anatome/app/src/main/java/io/wellbeings/anatome/BookingDetails.java
         dateView.setText(appointments.get("App_Date").toString());
         timeView.setText(appointments.get("App_Time").toString());
+=======
+        String date = appointments.get("App_Date").toString();
+        String time = appointments.get("App_Time").toString();
+
+        dateView.setText(date);
+        timeView.setText(time);
+
+        NotificationHandler.pushNotification(TestLayout.this, "Booked Appointment:", "Time: " + time + "/nDate: " + date);
+
+>>>>>>> master:anatome/app/src/main/java/io/wellbeings/anatome/TestLayout.java
     }
 
     private Typeface defineCustomFont() {

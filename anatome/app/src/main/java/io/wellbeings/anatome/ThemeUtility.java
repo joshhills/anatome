@@ -1,11 +1,14 @@
 package io.wellbeings.anatome;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+=======
+>>>>>>> master
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;

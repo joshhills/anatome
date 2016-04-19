@@ -26,22 +26,66 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.params.BasicHttpParams;
 
 /**
- * Created by Callum on 13/04/16.
+ * Black-box into database PHP API provides
+ * dynamic functionality across application.
  */
 
-public class DbUtility{
+public class DbUtility implements Utility {
 
+    // Log status of utility.
+    protected STATUS utilityStatus;
+
+    // Store application context for access to local preferences.
+    private static Context ctx;
+
+    // Store useful functional descriptors.
     private static final String TAG_RESULTS = "result";
     private static final String TAG_DATE = "App_Date";
     private static final String TAG_TIME = "App_Time";
     private static final String TAG_COM = "Com_Text";
     private static final String TAG_COM_NAME = "Student_Name";
-    private static final String TAG_LatLong = "LatLong";
+    private static final String TAG_LAT_LONG = "LatLong";
     JSONArray array = null;
 
-    public void addAppointment(String time, String date, Context ctx) {
+    public DbUtility(Context ctx) {
+
+        // Attempt to start to set-up the utility using the arguments provided.
+        try {
+            utilityStatus = initialize();
+        } catch (IOException e) {
+            utilityStatus = STATUS.FAIL;
+        }
+
+    }
+
+    @Override
+    public STATUS initialize() throws IOException {
+        return STATUS.SUCCESS;
+    }
+
+    @Override
+    public STATUS getState() {
+        return utilityStatus;
+    }
+
+    @Override
+    public STATUS shutdown() {
+        return null;
+    }
+
+    /**
+     * Register an appointment on the
+     * organization's system.
+     *
+     * @param time  The time of the appointment.
+     * @param date  The date of the appointment.
+     */
+    public void addAppointment(String time, String date) {
+
+        // Select function.
         String param = "app";
 
+        // Build dataset to pass to API call.
         List<NameValuePair> data = new ArrayList<>();
         data.add(new BasicNameValuePair("time", time));
         data.add(new BasicNameValuePair("date", date));
@@ -49,25 +93,61 @@ public class DbUtility{
         data.add(new BasicNameValuePair("email", UtilityManager.getUserUtility(ctx).getEmail()));
 
         addToDb(data, param);
+
     }
 
-    public void addComment(String text, String area, Context ctx) {
+    /**
+     * Store social comments in database submitted
+     * through application.
+     *
+     * @param text      The content of the comment.
+     * @param section   The section it is relevant to.
+     */
+    public void addComment(String text, String section) {
+
+        // Select function.
         String param = "comment";
 
+        // Build dataset to pass to API call.
         List<NameValuePair> data = new ArrayList<>();
         data.add(new BasicNameValuePair("text", text));
-        data.add(new BasicNameValuePair("date", area));
+        data.add(new BasicNameValuePair("date", section));
         data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(ctx).getName()));
 
         addToDb(data, param);
+
     }
 
-    public HashMap<String, String> getAppointment(Context ctx) {
+    /**
+     * Prepopulate database content.
+     *
+     * @param dates A set of relevant dates.
+     */
+    public void addAppointmentsToDate (String[] dates) {
+        String[] times = {"09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
+                "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"};
+
+        for(int i = 0; i < dates.length; i++) {
+            for(int j = 0; j < times.length; j++) {
+                List<NameValuePair> data = new ArrayList<>();
+                data.add(new BasicNameValuePair("date", dates[i]));
+                data.add(new BasicNameValuePair("time", times[j]));
+
+                addToDb(data, "fill");
+            }
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public HashMap<String, String> getAppointment() {
         String result;
         HashMap<String, String> appointments;
 
         try {
-            GetDataJSON g = new GetDataJSON("app", "none", ctx);
+            GetDataJSON g = new GetDataJSON("app", "none");
             result = g.execute().get();
             appointments = parseAppointment(result);
 
@@ -80,12 +160,12 @@ public class DbUtility{
         return null;
     }
 
-    public String[] getAvailable(Context ctx, String date) {
+    public String[] getAvailable(String date) {
         String result;
         String [] available;
 
         try {
-            GetDataJSON g = new GetDataJSON("available", date, ctx);
+            GetDataJSON g = new GetDataJSON("available", date);
             result = g.execute().get();
             available = parseAvailable(result);
             return available;
@@ -97,12 +177,12 @@ public class DbUtility{
         return null;
     }
 
-    public ArrayList<HashMap<String, String>> getComments(String area, Context ctx) {
+    public ArrayList<HashMap<String, String>> getComments(String area) {
         String result;
         ArrayList<HashMap<String, String>> commentList;
 
         try {
-            GetDataJSON g = new GetDataJSON("comment", "liver", ctx);
+            GetDataJSON g = new GetDataJSON("comment", "liver");
             result = g.execute().get();
 
             commentList = parseComment(result);
@@ -122,7 +202,7 @@ public class DbUtility{
         String[] latLong;
 
         try {
-            GetDataJSON g = new GetDataJSON("org", "none", ctx);
+            GetDataJSON g = new GetDataJSON("org", "none");
             result = g.execute().get();
 
             latLong = parseLatLong(result);
@@ -214,7 +294,7 @@ public class DbUtility{
             array = jsonObj.getJSONArray(TAG_RESULTS);
             for (int i = 0; i < array.length(); i++) {
                 JSONObject c = array.getJSONObject(i);
-                String temp = c.getString(TAG_LatLong);
+                String temp = c.getString(TAG_LAT_LONG);
 
                 String lat = temp.substring( 0, temp.indexOf(","));
                 String llong = temp.substring(temp.indexOf(",")+1, temp.length());
@@ -228,7 +308,6 @@ public class DbUtility{
         }
         return null;
     }
-
 
     void addToDb(final List<NameValuePair> data, final String param){
         class ExecutePost extends AsyncTask<String, Void, String> {
@@ -270,9 +349,8 @@ public class DbUtility{
             private Context ctx;
             private String area;
 
-            public GetDataJSON(String choice, String area, Context ctx) {
+            public GetDataJSON(String choice, String area) {
                 this.choice = choice;
-                this.ctx = ctx;
                 this.area = area;
 
             }
@@ -281,7 +359,6 @@ public class DbUtility{
             //all this works correctly
             @Override
             protected String doInBackground(String... params) {
-
 
                 DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
 
@@ -319,13 +396,6 @@ public class DbUtility{
                 return result;
             }
 
-
-            @Override
-            protected void onPostExecute(String result) {
-                //delegate.processFinish(result);
-            }
         }
-
-
 
 }
