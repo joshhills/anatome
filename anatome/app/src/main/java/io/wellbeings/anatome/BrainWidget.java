@@ -42,9 +42,9 @@ public class BrainWidget extends Fragment implements Widget {
     private View v;
 
     //declare variables for the graphical parts of the widget
-    ImageButton saveButton, galleryButton, leftArrow, rightArrow,
-        deleteButton, negativeDeleteButton;
-    EditText newNoteContent;
+    private ImageButton saveButton, galleryButton, leftArrow, rightArrow,
+         negativeDeleteButton;
+    private EditText newNoteContent;
 
     //for audio capture
     private MediaPlayer mediaPlayer;
@@ -58,7 +58,7 @@ public class BrainWidget extends Fragment implements Widget {
     private static final String FILE_NAME = "brain.txt";
 
     //list storing all the happynotes saved to file
-    public static List<Note> noteList;
+    private static List<Note> noteList;
     //integer storing the current page of notes displayed
     private int noteListPage; //indexing starts at 1
     //constant storing the maximum number of notes per page
@@ -126,7 +126,7 @@ public class BrainWidget extends Fragment implements Widget {
 
         //retrieve the elements of the new note
         newNoteContent = (EditText) v.findViewById(R.id.newNoteContent);
-        deleteButton = (ImageButton) v.findViewById(R.id.deleteButton);
+        //TODO: audio button
         saveButton = (ImageButton) v.findViewById(R.id.btnSave1);
         galleryButton = (ImageButton) v.findViewById(R.id.btnGallery);
         //retreive the negative note's delete button
@@ -327,7 +327,7 @@ public class BrainWidget extends Fragment implements Widget {
     }
 
     //method for playing the smoke cloud animation associated to deletion
-    public void playDeleteAnimation(int index) {
+    private void playDeleteAnimation(int index) {
         //set up resources for animation
         final ImageView smokeCloudImg = new ImageView(getContext());
         smokeCloudImg.setBackgroundResource(R.drawable.smoke);
@@ -384,7 +384,7 @@ public class BrainWidget extends Fragment implements Widget {
     }
 
     //method for loading the notes into the fragment
-    public List<Note> getList() {
+    private List<Note> getList() {
         try{
             return loadArrayList(FILE_NAME);
         }
@@ -394,7 +394,7 @@ public class BrainWidget extends Fragment implements Widget {
     }
 
     //method for saving a new note
-    public void saveNote(Note note) {
+    private void saveNote(Note note) {
         //obtain the scroll view the note will be displayed in
         final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
 
@@ -417,7 +417,7 @@ public class BrainWidget extends Fragment implements Widget {
     }
 
     //method for updating the contents of the list in file
-    public void saveList() {
+    private void saveList() {
         try {
             saveArrayList(getActivity().getApplicationContext(), FILE_NAME, noteList);
         } catch (IOException e) {
