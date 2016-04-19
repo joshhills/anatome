@@ -65,6 +65,7 @@ public class BookingSystem extends AppCompatActivity {
 
     }
 
+    /*
     TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -73,7 +74,8 @@ public class BookingSystem extends AppCompatActivity {
             c.set(Calendar.MINUTE, minute);
             setCurrentDateOnView();
         }
-    };
+    };*/
+
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -99,11 +101,6 @@ public class BookingSystem extends AppCompatActivity {
             newDate = needed.format(initial.parse(date));
             appointments = UtilityManager.getDbUtility(this).getAvailable(newDate.toString());
 
-            for(int i = 0; i < appointments.length; i++) {
-                System.out.println(appointments[i]);
-            }
-
-
 
         }catch(Exception e) {
             System.out.println("Error: Unable to parse date");
@@ -115,6 +112,16 @@ public class BookingSystem extends AppCompatActivity {
         aNumberPicker.setMaxValue(appointments.length - 1);
         aNumberPicker.setMinValue(0);
         aNumberPicker.setDisplayedValues(appointments);
+
+        aNumberPicker.setOnValueChangedListener(
+                new NumberPicker.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+                        mSetTime.setText(appointments[newVal]);
+                    }
+                }
+        );
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
         RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -175,16 +182,11 @@ public class BookingSystem extends AppCompatActivity {
         String time = mSetTime.getText().toString();
         String newDate = null;
 
-        System.out.println("///////////////" + date);
-        System.out.println("///////////////" + time);
-
         SimpleDateFormat initial = new SimpleDateFormat("dd-MM-yy");
         SimpleDateFormat needed = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             newDate = needed.format(initial.parse(date));
-
-            System.out.println("///////////////" + newDate);
         }catch(Exception e) {
             System.out.println("Error: Unable to parse date");
         }
