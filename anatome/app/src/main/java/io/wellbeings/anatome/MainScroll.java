@@ -172,9 +172,8 @@ public class MainScroll extends Activity {
 
                        Context ctx = MainScroll.this;
                        HashMap<String, String> appointments;
-                       DbUtility db = new DbUtility();
 
-                       appointments = db.getAppointment(ctx);
+                       appointments = UtilityManager.getDbUtility(MainScroll.this).getAppointment();
 
                        String date;
                        Boolean check;

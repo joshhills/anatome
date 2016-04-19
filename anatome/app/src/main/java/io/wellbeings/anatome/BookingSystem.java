@@ -10,24 +10,19 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.NumberPicker;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import cz.msebera.android.httpclient.NameValuePair;
@@ -59,9 +54,8 @@ public class BookingSystem extends AppCompatActivity {
 
         //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
 
-        DbUtility db = new DbUtility();
         String[] coord;
-        coord = db.getLatLong(BookingSystem.this);
+        coord = UtilityManager.getDbUtility(this).getLatLong(BookingSystem.this);
 
         for(int i = 0; i < coord.length; i++) {
             System.out.println(coord[i]);
@@ -94,7 +88,6 @@ public class BookingSystem extends AppCompatActivity {
 
     // true - 24-hour format
     public void timeOnClick(View view) {
-        DbUtility db = new DbUtility();
 
         String date = mSetDate.getText().toString();
         String newDate = null;
@@ -104,7 +97,7 @@ public class BookingSystem extends AppCompatActivity {
 
         try {
             newDate = needed.format(initial.parse(date));
-            appointments = db.getAvailable(BookingSystem.this, newDate.toString());
+            appointments = UtilityManager.getDbUtility(this).getAvailable(newDate.toString());
 
             for(int i = 0; i < appointments.length; i++) {
                 System.out.println(appointments[i]);
@@ -196,8 +189,7 @@ public class BookingSystem extends AppCompatActivity {
             System.out.println("Error: Unable to parse date");
         }
 
-        DbUtility db = new DbUtility();
-        db.addAppointment(time, newDate, BookingSystem.this);
+        UtilityManager.getDbUtility(this).addAppointment(time, newDate);
         Toast.makeText(BookingSystem.this, "Appointment Booked", Toast.LENGTH_SHORT).show();
     }
 
