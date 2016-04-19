@@ -44,9 +44,7 @@ public class TestLayout extends AppCompatActivity {
         Context ctx = TestLayout.this;
         HashMap<String, String> appointments;
 
-        DbUtility db = new DbUtility();
-
-        appointments = db.getAppointment(ctx);
+        appointments = UtilityManager.getDbUtility(this).getAppointment();
 
         TextView timeView = (TextView)findViewById(R.id.bookedTime);
         TextView dateView = (TextView)findViewById(R.id.bookedDate);
