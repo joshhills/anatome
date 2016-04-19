@@ -4,16 +4,11 @@ package io.wellbeings.anatome;
  * Created by Calum on 29/11/2015.
  * Purpose: To define the functionality of the brain section of the app
  */
-import android.app.ActionBar;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -26,34 +21,23 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
-import android.widget.Button;
 import android.widget.EditText;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.content.Context;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class BrainWidget extends Fragment implements Widget {
-
     // Store view object for UI manipulation.
     private View v;
 
@@ -69,17 +53,16 @@ public class BrainWidget extends Fragment implements Widget {
 
     //for gallery
     private static final int RESULT_LOAD_IMG = 1;
-    //constant for the a note's width in display
-    private static final int NOTE_WIDTH = 450;
+
+    //filename for persistent data
+    private static final String FILE_NAME = "brain.txt";
 
     //list storing all the happynotes saved to file
     public static List<Note> noteList;
     //integer storing the current page of notes displayed
-    //5 notes are displayed per page, indexing starts at 1
-    private int noteListPage;
-
-    //filename for persistent data
-    private static final String FILE_NAME = "brain.txt";
+    private int noteListPage; //indexing starts at 1
+    //constant storing the maximum number of notes per page
+    private static int MAX_NOTES_PER_PAGE = 5;
 
     //required empty constructor
     public BrainWidget() { }
@@ -137,7 +120,6 @@ public class BrainWidget extends Fragment implements Widget {
         //retrieve the two navigation buttons
         leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
         rightArrow = (ImageButton) v.findViewById(R.id.rightArrow);
-//        ivImage = (ImageView) v.findViewById(R.id.ivImage);
 
         //obtain scroll view used in the save button's onclick listener
         final LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
@@ -214,23 +196,21 @@ public class BrainWidget extends Fragment implements Widget {
             noteListPage--;
 
             //calculate the highest index note covered by the page number
-            int maxIndex = (noteListPage * 5) - 1;
+            int maxIndex = (noteListPage * MAX_NOTES_PER_PAGE) - 1;
             int minIndex = maxIndex - 4;
-            Log.d("noteListPage","maxIndex: " + maxIndex + " minIndex: " + minIndex);
 
             //add the five notes associated to the page number to view
             for(int i = maxIndex; i >= minIndex; i--) {
                 initNote(noteList.get(i), 0);
             }
         }
-        else Log.d("noteListPage","noteListPage was <= 1");
     }
 
     //method for replacing the current notes on screen with the next 5 least recent
     private void navigateRight() {
         //assert that there are older notes to navigate to
         //multiplied by 5 for the number of notes per page
-        if ((noteListPage * 5) < noteList.size()) {
+        if ((noteListPage * MAX_NOTES_PER_PAGE) < noteList.size()) {
             //remove the notes on display from view
             removeDisplayedSavedNotes();
 
@@ -238,21 +218,17 @@ public class BrainWidget extends Fragment implements Widget {
             noteListPage++;
 
             //calculate the highest index note covered by the page number
-            Log.d("noteListPage", "noteListPage = " + noteListPage);
-            int maxIndex = (noteListPage * 5) - 1;
+            int maxIndex = (noteListPage * MAX_NOTES_PER_PAGE) - 1;
             int minIndex = maxIndex - 4;
-            Log.d("noteListPage","maxIndex: " + maxIndex + " minIndex: " + minIndex);
 
             //add the five notes associated to the page number to view
-            for(int i = maxIndex; i >= minIndex; i--) {
-                Log.d("noteListPage", "i = " + i);
-                if(i >= noteList.size()) {
-                    Log.d("noteListPage", "i exceeded the noteList size");
+            for (int i = maxIndex; i >= minIndex; i--) {
+                if (i >= noteList.size()) {
                     continue; //skip if there is no note at this index
                 }
                 initNote(noteList.get(i), 0);
             }
-        } else Log.d("noteListPage", "noteListPage * 5 exceeded noteList size");
+        }
     }
 
     //method for removing a specific note from UI
@@ -263,7 +239,6 @@ public class BrainWidget extends Fragment implements Widget {
         }
         catch(Exception e) {
             //if something goes wrong, continue, it is not a critical operation
-            Log.e("removeUI", "something went wrong");
             return;
         }
     }
@@ -278,7 +253,6 @@ public class BrainWidget extends Fragment implements Widget {
         }
         catch(Exception e) {
             //if something goes wrong, continue, it is not a critical operation
-            Log.e("removeUI", "something went wrong");
             return;
         }
     }
@@ -332,20 +306,16 @@ public class BrainWidget extends Fragment implements Widget {
                 // play the destruction animation
                 playDeleteAnimation(index);
 
-                Log.d("REMOVAL", "Note: " + note + "?" + noteList.contains(note));
-
                 //calculate the index in noteList the final note displayed is
-                int maxIndex = (noteListPage * 5) - 1;
+                int maxIndex = (noteListPage * MAX_NOTES_PER_PAGE) - 1;
 
                 noteList.remove(note);
                 //load in a new note to take its place on the UI if it exists
                 if (scroll.getChildCount() > 4) {
                     if (noteList.size() > maxIndex) {
-                        Log.d("REMOVAL", "should be good to remove the maxIndex at index 5");
-                        initNote(noteList.get(maxIndex), 5);
-                    } else
-                        Log.d("REMOVAL", "maxIndex exceeded final index, maxIndex: " + maxIndex + " noteList size: " + noteList.size());
-                } else Log.d("REMOVAL", "getChildCount 4 or less");
+                        initNote(noteList.get(maxIndex), MAX_NOTES_PER_PAGE);
+                    }
+                }
 
                 //save the updated list
                 saveList();
@@ -416,7 +386,6 @@ public class BrainWidget extends Fragment implements Widget {
     //method for loading the notes into the fragment
     public List<Note> getList() {
         try{
-            Log.d("GetList","getList called");
             return loadArrayList(FILE_NAME);
         }
        catch (IOException e){
@@ -435,16 +404,13 @@ public class BrainWidget extends Fragment implements Widget {
         //initialise the graphics of the note
         initNote(note,0);
         //ensure that no more than 5 notes are on display at once
-        if(scroll.getChildCount() > 5) {
-            Log.d("save", "too many children, will remove at last index");
+        if(scroll.getChildCount() > MAX_NOTES_PER_PAGE) {
             //remove the oldest note from display
-            removedDisplayedSavedNote(5);
+            removedDisplayedSavedNote(MAX_NOTES_PER_PAGE);
         }
 
         //update the list's state
         saveList();
-        List<Note> testList = getList();
-        Toast.makeText(getContext(), "Gotlist: " + testList.toString(), Toast.LENGTH_LONG).show();
 
         //reset the content of the new note
         newNoteContent.setText("");
@@ -454,7 +420,6 @@ public class BrainWidget extends Fragment implements Widget {
     public void saveList() {
         try {
             saveArrayList(getActivity().getApplicationContext(), FILE_NAME, noteList);
-            Log.d("SaveList", "finished doing the save");
         } catch (IOException e) {
          e.printStackTrace();
         }
@@ -467,7 +432,6 @@ public class BrainWidget extends Fragment implements Widget {
         objectOutputStream.flush();
         objectOutputStream.close();
         fileOutputStream.close();
-        Toast.makeText(context, "The contents are saved in the file" + getList(), Toast.LENGTH_LONG).show();
     }
 
     private List<Note> loadArrayList(String filename) throws IOException {
@@ -478,7 +442,6 @@ public class BrainWidget extends Fragment implements Widget {
             ObjectInputStream ois= new ObjectInputStream(fis);
             readBack = (ArrayList<Note>)ois.readObject();
             if(readBack==null){
-                Log.e("null", "The noteList was read in as null.");
                 readBack=new ArrayList<Note>();
             }
             ois.close();
@@ -487,11 +450,9 @@ public class BrainWidget extends Fragment implements Widget {
         }
         catch(ClassNotFoundException ex)
         {
-            Log.e("loadlist","class not found");
             return new ArrayList<Note>();
         }
         catch(IOException ex) {
-            Log.e("loadlist", "io problem");
             return new ArrayList<Note>();
         }
     }
