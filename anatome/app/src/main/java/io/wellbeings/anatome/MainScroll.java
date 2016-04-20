@@ -212,8 +212,6 @@ public class MainScroll extends Activity {
     private OnClickListener navigateToSettings = new OnClickListener() {
         @Override
         public void onClick(View v) {
-
-
             ((ImageButton) findViewById(R.id.settingsImage)).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -221,8 +219,6 @@ public class MainScroll extends Activity {
                     startActivity(intent);
                 }
             });
-
-
         }
     };
 }
