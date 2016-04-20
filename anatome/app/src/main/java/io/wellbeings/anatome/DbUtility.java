@@ -3,6 +3,8 @@ package io.wellbeings.anatome;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -238,7 +240,7 @@ public class DbUtility implements Utility {
         return null;
     }
 
-    public String[] getLatLong(Context ctx) {
+    public LatLng getLatLong() {
         String result;
         String[] latLong;
 
@@ -248,7 +250,8 @@ public class DbUtility implements Utility {
 
             latLong = parseLatLong(result);
 
-            return latLong;
+            return new LatLng(Double.parseDouble(latLong[0]),
+                    Double.parseDouble(latLong[1]));
 
         }catch(Exception e) {
             e.printStackTrace();
@@ -322,8 +325,6 @@ public class DbUtility implements Utility {
         }
         return null;
     }
-
-
 
     public String[] parseLatLong(String result) {
         String[] latLong = new String[2];

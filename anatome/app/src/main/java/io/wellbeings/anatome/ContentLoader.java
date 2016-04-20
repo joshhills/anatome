@@ -1,20 +1,13 @@
 package io.wellbeings.anatome;
 
 import android.content.Context;
-import android.util.Log;
-
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -151,6 +144,13 @@ public class ContentLoader extends XMLUtility {
 
     }
 
+    /**
+     * Retrieve the most recent time that a section was edited
+     * to inform the user of the relevancy of the information.
+     *
+     * @param sectionName   The section for which to retrieve the date.
+     * @return              The date of the most recent edit to the settings.
+     */
     public String getDateModified(String sectionName) {
 
         String isoTimeFormat = getNodeContentWithXPath("application/content[@lang='"
@@ -165,17 +165,20 @@ public class ContentLoader extends XMLUtility {
          * Inspired by this SO answer:
          * https://stackoverflow.com/a/10621553
          */
-        Calendar calendar = GregorianCalendar.getInstance();
+
+        // Reformat ISO time format.
         isoTimeFormat = isoTimeFormat.replace("Z", "+00:00");
+        // Attempt to parse it into a more reasonable form.
         try {
             // Remove the ':'.
             isoTimeFormat = isoTimeFormat.substring(0, 22)
                     + isoTimeFormat.substring(23);
-            Date dateModified = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(isoTimeFormat);
-            calendar.setTime(dateModified);
-        } catch (Exception e) {}
+            Date dateModified = new SimpleDateFormat("yyyy-MM-dd").parse(isoTimeFormat);
+            isoTimeFormat = new SimpleDateFormat("dd/MM/yyyy").format(dateModified);
+        } catch (ParseException e) {}
 
-        return Integer.toString(calendar.get(Calendar.DATE));
+        // Return the date in its current state.
+        return isoTimeFormat;
 
     }
 

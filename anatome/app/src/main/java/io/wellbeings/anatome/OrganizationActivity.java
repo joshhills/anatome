@@ -23,30 +23,66 @@ import java.security.Security;
  */
 public class OrganizationActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    // Map-related private fields.
+    private LatLng orgLocation;
+    private final float ZOOM_LEVEL = 18.25f;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // overridePendingTransition();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organization);
 
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.organization_map);
-        mapFragment.getMapAsync(this);
+        populateContent();
+
+        // initGUI();
+
+        // Create the inner map fragment.
+        if(orgLocation != null) {
+            MapFragment mapFragment = (MapFragment) getFragmentManager()
+                    .findFragmentById(R.id.organization_map);
+            mapFragment.getMapAsync(this);
+        }
     }
 
+    private void populateContent() {
+
+        // Attempt to retrieve the organization's location.
+        orgLocation = UtilityManager.getDbUtility(this).getLatLong();
+
+    }
+
+    /**
+     * Implement customized map set-up.
+     *
+     * @param map Reference to the physical map element.
+     */
     @Override
     public void onMapReady(GoogleMap map) {
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+        // Style the map.
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        // Add location services.
         try {
             map.setMyLocationEnabled(true);
         } catch (SecurityException s) {}
-        map.setTrafficEnabled(true);
-        map.setIndoorEnabled(true);
-        map.setBuildingsEnabled(true);
+
+        // Allow the user to pinch around to see surroundings.
         map.getUiSettings().setZoomControlsEnabled(true);
-        final LatLng TutorialsPoint = new LatLng(54.978935, -1.613498);
-        Marker TP = map.addMarker(new MarkerOptions().position(TutorialsPoint).title("TutorialsPoint"));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(54.978935, -1.613498), 18.25f));
+        map.getUiSettings().setMyLocationButtonEnabled(true);
+        map.getUiSettings().setMapToolbarEnabled(true);
+
+        // Set pin to organization's location and style it.
+        String pinName = UtilityManager.getDbUtility(this).getOrgName();
+        if(pinName != null) {
+            Marker orgMarker = map.addMarker(new MarkerOptions().position(orgLocation));
+        }
+        else {
+            Marker orgMarker = map.addMarker(new MarkerOptions().position(orgLocation));
+        }
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(orgLocation, ZOOM_LEVEL));
+
     }
 
 }
