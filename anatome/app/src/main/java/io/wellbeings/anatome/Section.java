@@ -71,6 +71,10 @@ public class Section extends FragmentActivity {
                 section + "_ico", "drawable", getApplicationContext().getPackageName()
         );
 
+        final int graphicsId = getResources().getIdentifier(
+                section + "_graphic", "drawable", getApplicationContext().getPackageName()
+        );
+
         final int secondaryColourId = (ContextCompat.getColor(this,
                 UtilityManager.getThemeUtility(this).getColour(section + "_secondary_bg")));
 
@@ -82,10 +86,12 @@ public class Section extends FragmentActivity {
 
 
         ((ImageView) findViewById(R.id.section_image)).setImageResource(resourceId);
+        ((ImageView) findViewById(R.id.content_graphic)).setImageResource(graphicsId);
         ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(secondaryColourId);
         ((Button) findViewById(R.id.back)).setBackgroundColor(backBtnColourId);
         ((TextView) findViewById(R.id.section_name)).setBackgroundColor(secondaryColourId);
         ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
+
 
 
     }
