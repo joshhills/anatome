@@ -16,53 +16,10 @@
         tools:context="io.wellbeings.anatome.MainScroll"
         android:orientation="vertical">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/bookingSystemBackgroundKite"
-                android:src="@drawable/kite"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY" />
-
-            <ImageButton
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:id="@+id/bookButtonOnMainScroll"
-                android:layout_gravity="right|bottom"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/book"
-                android:layout_marginRight="16dp"
-                android:visibility="invisible"
-                style="?android:attr/borderlessButtonStyle"
-                android:textColor="#09849a"
-                android:scaleType="fitXY"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Need more help ?"
-                android:id="@+id/needMoreHelpText"
-                android:layout_gravity="left|bottom"
-                android:textColor="@android:color/black"
-                android:textSize="32dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="16dp"/>
-
-            <ImageButton
-                android:layout_width="48dp"
-                android:layout_height="44dp"
-                android:id="@+id/bookingInfoButton"
-                android:layout_gravity="right|bottom"
-                android:src="@drawable/info_grey"
-                style="?android:attr/borderlessButtonStyle"
-                android:textColor="#09849a"
-                android:scaleType="fitXY"
-                android:layout_marginRight="14dp"
-                android:layout_marginBottom="20dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <ImageButton
                 android:layout_width="48dp"
@@ -73,12 +30,69 @@
                 android:src="@drawable/settings_icon"
                 android:layout_gravity="center_horizontal|top" />
 
-        </FrameLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/bookingSystemBackgroundKite"
+                android:src="@drawable/kite"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@android:color/white"></TextView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/main_accent_text"
+                >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Need more help ?"
+                android:id="@+id/needMoreHelpText"
+                android:textColor="@android:color/black"
+                android:textSize="32dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="16dp"/>
+
+                <ImageButton
+                    android:layout_width="48dp"
+                    android:layout_height="44dp"
+                    android:id="@+id/bookingInfoButton"
+                    android:src="@drawable/info_grey"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="#09849a"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="20dp"/>
+
+                <ImageButton
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:id="@+id/bookButtonOnMainScroll"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/book"
+                    android:layout_marginRight="16dp"
+                    android:visibility="gone"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="#09849a"
+                    android:scaleType="fitXY" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_scroll_text"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="16dp"
+                android:background="@color/main_accent_text"
+                />
+
+        </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -153,7 +167,7 @@
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:id="@+id/heart"
-            android:layout_weight="1200"
+            android:layout_weight="900"
             />
 
     <RelativeLayout

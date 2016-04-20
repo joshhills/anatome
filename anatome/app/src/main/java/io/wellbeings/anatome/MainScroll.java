@@ -101,6 +101,11 @@ public class MainScroll extends Activity {
                 .dontTransform()
                 .override(1080, 731)
                 .into((ImageView) findViewById(R.id.footer));
+
+        TextView t = (TextView)findViewById(R.id.main_scroll_text);
+
+
+                t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "mainscrollText"));
     }
 
     // Modulate set-up tasks for easy alteration.

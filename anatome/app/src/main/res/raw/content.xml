@@ -45,6 +45,16 @@ For this reason, you may want to password-protect them.
                 2001-12-17T09:30:47Z
             </modified>
         </section>
+        <section name="mainscroll">
+            <headers>
+                <header>
+                </header>
+            </headers>
+            <information id="mainscrollText">
+                This is a triage service for your state of well-being. Take a look at our key sections of student-orientated information and interactive widgets to help you overcome your problems!
+            </information>
+        </section>
+
         <section name="heart">
             <!-- Headers store titles for parts of the section. -->
             <headers>
@@ -66,6 +76,7 @@ For this reason, you may want to password-protect them.
                 Here are some tips.
             </information>
             <information id="instructional_text">
+                Breathe in and count to five, These feelings will pass, Breathe out, Everything will be okay
             </information>
             <links>
                 <link>
@@ -130,6 +141,7 @@ For this reason, you may want to password-protect them.
             </information>
             <information id="instructional_text">
                 Take a deep breath in and count to 5, Remember we are here to help
+
                 Coming to university can be a stressful and overwhelming experience, but don’t despair!
                 Understanding your feelings and how to cope is the first step to feeling like you are back on track.
 

@@ -141,11 +141,21 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
                             }
 
+                            if (counterValue == 2  && counterIsIncreasing) {
+
+                                setInstructionText(instructionalText.get(1));
+                            }
+
+                            if (counterValue == 2 && !counterIsIncreasing) {
+
+                                setInstructionText(instructionalText.get(3));
+                            }
+
                             if (counterValue == 5) {
 
                                 vibrateToUser.vibrate(200);
                                 counterIsIncreasing = false;
-                                setInstructionText(instructionalText.get(1));
+                                setInstructionText(instructionalText.get(2));
                             }
 
                             if (counterIsIncreasing) {
