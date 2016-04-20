@@ -1,18 +1,26 @@
 package io.wellbeings.anatome;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Settings.
@@ -42,7 +50,9 @@ public class Settings extends Activity {
         // Spinner initialization
         languageSpinner();
 
-        textFields();
+        editName();
+        checkEmail();
+        eraseUserData();
 
     }
 
@@ -83,6 +93,8 @@ public class Settings extends Activity {
             }
         });
 
+
+
     }
 
     private void languageSpinner() {
@@ -104,16 +116,12 @@ public class Settings extends Activity {
                 switch (position) {
                     case 0://English
                         UtilityManager.getUserUtility(view.getContext()).setLanguage("en");
-                        Log.d("test:", (UtilityManager.getUserUtility(view.getContext()).getLanguage()));
-
                         break;
                     case 1://French
                         UtilityManager.getUserUtility(view.getContext()).setLanguage("fr");
-                        Log.d("test:", (UtilityManager.getUserUtility(view.getContext()).getLanguage()));
                         break;
                     case 2://Spanish
                         UtilityManager.getUserUtility(view.getContext()).setLanguage("es");
-                        Log.d("test:", (UtilityManager.getUserUtility(view.getContext()).getLanguage()));
                         break;
                 }
             }
@@ -125,20 +133,87 @@ public class Settings extends Activity {
 
         }
 
-        public void textFields() {
-            EditText nameText = (EditText) findViewById(R.id.settings_name);
-            EditText emailText = (EditText) findViewById(R.id.settings_email);
+        public void editName() {
 
+           final EditText nameText = (EditText) findViewById(R.id.settings_name);
 
             nameText.setText(UtilityManager.getUserUtility(this).getName());
+
+            nameText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    UtilityManager.getUserUtility(Settings.this).setName(nameText.getText().toString());
+                }
+
+
+            });
+        }
+
+        public void checkEmail() {
+
+            final EditText emailText = (EditText) findViewById(R.id.settings_email);
+
             emailText.setText(UtilityManager.getUserUtility(this).getEmail());
 
+            final String email = ((EditText) findViewById(R.id.settings_email)).getText().toString();
+            String regex = "^(.+)@(.+)$";
+            Pattern pattern = Pattern.compile(regex);
+            final Matcher matcher = pattern.matcher(email);
+
+
+            emailText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if ((email != null || !("".equals(email.trim()))) && !matcher.matches()) {
+                        emailText.setError("It's just wrong...... try again");
+                    } else {
+                        emailText.setError(null);
+                        UtilityManager.getUserUtility(Settings.this).setEmail(emailText.getText().toString());
+                        emailText.setText(UtilityManager.getUserUtility(Settings.this).getEmail());
+                    }
+                }
+
+                // Build regex.
+
+                // Check email is valid, if not, display error.
+
+                // Otherwise, allow clean save.
+
+
+            });
+
 
         }
 
-        public void textFinal(){
-
+        public void eraseUserData(){
+            Button eraseButton = (Button) findViewById(R.id.settings_erase);
+            eraseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                UtilityManager.getUserUtility(Settings.this).reset();
+                // Set-up new profile.
+                Intent i = new Intent(Settings.this, Preamble.class);
+                Settings.this.startActivity(i);
+                }
+            });
         }
 
 
-    }
+}

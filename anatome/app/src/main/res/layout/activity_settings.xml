@@ -137,7 +137,7 @@
                     android:id="@+id/settings_email"
                     android:layout_weight=".75"
                     android:textColor="#ffffff"
-                    android:hint="Guest"
+                    android:hint="example@university.com"
                     android:textColorHint="#dddddd" />
             </LinearLayout>
 
@@ -145,7 +145,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Erase user data"
-                android:id="@+id/button"
+                android:id="@+id/settings_erase"
                 android:background="#ffffff" />
 
         </LinearLayout>
