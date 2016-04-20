@@ -8,8 +8,13 @@ import org.w3c.dom.NodeList;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -143,6 +148,34 @@ public class ContentLoader extends XMLUtility {
                 + UtilityManager.getUserUtility(ctx).getLanguage()
                 + "']/miscellaneous/buttons/label[@id='"
                 + buttonID + "']");
+
+    }
+
+    public String getDateModified(String sectionName) {
+
+        String isoTimeFormat = getNodeContentWithXPath("application/content[@lang='"
+                + UtilityManager.getUserUtility(ctx).getLanguage()
+                + "']/section[@name='"
+                + sectionName + "']/modified");
+
+        /*
+         * Convert ISO 8601 compliant string to Java date object -
+         * favourable as XML prefers this format of date.
+         *
+         * Inspired by this SO answer:
+         * https://stackoverflow.com/a/10621553
+         */
+        Calendar calendar = GregorianCalendar.getInstance();
+        isoTimeFormat = isoTimeFormat.replace("Z", "+00:00");
+        try {
+            // Remove the ':'.
+            isoTimeFormat = isoTimeFormat.substring(0, 22)
+                    + isoTimeFormat.substring(23);
+            Date dateModified = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(isoTimeFormat);
+            calendar.setTime(dateModified);
+        } catch (Exception e) {}
+
+        return Integer.toString(calendar.get(Calendar.DATE));
 
     }
 

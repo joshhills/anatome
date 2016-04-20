@@ -296,6 +296,7 @@ For this reason, you may want to password-protect them.
                 <label id="ok">Okay</label>
                 <label id="cancel">Cancel</label>
                 <label id="oops">Oops!</label>
+                <label id="date">Last modified</label>
             </buttons>
         </miscellaneous>
     </content>

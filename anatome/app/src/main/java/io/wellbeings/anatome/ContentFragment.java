@@ -56,8 +56,10 @@ public class ContentFragment extends Fragment implements Widget {
         // Populate text containers with informative content.
         populateContent();
 
-        // If the user has allowed network access,
-        loadComments();
+        // If the user has allowed network access...
+        if(UtilityManager.getUserUtility(getContext()).isNetwork()) {
+            loadComments();
+        }
 
         return view;
     }
@@ -112,6 +114,12 @@ public class ContentFragment extends Fragment implements Widget {
                         UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
         );
 
+        // Log when the content was last updated.
+        ((TextView) view.findViewById(R.id.content_modified)).setText(
+                UtilityManager.getContentLoader(getContext()).getButtonText("date") + " " +
+                UtilityManager.getContentLoader(getContext()).getDateModified(section)
+        );
+
         /* Load graphical element. */
 
         final int resourceId = getResources().getIdentifier(
@@ -131,45 +139,49 @@ public class ContentFragment extends Fragment implements Widget {
         HashMap<String, String> comments = UtilityManager.getDbUtility(getContext()).getComments(section);
 
         // Create visual element for every comment.
-        for(String comment : comments.keySet()) {
+        if(comments != null) {
 
-            // Set and style comment content.
-            TextView commentView = new TextView(getContext());
-            commentView.setText(comment);
-            commentView.setTextColor(ContextCompat.getColor(getContext(),
-                            UtilityManager.getThemeUtility(getContext()).getColour(section + "_secondary_bg"))
-            );
-            commentView.setTextSize(18);
-            commentView.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            for(String comment : comments.keySet()) {
 
-            // Add element.
-            ll.addView(commentView);
+                // Set and style comment content.
+                TextView commentView = new TextView(getContext());
+                commentView.setText(comment);
+                commentView.setTextColor(ContextCompat.getColor(getContext(),
+                                UtilityManager.getThemeUtility(getContext()).getColour(section + "_secondary_bg"))
+                );
+                commentView.setTextSize(18);
+                commentView.setLayoutParams(new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            // Set and style author content.
-            TextView authorView = new TextView(getContext());
-            authorView.setText("- " + comments.get(comment));
-            authorView.setTextColor(ContextCompat.getColor(getContext(),
-                            UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
-            );
-            authorView.setTextSize(16);
-            authorView.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                // Add element.
+                ll.addView(commentView);
 
-            // Add element.
-            ll.addView(authorView);
+                // Set and style author content.
+                TextView authorView = new TextView(getContext());
+                authorView.setText("- " + comments.get(comment));
+                authorView.setTextColor(ContextCompat.getColor(getContext(),
+                                UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
+                );
+                authorView.setTextSize(16);
+                authorView.setLayoutParams(new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            // Add separator with margin.
-            View v = new View(getContext());
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    5
-            );
-            lp.setMargins(0, 20, 0, 20);
-            v.setLayoutParams(lp);
-            v.setBackgroundColor(ContextCompat.getColor(getContext(),
-                    UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text")));
-            ll.addView(v);
+                // Add element.
+                ll.addView(authorView);
+
+                // Add separator with margin.
+                View v = new View(getContext());
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        5
+                );
+                lp.setMargins(0, 20, 0, 20);
+                v.setLayoutParams(lp);
+                v.setBackgroundColor(ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text")));
+                ll.addView(v);
+
+            }
 
         }
 
