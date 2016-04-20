@@ -178,22 +178,62 @@ public class DbUtility implements Utility {
         return null;
     }
 
-    public ArrayList<HashMap<String, String>> getComments(String area) {
+    public HashMap<String, String> getComments(String area) {
         String result;
         ArrayList<HashMap<String, String>> commentList;
 
         try {
-            GetDataJSON g = new GetDataJSON("comment", "liver");
+            GetDataJSON g = new GetDataJSON("comment", area);
             result = g.execute().get();
 
-            commentList = parseComment(result);
-
-            return commentList;
+            return parseComment(result);
 
         }catch(Exception e) {
             e.printStackTrace();
         }
 
+
+        return null;
+    }
+
+    public String getOrgName() {
+        String result;
+
+        try {
+            GetDataJSON g = new GetDataJSON("orgname", "none");
+            result = g.execute().get();
+
+            JSONObject jsonObj = new JSONObject(result);
+            array = jsonObj.getJSONArray(TAG_RESULTS);
+
+            String orgName = array.getJSONObject(0).getString("Name");
+
+            return orgName;
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public String getOrgDescription() {
+        String result;
+
+        try {
+            GetDataJSON g = new GetDataJSON("orgdesc", "none");
+            result = g.execute().get();
+
+            JSONObject jsonObj = new JSONObject(result);
+            array = jsonObj.getJSONArray(TAG_RESULTS);
+
+            String orgName = array.getJSONObject(0).getString("Description");
+
+            return orgName;
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
 
         return null;
     }
@@ -218,24 +258,20 @@ public class DbUtility implements Utility {
         return null;
     }
 
-    public ArrayList<HashMap<String, String>> parseComment(String result) {
-        ArrayList<HashMap<String, String>> commentList = new ArrayList<HashMap<String, String>>();
+    public HashMap<String, String> parseComment(String result) {
         try {
             JSONObject jsonObj = new JSONObject(result);
             array = jsonObj.getJSONArray(TAG_RESULTS);
+            HashMap<String, String> comments = new HashMap<>();
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject c = array.getJSONObject(i);
                 String name = c.getString(TAG_COM_NAME);
                 String comment = c.getString(TAG_COM);
 
-                HashMap<String, String> comments = new HashMap<>();
-
-                comments.put(TAG_COM_NAME, name);
-                comments.put(TAG_COM, comment);
-                commentList.add(comments);
+                comments.put(comment, name);
             }
-            return commentList;
+            return comments;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -286,6 +322,8 @@ public class DbUtility implements Utility {
         }
         return null;
     }
+
+
 
     public String[] parseLatLong(String result) {
         String[] latLong = new String[2];

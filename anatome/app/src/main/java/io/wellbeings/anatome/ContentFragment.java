@@ -53,7 +53,10 @@ public class ContentFragment extends Fragment implements Widget {
         view = inflater.inflate(R.layout.fragment_content, container, false);
         section = getArguments().getString("section");
 
+        // Populate text containers with informative content.
         populateContent();
+
+        // If the user has allowed network access,
         loadComments();
 
         return view;
@@ -125,17 +128,9 @@ public class ContentFragment extends Fragment implements Widget {
         LinearLayout ll = (LinearLayout) view.findViewById(R.id.content_comments_container);
 
         // Retrieve user comments.
-        // ArrayList<HashMap<String, String>> commentList =
+        HashMap<String, String> comments = UtilityManager.getDbUtility(getContext()).getComments(section);
 
-        /******************/
-        // TODO: Remove this test block.
-        // comments.put("This is a comment, did you know? I swear, it is! How weird is that, but seriously you should kill yourself.", "Paul Oslow");
-        // comments.put("This is a comment, awdgj  af ghat, but serioawdg j fifapwfawf ill yourself.", "Wiidg Ethox");
-        // comments.put("This is a comment, did you know? awjf  aiwz gpaw jpw joptjrdhjp sop jjpa.", "Adma Aholdems");
-        // comments.put("This is a comment, did you know? I swear, it is! How weird is that, but seriously you should kill yourself.", "Paul Oslow");
-        /******************/
-
-        /* Create visual element for every comment.
+        // Create visual element for every comment.
         for(String comment : comments.keySet()) {
 
             // Set and style comment content.
@@ -176,7 +171,7 @@ public class ContentFragment extends Fragment implements Widget {
                     UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text")));
             ll.addView(v);
 
-        }*/
+        }
 
     }
 
