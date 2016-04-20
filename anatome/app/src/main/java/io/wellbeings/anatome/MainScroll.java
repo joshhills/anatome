@@ -217,16 +217,13 @@ public class MainScroll extends Activity {
     private OnClickListener navigateToSettings = new OnClickListener() {
         @Override
         public void onClick(View v) {
-
-
             ((ImageButton) findViewById(R.id.settingsImage)).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(MainScroll.this, Settings.class));
+                    Intent intent = new Intent(v.getContext(), Settings.class);
+                    startActivity(intent);
                 }
             });
-
-
         }
     };
 }

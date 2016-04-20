@@ -137,25 +137,33 @@
                     android:id="@+id/settings_email"
                     android:layout_weight=".75"
                     android:textColor="#ffffff"
-                    android:hint="Guest"
+                    android:hint="example@university.com"
                     android:textColorHint="#dddddd" />
             </LinearLayout>
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:text="Change password"
+                android:id="@+id/settings_password"
+                android:background="#ffffff" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:text="Erase user data"
-                android:id="@+id/button"
+                android:id="@+id/settings_erase"
                 android:background="#ffffff" />
 
         </LinearLayout>
 
     </LinearLayout>
 
+
     <ImageButton
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:id="@+id/imageButton"
+        android:id="@+id/settings_back"
         android:layout_gravity="center_horizontal|bottom"
         android:background="@null"
         android:src="@drawable/settings_down_arrow"

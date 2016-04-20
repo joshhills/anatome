@@ -222,11 +222,15 @@ abstract class XMLUtility implements Utility {
 		// Retrieve the target node.
 		Node target = getNodeWithXPath(xPathExpression);
 
-		// Check for nullity and format result.
-		return ((target == null) ? null : target.getTextContent().trim());
+		// Check for nullity and format result, removing whitespace.
+		return ((target == null) ? null : target.getTextContent().trim()
+				.replaceAll("[\\s&&[^\\n]]+", " ")
+				.replaceAll("(?m)^\\s|\\s$", "")
+				.replaceAll("\\n+", "\n")
+				.replaceAll("^\n|\n$", ""));
 
 	}
-	
+
 	@Override
 	public STATUS getState() {
 		return utilityStatus;

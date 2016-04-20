@@ -31,4 +31,8 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="sectionTabsStyle">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
 </resources>

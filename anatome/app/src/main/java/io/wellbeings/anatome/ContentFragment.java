@@ -53,8 +53,13 @@ public class ContentFragment extends Fragment implements Widget {
         view = inflater.inflate(R.layout.fragment_content, container, false);
         section = getArguments().getString("section");
 
+        // Populate text containers with informative content.
         populateContent();
-        loadComments();
+
+        // If the user has allowed network access...
+        if(UtilityManager.getUserUtility(getContext()).isNetwork()) {
+            loadComments();
+        }
 
         return view;
     }
@@ -109,6 +114,12 @@ public class ContentFragment extends Fragment implements Widget {
                         UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
         );
 
+        // Log when the content was last updated.
+        ((TextView) view.findViewById(R.id.content_modified)).setText(
+                UtilityManager.getContentLoader(getContext()).getButtonText("date") + " " +
+                UtilityManager.getContentLoader(getContext()).getDateModified(section)
+        );
+
         /* Load graphical element. */
 
         final int resourceId = getResources().getIdentifier(
@@ -125,58 +136,54 @@ public class ContentFragment extends Fragment implements Widget {
         LinearLayout ll = (LinearLayout) view.findViewById(R.id.content_comments_container);
 
         // Retrieve user comments.
-        // ArrayList<HashMap<String, String>> commentList =
+        HashMap<String, String> comments = UtilityManager.getDbUtility(getContext()).getComments(section);
 
-        /******************/
-        // TODO: Remove this test block.
-        // comments.put("This is a comment, did you know? I swear, it is! How weird is that, but seriously you should kill yourself.", "Paul Oslow");
-        // comments.put("This is a comment, awdgj  af ghat, but serioawdg j fifapwfawf ill yourself.", "Wiidg Ethox");
-        // comments.put("This is a comment, did you know? awjf  aiwz gpaw jpw joptjrdhjp sop jjpa.", "Adma Aholdems");
-        // comments.put("This is a comment, did you know? I swear, it is! How weird is that, but seriously you should kill yourself.", "Paul Oslow");
-        /******************/
+        // Create visual element for every comment.
+        if(comments != null) {
 
-        /* Create visual element for every comment.
-        for(String comment : comments.keySet()) {
+            for(String comment : comments.keySet()) {
 
-            // Set and style comment content.
-            TextView commentView = new TextView(getContext());
-            commentView.setText(comment);
-            commentView.setTextColor(ContextCompat.getColor(getContext(),
-                            UtilityManager.getThemeUtility(getContext()).getColour(section + "_secondary_bg"))
-            );
-            commentView.setTextSize(18);
-            commentView.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                // Set and style comment content.
+                TextView commentView = new TextView(getContext());
+                commentView.setText(comment);
+                commentView.setTextColor(ContextCompat.getColor(getContext(),
+                                UtilityManager.getThemeUtility(getContext()).getColour(section + "_secondary_bg"))
+                );
+                commentView.setTextSize(18);
+                commentView.setLayoutParams(new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            // Add element.
-            ll.addView(commentView);
+                // Add element.
+                ll.addView(commentView);
 
-            // Set and style author content.
-            TextView authorView = new TextView(getContext());
-            authorView.setText("- " + comments.get(comment));
-            authorView.setTextColor(ContextCompat.getColor(getContext(),
-                            UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
-            );
-            authorView.setTextSize(16);
-            authorView.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                // Set and style author content.
+                TextView authorView = new TextView(getContext());
+                authorView.setText("- " + comments.get(comment));
+                authorView.setTextColor(ContextCompat.getColor(getContext(),
+                                UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
+                );
+                authorView.setTextSize(16);
+                authorView.setLayoutParams(new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            // Add element.
-            ll.addView(authorView);
+                // Add element.
+                ll.addView(authorView);
 
-            // Add separator with margin.
-            View v = new View(getContext());
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    5
-            );
-            lp.setMargins(0, 20, 0, 20);
-            v.setLayoutParams(lp);
-            v.setBackgroundColor(ContextCompat.getColor(getContext(),
-                    UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text")));
-            ll.addView(v);
+                // Add separator with margin.
+                View v = new View(getContext());
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        5
+                );
+                lp.setMargins(0, 20, 0, 20);
+                v.setLayoutParams(lp);
+                v.setBackgroundColor(ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text")));
+                ll.addView(v);
 
-        }*/
+            }
+
+        }
 
     }
 

@@ -35,6 +35,8 @@ public class BookingSystem extends AppCompatActivity {
     private Button mBackFromBooking, mBook;
     private ImageButton mOptions;
     private String[] appointments;
+    private String pref = "either";
+    private String timeTime = "09:00";
     final Calendar c = Calendar.getInstance();
 
 
@@ -65,6 +67,7 @@ public class BookingSystem extends AppCompatActivity {
 
     }
 
+    /*
     TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -73,7 +76,8 @@ public class BookingSystem extends AppCompatActivity {
             c.set(Calendar.MINUTE, minute);
             setCurrentDateOnView();
         }
-    };
+    };*/
+
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -99,11 +103,6 @@ public class BookingSystem extends AppCompatActivity {
             newDate = needed.format(initial.parse(date));
             appointments = UtilityManager.getDbUtility(this).getAvailable(newDate.toString());
 
-            for(int i = 0; i < appointments.length; i++) {
-                System.out.println(appointments[i]);
-            }
-
-
 
         }catch(Exception e) {
             System.out.println("Error: Unable to parse date");
@@ -115,6 +114,16 @@ public class BookingSystem extends AppCompatActivity {
         aNumberPicker.setMaxValue(appointments.length - 1);
         aNumberPicker.setMinValue(0);
         aNumberPicker.setDisplayedValues(appointments);
+
+        aNumberPicker.setOnValueChangedListener(
+                new NumberPicker.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                        timeTime = appointments[newVal];
+                        mSetTime.setText(timeTime);
+                    }
+                }
+        );
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
         RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -164,9 +173,7 @@ public class BookingSystem extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.UK);
         mSetDate.setText(sdf.format(c.getTime()));
 
-        String timeFormat = "hh:mm a";
-        SimpleDateFormat stf = new SimpleDateFormat(timeFormat, Locale.UK);
-        mSetTime.setText(stf.format(c.getTime()));
+        mSetTime.setText(timeTime);
     }
 
     public void postBooking() {
@@ -175,21 +182,16 @@ public class BookingSystem extends AppCompatActivity {
         String time = mSetTime.getText().toString();
         String newDate = null;
 
-        System.out.println("///////////////" + date);
-        System.out.println("///////////////" + time);
-
         SimpleDateFormat initial = new SimpleDateFormat("dd-MM-yy");
         SimpleDateFormat needed = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             newDate = needed.format(initial.parse(date));
-
-            System.out.println("///////////////" + newDate);
         }catch(Exception e) {
             System.out.println("Error: Unable to parse date");
         }
 
-        UtilityManager.getDbUtility(this).addAppointment(time, newDate);
+        UtilityManager.getDbUtility(this).addAppointment(time, newDate, pref);
         Toast.makeText(BookingSystem.this, "Appointment Booked", Toast.LENGTH_SHORT).show();
     }
 
@@ -245,25 +247,39 @@ public class BookingSystem extends AppCompatActivity {
     public void selectGender(View v) {
 
         boolean checked = ((RadioButton) v).isChecked();
+        Button saveBtn = (Button) findViewById(R.id.saveGenderOptionsButton);
 
         switch (v.getId()) {
 
             case R.id.radio_woman:
                 if(checked) {
                     Toast.makeText(BookingSystem.this, "Woman", Toast.LENGTH_SHORT).show();
+                    pref = "woman";
                 }
                 break;
             case R.id.radio_man:
                 if(checked) {
                     Toast.makeText(BookingSystem.this, "Man", Toast.LENGTH_SHORT).show();
+                    pref = "man";
                 }
                 break;
             case R.id.radio_nopreference:
                 if(checked) {
                     Toast.makeText(BookingSystem.this, "None", Toast.LENGTH_SHORT).show();
+                    pref = "either";
                 }
                 break;
         }
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setGeneralContentView();
+            }
+        });
+
+
     }
 
     public void setGeneralContentView() {
