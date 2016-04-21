@@ -8,8 +8,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -64,24 +66,37 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
             }
         });
 
+        // Set the background of the layout container.
+        Glide.with(this).load(R.drawable.organization_bg)
+                .dontTransform()
+                .override(1080,1610)
+                .into((ImageView) findViewById(R.id.organization_bg));
+
+
     }
 
     private void populateContent() {
 
-        // Attempt to retrieve the organization's location.
-        orgLocation = UtilityManager.getDbUtility(this).getLatLong();
+        try {
+
+            // Attempt to retrieve the organization's location.
+            orgLocation = UtilityManager.getDbUtility(this).getLatLong();
 
         /* Set textual content. */
 
-        // Set organization name.
-        ((TextView) findViewById(R.id.organization_name)).setText(
-                UtilityManager.getDbUtility(this).getOrgName()
-        );
+            // Set organization name.
+            ((TextView) findViewById(R.id.organization_name)).setText(
+                    UtilityManager.getDbUtility(this).getOrgName()
+            );
 
-        // Set organization description.
-        ((TextView) findViewById(R.id.organization_description)).setText(
-                UtilityManager.getDbUtility(this).getOrgDescription()
-        );
+            // Set organization description.
+            ((TextView) findViewById(R.id.organization_description)).setText(
+                    UtilityManager.getDbUtility(this).getOrgDescription()
+            );
+        }catch(NetworkException e) {
+            NotificationHandler.NetworkErrorDialog(OrganizationActivity.this);
+        }
+
 
     }
 
@@ -92,30 +107,32 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
      */
     @Override
     public void onMapReady(GoogleMap map) {
-
-        // Style the map.
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-        // Add location services.
         try {
-            map.setMyLocationEnabled(true);
-        } catch (SecurityException s) {}
+            // Style the map.
+            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        // Allow the user to pinch around to see surroundings.
-        map.getUiSettings().setZoomControlsEnabled(true);
-        map.getUiSettings().setMyLocationButtonEnabled(true);
-        map.getUiSettings().setMapToolbarEnabled(true);
+            // Add location services.
+            try {
+                map.setMyLocationEnabled(true);
+            } catch (SecurityException s) {
+            }
 
-        // Set pin to organization's location and style it.
-        String pinName = UtilityManager.getDbUtility(this).getOrgName();
-        if(pinName != null) {
-            Marker orgMarker = map.addMarker(new MarkerOptions().position(orgLocation));
+            // Allow the user to pinch around to see surroundings.
+            map.getUiSettings().setZoomControlsEnabled(true);
+            map.getUiSettings().setMyLocationButtonEnabled(true);
+            map.getUiSettings().setMapToolbarEnabled(true);
+
+            // Set pin to organization's location and style it.
+            String pinName = UtilityManager.getDbUtility(this).getOrgName();
+            if (pinName != null) {
+                Marker orgMarker = map.addMarker(new MarkerOptions().position(orgLocation));
+            } else {
+                Marker orgMarker = map.addMarker(new MarkerOptions().position(orgLocation));
+            }
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(orgLocation, ZOOM_LEVEL));
+        }catch (NetworkException e) {
+            NotificationHandler.NetworkErrorDialog(OrganizationActivity.this);
         }
-        else {
-            Marker orgMarker = map.addMarker(new MarkerOptions().position(orgLocation));
-        }
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(orgLocation, ZOOM_LEVEL));
-
     }
 
 }

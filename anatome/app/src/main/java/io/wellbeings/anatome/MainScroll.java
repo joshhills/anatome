@@ -45,10 +45,47 @@ public class MainScroll extends Activity {
         // Initialization of components.
         attachListeners();
 
+<<<<<<< HEAD
         //
         if (getIntent().getStringExtra("from").equals("OrganizationActivity")){
             
         }
+=======
+        // load the rocket background image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_background_rocket)
+                .dontTransform()
+                .override(1085, 732)
+                .into((ImageView) findViewById(R.id.mainscroll_rocket_background));
+
+        // load the rocket animation image
+        Glide.with(this)
+                .load(R.drawable.rocket_animation)
+                .dontTransform()
+                .override(1080, 732)
+                .into((ImageView) findViewById(R.id.rocket_animation));
+
+        // load the dark fuel animation image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_fuel_dark)
+                .dontTransform()
+                .override(1080, 732)
+                .into((ImageView) findViewById(R.id.mainscroll_fuel_dark));
+
+        // load the light fuel animation image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_fuel_light)
+                .dontTransform()
+                .override(1080, 732)
+                .into((ImageView) findViewById(R.id.mainscroll_fuel_light));
+
+        // load the kite background image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_kite)
+                .dontTransform()
+                .override(1080, 732)
+                .into((ImageView) findViewById(R.id.mainscroll_kite));
+>>>>>>> origin/master
 
         // load the background image
         Glide.with(this)
@@ -117,7 +154,7 @@ public class MainScroll extends Activity {
         findViewById(R.id.heart).setOnClickListener(navigateToSection);
         findViewById(R.id.liver).setOnClickListener(navigateToSection);
         findViewById(R.id.bookingInfoButton).setOnClickListener(navigateToBookingSystem);
-        findViewById(R.id.settingsImage).setOnClickListener(navigateToSettings);
+        findViewById(R.id.rocket_animation).setOnClickListener(navigateToSettings);
         findViewById(R.id.settingsBtn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,28 +229,32 @@ public class MainScroll extends Activity {
 
                    }else {
 
-                       Context ctx = MainScroll.this;
-                       HashMap<String, String> appointments;
-
-                       appointments = UtilityManager.getDbUtility(MainScroll.this).getAppointment();
-
-                       String date;
-                       Boolean check;
-
                        try {
-                           date = appointments.get("App_Date").toString();
-                           check = true;
-                       } catch (Exception e) {
-                           check = false;
-                       }
+                           Context ctx = MainScroll.this;
+                           HashMap<String, String> appointments;
 
-                       if (check) {
-                           Intent intent = new Intent(v.getContext(), TestLayout.class);
-                           startActivity(intent);
-                       } else {
+                           appointments = UtilityManager.getDbUtility(MainScroll.this).getAppointment();
 
-                           Intent intent = new Intent(v.getContext(), BookingSystem.class);
-                           startActivity(intent);
+                           String date;
+                           Boolean check;
+
+                           try {
+                               date = appointments.get("App_Date").toString();
+                               check = true;
+                           } catch (Exception e) {
+                               check = false;
+                           }
+
+                           if (check) {
+                               Intent intent = new Intent(v.getContext(), TestLayout.class);
+                               startActivity(intent);
+                           } else {
+
+                               Intent intent = new Intent(v.getContext(), BookingSystem.class);
+                               startActivity(intent);
+                           }
+                       }catch (NetworkException e) {
+                           NotificationHandler.NetworkErrorDialog(MainScroll.this);
                        }
 
                    }
@@ -227,7 +268,7 @@ public class MainScroll extends Activity {
     private OnClickListener navigateToSettings = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            ((ImageButton) findViewById(R.id.settingsImage)).setOnClickListener(new OnClickListener() {
+            ((ImageView) findViewById(R.id.rocket_animation)).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), Settings.class);

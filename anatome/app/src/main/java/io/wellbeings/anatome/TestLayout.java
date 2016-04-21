@@ -43,18 +43,24 @@ public class TestLayout extends AppCompatActivity {
         Context ctx = TestLayout.this;
         HashMap<String, String> appointments;
 
-        appointments = UtilityManager.getDbUtility(this).getAppointment();
+        try {
 
-        TextView timeView = (TextView)findViewById(R.id.bookedTime);
-        TextView dateView = (TextView)findViewById(R.id.bookedDate);
+            appointments = UtilityManager.getDbUtility(this).getAppointment();
 
-        String date = appointments.get("App_Date").toString();
-        String time = appointments.get("App_Time").toString();
+            TextView timeView = (TextView) findViewById(R.id.bookedTime);
+            TextView dateView = (TextView) findViewById(R.id.bookedDate);
 
-        dateView.setText(date);
-        timeView.setText(time);
+            String date = appointments.get("App_Date").toString();
+            String time = appointments.get("App_Time").toString();
 
-        NotificationHandler.pushNotification(TestLayout.this, "Booked Appointment:", "Time: " + time + "Date: " + date);
+            dateView.setText(date);
+            timeView.setText(time);
+
+            NotificationHandler.pushNotification(TestLayout.this, "Booked Appointment:", "Time: " + time + "Date: " + date);
+
+        }catch(NetworkException e) {
+            NotificationHandler.NetworkErrorDialog(TestLayout.this);
+        }
 
     }
 
