@@ -141,7 +141,7 @@
         <RelativeLayout android:id="@+id/brain_group"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1262">
+            android:layout_weight="1462">
 
 
             <ImageView
