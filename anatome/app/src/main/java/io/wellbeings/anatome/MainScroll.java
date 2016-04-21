@@ -53,7 +53,7 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_rocket)
                 .dontTransform()
-                .override(1085, 732)
+                .override(1080, 732)
                 .into((ImageView) findViewById(R.id.mainscroll_rocket_background));
 
         // load the rocket animation image
@@ -88,21 +88,21 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_upper)
                 .dontTransform()
-                .override(1080, 2727)
+                .override(1080, 2700)
                 .into((ImageView) findViewById(R.id.mainscroll_background_upper));
 
         // load the background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_lower)
                 .dontTransform()
-                .override(1080, 2640)
+                .override(1080, 2638)
                 .into((ImageView) findViewById(R.id.mainscroll_background_lower));
 
         // load the heart image
         Glide.with(this)
                 .load(R.drawable.heart)
                 .dontTransform()
-                .override(1080, 1200)
+                .override(1200, 1014)
                 .animate(R.anim.heart_animation)
                 .into((ImageView) findViewById(R.id.heart));
 
