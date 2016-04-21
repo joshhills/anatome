@@ -21,6 +21,7 @@ import android.widget.TimePicker;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -95,6 +96,7 @@ public class BookingSystem extends AppCompatActivity {
         try {
             newDate = needed.format(initial.parse(date));
             appointments = UtilityManager.getDbUtility(this).getAvailable(newDate.toString());
+            Arrays.sort(appointments);
 
 
         }catch(Exception e) {
