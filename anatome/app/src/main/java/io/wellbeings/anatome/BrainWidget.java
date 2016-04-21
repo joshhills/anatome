@@ -100,7 +100,10 @@ public class BrainWidget extends Fragment implements Widget {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment, storing view.
-        v = inflater.inflate(R.layout.fragment_brain_widget, container, false);
+        //**********************************************************************
+        v = inflater.inflate(R.layout.test_brain_layout, container, false);
+        //**********************************************************************
+
 
         //for the camera
         OUTPUT_FILE = Environment.getExternalStorageDirectory() + "/audiorecorder.3gpp";
@@ -110,10 +113,12 @@ public class BrainWidget extends Fragment implements Widget {
 
         //if there aren't any notes then display the tutorial note
         if(noteList.size() == 0) {
-            Note note = new Note(getCurrentDate(),
+            //**********************************************************************
+            /*Note note = new Note(getCurrentDate(),
                     "Create your first note by editing the template to the left of this note and clicking save!" +
                             "You can delete notes by pressing the bin at the bottom of said note.");
-            initNote(note,0);
+            initNote(note,0);*/
+            //**********************************************************************
         }
         else {
             //initialise the graphics for the first five notes in the noteList

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF8B6EB0">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.62">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.95"></FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Keep track of the things that make you happy :"
+                    android:id="@+id/textView4"
+                    android:layout_gravity="left|center_vertical"
+                    android:textColor="#FF432A64"
+                    android:textSize="22dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.95"></FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="29dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.03"></FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:background="#f7f0ff">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5px"
+                    android:background="@drawable/rounded_corners">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="21/04/2016"
+                        android:id="@+id/newNoteDate"
+                        android:textIsSelectable="true"
+                        android:textColor="#FF432A64"
+                        android:layout_weight="0.8" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:id="@+id/newNoteContent"
+                        android:textColor="#FF432A64"
+                        android:layout_weight="0.4"
+                        android:text="Create your first note by editing this template and press save. You can delete a note by pressing on the bin." />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/newNoteControlPanel">
+
+                        <ImageButton
+                            android:layout_width="150px"
+                            android:layout_height="150px"
+                            android:id="@+id/deleteButton"
+                            android:src="@drawable/recyclebin"
+                            android:backgroundTint="#FF654989" />
+
+                        <Button
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_width="150px"
+                            android:layout_height="150px"
+                            android:text="save"
+                            android:id="@+id/btnSave1"
+                            android:layout_weight="0.6"
+                            android:textSize="12dp"
+                            android:padding="1px"
+                            android:backgroundTint="#FF654989"
+                            android:textColor="#ffffffff" />
+
+                        <Button
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_width="150px"
+                            android:layout_height="150px"
+                            android:text="gall"
+                            android:id="@+id/btnGallery"
+                            android:layout_weight="0.6"
+                            android:textSize="12dp"
+                            android:padding="1px"
+                            android:backgroundTint="#FF654989"
+                            android:textColor="#ffffffff" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="17dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.03">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2px"
+                    android:id="@+id/leftArrow"
+                    android:layout_gravity="center"
+                    android:src="@drawable/left_arrow"
+                    android:background="#7d5ba6" />
+            </FrameLayout>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/horizontalScrollView2"
+                android:layout_weight="1"
+                android:padding="5px">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/noteScroll"></LinearLayout>
+            </HorizontalScrollView>
+
+            <FrameLayout
+                android:layout_width="22dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.03">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rightArrow"
+                    android:layout_gravity="center"
+                    android:padding="2px"
+                    android:src="@drawable/right_arrow"
+                    android:background="#7d5ba6" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.64">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"></FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="And throw away the ones that don&apos;t ..."
+                    android:id="@+id/sadNoteText"
+                    android:layout_gravity="left|center_vertical"
+                    android:textColor="#FF432A64"
+                    android:textSize="22dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"></FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.56">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.85"></FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.18"
+                android:id="@+id/negativeNote">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/negativeEditText"
+                    android:layout_weight="0.8"
+                    android:background="#ffffffff" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"></FrameLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.01">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3"></FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3">
+
+                        <ImageButton
+                            android:layout_width="150px"
+                            android:layout_height="150px"
+                            android:layout_margin="2px"
+                            android:id="@+id/negativeDelete"
+                            android:layout_gravity="center"
+                            android:src="@drawable/recyclebin"
+                            android:background="#FF654989" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3"></FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.85"></FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.72"
+        android:id="@+id/happyThoughtsText"></FrameLayout>
+</LinearLayout>
