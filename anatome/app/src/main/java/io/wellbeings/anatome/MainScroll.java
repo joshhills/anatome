@@ -45,11 +45,39 @@ public class MainScroll extends Activity {
         // Initialization of components.
         attachListeners();
 
-        // load the background image
+        // load the rocket background image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_background_rocket)
+                .dontTransform()
+                .override(1085, 732)
+                .into((ImageView) findViewById(R.id.mainscroll_rocket_background));
+
+        // load the rocket animation image
+        Glide.with(this)
+                .load(R.drawable.rocket_animation)
+                .dontTransform()
+                .override(1080, 732)
+                .into((ImageView) findViewById(R.id.rocket_animation));
+
+        // load the dark fuel animation image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_fuel_dark)
+                .dontTransform()
+                .override(1080, 732)
+                .into((ImageView) findViewById(R.id.mainscroll_fuel_dark));
+
+        // load the light fuel animation image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_fuel_light)
+                .dontTransform()
+                .override(1080, 732)
+                .into((ImageView) findViewById(R.id.mainscroll_fuel_light));
+
+        // load the kite background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_kite)
                 .dontTransform()
-                .override(1125, 763)
+                .override(1080, 732)
                 .into((ImageView) findViewById(R.id.mainscroll_kite));
 
         // load the background image
@@ -119,7 +147,7 @@ public class MainScroll extends Activity {
         findViewById(R.id.heart).setOnClickListener(navigateToSection);
         findViewById(R.id.liver).setOnClickListener(navigateToSection);
         findViewById(R.id.bookingInfoButton).setOnClickListener(navigateToBookingSystem);
-        findViewById(R.id.settingsImage).setOnClickListener(navigateToSettings);
+        findViewById(R.id.rocket_animation).setOnClickListener(navigateToSettings);
         findViewById(R.id.settingsBtn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,7 +259,7 @@ public class MainScroll extends Activity {
     private OnClickListener navigateToSettings = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            ((ImageButton) findViewById(R.id.settingsImage)).setOnClickListener(new OnClickListener() {
+            ((ImageView) findViewById(R.id.rocket_animation)).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), Settings.class);
