@@ -45,12 +45,10 @@ public class MainScroll extends Activity {
         // Initialization of components.
         attachListeners();
 
-<<<<<<< HEAD
-        //
-        if (getIntent().getStringExtra("from").equals("OrganizationActivity")){
+        /*if (getIntent().getStringExtra("from").equals("OrganizationActivity")){
             
-        }
-=======
+        }*/
+
         // load the rocket background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_rocket)
@@ -85,7 +83,6 @@ public class MainScroll extends Activity {
                 .dontTransform()
                 .override(1080, 732)
                 .into((ImageView) findViewById(R.id.mainscroll_kite));
->>>>>>> origin/master
 
         // load the background image
         Glide.with(this)
