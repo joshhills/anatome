@@ -45,6 +45,11 @@ public class MainScroll extends Activity {
         // Initialization of components.
         attachListeners();
 
+        //
+        if (getIntent().getStringExtra("from").equals("OrganizationActivity")){
+            
+        }
+
         // load the background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_upper)
@@ -116,7 +121,9 @@ public class MainScroll extends Activity {
         findViewById(R.id.settingsBtn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainScroll.this, OrganizationActivity.class));
+                Intent intent = new Intent(MainScroll.this, OrganizationActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_top_in, R.anim.slide_top_out);
             }
         });
 

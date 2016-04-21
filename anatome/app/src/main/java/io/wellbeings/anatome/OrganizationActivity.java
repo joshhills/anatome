@@ -57,7 +57,10 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
         ((ImageButton)findViewById(R.id.organization_back)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OrganizationActivity.this, MainScroll.class));
+                Intent intent = new Intent(OrganizationActivity.this, MainScroll.class);
+                intent.putExtra("from", "OrganizationActivity");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
             }
         });
 
