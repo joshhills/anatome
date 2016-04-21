@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Vibrator;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,6 +32,7 @@ public class NotificationHandler {
                 .build();
 
         NM.notify(0, notification); //fire the actual notification
+        ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(200); //vibrate
     }
 
     //overload that includes a delay before sending the notification
@@ -43,7 +45,7 @@ public class NotificationHandler {
             }
         };
 
-        //schedule the task after set delay
+        // Schedule the task after set delay
         timer.schedule(task, delay);
     }
 

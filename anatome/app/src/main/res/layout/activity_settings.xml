@@ -3,174 +3,184 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="io.wellbeings.anatome.Settings"
-    android:background="#7a36ee"
-    android:id="@+id/settings_bg">
+    android:background="#2e2f67">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/settings_bg" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/settings_container">
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/settings_header_container"
-            android:background="#ffffff"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Settings"
-                android:id="@+id/textView3"
-                android:textColor="#14141c"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/settings_elements_container"
-            android:padding="10dp"
-            android:contextClickable="false"
-            android:clickable="false"
-            android:divider="@drawable/empty_layout_spacer"
-            android:background="@drawable/border"
-            android:showDividers="middle">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Device"
-                android:textColor="#ffffff"
-                android:textSize="22dp" />
-
-            <Switch
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Allow Notifications"
-                android:id="@+id/settings_notifications"
-                android:textColor="#ffffff"
-                android:textSize="18dp"
-                android:trackTint="#ffffff"
-                android:textOn="#ffffff"
-                android:textOff="#dddddd" />
-
-            <Switch
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Use Network"
-                android:id="@+id/settings_network"
-                android:textColor="#ffffff"
-                android:textSize="18dp"
-                android:trackTint="#ffffff"
-                android:textOn="#ffffff"
-                android:textOff="#dddddd" />
-
-            <Spinner
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/settings_language"
-                style="@style/Widget.AppCompat.Spinner.DropDown" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textColor="#ffffff"
-                android:textSize="22dp" />
+            android:id="@+id/settings_container">
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/settings_header_container"
+                android:background="#ffffff"
+                android:padding="10dp">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:id="@+id/settings_name_label"
-                    android:textColor="#ffffff"
-                    android:textSize="18dp"
-                    android:layout_weight=".25" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Settings"
+                    android:id="@+id/textView3"
+                    android:textColor="#14141c"
+                    android:textStyle="bold" />
 
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:ems="10"
-                    android:id="@+id/settings_name"
-                    android:layout_weight=".75"
-                    android:textColor="#ffffff"
-                    android:hint="Guest"
-                    android:textColorHint="#dddddd" />
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/settings_elements_container"
+                android:padding="10dp"
+                android:contextClickable="false"
+                android:clickable="false"
+                android:divider="@drawable/empty_layout_spacer"
+                android:background="@drawable/border"
+                android:showDividers="middle">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:id="@+id/settings_email_label"
+                    android:text="Device"
+                    android:textColor="#ffffff"
+                    android:textSize="22dp" />
+
+                <Switch
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Allow Notifications"
+                    android:id="@+id/settings_notifications"
                     android:textColor="#ffffff"
                     android:textSize="18dp"
-                    android:layout_weight=".25" />
+                    android:trackTint="#ffffff"
+                    android:textOn="#ffffff"
+                    android:textOff="#dddddd" />
 
-                <EditText
-                    android:layout_width="0dp"
+                <Switch
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:ems="10"
-                    android:id="@+id/settings_email"
-                    android:layout_weight=".75"
+                    android:text="Use Network"
+                    android:id="@+id/settings_network"
                     android:textColor="#ffffff"
-                    android:hint="example@university.com"
-                    android:textColorHint="#dddddd" />
+                    android:textSize="18dp"
+                    android:trackTint="#ffffff"
+                    android:textOn="#ffffff"
+                    android:textOff="#dddddd" />
+
+                <Spinner
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/settings_language"
+                    style="@style/Widget.AppCompat.Spinner.DropDown" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile"
+                    android:textColor="#ffffff"
+                    android:textSize="22dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:id="@+id/settings_name_label"
+                        android:textColor="#ffffff"
+                        android:textSize="18dp"
+                        android:layout_weight=".25" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/settings_name"
+                        android:layout_weight=".75"
+                        android:textColor="#ffffff"
+                        android:hint="Guest"
+                        android:textColorHint="#dddddd" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:id="@+id/settings_email_label"
+                        android:textColor="#ffffff"
+                        android:textSize="18dp"
+                        android:layout_weight=".25" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/settings_email"
+                        android:layout_weight=".75"
+                        android:textColor="#ffffff"
+                        android:hint="example@university.com"
+                        android:textColorHint="#dddddd" />
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Change password"
+                    android:id="@+id/settings_password"
+                    android:background="#ffffff" />
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Erase user data"
+                    android:id="@+id/settings_erase"
+                    android:background="#ffffff" />
+
             </LinearLayout>
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Change password"
-                android:id="@+id/settings_password"
-                android:background="#ffffff" />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Erase user data"
-                android:id="@+id/settings_erase"
-                android:background="#ffffff" />
 
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/settings_back"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@null"
+            android:src="@drawable/settings_down_arrow"
+            android:layout_below="@+id/settings_container"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
 
 
-    <ImageButton
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:id="@+id/settings_back"
-        android:layout_gravity="center_horizontal|bottom"
-        android:background="@null"
-        android:src="@drawable/settings_down_arrow"
-        android:layout_below="@+id/settings_container"
-        android:layout_centerHorizontal="true"
-        android:scaleType="fitCenter"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentBottom="true" />
 </RelativeLayout>
