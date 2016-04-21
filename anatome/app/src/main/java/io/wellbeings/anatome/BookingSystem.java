@@ -216,6 +216,7 @@ public class BookingSystem extends AppCompatActivity {
         Button save = (Button) findViewById(R.id.saveGenderOptionsButton);
         TextView firstLine = (TextView) findViewById(R.id.genderOptionsFirstLine);
         TextView secondLine = (TextView) findViewById(R.id.genderOptionsSecondLine);
+        TextView smallText = (TextView) findViewById(R.id.small_text_gender_options);
         RadioButton rb1 = (RadioButton) findViewById(R.id.radio_woman);
         RadioButton rb2 = (RadioButton) findViewById(R.id.radio_man);
         RadioButton rb3 = (RadioButton) findViewById(R.id.radio_nopreference);
@@ -224,6 +225,7 @@ public class BookingSystem extends AppCompatActivity {
         save.setTypeface(customFont);
         firstLine.setTypeface(customFont);
         secondLine.setTypeface(customFont);
+        smallText.setTypeface(customFont);
         rb1.setTypeface(customFont);
         rb2.setTypeface(customFont);
         rb3.setTypeface(customFont);
@@ -271,7 +273,6 @@ public class BookingSystem extends AppCompatActivity {
                 setGeneralContentView();
             }
         });
-
 
     }
 

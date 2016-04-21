@@ -22,7 +22,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.38">
+            android:layout_weight="0.82">
 
             <Button
                 android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.24">
+            android:layout_weight="0.76">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -52,12 +52,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.245"></FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.23">
+                    android:layout_weight="0.27">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -72,7 +67,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.225">
+                    android:layout_weight="0.2">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -84,17 +79,13 @@
                         android:textColor="#FF09849A" />
                 </FrameLayout>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.29"></FrameLayout>
             </LinearLayout>
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.28">
+            android:layout_weight="0.77">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -118,7 +109,7 @@
                         android:id="@+id/radioGroupGender"
                         android:layout_above="@+id/saveGenderPreferenceButton"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="43dp"
+
                         >
 
                         <RadioButton
@@ -152,6 +143,7 @@
                             android:textSize="22dp" />
                     </RadioGroup>
                 </FrameLayout>
+
             </LinearLayout>
 
         </FrameLayout>
@@ -159,7 +151,40 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.35">
+            android:layout_weight="0.88">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.99"></FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.11">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*This will request a specific advisor."
+                        android:textSize="18dp"
+                        android:textColor="#ffffffff"
+                        android:id="@+id/small_text_gender_options"
+                        android:layout_gravity="left|top"
+                        android:phoneNumber="true" />
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9">
 
             <Button
                 android:layout_width="wrap_content"
