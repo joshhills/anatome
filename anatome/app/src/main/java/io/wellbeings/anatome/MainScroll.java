@@ -185,28 +185,32 @@ public class MainScroll extends Activity {
 
                    }else {
 
-                       Context ctx = MainScroll.this;
-                       HashMap<String, String> appointments;
-
-                       appointments = UtilityManager.getDbUtility(MainScroll.this).getAppointment();
-
-                       String date;
-                       Boolean check;
-
                        try {
-                           date = appointments.get("App_Date").toString();
-                           check = true;
-                       } catch (Exception e) {
-                           check = false;
-                       }
+                           Context ctx = MainScroll.this;
+                           HashMap<String, String> appointments;
 
-                       if (check) {
-                           Intent intent = new Intent(v.getContext(), TestLayout.class);
-                           startActivity(intent);
-                       } else {
+                           appointments = UtilityManager.getDbUtility(MainScroll.this).getAppointment();
 
-                           Intent intent = new Intent(v.getContext(), BookingSystem.class);
-                           startActivity(intent);
+                           String date;
+                           Boolean check;
+
+                           try {
+                               date = appointments.get("App_Date").toString();
+                               check = true;
+                           } catch (Exception e) {
+                               check = false;
+                           }
+
+                           if (check) {
+                               Intent intent = new Intent(v.getContext(), TestLayout.class);
+                               startActivity(intent);
+                           } else {
+
+                               Intent intent = new Intent(v.getContext(), BookingSystem.class);
+                               startActivity(intent);
+                           }
+                       }catch (NetworkException e) {
+                           NotificationHandler.NetworkErrorDialog(MainScroll.this);
                        }
 
                    }

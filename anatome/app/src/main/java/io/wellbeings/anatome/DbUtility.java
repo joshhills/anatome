@@ -1,6 +1,8 @@
 package io.wellbeings.anatome;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -49,12 +51,15 @@ public class DbUtility implements Utility {
     private static final String TAG_LAT_LONG = "LatLong";
     JSONArray array = null;
 
-    public DbUtility(Context ctx) {
+    public DbUtility(Context ctx){
+
+        // Store reference to context.
+        this.ctx = ctx;
 
         // Attempt to start to set-up the utility using the arguments provided.
         try {
             utilityStatus = initialize();
-        } catch (IOException e) {
+        } catch (Exception e) {
             utilityStatus = STATUS.FAIL;
         }
 
@@ -75,6 +80,23 @@ public class DbUtility implements Utility {
         return null;
     }
 
+    public boolean isConnectedToInternet(){
+        ConnectivityManager connection = (ConnectivityManager)ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connection != null)
+        {
+            NetworkInfo[] netData = connection.getAllNetworkInfo();
+            if (netData != null)
+                for (int i = 0; i < netData.length; i++)
+                    if (netData[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
+                    }
+
+        }
+        return false;
+    }
+
+
     /**
      * Register an appointment on the
      * organization's system.
@@ -82,21 +104,25 @@ public class DbUtility implements Utility {
      * @param time  The time of the appointment.
      * @param date  The date of the appointment.
      */
-    public void addAppointment(String time, String date, String pref) {
+    public void addAppointment(String time, String date, String pref) throws NetworkException {
 
-        // Select function.
-        String param = "app";
+        if(isConnectedToInternet()) {
+            // Select function.
+            String param = "app";
 
-        // Build dataset to pass to API call.
-        List<NameValuePair> data = new ArrayList<>();
-        data.add(new BasicNameValuePair("time", time));
-        data.add(new BasicNameValuePair("date", date));
-        data.add(new BasicNameValuePair("pref", pref));
-        data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(ctx).getName()));
-        data.add(new BasicNameValuePair("email", UtilityManager.getUserUtility(ctx).getEmail()));
+            // Build dataset to pass to API call.
+            List<NameValuePair> data = new ArrayList<>();
+            data.add(new BasicNameValuePair("time", time));
+            data.add(new BasicNameValuePair("date", date));
+            data.add(new BasicNameValuePair("pref", pref));
+            data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(ctx).getName()));
+            data.add(new BasicNameValuePair("email", UtilityManager.getUserUtility(ctx).getEmail()));
 
-        addToDb(data, param);
-
+            addToDb(data, param);
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
     }
 
     /**
@@ -106,19 +132,23 @@ public class DbUtility implements Utility {
      * @param text      The content of the comment.
      * @param section   The section it is relevant to.
      */
-    public void addComment(String text, String section) {
+    public void addComment(String text, String section) throws NetworkException{
 
-        // Select function.
-        String param = "comment";
+        if(isConnectedToInternet()){
+            // Select function.
+            String param = "comment";
 
-        // Build dataset to pass to API call.
-        List<NameValuePair> data = new ArrayList<>();
-        data.add(new BasicNameValuePair("text", text));
-        data.add(new BasicNameValuePair("date", section));
-        data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(ctx).getName()));
+            // Build dataset to pass to API call.
+            List<NameValuePair> data = new ArrayList<>();
+            data.add(new BasicNameValuePair("text", text));
+            data.add(new BasicNameValuePair("date", section));
+            data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(ctx).getName()));
 
-        addToDb(data, param);
-
+            addToDb(data, param);
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
     }
 
     /**
@@ -145,118 +175,144 @@ public class DbUtility implements Utility {
      *
      * @return
      */
-    public HashMap<String, String> getAppointment() {
+    public HashMap<String, String> getAppointment() throws NetworkException {
         String result;
         HashMap<String, String> appointments;
 
-        try {
-            GetDataJSON g = new GetDataJSON("app", "none");
-            result = g.execute().get();
-            appointments = parseAppointment(result);
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("app", "none");
+                result = g.execute().get();
+                appointments = parseAppointment(result);
 
-            return appointments;
+                return appointments;
 
-        }catch(Exception e) {
-            e.printStackTrace();
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
         }
 
         return null;
     }
 
-    public String[] getAvailable(String date) {
+    public String[] getAvailable(String date) throws NetworkException{
         String result;
         String [] available;
 
-        try {
-            GetDataJSON g = new GetDataJSON("available", date);
-            result = g.execute().get();
-            available = parseAvailable(result);
-            return available;
-        }catch(Exception e){
-            e.printStackTrace();
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("available", date);
+                result = g.execute().get();
+                available = parseAvailable(result);
+                return available;
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
-
-
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
         return null;
     }
 
-    public HashMap<String, String> getComments(String area) {
+    public HashMap<String, String> getComments(String area) throws NetworkException{
         String result;
         ArrayList<HashMap<String, String>> commentList;
 
-        try {
-            GetDataJSON g = new GetDataJSON("comment", area);
-            result = g.execute().get();
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("comment", area);
+                result = g.execute().get();
 
-            return parseComment(result);
+                return parseComment(result);
 
-        }catch(Exception e) {
-            e.printStackTrace();
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
         }
-
-
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
         return null;
     }
 
-    public String getOrgName() {
+    public String getOrgName() throws NetworkException{
         String result;
 
-        try {
-            GetDataJSON g = new GetDataJSON("orgname", "none");
-            result = g.execute().get();
 
-            JSONObject jsonObj = new JSONObject(result);
-            array = jsonObj.getJSONArray(TAG_RESULTS);
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("orgname", "none");
+                result = g.execute().get();
 
-            String orgName = array.getJSONObject(0).getString("Name");
+                JSONObject jsonObj = new JSONObject(result);
+                array = jsonObj.getJSONArray(TAG_RESULTS);
 
-            return orgName;
+                String orgName = array.getJSONObject(0).getString("Name");
 
-        }catch(Exception e) {
-            e.printStackTrace();
+                return orgName;
+
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
         }
 
         return null;
     }
 
-    public String getOrgDescription() {
+    public String getOrgDescription() throws NetworkException{
         String result;
 
-        try {
-            GetDataJSON g = new GetDataJSON("orgdesc", "none");
-            result = g.execute().get();
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("orgdesc", "none");
+                result = g.execute().get();
 
-            JSONObject jsonObj = new JSONObject(result);
-            array = jsonObj.getJSONArray(TAG_RESULTS);
+                JSONObject jsonObj = new JSONObject(result);
+                array = jsonObj.getJSONArray(TAG_RESULTS);
 
-            String orgName = array.getJSONObject(0).getString("Description");
+                String orgName = array.getJSONObject(0).getString("Description");
 
-            return orgName;
+                return orgName;
 
-        }catch(Exception e) {
-            e.printStackTrace();
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
         }
 
         return null;
     }
 
-    public LatLng getLatLong() {
+    public LatLng getLatLong() throws NetworkException{
         String result;
         String[] latLong;
 
-        try {
-            GetDataJSON g = new GetDataJSON("org", "none");
-            result = g.execute().get();
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("org", "none");
+                result = g.execute().get();
 
-            latLong = parseLatLong(result);
+                latLong = parseLatLong(result);
 
-            return new LatLng(Double.parseDouble(latLong[0]),
-                    Double.parseDouble(latLong[1]));
+                return new LatLng(Double.parseDouble(latLong[0]),
+                        Double.parseDouble(latLong[1]));
 
-        }catch(Exception e) {
-            e.printStackTrace();
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
         }
-
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
 
         return null;
     }

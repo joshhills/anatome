@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.NumberPicker;
 import android.widget.Toast;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -98,57 +100,58 @@ public class BookingSystem extends AppCompatActivity {
             appointments = UtilityManager.getDbUtility(this).getAvailable(newDate.toString());
             Arrays.sort(appointments);
 
+            RelativeLayout linearLayout = new RelativeLayout(BookingSystem.this);
+            final NumberPicker aNumberPicker = new NumberPicker(BookingSystem.this);
+            aNumberPicker.setMaxValue(appointments.length - 1);
+            aNumberPicker.setMinValue(0);
+            aNumberPicker.setDisplayedValues(appointments);
 
-        }catch(Exception e) {
-            System.out.println("Error: Unable to parse date");
-        }
-
-
-        RelativeLayout linearLayout = new RelativeLayout(BookingSystem.this);
-        final NumberPicker aNumberPicker = new NumberPicker(BookingSystem.this);
-        aNumberPicker.setMaxValue(appointments.length - 1);
-        aNumberPicker.setMinValue(0);
-        aNumberPicker.setDisplayedValues(appointments);
-
-        aNumberPicker.setOnValueChangedListener(
-                new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        timeTime = appointments[newVal];
-                        mSetTime.setText(timeTime);
+            aNumberPicker.setOnValueChangedListener(
+                    new NumberPicker.OnValueChangeListener() {
+                        @Override
+                        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                            timeTime = appointments[newVal];
+                            mSetTime.setText(timeTime);
+                        }
                     }
-                }
-        );
+            );
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
-        RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        numPicerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
+            RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            numPicerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-        linearLayout.setLayoutParams(params);
-        linearLayout.addView(aNumberPicker,numPicerParams);
+            linearLayout.setLayoutParams(params);
+            linearLayout.addView(aNumberPicker,numPicerParams);
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT);
-        alertDialogBuilder.setTitle("Select the time of your appointment:");
-        alertDialogBuilder.setView(linearLayout);
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("Ok",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int id) {
-                                System.out.println("Value Selected : " + aNumberPicker.getValue());
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT);
+            alertDialogBuilder.setTitle("Select the time of your appointment:");
+            alertDialogBuilder.setView(linearLayout);
+            alertDialogBuilder
+                    .setCancelable(false)
+                    .setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    System.out.println("Value Selected : " + aNumberPicker.getValue());
 
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+                                }
+                            })
+                    .setNegativeButton("Cancel",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+
+        }catch(ParseException e) {
+            System.out.println("Error: Unable to parse date");
+        }catch (NetworkException e) {
+            NotificationHandler.NetworkErrorDialog(BookingSystem.this);
+        }
     }
 
     public void dateOnClick(View view) {
@@ -182,12 +185,15 @@ public class BookingSystem extends AppCompatActivity {
 
         try {
             newDate = needed.format(initial.parse(date));
-        }catch(Exception e) {
+            UtilityManager.getDbUtility(this).addAppointment(time, newDate, pref);
+            Toast.makeText(BookingSystem.this, "Appointment Booked", Toast.LENGTH_SHORT).show();
+        }catch(ParseException e) {
             System.out.println("Error: Unable to parse date");
+        }catch(NetworkException e){
+            NotificationHandler.NetworkErrorDialog(BookingSystem.this);
         }
 
-        UtilityManager.getDbUtility(this).addAppointment(time, newDate, pref);
-        Toast.makeText(BookingSystem.this, "Appointment Booked", Toast.LENGTH_SHORT).show();
+
     }
 
     private void disableBookButton() {
