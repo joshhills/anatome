@@ -11,15 +11,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import android.content.Intent;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.HashMap;
 
@@ -229,6 +225,7 @@ public class MainScroll extends Activity {
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), Settings.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
                 }
             });
         }

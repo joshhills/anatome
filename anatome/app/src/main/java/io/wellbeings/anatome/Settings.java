@@ -262,7 +262,9 @@ public class Settings extends Activity {
         ((ImageButton)findViewById(R.id.settings_back)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Settings.this, MainScroll.class));
+                Intent intent = new Intent(Settings.this, MainScroll.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_top_in, R.anim.slide_top_out);
             }
         });
 
