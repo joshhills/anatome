@@ -55,7 +55,6 @@ public class Section extends FragmentActivity {
 
         // Load appropriate fragments.
         loadFragments();
-
     }
 
     // Alter colour and headers accordingly.
@@ -73,8 +72,6 @@ public class Section extends FragmentActivity {
                 section + "_ico", "drawable", getApplicationContext().getPackageName()
         );
 
-
-
         final int secondaryColourId = (ContextCompat.getColor(this,
                 UtilityManager.getThemeUtility(this).getColour(section + "_secondary_bg")));
 
@@ -89,11 +86,16 @@ public class Section extends FragmentActivity {
         ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(secondaryColourId);
         ((Button) findViewById(R.id.back)).setBackgroundColor(backBtnColourId);
         ((TextView) findViewById(R.id.section_name)).setBackgroundColor(secondaryColourId);
-        ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
+        //((TextView) findViewById(R.id.section_name)).setTypeface();
 
 
+        UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.section_name));
+        UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.back));
 
 
+        //ThemeUtility.defineCustomFont((TextView) findViewById(R.id.section_name));
+
+                ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
     }
 
     // Modulate set-up tasks for easy alteration.
@@ -106,7 +108,6 @@ public class Section extends FragmentActivity {
                 finish();
             }
         });
-
     }
 
     /**

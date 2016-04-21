@@ -214,6 +214,7 @@ public class BookingSystem extends AppCompatActivity {
         setContentView(R.layout.booking_options_layout);
 
         Typeface customFont = defineCustomFont();
+
         Button back = (Button) findViewById(R.id.backFromGenderOptionsButton);
         Button save = (Button) findViewById(R.id.saveGenderOptionsButton);
         TextView firstLine = (TextView) findViewById(R.id.genderOptionsFirstLine);

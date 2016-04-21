@@ -1,6 +1,10 @@
 package io.wellbeings.anatome;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
+import android.widget.TextView;
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -21,6 +25,9 @@ public class ThemeUtility implements Utility {
     private static Map<String, Integer> appColours = new HashMap<String, Integer>();
 
     public ThemeUtility (Context ctx) {
+
+        // Store reference to context.
+        this.ctx = ctx;
 
         // Attempt to start to set-up the utility using the arguments provided.
         try {
@@ -81,4 +88,13 @@ public class ThemeUtility implements Utility {
         return appColours.get(colour);
     }
 
+    public static TextView defineCustomFont(TextView text) {
+
+        AssetManager assetManager = ctx.getAssets();
+        Typeface customFont = Typeface.createFromAsset(assetManager, "fonts/Bariol.ttf");
+
+        text.setTypeface(customFont);
+
+        return text;
+    }
 }

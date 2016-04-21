@@ -15,9 +15,11 @@
         android:id="@+id/section_top_layout">
 
         <Button
-            android:layout_width="240px"
-            android:layout_height="120px"
-            android:text="back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="36px"
+            android:text="Back"
+            android:textSize="36px"
             android:id="@+id/back"
             android:textColor="#ffffffff"
             android:layout_gravity="center_vertical|left" />
