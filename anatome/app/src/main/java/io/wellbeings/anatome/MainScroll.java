@@ -96,11 +96,11 @@ public class MainScroll extends Activity {
                 .into((ImageView) findViewById(R.id.liver_back));
 
         //load the footer
-        Glide.with(this)
-                .load(R.drawable.footer)
-                .dontTransform()
-                .override(1080, 731)
-                .into((ImageView) findViewById(R.id.footer));
+        //Glide.with(this)
+        //        .load(R.drawable.footer)
+        //        .dontTransform()
+          //      .override(1080, 731)
+            //    .into((ImageView) findViewById(R.id.footer));
 
         TextView t = (TextView)findViewById(R.id.main_scroll_text);
 
@@ -117,6 +117,13 @@ public class MainScroll extends Activity {
         findViewById(R.id.liver).setOnClickListener(navigateToSection);
         findViewById(R.id.bookingInfoButton).setOnClickListener(navigateToBookingSystem);
         findViewById(R.id.settingsImage).setOnClickListener(navigateToSettings);
+        findViewById(R.id.settingsBtn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainScroll.this, OrganizationActivity.class));
+            }
+        });
+
     }
 
     // Mutual re-usable interface type to manage section routing.

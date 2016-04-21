@@ -30,7 +30,8 @@
         android:text="Organization Name"
         android:id="@+id/organization_name"
         android:textColor="#ffffff"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:textSize="18dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +40,8 @@
         android:text="Organization Description"
         android:id="@+id/organization_description"
         android:textColor="#ffffff"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="15dp"
+        android:textSize="11dp" />
 
     <fragment
         android:id="@+id/organization_map"

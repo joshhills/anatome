@@ -54,7 +54,7 @@ public class Settings extends Activity {
         setContentView(R.layout.activity_settings);
 
         // Set correct section values.
-        initGUI();
+        // initGUI();
 
         // Initialization of components.
         attachListeners();
