@@ -56,13 +56,6 @@ public class BookingSystem extends AppCompatActivity {
 
         //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
 
-        String[] coord;
-        coord = UtilityManager.getDbUtility(this).getLatLong(BookingSystem.this);
-
-        for(int i = 0; i < coord.length; i++) {
-            System.out.println(coord[i]);
-        }
-
         setCurrentDateOnView();
 
     }

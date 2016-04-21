@@ -45,7 +45,7 @@ public class Settings extends Activity {
         setContentView(R.layout.activity_settings);
 
         // Set correct section values.
-        initDisplay();
+        initGUI();
 
         // Initialization of components.
         attachListeners();
@@ -53,9 +53,7 @@ public class Settings extends Activity {
     }
 
     // Alter colour and headers accordingly.
-    private void initDisplay() {
-
-
+    private void initGUI() {
 
     }
 
@@ -82,37 +80,11 @@ public class Settings extends Activity {
             }
         });
 
-        // Init language spinner.
-
-        // Reset button.
-        ((Button) findViewById(R.id.settings_erase)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Reset user settings.
-                UtilityManager.getUserUtility(Settings.this).reset();
-                // Go to set-up new profile.
-                Intent i = new Intent(Settings.this, Preamble.class);
-                Settings.this.startActivity(i);
-            }
-        });
-
-        // Exit button.
-        ((ImageButton)findViewById(R.id.settings_back)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Settings.this, MainScroll.class));
-            }
-        });
-
-    }
-
-    private void initLanguageSpinner() {
+        // Language spinner.
         Spinner langSpinner = (Spinner) findViewById(R.id.settings_language);
-
         String[] language = {"English", "French", "Spanish"};
-
-        ArrayAdapter<String> stringArrayAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, language);
-
+        ArrayAdapter<String> stringArrayAdapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, language);
         langSpinner.setAdapter(stringArrayAdapter);
 
         langSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -121,111 +93,67 @@ public class Settings extends Activity {
                 // Intuitively fill the next options based on initial selection.
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
 
-
                 switch (position) {
-                    case 0://English
+                    case 0:
                         UtilityManager.getUserUtility(view.getContext()).setLanguage("en");
                         break;
-                    case 1://French
+                    case 1:
                         UtilityManager.getUserUtility(view.getContext()).setLanguage("fr");
                         break;
-                    case 2://Spanish
+                    case 2:
                         UtilityManager.getUserUtility(view.getContext()).setLanguage("es");
                         break;
+
                 }
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-    }
-
-    //This will change the user's name
-    public void editName() {
-
-       final EditText nameText = (EditText) findViewById(R.id.settings_name);
-
+        // Name field.
+        final EditText nameText = (EditText) findViewById(R.id.settings_name);
         nameText.setText(UtilityManager.getUserUtility(this).getName());
 
         nameText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
             public void afterTextChanged(Editable s) {
-                //set the name to what's written in the name text section
+                // Set the name to the most recent change.
                 UtilityManager.getUserUtility(Settings.this).setName(nameText.getText().toString());
             }
-
         });
-    }
 
-    public void checkEmail() {
-
+        // Email field.
         final EditText emailText = (EditText) findViewById(R.id.settings_email);
-
         emailText.setText(UtilityManager.getUserUtility(this).getEmail());
 
-        final String email = ((EditText) findViewById(R.id.settings_email)).getText().toString();
         String regex = "^(.+)@(.+)$";
-        Pattern pattern = Pattern.compile(regex);
-        final Matcher matcher = pattern.matcher(email);
-
+        final Pattern pattern = Pattern.compile(regex);
 
         emailText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
             public void afterTextChanged(Editable s) {
-                if ((email != null || !("".equals(email.trim()))) && !matcher.matches()) {
-                    emailText.setError("It's just wrong...... try again");
+
+                // Get the text.
+                String currentText = ((EditText) findViewById(R.id.settings_email)).getText().toString();
+
+                Matcher matcher = pattern.matcher(currentText);
+                if ((currentText != null || !("".equals(currentText.trim()))) && !matcher.matches()) {
+                    emailText.setError("Invalid Email");
                 } else {
-                    emailText.setError(null);
-                    UtilityManager.getUserUtility(Settings.this).setEmail(emailText.getText().toString());
-                    emailText.setText(UtilityManager.getUserUtility(Settings.this).getEmail());
+                    UtilityManager.getUserUtility(Settings.this).setEmail(currentText);
                 }
             }
-
-            // Build regex.
-
-            // Check email is valid, if not, display error.
-
-            // Otherwise, allow clean save.
-
-
         });
 
-
-    }
-
-    //This will reset all the user data including name, email, and password
-    public void eraseUserData(){
-        Button eraseButton = (Button) findViewById(R.id.settings_erase);
-        eraseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UtilityManager.getUserUtility(Settings.this).reset();
-                // Set-up new profile.
-                Intent i = new Intent(Settings.this, Preamble.class);
-                Settings.this.startActivity(i);
-            }
-        });
-    }
-
-    public void changePassword(){
+        // Password change.
         ((Button) findViewById(R.id.settings_password)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -244,7 +172,7 @@ public class Settings extends Activity {
                         UtilityManager.getUserUtility(Settings.this).getPASSWORD_LENGTH()
                 )});
                 builder.setView(pwInput);
-
+                
                 // Dictate what the buttons do.
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -294,6 +222,27 @@ public class Settings extends Activity {
 
             }
         });
+
+        // Reset button.
+        ((Button) findViewById(R.id.settings_erase)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Reset user settings.
+                UtilityManager.getUserUtility(Settings.this).reset();
+                // Go to set-up new profile.
+                Intent i = new Intent(Settings.this, Preamble.class);
+                Settings.this.startActivity(i);
+            }
+        });
+
+        // Exit button.
+        ((ImageButton)findViewById(R.id.settings_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Settings.this, MainScroll.class));
+            }
+        });
+
     }
 
 }
