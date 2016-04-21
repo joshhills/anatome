@@ -29,15 +29,6 @@
             android:paddingBottom="14dp"
             android:textSize="16dp" />
 
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/content_graphic"
-            android:paddingTop="14dp"
-            android:paddingBottom="14dp"
-            android:contentDescription="section graphic"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
 
         <ImageView
             android:layout_width="fill_parent"
@@ -65,7 +56,8 @@
             android:text="Tip"
             android:id="@+id/content_tipscontent"
             android:paddingBottom="14dp"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"

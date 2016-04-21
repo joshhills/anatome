@@ -122,10 +122,6 @@ public class ContentFragment extends Fragment implements Widget {
 
         /* Load graphical element. */
 
-        final int resourceId = getResources().getIdentifier(
-                section + "_ico", "drawable", getContext().getPackageName()
-        );
-        ((ImageView) view.findViewById(R.id.content_graphic)).setImageResource(resourceId);
 
         final int resourceIdLarge = getResources().getIdentifier(
                 section + "_graphic", "drawable", getContext().getPackageName()
