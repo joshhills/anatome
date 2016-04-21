@@ -119,6 +119,10 @@ public class DbUtility implements Utility {
             data.add(new BasicNameValuePair("email", UtilityManager.getUserUtility(ctx).getEmail()));
 
             addToDb(data, param);
+
+            param = "update";
+
+            addToDb(data, param);
         }
         else {
             throw new NetworkException("No Connection: Check your network settings and try again.");

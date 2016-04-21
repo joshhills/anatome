@@ -13,6 +13,8 @@ import android.view.View.OnClickListener;
 
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -58,7 +60,7 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_rocket)
                 .dontTransform()
-                .override(1085, 732)
+                .override(1080, 732)
                 .into((ImageView) findViewById(R.id.mainscroll_rocket_background));
 
         // load the rocket animation image
@@ -93,21 +95,21 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_upper)
                 .dontTransform()
-                .override(1080, 2727)
+                .override(1080, 2700)
                 .into((ImageView) findViewById(R.id.mainscroll_background_upper));
 
         // load the background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_lower)
                 .dontTransform()
-                .override(1080, 2640)
+                .override(1080, 2638)
                 .into((ImageView) findViewById(R.id.mainscroll_background_lower));
 
         // load the heart image
         Glide.with(this)
                 .load(R.drawable.heart)
                 .dontTransform()
-                .override(1080, 1200)
+                .override(1200, 1014)
                 .animate(R.anim.heart_animation)
                 .into((ImageView) findViewById(R.id.heart));
 
@@ -280,4 +282,25 @@ public class MainScroll extends Activity {
             });
         }
     };
+
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // if this fragment is being opened then re-enable animations
+        // in child fragments
+
+        // reload animations
+        Animation brainAnimation = AnimationUtils.loadAnimation(this, R.anim.brain_animation);
+        Animation heartAnimation = AnimationUtils.loadAnimation(this, R.anim.heart_animation);
+        Animation liverAnimation = AnimationUtils.loadAnimation(this, R.anim.liver_animation);
+
+        // start animations of the brain, heart and liver
+        ((ImageView) findViewById(R.id.heart)).startAnimation(heartAnimation);
+        ((ImageView) findViewById(R.id.brain)).startAnimation(brainAnimation);
+        ((ImageView) findViewById(R.id.liver)).startAnimation(liverAnimation);
+
+    }
 }

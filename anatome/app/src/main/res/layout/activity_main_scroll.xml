@@ -201,13 +201,13 @@
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:id="@+id/heart"
-            android:layout_weight="900"
+            android:layout_weight="1014"
             />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="761">
+        android:layout_weight="662">
             <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

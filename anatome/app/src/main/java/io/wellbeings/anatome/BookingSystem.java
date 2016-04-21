@@ -39,7 +39,7 @@ public class BookingSystem extends AppCompatActivity {
     private ImageButton mOptions;
     private String[] appointments;
     private String pref = "either";
-    private String timeTime = "09:00";
+    private String timeTime = "Select Time";
     final Calendar c = Calendar.getInstance();
 
 
