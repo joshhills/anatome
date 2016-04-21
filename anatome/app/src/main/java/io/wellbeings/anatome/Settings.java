@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -17,10 +20,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,8 +61,22 @@ public class Settings extends Activity {
 
     }
 
-    // Alter colour and headers accordingly.
+    // Alter theme and text accordingly.
     private void initGUI() {
+
+        // Set the background of the layout container.
+        final RelativeLayout rl = (RelativeLayout) findViewById(R.id.settings_bg);
+
+        Glide.with(this)
+        .load(R.drawable.settings_bg)
+                .asBitmap()
+                .into(new SimpleTarget<Bitmap>(rl.getWidth(), rl.getHeight()) {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                        Drawable drawable = new BitmapDrawable(Settings.this.getResources(), bitmap);
+                        rl.setBackground(drawable);
+                    }
+                });
 
     }
 
