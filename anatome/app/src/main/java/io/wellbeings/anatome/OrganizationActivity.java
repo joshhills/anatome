@@ -1,10 +1,14 @@
 package io.wellbeings.anatome;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,9 +37,11 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organization);
 
+        // TODO: Network checking!!
+
         populateContent();
 
-        // initGUI();
+        initGUI();
 
         // Create the inner map fragment.
         if(orgLocation != null) {
@@ -45,10 +51,34 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
         }
     }
 
+    private void initGUI() {
+
+        // Exit button.
+        ((ImageButton)findViewById(R.id.organization_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(OrganizationActivity.this, MainScroll.class));
+            }
+        });
+
+    }
+
     private void populateContent() {
 
         // Attempt to retrieve the organization's location.
         orgLocation = UtilityManager.getDbUtility(this).getLatLong();
+
+        /* Set textual content. */
+
+        // Set organization name.
+        ((TextView) findViewById(R.id.organization_name)).setText(
+                UtilityManager.getDbUtility(this).getOrgName()
+        );
+
+        // Set organization description.
+        ((TextView) findViewById(R.id.organization_description)).setText(
+                UtilityManager.getDbUtility(this).getOrgDescription()
+        );
 
     }
 
