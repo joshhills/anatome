@@ -47,6 +47,13 @@ public class MainScroll extends Activity {
 
         // load the background image
         Glide.with(this)
+                .load(R.drawable.mainscroll_kite)
+                .dontTransform()
+                .override(1125, 763)
+                .into((ImageView) findViewById(R.id.mainscroll_kite));
+
+        // load the background image
+        Glide.with(this)
                 .load(R.drawable.mainscroll_background_upper)
                 .dontTransform()
                 .override(1080, 2727)

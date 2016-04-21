@@ -33,8 +33,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/bookingSystemBackgroundKite"
-                android:src="@drawable/kite"
+                android:id="@+id/mainscroll_kite"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY" />
 
