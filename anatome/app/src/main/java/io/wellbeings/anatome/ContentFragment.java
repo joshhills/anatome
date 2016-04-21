@@ -127,6 +127,14 @@ public class ContentFragment extends Fragment implements Widget {
         );
         ((ImageView) view.findViewById(R.id.content_graphic)).setImageResource(resourceId);
 
+        final int resourceIdLarge = getResources().getIdentifier(
+                section + "_graphic", "drawable", getContext().getPackageName()
+        );
+
+        ((ImageView) view.findViewById(R.id.content_graphic_other)).setImageResource(resourceIdLarge);
+
+
+
     }
 
     // Load custom social aspect of app via comments.

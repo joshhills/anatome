@@ -61,6 +61,8 @@ public class Section extends FragmentActivity {
     // Alter colour and headers accordingly.
     private void initDisplay() {
 
+        FragmentTabHost mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
+
         // Set correct header, capitalising first letter.
         ((TextView)findViewById(R.id.section_name)).setText(
                 section.substring(0, 1).toUpperCase() +
@@ -71,9 +73,7 @@ public class Section extends FragmentActivity {
                 section + "_ico", "drawable", getApplicationContext().getPackageName()
         );
 
-        final int graphicsId = getResources().getIdentifier(
-                section + "_graphic", "drawable", getApplicationContext().getPackageName()
-        );
+
 
         final int secondaryColourId = (ContextCompat.getColor(this,
                 UtilityManager.getThemeUtility(this).getColour(section + "_secondary_bg")));
@@ -86,11 +86,11 @@ public class Section extends FragmentActivity {
 
 
         ((ImageView) findViewById(R.id.section_image)).setImageResource(resourceId);
-        ((ImageView) findViewById(R.id.content_graphic)).setImageResource(graphicsId);
         ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(secondaryColourId);
         ((Button) findViewById(R.id.back)).setBackgroundColor(backBtnColourId);
         ((TextView) findViewById(R.id.section_name)).setBackgroundColor(secondaryColourId);
         ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
+
 
 
 
@@ -147,6 +147,10 @@ public class Section extends FragmentActivity {
         Bundle contentBundle = new Bundle();
         contentBundle.putString("section", section);
 
+        final int graphicsId = getResources().getIdentifier(
+                section + "_graphic", "drawable", getApplicationContext().getPackageName()
+        );
+
         // Add fragment with bundle.
         mTabHost.addTab(mTabHost.newTabSpec(informationHeader).setIndicator(informationHeader), ContentFragment.class,
                 contentBundle);
@@ -154,6 +158,7 @@ public class Section extends FragmentActivity {
         // Alter the dimensions of the tabs programatically.
         mTabHost.getTabWidget().getChildAt(0).getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
         mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+
     }
 
 }

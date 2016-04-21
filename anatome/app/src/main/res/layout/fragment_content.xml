@@ -39,6 +39,17 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp" />
 
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/content_graphic_other"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:contentDescription="section graphic"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
