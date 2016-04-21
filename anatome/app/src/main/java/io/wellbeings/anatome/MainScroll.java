@@ -8,9 +8,12 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -275,4 +278,25 @@ public class MainScroll extends Activity {
             });
         }
     };
+
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // if this fragment is being opened then re-enable animations
+        // in child fragments
+
+        // reload animations
+        Animation brainAnimation = AnimationUtils.loadAnimation(this, R.anim.brain_animation);
+        Animation heartAnimation = AnimationUtils.loadAnimation(this, R.anim.heart_animation);
+        Animation liverAnimation = AnimationUtils.loadAnimation(this, R.anim.liver_animation);
+
+        // start animations of the brain, heart and liver
+        ((ImageView) findViewById(R.id.heart)).startAnimation(heartAnimation);
+        ((ImageView) findViewById(R.id.brain)).startAnimation(brainAnimation);
+        ((ImageView) findViewById(R.id.liver)).startAnimation(liverAnimation);
+
+    }
 }
