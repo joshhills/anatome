@@ -8,8 +8,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -60,6 +62,13 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
                 startActivity(new Intent(OrganizationActivity.this, MainScroll.class));
             }
         });
+
+        // Set the background of the layout container.
+        Glide.with(this).load(R.drawable.organization_bg)
+                .dontTransform()
+                .override(1080,1610)
+                .into((ImageView) findViewById(R.id.organization_bg));
+
 
     }
 
