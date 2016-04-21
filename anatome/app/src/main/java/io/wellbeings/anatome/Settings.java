@@ -16,6 +16,8 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -54,6 +56,10 @@ public class Settings extends Activity {
 
         // Load previous state if applicable.
         super.onCreate(savedInstanceState);
+
+        // Hide the notification bar.
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Load the corresponding view.
         setContentView(R.layout.activity_settings);

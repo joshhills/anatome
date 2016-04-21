@@ -5,12 +5,14 @@
     xmlns:android= "http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="io.wellbeings.anatome.OrganizationActivity"
-    android:background="#74675c">
+    android:background="#74675c"
+    android:id="@+id/organization_container">
 
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/organization_bg" />
+        android:id="@+id/organization_bg"
+        android:layout_alignParentBottom="true" />
 
     <LinearLayout
         android:layout_width="fill_parent"

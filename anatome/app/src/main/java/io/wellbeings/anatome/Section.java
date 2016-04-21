@@ -7,6 +7,8 @@ import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -41,6 +43,10 @@ public class Section extends FragmentActivity {
         // Load previous state if applicable.
         super.onCreate(savedInstanceState);
 
+        // Hide the notification bar.
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         // Initialize local variables.
         section = getIntent().getStringExtra("section");
 
@@ -72,8 +78,6 @@ public class Section extends FragmentActivity {
         final int resourceId = getResources().getIdentifier(
                 section + "_ico", "drawable", getApplicationContext().getPackageName()
         );
-
-
 
         final int secondaryColourId = (ContextCompat.getColor(this,
                 UtilityManager.getThemeUtility(this).getColour(section + "_secondary_bg")));

@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +39,12 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
     protected void onCreate(Bundle savedInstanceState) {
         // overridePendingTransition();
         super.onCreate(savedInstanceState);
+
+        // Hide the notification bar.
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // Load the corresponding view.
         setContentView(R.layout.activity_organization);
 
         // TODO: Network checking!!
@@ -69,7 +77,8 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
         // Set the background of the layout container.
         Glide.with(this).load(R.drawable.organization_bg)
                 .dontTransform()
-                .override(1080,1610)
+                .override(getResources().getDisplayMetrics().widthPixels,
+                        getResources().getDisplayMetrics().heightPixels)
                 .into((ImageView) findViewById(R.id.organization_bg));
 
 

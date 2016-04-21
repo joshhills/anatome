@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -27,7 +29,6 @@ import java.util.HashMap;
  */
 public class MainScroll extends Activity {
 
-
     /**
      * On activity creation, set up canvas.
      *
@@ -38,6 +39,10 @@ public class MainScroll extends Activity {
 
         // Load previous state if applicable.
         super.onCreate(savedInstanceState);
+
+        // Hide the notification bar.
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Load the corresponding view.
         setContentView(R.layout.activity_main_scroll);

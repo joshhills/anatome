@@ -10,6 +10,8 @@ import android.os.Bundle;
 import java.io.IOException;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.Window;
+import android.view.WindowManager;
 
 public class Preamble extends AppCompatActivity {
 
@@ -29,6 +31,10 @@ public class Preamble extends AppCompatActivity {
         /* Begin app, determine flow. */
 
         super.onCreate(savedInstanceState);
+
+        // Hide the notification bar.
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Set the correct view.
         setContentView(R.layout.activity_preamble);
