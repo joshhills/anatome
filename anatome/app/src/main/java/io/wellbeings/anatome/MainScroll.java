@@ -68,6 +68,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.rocket_animation)
                 .dontTransform()
                 .override(1080, 732)
+                .animate(R.anim.rocket_animation)
                 .into((ImageView) findViewById(R.id.rocket_animation));
 
         // load the dark fuel animation image
@@ -75,6 +76,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.mainscroll_fuel_dark)
                 .dontTransform()
                 .override(1080, 732)
+                .animate(R.anim.rocket_fuel_movement_animation)
                 .into((ImageView) findViewById(R.id.mainscroll_fuel_dark));
 
         // load the light fuel animation image
@@ -82,6 +84,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.mainscroll_fuel_light)
                 .dontTransform()
                 .override(1080, 732)
+                .animate(R.anim.rocket_fuel_animation)
                 .into((ImageView) findViewById(R.id.mainscroll_fuel_light));
 
         // load the kite background image
