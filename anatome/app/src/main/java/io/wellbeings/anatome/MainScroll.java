@@ -134,11 +134,11 @@ public class MainScroll extends Activity {
                 .into((ImageView) findViewById(R.id.liver_back));
 
         //load the footer
-        //Glide.with(this)
-        //        .load(R.drawable.footer)
-        //        .dontTransform()
-          //      .override(1080, 731)
-            //    .into((ImageView) findViewById(R.id.footer));
+        Glide.with(this)
+                .load(R.drawable.footer)
+                .dontTransform()
+                .override(1080, 731)
+                .into((ImageView) findViewById(R.id.mainscroll_footer));
 
         TextView t = (TextView)findViewById(R.id.main_scroll_text);
 
