@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -112,18 +113,18 @@ public class ContentFragment extends Fragment implements Widget {
                         UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
         );
 
-        ((TextView) view.findViewById(R.id.content_advice)).setText(
-                UtilityManager.getContentLoader(getContext()).getHeaderText(section, "advice"));
-        ((TextView) view.findViewById(R.id.content_advice)).setTextColor(ContextCompat.getColor(getContext(),
-                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
-        );
-
         // Populate links, make them clickable.
         ((TextView) view.findViewById(R.id.content_linkscontent)).setText(Html.fromHtml(
                 UtilityManager.getContentLoader(getContext()).getLinks(section)));
         ((TextView) view.findViewById(R.id.content_linkscontent)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) view.findViewById(R.id.content_linkscontent)).setTextColor(ContextCompat.getColor(getContext(),
                         UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
+        );
+
+        ((TextView) view.findViewById(R.id.content_advice)).setText(
+                UtilityManager.getContentLoader(getContext()).getHeaderText(section, "advice"));
+        ((TextView) view.findViewById(R.id.content_advice)).setTextColor(ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
         );
 
         // Allow user to submit their own comment.
@@ -264,6 +265,17 @@ public class ContentFragment extends Fragment implements Widget {
                                     UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text")));
                             ll.addView(v);
 
+                            // Finally, if there were too many comments and it became too big...
+                            ScrollView commentContainer = (ScrollView) view.findViewById(R.id.content_comments_scroll);
+                            if(commentContainer.getHeight() > 100) {
+
+                                // Set it to a reasonable size to force scrolling.
+                                ViewGroup.LayoutParams sp = commentContainer.getLayoutParams();
+                                sp.height = 10;
+                                commentContainer.setLayoutParams(lp);
+
+                            }
+
                         }
 
                     }
@@ -274,6 +286,7 @@ public class ContentFragment extends Fragment implements Widget {
                     // Otherwise remove the unnecessary views.
                     ll.setVisibility(View.INVISIBLE);
                     ((Button) view.findViewById(R.id.content_submit)).setVisibility(View.INVISIBLE);
+                    ((TextView) view.findViewById(R.id.content_advice)).setVisibility(View.INVISIBLE);
 
                 }
 

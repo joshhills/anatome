@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/scrollView"
-        android:background="#ffffff"
-        android:fillViewport="false">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="io.wellbeings.anatome.MainScroll"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/mainscroll_scroll_container"
+    android:background="#ffffff"
+    android:fillViewport="false">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        tools:context="io.wellbeings.anatome.MainScroll"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#37497a"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-      <!--      <ImageButton
-                android:layout_width="48dp"
-                android:layout_height="44dp"
-                android:scaleType="fitXY"
-                style="?android:attr/borderlessButtonStyle"
-                android:id="@+id/settingsImage"
-                android:src="@drawable/settings_icon"
-                android:layout_gravity="center_horizontal|top" /> -->
 
            <RelativeLayout
                android:layout_width="match_parent"
@@ -40,8 +36,6 @@
                    android:id="@+id/mainscroll_rocket_background"
                    android:adjustViewBounds="true"
                    android:scaleType="fitXY" />
-
-
 
                <ImageView
                    android:layout_width="wrap_content"

@@ -18,8 +18,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.util.Util;
 
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import java.util.HashMap;
 
@@ -31,6 +33,9 @@ import java.util.HashMap;
  */
 public class MainScroll extends Activity {
 
+    // Store scroll position for resume.
+    public static int scrollY;
+
     /**
      * On activity creation, set up canvas.
      *
@@ -39,9 +44,16 @@ public class MainScroll extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // Hide the notification bar.
+        // Hide intrusive android status bars.
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE);
 
         // Load previous state if applicable.
         super.onCreate(savedInstanceState);
@@ -52,9 +64,46 @@ public class MainScroll extends Activity {
         // Initialization of components.
         attachListeners();
 
-        /*if (getIntent().getStringExtra("from").equals("OrganizationActivity")){
-            
-        }*/
+        // Initialise the GUI.
+        initGUI();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Log scroll position for ease of use.
+        scrollY = ((ScrollView) findViewById(R.id.mainscroll_scroll_container)).getScrollY();
+
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        // Restore the scroll position.
+        ((ScrollView) findViewById(R.id.mainscroll_scroll_container)).post(new Runnable() {
+            @Override
+            public void run() {
+                ((ScrollView) findViewById(R.id.mainscroll_scroll_container)).setScrollY(scrollY);
+            }
+        });
+
+        // Reload paused animations.
+        Animation brainAnimation = AnimationUtils.loadAnimation(this, R.anim.brain_animation);
+        Animation heartAnimation = AnimationUtils.loadAnimation(this, R.anim.heart_animation);
+        Animation liverAnimation = AnimationUtils.loadAnimation(this, R.anim.liver_animation);
+
+        // Start them going again.
+        ((ImageView) findViewById(R.id.heart)).startAnimation(heartAnimation);
+        ((ImageView) findViewById(R.id.brain)).startAnimation(brainAnimation);
+        ((ImageView) findViewById(R.id.liver)).startAnimation(liverAnimation);
+
+    }
+
+    private void initGUI() {
 
         // load the rocket background image
         Glide.with(this)
@@ -148,7 +197,8 @@ public class MainScroll extends Activity {
                 .into((ImageView) findViewById(R.id.mainscroll_footer));
 
         TextView t = (TextView)findViewById(R.id.main_scroll_text);
-                t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "welcome"));
+        t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "welcome"));
+
     }
 
     // Modulate set-up tasks for easy alteration.
@@ -283,24 +333,4 @@ public class MainScroll extends Activity {
         }
     };
 
-
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // if this fragment is being opened then re-enable animations
-        // in child fragments
-
-        // reload animations
-        Animation brainAnimation = AnimationUtils.loadAnimation(this, R.anim.brain_animation);
-        Animation heartAnimation = AnimationUtils.loadAnimation(this, R.anim.heart_animation);
-        Animation liverAnimation = AnimationUtils.loadAnimation(this, R.anim.liver_animation);
-
-        // start animations of the brain, heart and liver
-        ((ImageView) findViewById(R.id.heart)).startAnimation(heartAnimation);
-        ((ImageView) findViewById(R.id.brain)).startAnimation(brainAnimation);
-        ((ImageView) findViewById(R.id.liver)).startAnimation(liverAnimation);
-
-    }
 }

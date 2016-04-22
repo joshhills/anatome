@@ -60,7 +60,14 @@ public class UserUtility implements Utility {
 
         // Check to see if user profile exists.
         if(settings.getString("NAME", null) == null) {
+
+            // Initialize default settings.
+            this.allowNetwork(true);
+            this.allowNotifications(true);
+
+            // Return that there wasn't a pre-existing profile.
             return STATUS.NONE;
+
         }
         else {
             return STATUS.SUCCESS;
