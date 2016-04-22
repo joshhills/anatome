@@ -1,6 +1,8 @@
 <resources>
 
     <string name="app_name">anatome</string>
+    <string name="tutorial_note">Create your first note by editing the template to the left of this note and clicking save!
+        You can delete notes by pressing the bin at the bottom of said note.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -16,6 +18,10 @@
     <string name="image_lock">Padlock</string>
     <string name="generic_name">name</string>
     <string name="title_activity_section">Section</string>
+<<<<<<< HEAD
     <string name="title_activity_awdawd">Map</string>
+=======
+    <string name="title_activity_play_list">PlayListActivity</string>
+>>>>>>> refs/remotes/origin/CalmackBranch
 
 </resources>
