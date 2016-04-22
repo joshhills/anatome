@@ -104,8 +104,7 @@ public class BrainWidget extends Fragment implements Widget {
         //if there aren't any notes then display the tutorial note
         if(noteList.size() == 0) {
             Note note = new Note(getCurrentDate(),
-                    "Create your first note by editing the template to the left of this note and clicking save!" +
-                            "You can delete notes by pressing the bin at the bottom of said note.");
+                    getResources().getString(R.string.tutorial_note));
             initNote(note,0);
         }
         else {
