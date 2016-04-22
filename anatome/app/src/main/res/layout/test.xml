@@ -7,7 +7,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.25"
+        android:layout_weight="0.3"
         android:background="#8b6eb0">
 
         <LinearLayout
@@ -19,7 +19,7 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="0.40"></FrameLayout>
+                android:layout_weight="0.15"></FrameLayout>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -29,7 +29,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"></FrameLayout>
+                    android:layout_weight="2.2"></FrameLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -37,13 +37,13 @@
                     android:text="Keep track of the things that make you happy:"
                     android:id="@+id/textView5"
                     android:layout_weight="0.02"
-                    android:textSize="18dp"
+                    android:textSize="16dp"
                     android:textColor="#f2df73" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"></FrameLayout>
+                    android:layout_weight="2.2"></FrameLayout>
 
                 <TextView
                     android:layout_width="287dp"
@@ -51,13 +51,13 @@
                     android:text="Modelled on real CBT techniques, this may help lift your spirits!"
                     android:id="@+id/textView6"
                     android:layout_weight="0.02"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:textColor="#ffffffff" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"></FrameLayout>
+                    android:layout_weight="2.2"></FrameLayout>
 
             </LinearLayout>
 
@@ -70,22 +70,112 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.4">
+            android:layout_height="211dp"
+            android:weightSum="1">
 
             <FrameLayout
-                android:layout_width="41dp"
-                android:layout_height="match_parent"></FrameLayout>
-
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/horizontalScrollView3"
-                android:layout_weight="0.3" />
+                android:layout_weight="0.22"></FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.164">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffffffff"
+                    android:weightSum="1"
+                    android:layout_weight="0.16">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="22/04/2016"
+                        android:id="@+id/newNoteDate"
+                        android:layout_weight="0.1"
+                        android:background="#d6d6d6"
+                        android:textColor="#432a64"
+                        android:textSize="16dp"
+                        android:textAlignment="center"
+                        android:gravity="center_vertical" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="146dp"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:id="@+id/newNoteContent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.84">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/deleteButton"
+                        android:layout_weight="0.3" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="save"
+                        android:id="@+id/btnSave1"
+                        android:layout_weight="0.3" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnGallery"
+                        android:layout_weight="0.3"
+                        android:text="gall" />
+                </LinearLayout>
+            </LinearLayout>
 
             <FrameLayout
-                android:layout_width="40dp"
-                android:layout_height="match_parent"></FrameLayout>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.228"></FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.164">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/horizontalScrollView2"
+                    android:layout_weight="0.14" >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/noteScroll"></LinearLayout>
+                </HorizontalScrollView>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.74"></FrameLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.222"></FrameLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -98,25 +188,76 @@
         android:weightSum="1">
 
         <FrameLayout
-            android:layout_width="41dp"
+            android:layout_width="47dp"
             android:layout_height="match_parent"></FrameLayout>
 
-        <EditText
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/editText"
-            android:layout_weight="1.04" />
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.98">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"></FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="And throw away the thoughts that don&apos;t ..."
+                    android:id="@+id/textView8"
+                    android:textColor="#f2df73"
+                    android:textSize="16dp"
+                    android:layout_weight="0.26" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Type something that&apos;s on your mind and the destroy it!"
+                    android:id="@+id/textView9"
+                    android:layout_weight="0.26"
+                    android:textColor="#ffffffff"
+                    android:textSize="14dp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.31"></FrameLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/negativeEditText"
+                    android:layout_weight="0.16"
+                    android:background="#ffffffff" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <FrameLayout
-            android:layout_width="41dp"
+            android:layout_width="47dp"
             android:layout_height="match_parent"></FrameLayout>
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.58"
-        android:background="#432a64"></FrameLayout>
+        android:layout_weight="0.6"
+        android:background="#432a64">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/negativeDelete"
+            android:layout_gravity="center" />
+    </FrameLayout>
 </LinearLayout>

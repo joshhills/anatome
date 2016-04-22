@@ -103,7 +103,8 @@ public class BrainWidget extends Fragment implements Widget {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment, storing view.
         //**********************************************************************
-        v = inflater.inflate(R.layout.test_brain_layout, container, false);
+        //v = inflater.inflate(R.layout.test_brain_layout, container, false);
+        v = inflater.inflate(R.layout.test, container, false);
         //**********************************************************************
 
 
