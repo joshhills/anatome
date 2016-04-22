@@ -135,28 +135,32 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
                             if (counterValue == 0) {
 
-                                vibrateToUser.vibrate(200);
+                                vibrateToUser.vibrate(300);
                                 counterIsIncreasing = true;
                                 setInstructionText(instructionalText.get(0));
 
                             }
 
-                            if (counterValue == 2  && counterIsIncreasing) {
+                            if (counterValue == 1  && counterIsIncreasing) {
 
                                 setInstructionText(instructionalText.get(1));
                             }
 
+                            if (counterValue == 1 && !counterIsIncreasing) {
+
+                                setInstructionText(instructionalText.get(1));
+                            }
+
+                            if (counterValue == 2) {
+
+                                counterIsIncreasing = false;
+                            }
+
                             if (counterValue == 2 && !counterIsIncreasing) {
 
-                                setInstructionText(instructionalText.get(3));
-                            }
-
-                            if (counterValue == 5) {
-
-                                vibrateToUser.vibrate(200);
-                                counterIsIncreasing = false;
+                                vibrateToUser.vibrate(300);
                                 setInstructionText(instructionalText.get(2));
-                            }
+                                counterIsIncreasing = false; }
 
                             if (counterIsIncreasing) {
 
@@ -185,6 +189,7 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
             case R.id.buttonStop:
 
                 stopButtonOnClick(v);
+                setInstructionText(instructionalText.get(0));
 
                 break;
         }
