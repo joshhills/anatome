@@ -1,7 +1,9 @@
 package io.wellbeings.anatome;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,12 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
     boolean counterIsActive;
     int counterValue = 0;
     Timer textTimer = new Timer();
+    Vibrator vibrateToUser;
+    List<String> instructionalText;
+    // Store name of section.
+    private final String SECTION = "heart";
+
+
 
     private TimerTask counterTask;
 
@@ -62,7 +70,12 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         Button stopButton = (Button) v.findViewById(R.id.buttonStop);
         stopButton.setOnClickListener(this);
 
+        vibrateToUser = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
+        instructionalText = getInstructions();
+
         setDefautFont(v);
+        
 
         return v;
     }
@@ -122,13 +135,32 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
                             if (counterValue == 0) {
 
+                                vibrateToUser.vibrate(300);
                                 counterIsIncreasing = true;
+                                setInstructionText(instructionalText.get(0));
+
                             }
 
-                            if (counterValue == 5) {
+                            if (counterValue == 1  && counterIsIncreasing) {
+
+                                setInstructionText(instructionalText.get(1));
+                            }
+
+                            if (counterValue == 1 && !counterIsIncreasing) {
+
+                                setInstructionText(instructionalText.get(1));
+                            }
+
+                            if (counterValue == 2) {
 
                                 counterIsIncreasing = false;
                             }
+
+                            if (counterValue == 2 && !counterIsIncreasing) {
+
+                                vibrateToUser.vibrate(300);
+                                setInstructionText(instructionalText.get(2));
+                                counterIsIncreasing = false; }
 
                             if (counterIsIncreasing) {
 
@@ -157,6 +189,7 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
             case R.id.buttonStop:
 
                 stopButtonOnClick(v);
+                setInstructionText(instructionalText.get(0));
 
                 break;
         }
@@ -175,7 +208,7 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         TextView counter = (TextView) (getView().findViewById(R.id.counter));
 
 
-           counter.setText(Integer.toString(i));
+        counter.setText(Integer.toString(i));
     }
 
     private void setDefautFont(View v) {
@@ -187,14 +220,11 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         text2.setTypeface(fontBariol);
     }
 
+
     // fetches a list of strings for the instructional text
-    private List<String> getText() {
+    private List<String> getInstructions() {
 
-        ArrayList<String> instructionalText = new ArrayList<String>();
+        return UtilityManager.getContentLoader(getContext()).getInfoTextAsList(SECTION, "instructional_text", ",");
 
-        instructionalText.add("breathe in");
-        instructionalText.add("breathe out");
-
-        return instructionalText;
     }
 }

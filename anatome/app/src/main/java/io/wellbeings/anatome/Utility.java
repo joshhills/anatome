@@ -15,7 +15,7 @@ import org.xml.sax.SAXException;
 interface Utility {
 	
 	// Each utility will load and close.
-	public STATUS initialize() throws IOException;
+	public STATUS initialize() throws IOException, NetworkException;
 	public STATUS shutdown();
 	
 	// Each utility will log its state.

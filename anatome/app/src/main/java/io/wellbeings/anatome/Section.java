@@ -1,11 +1,20 @@
 package io.wellbeings.anatome;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTabHost;
 
@@ -34,6 +43,10 @@ public class Section extends FragmentActivity {
         // Load previous state if applicable.
         super.onCreate(savedInstanceState);
 
+        // Hide the notification bar.
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         // Initialize local variables.
         section = getIntent().getStringExtra("section");
 
@@ -54,6 +67,8 @@ public class Section extends FragmentActivity {
     // Alter colour and headers accordingly.
     private void initDisplay() {
 
+        FragmentTabHost mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
+
         // Set correct header, capitalising first letter.
         ((TextView)findViewById(R.id.section_name)).setText(
                 section.substring(0, 1).toUpperCase() +
@@ -63,7 +78,25 @@ public class Section extends FragmentActivity {
         final int resourceId = getResources().getIdentifier(
                 section + "_ico", "drawable", getApplicationContext().getPackageName()
         );
-        ((ImageView)findViewById(R.id.section_image)).setImageResource(resourceId);
+
+        final int secondaryColourId = (ContextCompat.getColor(this,
+                UtilityManager.getThemeUtility(this).getColour(section + "_secondary_bg")));
+
+        final int backBtnColourId = (ContextCompat.getColor(this,
+                UtilityManager.getThemeUtility(this).getColour(section + "_back_btn_bg")));
+
+        final int mainColourId = (ContextCompat.getColor(this,
+                UtilityManager.getThemeUtility(this).getColour(section + "_main_bg")));
+
+
+        ((ImageView) findViewById(R.id.section_image)).setImageResource(resourceId);
+        ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(secondaryColourId);
+        ((Button) findViewById(R.id.back)).setBackgroundColor(backBtnColourId);
+        ((TextView) findViewById(R.id.section_name)).setBackgroundColor(secondaryColourId);
+        ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
+
+
+
 
     }
 
@@ -117,6 +150,10 @@ public class Section extends FragmentActivity {
         // Add message to bundle.
         Bundle contentBundle = new Bundle();
         contentBundle.putString("section", section);
+
+        final int graphicsId = getResources().getIdentifier(
+                section + "_graphic", "drawable", getApplicationContext().getPackageName()
+        );
 
         // Add fragment with bundle.
         mTabHost.addTab(mTabHost.newTabSpec(informationHeader).setIndicator(informationHeader), ContentFragment.class,

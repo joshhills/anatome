@@ -14,10 +14,6 @@ import java.util.Stack;
  */
 public class UserUtility implements Utility {
 
-    //variables for the liver widget
-    private double units;
-    private Stack<Double> drinks;
-
     // Log status of utility.
     protected STATUS utilityStatus;
 
@@ -30,6 +26,14 @@ public class UserUtility implements Utility {
     // Store user settings.
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
+
+    // General persistent user storage (only active in app lifecycle).
+    private final int PASSWORD_LENGTH = 4;
+    private final int COMMENT_LENGTH = 120;
+
+    // Liver 'widget' persistent user storage (only active in app lifecycle).
+    private double units = 0;
+    private Stack<Double> drinks = new Stack<Double>();
 
     /**
      * Constructor to be called with resources
@@ -44,10 +48,6 @@ public class UserUtility implements Utility {
 
         utilityStatus = initialize();
 
-        //units start at zero
-        units = 0;
-        drinks = new Stack<Double>();
-
     }
 
     @Override
@@ -60,12 +60,27 @@ public class UserUtility implements Utility {
 
         // Check to see if user profile exists.
         if(settings.getString("NAME", null) == null) {
+
+            // Initialize default settings.
+            this.allowNetwork(true);
+            this.allowNotifications(true);
+
+            // Return that there wasn't a pre-existing profile.
             return STATUS.NONE;
+
         }
         else {
             return STATUS.SUCCESS;
         }
 
+    }
+
+    /**
+     * Reset user settings, erasing their profile.
+     */
+    public void reset() {
+        editor.clear();
+        editor.commit();
     }
 
     /**
@@ -99,8 +114,6 @@ public class UserUtility implements Utility {
     }
 
     /* Specific method for ease-of-use. */
-
-    // TODO: Fully comment with JavaDoc.
 
     /**
      * Alter the user's language, for use in
@@ -148,7 +161,20 @@ public class UserUtility implements Utility {
         return settings.getBoolean("NETWORK", true);
     }
 
-    // TODO: Password!!
+    public int getPASSWORD_LENGTH() {
+        return PASSWORD_LENGTH;
+    }
+    public void setPassword(String password) {
+        editor.putString("PASSWORD", password);
+        editor.apply();
+    }
+    public String getPassword() {
+        return settings.getString("PASSWORD", null);
+    }
+
+    public int getCOMMENT_LENGTH() {
+        return COMMENT_LENGTH;
+    }
 
     @Override
     public STATUS getState() {
@@ -160,7 +186,10 @@ public class UserUtility implements Utility {
         return null;
     }
 
-    //getters and setters
+    /*
+     * Provide accessor methods for fields stored only during
+     * application lifecycle.
+     */
     public double getUnits(){
         return units;
     }

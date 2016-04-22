@@ -1,14 +1,13 @@
 package io.wellbeings.anatome;
 
 import android.content.Context;
-import android.util.Log;
-
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -106,6 +105,10 @@ public class ContentLoader extends XMLUtility {
                     + "']/section[@name='"
                     + sectionName + "']/information[@id='" + infoID + "']");
 
+        if (it == null) {
+
+            return new ArrayList<String>();
+        }
         // Trim, split by delimiter and return as array.
         return Arrays.asList(it.trim().split(delim));
 
@@ -138,6 +141,44 @@ public class ContentLoader extends XMLUtility {
                 + UtilityManager.getUserUtility(ctx).getLanguage()
                 + "']/miscellaneous/buttons/label[@id='"
                 + buttonID + "']");
+
+    }
+
+    /**
+     * Retrieve the most recent time that a section was edited
+     * to inform the user of the relevancy of the information.
+     *
+     * @param sectionName   The section for which to retrieve the date.
+     * @return              The date of the most recent edit to the settings.
+     */
+    public String getDateModified(String sectionName) {
+
+        String isoTimeFormat = getNodeContentWithXPath("application/content[@lang='"
+                + UtilityManager.getUserUtility(ctx).getLanguage()
+                + "']/section[@name='"
+                + sectionName + "']/modified");
+
+        /*
+         * Convert ISO 8601 compliant string to Java date object -
+         * favourable as XML prefers this format of date.
+         *
+         * Inspired by this SO answer:
+         * https://stackoverflow.com/a/10621553
+         */
+
+        // Reformat ISO time format.
+        isoTimeFormat = isoTimeFormat.replace("Z", "+00:00");
+        // Attempt to parse it into a more reasonable form.
+        try {
+            // Remove the ':'.
+            isoTimeFormat = isoTimeFormat.substring(0, 22)
+                    + isoTimeFormat.substring(23);
+            Date dateModified = new SimpleDateFormat("yyyy-MM-dd").parse(isoTimeFormat);
+            isoTimeFormat = new SimpleDateFormat("dd/MM/yyyy").format(dateModified);
+        } catch (ParseException e) {}
+
+        // Return the date in its current state.
+        return isoTimeFormat;
 
     }
 

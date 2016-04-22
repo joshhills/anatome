@@ -20,7 +20,7 @@ public class UtilityManager {
     private Context ctx;
 
     // Create a utilities array - necessary hard-coding.
-    Utility[] utilities = new Utility[3];
+    Utility[] utilities = new Utility[4];
 
     /**
      * Method models the Singleton design pattern, which serves to
@@ -64,7 +64,9 @@ public class UtilityManager {
         utilities[1] = new ContentLoader(ctx, ctx.getResources().openRawResource(R.raw.content),
                 ctx.getResources().openRawResource(R.raw.contentschema));
 
-        utilities[2] = new ThemeUtility(ctx);
+        utilities[2] = new DbUtility(ctx);
+
+        utilities[3] = new ThemeUtility(ctx);
 
         // TODO: Add database interpolation for social and organization integration.
 
@@ -144,10 +146,22 @@ public class UtilityManager {
     }
     */
 
+    /**
+     * Retrieve all existing utility class objects.
+     *
+     * @return  An array of utilities.
+     */
     private Utility[] getUtilities() {
         return utilities;
     }
 
+    /**
+     * Return the specific subclass requested.
+     *
+     * @param ctx       The Android specific lifecycle object.
+     * @param subClass  The type of utility needed.
+     * @return          The requested utility if it exists.
+     */
     public static Utility getUtility(Context ctx, Class subClass) {
         for (Utility u : getInstance(ctx).getUtilities()) {
             if(subClass.isInstance(u)) {
@@ -157,16 +171,36 @@ public class UtilityManager {
         return null;
     }
 
+    /**
+     * @param ctx   The Android specific lifecycle object.
+     * @return      The utility managing user settings.
+     */
     public static UserUtility getUserUtility(Context ctx) {
         return (UserUtility) getUtility(ctx, UserUtility.class);
     }
 
+    /**
+     * @param ctx   The Android specific lifecycle object.
+     * @return      The utility managing internationalised content population.
+     */
     public static ContentLoader getContentLoader(Context ctx) {
         return (ContentLoader) getUtility(ctx, ContentLoader.class);
     }
 
+    /**
+     * @param ctx   The Android specific lifecycle object.
+     * @return      The utility managing user settings.
+     */
     public static ThemeUtility getThemeUtility(Context ctx) {
         return (ThemeUtility) getUtility(ctx, ThemeUtility.class);
+    }
+
+    /**
+     * @param ctx   The Android specific
+     * @return
+     */
+    public static DbUtility getDbUtility(Context ctx) {
+        return (DbUtility) getUtility(ctx, DbUtility.class);
     }
 
     /**

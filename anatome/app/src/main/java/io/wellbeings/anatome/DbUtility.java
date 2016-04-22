@@ -1,15 +1,21 @@
 package io.wellbeings.anatome;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,97 +32,361 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.params.BasicHttpParams;
 
 /**
- * Created by Callum on 13/04/16.
+ * Black-box into database PHP API provides
+ * dynamic functionality across application.
  */
 
-public class DbUtility{
+public class DbUtility implements Utility {
 
+    // Log status of utility.
+    protected STATUS utilityStatus;
+
+    // Store application context for access to local preferences.
+    private static Context ctx;
+
+    // Store useful functional descriptors.
     private static final String TAG_RESULTS = "result";
     private static final String TAG_DATE = "App_Date";
     private static final String TAG_TIME = "App_Time";
     private static final String TAG_COM = "Com_Text";
     private static final String TAG_COM_NAME = "Student_Name";
+    private static final String TAG_LAT_LONG = "LatLong";
     JSONArray array = null;
 
-    public void addAppointment(String time, String date, Context ctx) {
-        String param = "app";
+    public DbUtility(Context ctx){
 
-        List<NameValuePair> data = new ArrayList<>();
-        data.add(new BasicNameValuePair("time", time));
-        data.add(new BasicNameValuePair("date", date));
-        data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(ctx).getName()));
-        data.add(new BasicNameValuePair("email", UtilityManager.getUserUtility(ctx).getEmail()));
+        // Store reference to context.
+        this.ctx = ctx;
 
-        addToDb(data, param);
-    }
-
-    public void addComment(String text, String area, Context ctx) {
-        String param = "comment";
-
-        List<NameValuePair> data = new ArrayList<>();
-        data.add(new BasicNameValuePair("text", text));
-        data.add(new BasicNameValuePair("date", area));
-        data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(ctx).getName()));
-
-        addToDb(data, param);
-    }
-
-    public HashMap<String, String> getAppointment(Context ctx) {
-        String result;
-        HashMap<String, String> appointments;
-
+        // Attempt to start to set-up the utility using the arguments provided.
         try {
-            GetDataJSON g = new GetDataJSON("app", "none", ctx);
-            result = g.execute().get();
-            appointments = parseAppointment(result);
+            utilityStatus = initialize();
+        } catch (Exception e) {
+            utilityStatus = STATUS.FAIL;
+        }
 
-            return appointments;
+    }
 
-        }catch(Exception e) {
-            e.printStackTrace();
+    @Override
+    public STATUS initialize() throws IOException {
+        return STATUS.SUCCESS;
+    }
+
+    @Override
+    public STATUS getState() {
+        return utilityStatus;
+    }
+
+    @Override
+    public STATUS shutdown() {
+        return null;
+    }
+
+
+    /**
+     * Test if the phone has a network connection.
+     *
+     * @return boolean true - connected to network
+     */
+    public boolean isConnectedToInternet(){
+        ConnectivityManager connection = (ConnectivityManager)ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connection != null)
+        {
+            NetworkInfo[] netData = connection.getAllNetworkInfo();
+            if (netData != null)
+                for (int i = 0; i < netData.length; i++)
+                    if (netData[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
+                    }
+
+        }
+        return false;
+    }
+
+
+    /**
+     * Register an appointment on the
+     * organization's system.
+     *
+     * @param time  The time of the appointment.
+     * @param date  The date of the appointment.
+     */
+    public void addAppointment(String time, String date, String pref) throws NetworkException {
+
+        if(isConnectedToInternet()) {
+            // Select function.
+            String param = "app";
+
+            // Build dataset to pass to API call.
+            List<NameValuePair> data = new ArrayList<>();
+            data.add(new BasicNameValuePair("time", time));
+            data.add(new BasicNameValuePair("date", date));
+            data.add(new BasicNameValuePair("pref", pref));
+            data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(ctx).getName()));
+            data.add(new BasicNameValuePair("email", UtilityManager.getUserUtility(ctx).getEmail()));
+
+            addToDb(data, param);
+
+            param = "update";
+
+            addToDb(data, param);
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
+    }
+
+    /**
+     * Store social comments in database submitted
+     * through application.
+     *
+     * @param text      The content of the comment.
+     * @param section   The section it is relevant to.
+     */
+    public void addComment(String text, String name, String section) throws NetworkException{
+
+        if(isConnectedToInternet()){
+            // Select function.
+            String param = "comment";
+
+            // Build dataset to pass to API call.
+            List<NameValuePair> data = new ArrayList<>();
+            data.add(new BasicNameValuePair("text", text));
+            data.add(new BasicNameValuePair("name", name));
+            data.add(new BasicNameValuePair("area", section));
+
+            addToDb(data, param);
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
+    }
+
+    /**
+     * Prepopulate database content.
+     *
+     * @param dates A set of relevant dates.
+     */
+    public void addAppointmentsToDate (String[] dates) {
+        String[] times = {"09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
+                "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"};
+
+        for(int i = 0; i < dates.length; i++) {
+            for(int j = 0; j < times.length; j++) {
+                List<NameValuePair> data = new ArrayList<>();
+                data.add(new BasicNameValuePair("date", dates[i]));
+                data.add(new BasicNameValuePair("time", times[j]));
+
+                addToDb(data, "fill");
+            }
+        }
+    }
+
+    /**
+     * Get appointment time and date related to
+     * the users locally stored email.
+     *
+     * @return HashMap<String, String> Appointment Date, Appointment Time
+     */
+    public HashMap<String, String> getAppointment() throws NetworkException {
+        String result;
+
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("app", "none");
+                result = g.execute().get();
+                JSONObject jsonObj = new JSONObject(result);
+                array = jsonObj.getJSONArray(TAG_RESULTS);
+                HashMap<String, String> appointments = new HashMap<>();
+
+                JSONObject c = array.getJSONObject(0);
+
+                appointments.put(TAG_DATE, c.getString(TAG_DATE));
+                appointments.put(TAG_TIME, c.getString(TAG_TIME));
+
+                return appointments;
+
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
         }
 
         return null;
     }
 
-    public ArrayList<HashMap<String, String>> getComments(String area, Context ctx) {
+
+    /**
+     * return all non taken appointment times base on a given date.
+     *
+     * @param date date to get available appointment times
+     * @return String[] of appointment times
+     * @throws NetworkException
+     */
+    public String[] getAvailable(String date) throws NetworkException{
+        String result;
+        String [] available;
+
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("available", date);
+                result = g.execute().get();
+                available = parseAvailable(result);
+                return available;
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
+        return null;
+    }
+
+    /**
+     * get all published comments for a given area.
+     *
+     * @param area area of app that comments are required.
+     * @return HashMap<String, String> Comment, Name
+     * @throws NetworkException
+     */
+    public HashMap<String, String> getComments(String area) throws NetworkException{
         String result;
         ArrayList<HashMap<String, String>> commentList;
 
-        try {
-            GetDataJSON g = new GetDataJSON("comment", "liver", ctx);
-            result = g.execute().get();
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("comment", area);
+                result = g.execute().get();
 
-            commentList = parseComment(result);
+                return parseComment(result);
 
-            return commentList;
-
-        }catch(Exception e) {
-            e.printStackTrace();
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
         }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
+        return null;
+    }
 
+    /**
+     * return the name of the organisation running the app.
+     *
+     * @return String name of organisation
+     * @throws NetworkException
+     */
+    public String getOrgName() throws NetworkException{
+        String result;
+
+
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("orgname", "none");
+                result = g.execute().get();
+
+                JSONObject jsonObj = new JSONObject(result);
+                array = jsonObj.getJSONArray(TAG_RESULTS);
+
+                String orgName = array.getJSONObject(0).getString("Name");
+
+                return orgName;
+
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
 
         return null;
     }
 
-    public ArrayList<HashMap<String, String>> parseComment(String result) {
-        ArrayList<HashMap<String, String>> commentList = new ArrayList<HashMap<String, String>>();
+    /**
+     * get description of organisation.
+     * @return String description
+     * @throws NetworkException
+     */
+    public String getOrgDescription() throws NetworkException{
+        String result;
+
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("orgdesc", "none");
+                result = g.execute().get();
+
+                JSONObject jsonObj = new JSONObject(result);
+                array = jsonObj.getJSONArray(TAG_RESULTS);
+
+                String orgName = array.getJSONObject(0).getString("Description");
+
+                return orgName;
+
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
+
+        return null;
+    }
+
+    /**
+     * get coordinates for organisation.
+     * @return LatLng object.
+     * @throws NetworkException
+     */
+    public LatLng getLatLong() throws NetworkException{
+        String result;
+        String[] latLong;
+
+        if(isConnectedToInternet()) {
+            try {
+                GetDataJSON g = new GetDataJSON("org", "none");
+                result = g.execute().get();
+
+                latLong = parseLatLong(result);
+
+                return new LatLng(Double.parseDouble(latLong[0]),
+                        Double.parseDouble(latLong[1]));
+
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            throw new NetworkException("No Connection: Check your network settings and try again.");
+        }
+
+        return null;
+    }
+
+    /**
+     * creates and parses the JSON array in to a hashmap.
+     * @param result result returned from GetDataJSON
+     * @return HashMap<String, String> name, comment
+     */
+    public HashMap<String, String> parseComment(String result) {
         try {
             JSONObject jsonObj = new JSONObject(result);
             array = jsonObj.getJSONArray(TAG_RESULTS);
+            HashMap<String, String> comments = new HashMap<>();
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject c = array.getJSONObject(i);
                 String name = c.getString(TAG_COM_NAME);
                 String comment = c.getString(TAG_COM);
 
-                HashMap<String, String> comments = new HashMap<>();
-
-                comments.put(TAG_COM_NAME, name);
-                comments.put(TAG_COM, comment);
-                commentList.add(comments);
+                comments.put(comment, name);
             }
-            return commentList;
+            return comments;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,31 +394,65 @@ public class DbUtility{
         return null;
     }
 
-    public HashMap<String, String> parseAppointment(String result) {
+    /**
+     * parse available appointments
+     * @param result from getdataJSON
+     * @return String[] of appointments
+     */
+    public String[] parseAvailable(String result) {
         try {
             JSONObject jsonObj = new JSONObject(result);
             array = jsonObj.getJSONArray(TAG_RESULTS);
-            HashMap<String, String> appointments = new HashMap<>();
-            for (int i = 0; i < 2; i++) {
+            String [] available = new String[array.length()];
+            for (int i = 0; i < array.length(); i++) {
                 JSONObject c = array.getJSONObject(i);
-                String id = c.getString(TAG_DATE);
-                String name = c.getString(TAG_TIME);
+                String time = c.getString(TAG_TIME);
 
-                appointments.put(TAG_DATE, id);
-                appointments.put(TAG_TIME, name);
-
-                return appointments;
+                available[i] = time;
             }
 
+            return available;
 
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
         return null;
     }
 
+    /**
+     * parse latlong from database into a string array
+     * @param result from getDataJSON
+     * @return String[] lat, long
+     */
+    public String[] parseLatLong(String result) {
+        String[] latLong = new String[2];
 
+        try{
+            JSONObject jsonObj = new JSONObject(result);
+            array = jsonObj.getJSONArray(TAG_RESULTS);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject c = array.getJSONObject(i);
+                String temp = c.getString(TAG_LAT_LONG);
+
+                String lat = temp.substring( 0, temp.indexOf(","));
+                String llong = temp.substring(temp.indexOf(",")+1, temp.length());
+                latLong[0] = lat;
+                latLong[1] = llong;
+
+                return latLong;
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * method that creates an async task to send a List of data to the php ready for insertion into the database.
+     *
+     * @param data List of name value pairs.
+     * @param param string to distinguish which query to execute.
+     */
     void addToDb(final List<NameValuePair> data, final String param){
         class ExecutePost extends AsyncTask<String, Void, String> {
 
@@ -184,14 +488,17 @@ public class DbUtility{
         s.execute();
     }
 
+
+    /**
+     * Async task to connect to given php file and return the JSON from the mysql result.
+     */
     public class GetDataJSON extends AsyncTask<String, Void, String> {
             private String choice;
             private Context ctx;
             private String area;
 
-            public GetDataJSON(String choice, String area, Context ctx) {
+            public GetDataJSON(String choice, String area) {
                 this.choice = choice;
-                this.ctx = ctx;
                 this.area = area;
 
             }
@@ -200,7 +507,6 @@ public class DbUtility{
             //all this works correctly
             @Override
             protected String doInBackground(String... params) {
-
 
                 DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
 
@@ -238,13 +544,6 @@ public class DbUtility{
                 return result;
             }
 
-
-            @Override
-            protected void onPostExecute(String result) {
-                //delegate.processFinish(result);
-            }
         }
-
-
 
 }

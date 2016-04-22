@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/main_main_bg</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/dark_blue_accent</item>
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -28,5 +30,9 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="sectionTabsStyle">
+        <item name="android:textColor">#ffffff</item>
+    </style>
 
 </resources>

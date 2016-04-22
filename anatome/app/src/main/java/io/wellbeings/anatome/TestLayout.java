@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -23,7 +22,7 @@ public class TestLayout extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_layout);
+        setContentView(R.layout.booking_details);
 
 
         mBackFromBooked = (Button)findViewById(R.id.backFromBooked);
@@ -44,15 +43,24 @@ public class TestLayout extends AppCompatActivity {
         Context ctx = TestLayout.this;
         HashMap<String, String> appointments;
 
-        DbUtility db = new DbUtility();
+        try {
 
-        appointments = db.getAppointment(ctx);
+            appointments = UtilityManager.getDbUtility(this).getAppointment();
 
-        TextView timeView = (TextView)findViewById(R.id.bookedTime);
-        TextView dateView = (TextView)findViewById(R.id.bookedDate);
+            TextView timeView = (TextView) findViewById(R.id.bookedTime);
+            TextView dateView = (TextView) findViewById(R.id.bookedDate);
 
-        dateView.setText(appointments.get("App_Date").toString());
-        timeView.setText(appointments.get("App_Time").toString());
+            String date = appointments.get("App_Date").toString();
+            String time = appointments.get("App_Time").toString();
+
+            dateView.setText(date);
+            timeView.setText(time);
+
+            NotificationHandler.pushNotification(TestLayout.this, "Booked Appointment:", "Time: " + time + "Date: " + date);
+
+        }catch(NetworkException e) {
+            NotificationHandler.NetworkErrorDialog(TestLayout.this);
+        }
 
     }
 

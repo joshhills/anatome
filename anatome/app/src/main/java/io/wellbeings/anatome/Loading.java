@@ -1,6 +1,8 @@
 package io.wellbeings.anatome;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -8,9 +10,16 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
@@ -23,37 +32,20 @@ public class Loading extends Activity {
 
     // Store useful private fields.
     private static final int SPLASH_DURATION = 4000;
-    private boolean mBackBtnPress;
     private TextView mText;
     private Handler mHandler;
     private STATUS okGo;
 
-    FasterAnimationsContainer mFasterAnimationsContainer;
-    private static final int[] IMAGE_RESOURCES = { R.drawable.look_2,
-            R.drawable.look_4, R.drawable.look_6, R.drawable.look_8,
-            R.drawable.look_10, R.drawable.look_12, R.drawable.look_14,
-            R.drawable.look_16, R.drawable.look_18, R.drawable.look_20,
-            R.drawable.look_22, R.drawable.look_24, R.drawable.look_26,
-            R.drawable.look_28, R.drawable.look_30, R.drawable.look_32,
-            R.drawable.look_34, R.drawable.look_36, R.drawable.look_38,
-            R.drawable.look_40, R.drawable.look_42, R.drawable.look_44,
-            R.drawable.look_46, R.drawable.look_48, R.drawable.look_50,
-            R.drawable.look_52, R.drawable.look_54, R.drawable.look_56,
-            R.drawable.look_58, R.drawable.look_60, R.drawable.look_62,
-            R.drawable.look_64, R.drawable.look_66, R.drawable.look_68,
-            R.drawable.look_70, R.drawable.look_72, R.drawable.look_74,
-            R.drawable.look_76, R.drawable.look_78, R.drawable.look_80,
-            R.drawable.look_82, R.drawable.look_84, R.drawable.look_86,
-            R.drawable.look_88, R.drawable.look_90, R.drawable.look_92,
-            R.drawable.look_94, R.drawable.look_96, R.drawable.look_98,
-            R.drawable.look_100, R.drawable.look_102, R.drawable.look_104,
-            R.drawable.look_106};
-
-    private static final int ANIMATION_INTERVAL = 100;// 500ms
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Hide the notification bar.
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
+
+        // Load the corresponding style.
         setContentView(R.layout.loading_layout);
 
         initGUI();
@@ -75,19 +67,78 @@ public class Loading extends Activity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Idle during async task.
-                while(okGo == STATUS.NONE) {}
-                // mFasterAnimationsContainer.stop();
-                // If user profile absent...
-                if(okGo == STATUS.FAIL) {
-                    // Set one up.
+
+                // Simple idle during async task.
+                while(okGo == null) {}
+
+                // If a user profile exists.
+                if (okGo == STATUS.SUCCESS) {
+
+                    // Check for the existence of a user password.
+                    if(UtilityManager.getUserUtility(getApplicationContext()).getPassword() != null) {
+
+                        // Create password input.
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(Loading.this, AlertDialog.THEME_HOLO_LIGHT);
+                        builder.setTitle("Input Password");
+                        builder.setCancelable(false);
+                        final EditText pwInput = new EditText(Loading.this);
+
+                        // Force numerical keyboard and hidden values.
+                        pwInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        // Force maximum length.
+                        pwInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(
+                                UtilityManager.getUserUtility(getApplicationContext()).getPASSWORD_LENGTH()
+                        )});
+                        builder.setView(pwInput);
+
+                        // Dictate how the buttons should look.
+                        builder.setPositiveButton("OK", null);
+                        builder.setNegativeButton("RESET", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Erase user data in order to continue.
+                                UtilityManager.getUserUtility(getApplicationContext()).reset();
+                                dialog.dismiss();
+                                Toast.makeText(Loading.this, "Profile erased.",
+                                        Toast.LENGTH_SHORT).show();
+                                // Set-up new profile.
+                                Intent i = new Intent(Loading.this, Preamble.class);
+                                Loading.this.startActivity(i);
+                            }
+                        });
+                        // Show and override positive button.
+                        final AlertDialog pwScreen = builder.create();
+                        pwScreen.show();
+                        pwScreen.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // If the password is correct.
+                                if (pwInput.getText().toString().equals(
+                                        UtilityManager.getUserUtility(getApplicationContext()).getPassword())) {
+                                    pwScreen.dismiss();
+                                    // OK to navigate to main scroll.
+                                    Intent i = new Intent(Loading.this, MainScroll.class);
+                                    Loading.this.startActivity(i);
+                                } else {
+                                    Toast.makeText(Loading.this, "Incorrect password.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+                    }
+                    else {
+                        // Go to main scroll.
+                        Intent i = new Intent(Loading.this, MainScroll.class);
+                        Loading.this.startActivity(i);
+                    }
+                }
+                else {
+
+                    // Otherwise user profile does not exist, so set one up.
                     Intent i = new Intent(Loading.this, Preamble.class);
                     Loading.this.startActivity(i);
-                }
-                else if (okGo == STATUS.SUCCESS){
-                    // Go to main scroll.
-                    Intent i = new Intent(Loading.this, MainScroll.class);
-                    Loading.this.startActivity(i);
+
                 }
             }
         }, SPLASH_DURATION);
@@ -107,16 +158,6 @@ public class Loading extends Activity {
 
         // Begin loading icon animation.
         ImageView imageView = (ImageView) findViewById(R.id.eyeball_image);
-
-        /*mFasterAnimationsContainer = FasterAnimationsContainer
-                .getInstance(imageView);
-        mFasterAnimationsContainer.addAllFrames(IMAGE_RESOURCES,
-                ANIMATION_INTERVAL);
-        mFasterAnimationsContainer.start();
-
-        // Glide.with(this).load(R.drawable.eyeball_animation).into(mImageViewFilling);
-        // ((AnimationDrawable) mImageViewFilling.getDrawable()).start();*/
-
 
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView);
         Glide.with(this).load(R.drawable.animtwo).into(imageViewTarget);
