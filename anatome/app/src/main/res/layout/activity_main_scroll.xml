@@ -68,6 +68,9 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY" />
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,21 +97,28 @@
                     android:textColor="#09849a"
                     android:scaleType="fitXY"
                     android:layout_marginRight="16dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginBottom="20dp"/>
 
-                <ImageButton
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:id="@+id/bookButtonOnMainScroll"
-                    android:layout_marginBottom="20dp"
-                    android:src="@drawable/book"
-                    android:layout_marginRight="16dp"
-                    android:visibility="gone"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:textColor="#09849a"
-                    android:scaleType="fitXY" />
 
             </LinearLayout>
+
+
+            <ImageButton
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:id="@+id/bookButtonOnMainScroll"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/book"
+                android:layout_marginRight="16dp"
+                android:visibility="gone"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="#09849a"
+                android:scaleType="fitXY"
+                android:layout_alignParentRight="true"
+                />
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
