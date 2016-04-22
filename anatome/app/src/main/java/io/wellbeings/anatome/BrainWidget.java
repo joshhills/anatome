@@ -62,8 +62,9 @@ public class BrainWidget extends Fragment implements Widget {
     private MediaRecorder recorder;
     private String OUTPUT_FILE;
 
-    //for gallery
+    //result code constants for image and audio selection
     private static final int RESULT_LOAD_IMG = 1;
+    private static final int RESULT_LOAD_AUDIO = 100;
 
     //filename for persistent data
     private static final String FILE_NAME = "brain.txt";
@@ -136,14 +137,11 @@ public class BrainWidget extends Fragment implements Widget {
 
         //retrieve the elements of the new note
         newNoteContent = (EditText) v.findViewById(R.id.newNoteContent);
-        //TODO: audio button
+        audioButton = (ImageButton) v.findViewById(R.id.audioButton);
         saveButton = (ImageButton) v.findViewById(R.id.btnSave1);
         galleryButton = (ImageButton) v.findViewById(R.id.btnGallery);
         //retreive the negative note's delete button
         negativeDeleteButton = (ImageButton) v.findViewById(R.id.negativeDelete);
-
-        audioButton = (ImageButton) v.findViewById(R.id.audioButton);
-
 
         // Mediaplayer
         mp = new MediaPlayer();
@@ -181,7 +179,7 @@ public class BrainWidget extends Fragment implements Widget {
             public void onClick(View arg0) {
 
                 Intent i = new Intent(getActivity().getApplicationContext(), PlayListActivity.class);
-                startActivityForResult(i, 100);
+                startActivityForResult(i, RESULT_LOAD_AUDIO);
             }
         });
 
@@ -527,24 +525,21 @@ public class BrainWidget extends Fragment implements Widget {
                 cursor.close();
             }
         }
-        if(resultCode == 100){
-            currentSongIndex = data.getExtras().getInt("songIndex");
-            // play audio when it selected
-            playSong(currentSongIndex);
+        if(resultCode == RESULT_LOAD_AUDIO){
+            //check the data is not null
+            if(data != null) {
+                currentSongIndex = data.getExtras().getInt("songIndex");
+                // play audio when it selected
+                playSong(currentSongIndex);
 
-            String date = getCurrentDate();
-            Note note = new Note(date, "");
-            String audioPath = songsList.get(currentSongIndex).get("songPath");
-            note.setAudioContent(audioPath);
-            saveNote(note);
-
+                String date = getCurrentDate();
+                Note note = new Note(date, "");
+                String audioPath = songsList.get(currentSongIndex).get("songPath");
+                note.setAudioContent(audioPath);
+                saveNote(note);
+            }
         }
-
     }
-
-
-
-
 
     public void  playSong(int songIndex){
         // play audio

@@ -56,7 +56,13 @@ public class Note implements Serializable {
         if(audioDirectory == null) return false;
         else return true;
     }
-
+    public String getAudioDirectory() {
+        //protect against nullPointers
+        if(hasImageContent() == false){
+            return "";
+        }
+        return imageDirectory;
+    }
     public void setAudioContent(String audioDirectory){
         this.audioDirectory = audioDirectory;
     }
