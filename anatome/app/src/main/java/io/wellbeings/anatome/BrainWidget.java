@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
+import android.widget.Button;
 import android.widget.EditText;
 import android.content.Context;
 import android.widget.ImageButton;
@@ -43,18 +44,10 @@ public class BrainWidget extends Fragment implements Widget {
     private View v;
 
     //declare variables for the graphical parts of the widget
-<<<<<<< HEAD
-    ImageButton saveButton, galleryButton, leftArrow, rightArrow,
-        deleteButton, negativeDeleteButton, audioButton;
-
-
-    Button btnPlay;
-    EditText newNoteContent;
-=======
     private ImageButton saveButton, galleryButton, leftArrow, rightArrow,
-         negativeDeleteButton;
+         negativeDeleteButton, audioButton;
     private EditText newNoteContent;
->>>>>>> origin/CalmackBranch
+    private Button btnPlay;
 
     final String MEDIA_PATH = new String("/sdcard/");
     private int currentSongIndex = 0;
