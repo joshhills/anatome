@@ -368,6 +368,11 @@ public class DbUtility implements Utility {
         return null;
     }
 
+    /**
+     * creates and parses the JSON array in to a hashmap.
+     * @param result result returned from GetDataJSON
+     * @return HashMap<String, String> name, comment
+     */
     public HashMap<String, String> parseComment(String result) {
         try {
             JSONObject jsonObj = new JSONObject(result);
@@ -389,6 +394,11 @@ public class DbUtility implements Utility {
         return null;
     }
 
+    /**
+     * parse available appointments
+     * @param result from getdataJSON
+     * @return String[] of appointments
+     */
     public String[] parseAvailable(String result) {
         try {
             JSONObject jsonObj = new JSONObject(result);
@@ -409,6 +419,11 @@ public class DbUtility implements Utility {
         return null;
     }
 
+    /**
+     * parse latlong from database into a string array
+     * @param result from getDataJSON
+     * @return String[] lat, long
+     */
     public String[] parseLatLong(String result) {
         String[] latLong = new String[2];
 
