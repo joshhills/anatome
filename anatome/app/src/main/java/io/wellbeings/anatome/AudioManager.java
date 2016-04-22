@@ -38,8 +38,6 @@ public class AudioManager {
         // return songslist
         return songsList;
 
-
     }
-
 
 }

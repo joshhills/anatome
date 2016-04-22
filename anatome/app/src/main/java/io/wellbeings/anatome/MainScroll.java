@@ -314,7 +314,7 @@ public class MainScroll extends Activity {
                                startActivity(intent);
                            }
                        }catch (NetworkException e) {
-                           NotificationHandler.NetworkErrorDialog(MainScroll.this);
+                           NotificationHandler.networkErrorDialog(MainScroll.this);
                        }
 
                    }

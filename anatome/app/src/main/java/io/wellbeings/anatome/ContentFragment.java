@@ -294,7 +294,7 @@ public class ContentFragment extends Fragment implements Widget {
         } catch (NetworkException e) {
 
             // Display unintended network error.
-            NotificationHandler.NetworkErrorDialog(getContext());
+            NotificationHandler.networkErrorDialog(getContext());
 
         }
 

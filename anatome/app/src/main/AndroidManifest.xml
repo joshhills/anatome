@@ -19,11 +19,14 @@
         android:screenOrientation="portrait"
         android:configChanges="orientation|keyboardHidden">
 
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
         <activity
             android:name=".Preamble"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden" />
+            android:configChanges="orientation|keyboardHidden"
+            android:noHistory="true" />
         <activity
             android:name=".MainScroll"
             android:theme="@style/AppTheme.NoActionBar"
@@ -48,7 +51,8 @@
             android:name=".Loading"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden">
+            android:configChanges="orientation|keyboardHidden"
+            android:noHistory="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
