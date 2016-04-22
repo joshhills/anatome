@@ -149,6 +149,13 @@ public class MainScroll extends Activity {
 
         TextView t = (TextView)findViewById(R.id.main_scroll_text);
                 t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "welcome"));
+
+
+        TextView footerTextTitle = (TextView)findViewById(R.id.mainscroll_organisation_title);
+        footerTextTitle.setText(UtilityManager.getContentLoader(this).getHeaderText("mainscroll", "more_help"));
+
+        TextView footerTextInfo = (TextView)findViewById(R.id.mainscroll_more_help_text);
+        footerTextInfo.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "more_help_text"));
     }
 
     // Modulate set-up tasks for easy alteration.

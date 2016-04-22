@@ -48,9 +48,15 @@ For this reason, you may want to password-protect them.
                 <header id="welcome">
                     Welcome!
                 </header>
+                <header id="more_help">
+                    Need more help?
+                </header>
             </headers>
             <information id="welcome">
                 This is a triage service for your state of well-being. Take a look at our key sections of student-orientated information and interactive widgets to help you overcome your problems!
+            </information>
+            <information id="more_help_text">
+                Sometimes a face-to-face can't be beaten. Take a look at your local resource center for well-being.
             </information>
         </section>
         <section name="heart">
