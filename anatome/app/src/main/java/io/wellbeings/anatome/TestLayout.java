@@ -59,7 +59,7 @@ public class TestLayout extends AppCompatActivity {
             NotificationHandler.pushNotification(TestLayout.this, "Booked Appointment:", "Time: " + time + "Date: " + date);
 
         }catch(NetworkException e) {
-            NotificationHandler.networkErrorDialog(TestLayout.this);
+            NotificationHandler.NetworkErrorDialog(TestLayout.this);
         }
 
     }
