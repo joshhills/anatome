@@ -144,8 +144,12 @@ public class BrainWidget extends Fragment implements Widget {
     //method for initialising the save, left and right buttons
     private void initControlPanel(View v) {
         //retrieve the two navigation buttons
-        leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
-        rightArrow = (ImageButton) v.findViewById(R.id.rightArrow);
+
+        //******************************************
+        //leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
+        //rightArrow = (ImageButton) v.findViewById(R.id.rightArrow);
+        //******************************************
+
 //        ivImage = (ImageView) v.findViewById(R.id.ivImage);
 
         //obtain scroll view used in the save button's onclick listener
@@ -185,7 +189,9 @@ public class BrainWidget extends Fragment implements Widget {
              }
          });
 
+        //******************************************
         //define the behaviour of the left arrow
+        /*
         leftArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,6 +206,8 @@ public class BrainWidget extends Fragment implements Widget {
                 navigateRight();
             }
         });
+        */
+        //******************************************
 
         //define the behaviour of the negative note's delete button
         negativeDeleteButton.setOnClickListener(new View.OnClickListener() {
