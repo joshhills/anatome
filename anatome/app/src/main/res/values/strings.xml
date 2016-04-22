@@ -18,10 +18,7 @@
     <string name="image_lock">Padlock</string>
     <string name="generic_name">name</string>
     <string name="title_activity_section">Section</string>
-<<<<<<< HEAD
     <string name="title_activity_awdawd">Map</string>
-=======
     <string name="title_activity_play_list">PlayListActivity</string>
->>>>>>> refs/remotes/origin/CalmackBranch
 
 </resources>
