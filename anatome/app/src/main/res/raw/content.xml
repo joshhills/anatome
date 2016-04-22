@@ -20,9 +20,9 @@
             <information id="intro">
                 Welcome to the student toolkit for well-being.
 
-There's some minor information necessary to set you going so you can use your new app to soothe your mood, settle your stomach, and see a psych' whenever you like!
+                There's some minor information necessary to set you going so you can use your new app to soothe your mood, settle your stomach, and see a psych' whenever you like!
 
-(This can all be tweaked in the settings.)
+                (This can all be tweaked in the settings.)
             </information>
             <information id="name">
                 Firstly, what should we call you?
@@ -42,19 +42,19 @@ For this reason, you may want to password-protect them.
             </information>
             <!-- Important meta information displays relevance of section content, therefore mandatory. -->
             <modified>
-                2001-12-17T09:30:47Z
+                2016-04-23T09:00:00Z
             </modified>
         </section>
         <section name="mainscroll">
             <headers>
-                <header>
+                <header id="welcome">
+                    Welcome!
                 </header>
             </headers>
-            <information id="mainscrollText">
+            <information id="welcome">
                 This is a triage service for your state of well-being. Take a look at our key sections of student-orientated information and interactive widgets to help you overcome your problems!
             </information>
         </section>
-
         <section name="heart">
             <!-- Headers store titles for parts of the section. -->
             <headers>
@@ -66,6 +66,9 @@ For this reason, you may want to password-protect them.
                 </header>
                 <header id="links">
                     Want to know more?
+                </header>
+                <header id="advice">
+                    Community Advice
                 </header>
             </headers>
             <information id="title">
@@ -124,12 +127,9 @@ For this reason, you may want to password-protect them.
             </graphic>
             <!-- Important meta information displays relevance of section content, therefore mandatory. -->
             <modified>
-                2001-12-17T09:30:47Z
+                2016-04-23T09:00:00Z
             </modified>
         </section>
-
-
-
         <section name="brain">
             <!-- Headers store titles for parts of the section. -->
             <headers>
@@ -141,6 +141,9 @@ For this reason, you may want to password-protect them.
                 </header>
                 <header id="links">
                     Want to know more?
+                </header>
+                <header id="advice">
+                    Community Advice
                 </header>
             </headers>
             <information id="title">
@@ -199,7 +202,7 @@ For this reason, you may want to password-protect them.
             </graphic>
             <!-- Important meta information displays relevance of section content, therefore mandatory. -->
             <modified>
-                2001-12-17T09:30:47Z
+                2016-04-23T09:00:00Z
             </modified>
         </section>
         <section name="liver">
@@ -213,6 +216,9 @@ For this reason, you may want to password-protect them.
                 </header>
                 <header id="links">
                     Want to know more?
+                </header>
+                <header id="advice">
+                    Community Advice
                 </header>
             </headers>
             <information id="title">
@@ -286,7 +292,7 @@ For this reason, you may want to password-protect them.
             </graphic>
             <!-- Important meta information displays relevance of section content, therefore mandatory. -->
             <modified>
-                2001-12-17T09:30:47Z
+                2016-04-23T09:00:00Z
             </modified>
         </section>
         <!-- Extra smaller parts of information. -->

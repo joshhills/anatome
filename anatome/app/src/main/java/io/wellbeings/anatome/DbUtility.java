@@ -136,7 +136,7 @@ public class DbUtility implements Utility {
      * @param text      The content of the comment.
      * @param section   The section it is relevant to.
      */
-    public void addComment(String text, String section) throws NetworkException{
+    public void addComment(String text, String section, String name) throws NetworkException{
 
         if(isConnectedToInternet()){
             // Select function.
@@ -146,7 +146,7 @@ public class DbUtility implements Utility {
             List<NameValuePair> data = new ArrayList<>();
             data.add(new BasicNameValuePair("text", text));
             data.add(new BasicNameValuePair("date", section));
-            data.add(new BasicNameValuePair("name", UtilityManager.getUserUtility(ctx).getName()));
+            data.add(new BasicNameValuePair("name", name));
 
             addToDb(data, param);
         }

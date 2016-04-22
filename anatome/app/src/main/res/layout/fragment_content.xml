@@ -90,6 +90,14 @@
                 android:background="@drawable/rounded_corners_bg"></LinearLayout>
         </ScrollView>
 
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit a tip"
+            android:id="@+id/content_submit"
+            android:background="@drawable/rounded_corners_bg"
+            android:layout_marginBottom="15dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

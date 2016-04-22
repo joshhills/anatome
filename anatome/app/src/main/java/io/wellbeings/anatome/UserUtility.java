@@ -29,6 +29,7 @@ public class UserUtility implements Utility {
 
     // General persistent user storage (only active in app lifecycle).
     private final int PASSWORD_LENGTH = 4;
+    private final int COMMENT_LENGTH = 120;
 
     // Liver 'widget' persistent user storage (only active in app lifecycle).
     private double units = 0;
@@ -162,6 +163,10 @@ public class UserUtility implements Utility {
     }
     public String getPassword() {
         return settings.getString("PASSWORD", null);
+    }
+
+    public int getCOMMENT_LENGTH() {
+        return COMMENT_LENGTH;
     }
 
     @Override

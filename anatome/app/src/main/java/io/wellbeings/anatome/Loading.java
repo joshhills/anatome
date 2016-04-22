@@ -70,8 +70,6 @@ public class Loading extends Activity {
                 // Simple idle during async task.
                 while(okGo == null) {}
 
-               // Log.d("DDD", UtilityManager.getUserUtility(getApplicationContext()).getPassword());
-
                 // If a user profile exists.
                 if (okGo == STATUS.SUCCESS) {
 

@@ -148,9 +148,7 @@ public class MainScroll extends Activity {
                 .into((ImageView) findViewById(R.id.mainscroll_footer));
 
         TextView t = (TextView)findViewById(R.id.main_scroll_text);
-
-
-                t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "mainscrollText"));
+                t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "welcome"));
     }
 
     // Modulate set-up tasks for easy alteration.
@@ -190,7 +188,6 @@ public class MainScroll extends Activity {
 
         }
     };
-
 
     private OnClickListener navigateToBookingSystem = new OnClickListener() {
         @Override
