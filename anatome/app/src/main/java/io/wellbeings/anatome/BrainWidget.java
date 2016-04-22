@@ -44,25 +44,10 @@ public class BrainWidget extends Fragment implements Widget {
     private View v;
 
     //declare variables for the graphical parts of the widget
-<<<<<<< HEAD
-//<<<<<<< HEAD
-    ImageButton saveButton, galleryButton, leftArrow, rightArrow,
-        deleteButton, negativeDeleteButton, audioButton;
-
-
-    Button pauseButton, stopButton;
-    EditText newNoteContent;
-//=======
-//    private ImageButton saveButton, galleryButton, leftArrow, rightArrow,
-//         negativeDeleteButton;
-//    private EditText newNoteContent;
-//>>>>>>> origin/CalmackBranch
-=======
     private ImageButton saveButton, galleryButton, leftArrow, rightArrow,
          negativeDeleteButton, audioButton;
     private EditText newNoteContent;
     private Button btnPlay;
->>>>>>> origin/CalmackBranch
 
     final String MEDIA_PATH = new String("/sdcard/");
     private int currentSongIndex = 0;
@@ -158,14 +143,11 @@ public class BrainWidget extends Fragment implements Widget {
         //retreive the negative note's delete button
         negativeDeleteButton = (ImageButton) v.findViewById(R.id.negativeDelete);
 
-<<<<<<< HEAD
-        audioButton = (ImageButton) v.findViewById(R.id.audioButton);
-        pauseButton = (Button) v.findViewById(R.id.pauseButton);
-        stopButton = (Button) v.findViewById(R.id.stopButton);
+//        audioButton = (ImageButton) v.findViewById(R.id.audioButton);
+//        pauseButton = (Button) v.findViewById(R.id.pauseButton);
+//        stopButton = (Button) v.findViewById(R.id.stopButton);
 
 
-=======
->>>>>>> origin/CalmackBranch
         // Mediaplayer
         mp = new MediaPlayer();
         AudioManager = new AudioManager();
@@ -206,20 +188,20 @@ public class BrainWidget extends Fragment implements Widget {
             }
         });
 
-        pauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        pauseButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                pauseAudio();
+//            }
+//        });
 
-                pauseAudio();
-            }
-        });
-
-        stopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopAudio();
-            }
-        });
+//        stopButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                stopAudio();
+//            }
+//        });
 
 
         //define the behaviour of the left arrow
