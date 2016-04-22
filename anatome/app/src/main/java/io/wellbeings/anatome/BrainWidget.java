@@ -44,6 +44,7 @@ public class BrainWidget extends Fragment implements Widget {
     private View v;
 
     //declare variables for the graphical parts of the widget
+<<<<<<< HEAD
 //<<<<<<< HEAD
     ImageButton saveButton, galleryButton, leftArrow, rightArrow,
         deleteButton, negativeDeleteButton, audioButton;
@@ -56,6 +57,12 @@ public class BrainWidget extends Fragment implements Widget {
 //         negativeDeleteButton;
 //    private EditText newNoteContent;
 //>>>>>>> origin/CalmackBranch
+=======
+    private ImageButton saveButton, galleryButton, leftArrow, rightArrow,
+         negativeDeleteButton, audioButton;
+    private EditText newNoteContent;
+    private Button btnPlay;
+>>>>>>> origin/CalmackBranch
 
     final String MEDIA_PATH = new String("/sdcard/");
     private int currentSongIndex = 0;
@@ -70,8 +77,9 @@ public class BrainWidget extends Fragment implements Widget {
     private MediaRecorder recorder;
     private String OUTPUT_FILE;
 
-    //for gallery
+    //result code constants for image and audio selection
     private static final int RESULT_LOAD_IMG = 1;
+    private static final int RESULT_LOAD_AUDIO = 100;
 
     //filename for persistent data
     private static final String FILE_NAME = "brain.txt";
@@ -112,8 +120,7 @@ public class BrainWidget extends Fragment implements Widget {
         //if there aren't any notes then display the tutorial note
         if(noteList.size() == 0) {
             Note note = new Note(getCurrentDate(),
-                    "Create your first note by editing the template to the left of this note and clicking save!" +
-                            "You can delete notes by pressing the bin at the bottom of said note.");
+                    getResources().getString(R.string.tutorial_note));
             initNote(note,0);
         }
         else {
@@ -145,17 +152,20 @@ public class BrainWidget extends Fragment implements Widget {
 
         //retrieve the elements of the new note
         newNoteContent = (EditText) v.findViewById(R.id.newNoteContent);
-        //TODO: audio button
+        audioButton = (ImageButton) v.findViewById(R.id.audioButton);
         saveButton = (ImageButton) v.findViewById(R.id.btnSave1);
         galleryButton = (ImageButton) v.findViewById(R.id.btnGallery);
         //retreive the negative note's delete button
         negativeDeleteButton = (ImageButton) v.findViewById(R.id.negativeDelete);
 
+<<<<<<< HEAD
         audioButton = (ImageButton) v.findViewById(R.id.audioButton);
         pauseButton = (Button) v.findViewById(R.id.pauseButton);
         stopButton = (Button) v.findViewById(R.id.stopButton);
 
 
+=======
+>>>>>>> origin/CalmackBranch
         // Mediaplayer
         mp = new MediaPlayer();
         AudioManager = new AudioManager();
@@ -192,7 +202,7 @@ public class BrainWidget extends Fragment implements Widget {
             public void onClick(View arg0) {
 
                 Intent i = new Intent(getActivity().getApplicationContext(), PlayListActivity.class);
-                startActivityForResult(i, 100);
+                startActivityForResult(i, RESULT_LOAD_AUDIO);
             }
         });
 
@@ -553,24 +563,21 @@ public class BrainWidget extends Fragment implements Widget {
                 cursor.close();
             }
         }
-        if(resultCode == 100){
-            currentSongIndex = data.getExtras().getInt("songIndex");
-            // play audio when it selected
-            playSong(currentSongIndex);
+        if(resultCode == RESULT_LOAD_AUDIO){
+            //check the data is not null
+            if(data != null) {
+                currentSongIndex = data.getExtras().getInt("songIndex");
+                // play audio when it selected
+                playSong(currentSongIndex);
 
-            String date = getCurrentDate();
-            Note note = new Note(date, "");
-            String audioPath = songsList.get(currentSongIndex).get("songPath");
-            note.setAudioContent(audioPath);
-            saveNote(note);
-
+                String date = getCurrentDate();
+                Note note = new Note(date, "");
+                String audioPath = songsList.get(currentSongIndex).get("songPath");
+                note.setAudioContent(audioPath);
+                saveNote(note);
+            }
         }
-
     }
-
-
-
-
 
     public void  playSong(int songIndex){
         // play audio
