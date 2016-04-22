@@ -193,4 +193,35 @@
 
     </LinearLayout>
 
+<<<<<<< HEAD
+=======
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="103dp"
+            android:layout_height="match_parent"
+            android:text="Pause"
+            android:id="@+id/pauseButton" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop"
+            android:id="@+id/stopButton" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/audioButton"
+
+            android:src="@drawable/audio"
+            android:background="@null" />
+    </LinearLayout>
+
+>>>>>>> origin/master
 </LinearLayout>
