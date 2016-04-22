@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
+import android.widget.Button;
 import android.widget.EditText;
 import android.content.Context;
 import android.widget.ImageButton;
@@ -43,18 +44,18 @@ public class BrainWidget extends Fragment implements Widget {
     private View v;
 
     //declare variables for the graphical parts of the widget
-<<<<<<< HEAD
+//<<<<<<< HEAD
     ImageButton saveButton, galleryButton, leftArrow, rightArrow,
         deleteButton, negativeDeleteButton, audioButton;
 
 
-    Button btnPlay;
+    Button pauseButton, stopButton;
     EditText newNoteContent;
-=======
-    private ImageButton saveButton, galleryButton, leftArrow, rightArrow,
-         negativeDeleteButton;
-    private EditText newNoteContent;
->>>>>>> origin/CalmackBranch
+//=======
+//    private ImageButton saveButton, galleryButton, leftArrow, rightArrow,
+//         negativeDeleteButton;
+//    private EditText newNoteContent;
+//>>>>>>> origin/CalmackBranch
 
     final String MEDIA_PATH = new String("/sdcard/");
     private int currentSongIndex = 0;
@@ -151,6 +152,8 @@ public class BrainWidget extends Fragment implements Widget {
         negativeDeleteButton = (ImageButton) v.findViewById(R.id.negativeDelete);
 
         audioButton = (ImageButton) v.findViewById(R.id.audioButton);
+        pauseButton = (Button) v.findViewById(R.id.pauseButton);
+        stopButton = (Button) v.findViewById(R.id.stopButton);
 
 
         // Mediaplayer
@@ -190,6 +193,21 @@ public class BrainWidget extends Fragment implements Widget {
 
                 Intent i = new Intent(getActivity().getApplicationContext(), PlayListActivity.class);
                 startActivityForResult(i, 100);
+            }
+        });
+
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pauseAudio();
+            }
+        });
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopAudio();
             }
         });
 
@@ -398,7 +416,7 @@ public class BrainWidget extends Fragment implements Widget {
             params.setMargins(300, 0, 0, 0);
             smokeCloudImg.setLayoutParams(params);
             //add the animation in its place
-            container.addView(smokeCloudImg,0);
+            container.addView(smokeCloudImg, 0);
         }
         //a positive index indicates the note being deleted is saved in the scroll
         else {
@@ -573,6 +591,20 @@ public class BrainWidget extends Fragment implements Widget {
             e.printStackTrace();
         }
     }
+
+    public void pauseAudio(){
+
+            if(mp.isPlaying()) {
+                mp.pause();
+            }
+    }
+
+    public void stopAudio(){
+        if(mp.isPlaying()){
+            mp.stop();
+        }
+    }
+
 
 
 
