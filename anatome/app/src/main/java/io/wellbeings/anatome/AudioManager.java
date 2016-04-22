@@ -34,7 +34,6 @@ public final class AudioManager {
         // return songslist
         return songsList;
 
-<<<<<<< HEAD
     }
 
     //play the audio from a note object
@@ -67,8 +66,6 @@ public final class AudioManager {
         if(mp.isPlaying()){
             mp.stop();
         }
-=======
->>>>>>> origin/master
     }
 
 }
