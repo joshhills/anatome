@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.media.session.MediaController;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
@@ -47,20 +48,14 @@ public class BrainWidget extends Fragment implements Widget {
     private ImageButton saveButton, galleryButton, leftArrow, rightArrow,
          negativeDeleteButton, audioButton;
     private EditText newNoteContent;
-    private Button btnPlay;
 
     final String MEDIA_PATH = new String("/sdcard/");
     private int currentSongIndex = 0;
-    private  MediaPlayer mp;
     private AudioManager AudioManager;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
 
-
-
-    //for audio capture
-    private MediaPlayer mediaPlayer;
-    private MediaRecorder recorder;
-    private String OUTPUT_FILE;
+    //for handling audio playback
+    MediaPlayer mp;
 
     //result code constants for image and audio selection
     private static final int RESULT_LOAD_IMG = 1;
@@ -95,9 +90,6 @@ public class BrainWidget extends Fragment implements Widget {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment, storing view.
         v = inflater.inflate(R.layout.fragment_brain_widget, container, false);
-
-        //for the camera
-        OUTPUT_FILE = Environment.getExternalStorageDirectory() + "/audiorecorder.3gpp";
 
         //initialise list of notes from file
         noteList = getList();
@@ -143,14 +135,12 @@ public class BrainWidget extends Fragment implements Widget {
         //retreive the negative note's delete button
         negativeDeleteButton = (ImageButton) v.findViewById(R.id.negativeDelete);
 
-//        audioButton = (ImageButton) v.findViewById(R.id.audioButton);
-//        pauseButton = (Button) v.findViewById(R.id.pauseButton);
-//        stopButton = (Button) v.findViewById(R.id.stopButton);
-
+        Button btnPlay = (Button) v.findViewById(R.id.playButton);
+        Button pauseButton = (Button) v.findViewById(R.id.pauseButton);
+        Button stopButton = (Button) v.findViewById(R.id.stopButton);
 
         // Mediaplayer
         mp = new MediaPlayer();
-        AudioManager = new AudioManager();
 
         // Getting all audios
         songsList = AudioManager.getPlayList();
@@ -188,20 +178,26 @@ public class BrainWidget extends Fragment implements Widget {
             }
         });
 
-//        pauseButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                pauseAudio();
-//            }
-//        });
+        //TODO: Remove this when it works
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AudioManager.pauseAudio(mp);
+            }
+        });
+       stopButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               AudioManager.stopAudio(mp);
+           }
+        });
 
-//        stopButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                stopAudio();
-//            }
-//        });
+        btnPlay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
         //define the behaviour of the left arrow
@@ -333,7 +329,7 @@ public class BrainWidget extends Fragment implements Widget {
         }
 
         else if(note.hasAudioContent()){
-
+            //TODO: Load in an audio graphic of some kind into imageView and audio buttons
         }
 
         //else, the content is text based
@@ -549,58 +545,14 @@ public class BrainWidget extends Fragment implements Widget {
             //check the data is not null
             if(data != null) {
                 currentSongIndex = data.getExtras().getInt("songIndex");
-                // play audio when it selected
-                playSong(currentSongIndex);
+                String audioPath = songsList.get(currentSongIndex).get("songPath");
 
+                //create and save the note object for it
                 String date = getCurrentDate();
                 Note note = new Note(date, "");
-                String audioPath = songsList.get(currentSongIndex).get("songPath");
                 note.setAudioContent(audioPath);
                 saveNote(note);
             }
         }
     }
-
-    public void  playSong(int songIndex){
-        // play audio
-        try {
-            mp.reset();
-
-            //setdatasource audio path
-            mp.setDataSource(songsList.get(songIndex).get("songPath"));
-            mp.prepare();
-            mp.start();
-
-
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void pauseAudio(){
-
-            if(mp.isPlaying()) {
-                mp.pause();
-            }
-    }
-
-    public void stopAudio(){
-        if(mp.isPlaying()){
-            mp.stop();
-        }
-    }
-
-
-
-
-
-
-
-
-
-
 }
