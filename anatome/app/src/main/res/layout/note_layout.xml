@@ -14,11 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5">
-        <TextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/textContent"
             android:textSize="13dp"
+            android:focusable="false"
             android:visibility="gone"/>
         <ImageView
             android:layout_width="match_parent"
