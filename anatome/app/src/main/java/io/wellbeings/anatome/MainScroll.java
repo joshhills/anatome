@@ -304,8 +304,9 @@ public class MainScroll extends Activity {
         Animation heartAnimation = AnimationUtils.loadAnimation(this, R.anim.heart_animation);
         Animation liverAnimation = AnimationUtils.loadAnimation(this, R.anim.liver_animation);
 
+
         // start animations of the brain, heart and liver
-        ((ImageView) findViewById(R.id.heart)).startAnimation(heartAnimation);
+                ((ImageView) findViewById(R.id.heart)).startAnimation(heartAnimation);
         ((ImageView) findViewById(R.id.brain)).startAnimation(brainAnimation);
         ((ImageView) findViewById(R.id.liver)).startAnimation(liverAnimation);
 
