@@ -39,6 +39,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -59,8 +60,19 @@ public class BrainWidget extends Fragment implements Widget {
 
     //declare variables for the graphical parts of the widget
     ImageButton saveButton, galleryButton, leftArrow, rightArrow,
-        deleteButton, negativeDeleteButton;
+        deleteButton, negativeDeleteButton, audioButton;
+
+
+    Button btnPlay;
     EditText newNoteContent;
+
+    final String MEDIA_PATH = new String("/sdcard/");
+    private int currentSongIndex = 0;
+    private  MediaPlayer mp;
+    private AudioManager AudioManager;
+    private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
+
+
 
     //for audio capture
     private MediaPlayer mediaPlayer;
@@ -150,6 +162,17 @@ public class BrainWidget extends Fragment implements Widget {
         //retreive the negative note's delete button
         negativeDeleteButton = (ImageButton) v.findViewById(R.id.negativeDelete);
 
+        audioButton = (ImageButton) v.findViewById(R.id.audioButton);
+
+
+        // Mediaplayer
+        mp = new MediaPlayer();
+        AudioManager = new AudioManager();
+
+        // Getting all audios
+        songsList = AudioManager.getPlayList();
+
+
         //define the behaviour of saveButton on click
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -172,6 +195,16 @@ public class BrainWidget extends Fragment implements Widget {
                 startActivityForResult(i, RESULT_LOAD_IMG);
              }
          });
+
+        audioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+
+                Intent i = new Intent(getActivity().getApplicationContext(), PlayListActivity.class);
+                startActivityForResult(i, 100);
+            }
+        });
+
 
         //define the behaviour of the left arrow
         leftArrow.setOnClickListener(new View.OnClickListener() {
@@ -310,6 +343,10 @@ public class BrainWidget extends Fragment implements Widget {
             String imageDir = note.getImageDirectory();
             iv.setImageBitmap(BitmapFactory.decodeFile(imageDir));
             iv.setVisibility(View.VISIBLE); //make the image content visible
+        }
+
+        else if(note.hasAudioContent()){
+
         }
 
         //else, the content is text based
@@ -590,110 +627,57 @@ public class BrainWidget extends Fragment implements Widget {
                 Note note = new Note(date, "");
                 note.setImageContent(imagePath);
 
-                //save the note to file and display in the scroll view
+                //save note
                 saveNote(note);
-
-                //close the cursor to avoid a runtime exception
+                //close cursor
                 cursor.close();
             }
+        }
+        if(resultCode == 100){
+            currentSongIndex = data.getExtras().getInt("songIndex");
+            // play audio when it selected
+            playSong(currentSongIndex);
+
+            String date = getCurrentDate();
+            Note note = new Note(date, "");
+            String audioPath = songsList.get(currentSongIndex).get("songPath");
+            note.setAudioContent(audioPath);
+            saveNote(note);
+
         }
 
     }
 
-//
-//    public void onStartRecording(View v){
-//        try{
-//            beginRecording();
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//    public void onStopRecording(View v){
-//
-//        try{
-//            stopRecording();
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public void onPlay(View v){
-//        try{
-//            playRecording();
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//    public void onPause(View v){
-//        try{
-//            stopPlayback();
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//
-//
-//    public void beginRecording() throws IOException {
-//        ditchMediaRecorder();
-//        File outFile = new File(OUTPUT_FILE);
-//        if (outFile.exists())
-//            outFile.delete();
-//
-//        recorder = new MediaRecorder();
-//        recorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
-//        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-//        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-//        recorder.setOutputFile(OUTPUT_FILE);
-//        try{
-//            recorder.prepare();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//
-//        }
-//
-//        recorder.start();
-//
-//
-//    }
-//
-//    private void ditchMediaRecorder() {
-//        if(recorder != null)
-//            recorder.release();
-//    }
-//
-//    public void stopRecording(){
-//        if(recorder != null)
-//            recorder.stop();
-//
-//    }
-//
-//    public void playRecording() throws IOException {
-//        ditchMediaPlayer();
-//        mediaPlayer=new MediaPlayer();
-//        mediaPlayer.setDataSource(OUTPUT_FILE);
-//        mediaPlayer.prepare();
-//        mediaPlayer.start();
-//
-//    }
-//
-//    private void ditchMediaPlayer() {
-//        if(mediaPlayer != null){
-//            try{
-//                mediaPlayer.release();
-//            } catch (Exception e){
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-//    public void stopPlayback(){
-//        if(mediaPlayer != null)
-//            mediaPlayer.stop();
-//
-//    }
+
+
+
+
+    public void  playSong(int songIndex){
+        // play audio
+        try {
+            mp.reset();
+
+            //setdatasource audio path
+            mp.setDataSource(songsList.get(songIndex).get("songPath"));
+            mp.prepare();
+            mp.start();
+
+
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
 }

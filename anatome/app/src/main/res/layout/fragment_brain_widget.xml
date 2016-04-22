@@ -7,17 +7,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="io.wellbeings.anatome"
-    android:background="#d67dfc"
+    android:background="#d165ff"
     android:weightSum="12">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="0.70"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Keep tracks of the things that make you happy:"
         android:textColor="#f9fd80"
-        android:textSize="20dp"
+        android:textSize="17dp"
         android:textStyle="bold"
         android:id="@+id/textView3"
         android:layout_alignParentTop="true"
@@ -25,6 +25,15 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="40dp"
         android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modelled on real CBT techniques, this might help lift your spirits!"
+        android:id="@+id/subHeading1"
+        android:textColor="#ffffff"
+        android:textSize="12dp"
+        android:layout_weight="0.10" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -132,17 +141,26 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="0.70"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="And throw away the thoughts that don&apos;t.."
         android:textColor="#f9fd80"
-        android:textSize="20dp"
+        android:textSize="17dp"
         android:textStyle="bold"
         android:id="@+id/sadNoteText"
         android:layout_below="@+id/horizontalScrollView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type something that&apos;s on your mind, and choose a way to destroy it!"
+        android:id="@+id/subHeading2"
+        android:textColor="#ffffff"
+        android:textSize="12dp"
+        android:layout_weight="0.10" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -174,4 +192,14 @@
             android:background="@null"/>
 
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/audioButton"
+
+        android:src="@drawable/audio"
+        android:background="@null" />
+
 </LinearLayout>
