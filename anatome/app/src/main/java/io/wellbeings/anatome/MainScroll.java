@@ -95,11 +95,19 @@ public class MainScroll extends Activity {
         Animation brainAnimation = AnimationUtils.loadAnimation(this, R.anim.brain_animation);
         Animation heartAnimation = AnimationUtils.loadAnimation(this, R.anim.heart_animation);
         Animation liverAnimation = AnimationUtils.loadAnimation(this, R.anim.liver_animation);
+        Animation rocketAnimation = AnimationUtils.loadAnimation(this, R.anim.rocket_animation);
+        Animation fuelAnimation = AnimationUtils.loadAnimation(this, R.anim.rocket_fuel_animation);
+        Animation fuelMovementAnimation = AnimationUtils.loadAnimation(this, R.anim.rocket_fuel_movement_animation);
+
 
         // Start them going again.
         ((ImageView) findViewById(R.id.heart)).startAnimation(heartAnimation);
         ((ImageView) findViewById(R.id.brain)).startAnimation(brainAnimation);
         ((ImageView) findViewById(R.id.liver)).startAnimation(liverAnimation);
+        ((ImageView) findViewById(R.id.rocket_animation)).startAnimation(rocketAnimation);
+        ((ImageView) findViewById(R.id.mainscroll_fuel_dark)).startAnimation(fuelMovementAnimation);
+        ((ImageView) findViewById(R.id.mainscroll_fuel_light)).startAnimation(fuelMovementAnimation);
+        ((ImageView) findViewById(R.id.mainscroll_fuel_light)).startAnimation(fuelAnimation);
 
     }
 
