@@ -59,6 +59,8 @@ public class BookingSystem extends AppCompatActivity {
 
         //findViewById(R.id.bookFromBooking).setOnClickListener(navigateToTestLayout);
 
+        disableBookButton();
+
         setCurrentDateOnView();
 
     }
@@ -110,6 +112,7 @@ public class BookingSystem extends AppCompatActivity {
                     new NumberPicker.OnValueChangeListener() {
                         @Override
                         public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                            enableBookButton();
                             timeTime = appointments[newVal];
                             mSetTime.setText(timeTime);
                         }
@@ -200,6 +203,11 @@ public class BookingSystem extends AppCompatActivity {
 
         mBook.setEnabled(false);
         mBook.setTextColor(Color.parseColor("#BBBBBB"));
+    }
+
+    private void enableBookButton() {
+        mBook.setEnabled(true);
+        mBook.setTextColor(Color.parseColor("#09849a"));
     }
 
     private void toMainScroll() {

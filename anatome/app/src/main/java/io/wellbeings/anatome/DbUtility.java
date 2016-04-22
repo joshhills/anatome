@@ -8,12 +8,14 @@ import android.os.AsyncTask;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,6 +82,12 @@ public class DbUtility implements Utility {
         return null;
     }
 
+
+    /**
+     * Test if the phone has a network connection.
+     *
+     * @return boolean true - connected to network
+     */
     public boolean isConnectedToInternet(){
         ConnectivityManager connection = (ConnectivityManager)ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connection != null)
@@ -176,18 +184,26 @@ public class DbUtility implements Utility {
     }
 
     /**
+     * Get appointment time and date related to
+     * the users locally stored email.
      *
-     * @return
+     * @return HashMap<String, String> Appointment Date, Appointment Time
      */
     public HashMap<String, String> getAppointment() throws NetworkException {
         String result;
-        HashMap<String, String> appointments;
 
         if(isConnectedToInternet()) {
             try {
                 GetDataJSON g = new GetDataJSON("app", "none");
                 result = g.execute().get();
-                appointments = parseAppointment(result);
+                JSONObject jsonObj = new JSONObject(result);
+                array = jsonObj.getJSONArray(TAG_RESULTS);
+                HashMap<String, String> appointments = new HashMap<>();
+
+                JSONObject c = array.getJSONObject(0);
+
+                appointments.put(TAG_DATE, c.getString(TAG_DATE));
+                appointments.put(TAG_TIME, c.getString(TAG_TIME));
 
                 return appointments;
 
@@ -202,6 +218,14 @@ public class DbUtility implements Utility {
         return null;
     }
 
+
+    /**
+     * return all non taken appointment times base on a given date.
+     *
+     * @param date date to get available appointment times
+     * @return String[] of appointment times
+     * @throws NetworkException
+     */
     public String[] getAvailable(String date) throws NetworkException{
         String result;
         String [] available;
@@ -222,6 +246,13 @@ public class DbUtility implements Utility {
         return null;
     }
 
+    /**
+     * get all published comments for a given area.
+     *
+     * @param area area of app that comments are required.
+     * @return HashMap<String, String> Comment, Name
+     * @throws NetworkException
+     */
     public HashMap<String, String> getComments(String area) throws NetworkException{
         String result;
         ArrayList<HashMap<String, String>> commentList;
@@ -243,6 +274,12 @@ public class DbUtility implements Utility {
         return null;
     }
 
+    /**
+     * return the name of the organisation running the app.
+     *
+     * @return String name of organisation
+     * @throws NetworkException
+     */
     public String getOrgName() throws NetworkException{
         String result;
 
@@ -270,6 +307,11 @@ public class DbUtility implements Utility {
         return null;
     }
 
+    /**
+     * get description of organisation.
+     * @return String description
+     * @throws NetworkException
+     */
     public String getOrgDescription() throws NetworkException{
         String result;
 
@@ -296,6 +338,11 @@ public class DbUtility implements Utility {
         return null;
     }
 
+    /**
+     * get coordinates for organisation.
+     * @return LatLng object.
+     * @throws NetworkException
+     */
     public LatLng getLatLong() throws NetworkException{
         String result;
         String[] latLong;
@@ -338,30 +385,6 @@ public class DbUtility implements Utility {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        return null;
-    }
-
-    public HashMap<String, String> parseAppointment(String result) {
-        try {
-            JSONObject jsonObj = new JSONObject(result);
-            array = jsonObj.getJSONArray(TAG_RESULTS);
-            HashMap<String, String> appointments = new HashMap<>();
-            for (int i = 0; i < 2; i++) {
-                JSONObject c = array.getJSONObject(i);
-                String id = c.getString(TAG_DATE);
-                String name = c.getString(TAG_TIME);
-
-                appointments.put(TAG_DATE, id);
-                appointments.put(TAG_TIME, name);
-
-                return appointments;
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
         return null;
     }
@@ -409,6 +432,12 @@ public class DbUtility implements Utility {
         return null;
     }
 
+    /**
+     * method that creates an async task to send a List of data to the php ready for insertion into the database.
+     *
+     * @param data List of name value pairs.
+     * @param param string to distinguish which query to execute.
+     */
     void addToDb(final List<NameValuePair> data, final String param){
         class ExecutePost extends AsyncTask<String, Void, String> {
 
@@ -444,6 +473,10 @@ public class DbUtility implements Utility {
         s.execute();
     }
 
+
+    /**
+     * Async task to connect to given php file and return the JSON from the mysql result.
+     */
     public class GetDataJSON extends AsyncTask<String, Void, String> {
             private String choice;
             private Context ctx;
