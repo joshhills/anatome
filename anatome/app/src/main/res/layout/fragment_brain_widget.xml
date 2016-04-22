@@ -193,8 +193,6 @@
 
     </LinearLayout>
 
-<<<<<<< HEAD
-=======
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -214,14 +212,11 @@
             android:text="Stop"
             android:id="@+id/stopButton" />
 
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/audioButton"
-
-            android:src="@drawable/audio"
-            android:background="@null" />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play"
+            android:id="@+id/playButton" />
     </LinearLayout>
-
->>>>>>> origin/master
 </LinearLayout>
