@@ -33,6 +33,8 @@ public class Note implements Serializable {
 
     //String storing the directory of any selected image content
     private String imageDirectory;
+    private String audioDirectory;
+
     public String getImageDirectory() {
         //protect against nullPointers
         if(hasImageContent() == false){
@@ -47,6 +49,16 @@ public class Note implements Serializable {
     public boolean hasImageContent() {
         if(imageDirectory == null) return false;
         else return true;
+    }
+
+    //check audio content
+    public boolean hasAudioContent(){
+        if(audioDirectory == null) return false;
+        else return true;
+    }
+
+    public void setAudioContent(String audioDirectory){
+        this.audioDirectory = audioDirectory;
     }
 
     //constructor
