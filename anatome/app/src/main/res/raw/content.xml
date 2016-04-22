@@ -19,15 +19,13 @@
             </headers>
             <information id="intro">
                 Welcome to the student toolkit for well-being.
-
                 There's some minor information necessary to set you going so you can use your new app to soothe your mood, settle your stomach, and see a psych' whenever you like!
 
                 (This can all be tweaked in the settings.)
             </information>
             <information id="name">
                 Firstly, what should we call you?
-
-(If you're worried about privacy, now's the time to re-invent yourself. Otherwise, we'll remember you as 'guest'!)
+                (If you're worried about privacy, now's the time to re-invent yourself. Otherwise, we'll remember you as 'guest'!)
             </information>
             <information id="username-hint">
                 name
@@ -317,6 +315,7 @@ For this reason, you may want to password-protect them.
                 <label id="ok">Okay</label>
                 <label id="cancel">Cancel</label>
                 <label id="oops">Oops!</label>
+                <label id="done">Done</label>
                 <label id="date">Last modified</label>
             </buttons>
         </miscellaneous>

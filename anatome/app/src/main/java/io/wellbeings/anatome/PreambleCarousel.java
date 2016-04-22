@@ -175,6 +175,16 @@ public class PreambleCarousel extends Fragment {
         else {
             ((Button) view.findViewById(R.id.carousel_back_button)).setVisibility(View.VISIBLE);
         }
+        if(index == 3) {
+            ((Button) view.findViewById(R.id.carousel_forward_button)).setText(
+                UtilityManager.getContentLoader(getContext()).getButtonText("done")
+            );
+            ((Button) view.findViewById(R.id.carousel_forward_button)).setTextSize(18);
+        }
+        else {
+            ((Button) view.findViewById(R.id.carousel_forward_button)).setText(">");
+            ((Button) view.findViewById(R.id.carousel_forward_button)).setTextSize(25);
+        }
 
     }
 
