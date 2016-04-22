@@ -37,12 +37,12 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // overridePendingTransition();
-        super.onCreate(savedInstanceState);
 
         // Hide the notification bar.
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        super.onCreate(savedInstanceState);
 
         // Load the corresponding view.
         setContentView(R.layout.activity_organization);

@@ -39,12 +39,12 @@ public class MainScroll extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // Load previous state if applicable.
-        super.onCreate(savedInstanceState);
-
         // Hide the notification bar.
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // Load previous state if applicable.
+        super.onCreate(savedInstanceState);
 
         // Load the corresponding view.
         setContentView(R.layout.activity_main_scroll);

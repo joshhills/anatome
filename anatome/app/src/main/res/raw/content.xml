@@ -301,6 +301,9 @@ For this reason, you may want to password-protect them.
                 <notification id="token" graphic="./assets/defaults/toast-graphic.png">
                     This is a pushed notification.
                 </notification>
+                <notification id="add-comment" graphic="./assets/defaults/toast-graphic.png">
+                    Be the first to add your own personal advice relating to this section of well-being!
+                </notification>
                 <notification id="email-empty" graphic="./assets/defaults/toast-graphic.png">
                     You can set your name and email in the settings at a later time.
                 </notification>

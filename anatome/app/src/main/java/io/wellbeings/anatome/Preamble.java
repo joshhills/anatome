@@ -30,11 +30,11 @@ public class Preamble extends AppCompatActivity {
 
         /* Begin app, determine flow. */
 
-        super.onCreate(savedInstanceState);
-
         // Hide the notification bar.
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        super.onCreate(savedInstanceState);
 
         // Set the correct view.
         setContentView(R.layout.activity_preamble);

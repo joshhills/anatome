@@ -112,6 +112,12 @@ public class ContentFragment extends Fragment implements Widget {
                         UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
         );
 
+        ((TextView) view.findViewById(R.id.content_advice)).setText(
+                UtilityManager.getContentLoader(getContext()).getHeaderText(section, "advice"));
+        ((TextView) view.findViewById(R.id.content_advice)).setTextColor(ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
+        );
+
         // Populate links, make them clickable.
         ((TextView) view.findViewById(R.id.content_linkscontent)).setText(Html.fromHtml(
                 UtilityManager.getContentLoader(getContext()).getLinks(section)));
@@ -149,8 +155,8 @@ public class ContentFragment extends Fragment implements Widget {
                             try {
                                 UtilityManager.getDbUtility(getContext()).addComment(
                                         commentInput.getText().toString(),
-                                        section,
-                                        UtilityManager.getUserUtility(getContext()).getName()
+                                        UtilityManager.getUserUtility(getContext()).getName(),
+                                        section
                                 );
                             } catch (NetworkException e) {
                                 Toast.makeText(getContext(), "Sorry, there was an error!",
@@ -198,45 +204,67 @@ public class ContentFragment extends Fragment implements Widget {
                 // Create visual element for every comment.
                 if (comments != null) {
 
-                    for (String comment : comments.keySet()) {
+                    // If no comments exist in the database.
+                    if(comments.size() == 0) {
 
-                        // Set and style comment content.
-                        TextView commentView = new TextView(getContext());
-                        commentView.setText(comment);
-                        commentView.setTextColor(ContextCompat.getColor(getContext(),
+                        // Set and style suggestion content.
+                        TextView suggestionView = new TextView(getContext());
+                        suggestionView.setText(
+                            UtilityManager.getContentLoader(getContext()).getNotificationText("add-comment")
+                        );
+                        suggestionView.setTextColor(ContextCompat.getColor(getContext(),
                                         UtilityManager.getThemeUtility(getContext()).getColour(section + "_secondary_bg"))
                         );
-                        commentView.setTextSize(18);
-                        commentView.setLayoutParams(new LinearLayout.LayoutParams(
+                        suggestionView.setTextSize(18);
+                        suggestionView.setLayoutParams(new LinearLayout.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
                         // Add element.
-                        ll.addView(commentView);
+                        ll.addView(suggestionView);
 
-                        // Set and style author content.
-                        TextView authorView = new TextView(getContext());
-                        authorView.setText("- " + comments.get(comment));
-                        authorView.setTextColor(ContextCompat.getColor(getContext(),
-                                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
-                        );
-                        authorView.setTextSize(16);
-                        authorView.setLayoutParams(new LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    }
+                    else {
+                        for (String comment : comments.keySet()) {
 
-                        // Add element.
-                        ll.addView(authorView);
+                            // Set and style comment content.
+                            TextView commentView = new TextView(getContext());
+                            commentView.setText(comment);
+                            commentView.setTextColor(ContextCompat.getColor(getContext(),
+                                            UtilityManager.getThemeUtility(getContext()).getColour(section + "_secondary_bg"))
+                            );
+                            commentView.setTextSize(18);
+                            commentView.setLayoutParams(new LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-                        // Add separator with margin.
-                        View v = new View(getContext());
-                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                5
-                        );
-                        lp.setMargins(0, 20, 0, 20);
-                        v.setLayoutParams(lp);
-                        v.setBackgroundColor(ContextCompat.getColor(getContext(),
-                                UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text")));
-                        ll.addView(v);
+                            // Add element.
+                            ll.addView(commentView);
+
+                            // Set and style author content.
+                            TextView authorView = new TextView(getContext());
+                            authorView.setText("- " + comments.get(comment));
+                            authorView.setTextColor(ContextCompat.getColor(getContext(),
+                                            UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
+                            );
+                            authorView.setTextSize(16);
+                            authorView.setLayoutParams(new LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+                            // Add element.
+                            ll.addView(authorView);
+
+                            // Add separator with margin.
+                            View v = new View(getContext());
+                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    5
+                            );
+                            lp.setMargins(0, 20, 0, 20);
+                            v.setLayoutParams(lp);
+                            v.setBackgroundColor(ContextCompat.getColor(getContext(),
+                                    UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text")));
+                            ll.addView(v);
+
+                        }
 
                     }
 
@@ -245,6 +273,7 @@ public class ContentFragment extends Fragment implements Widget {
 
                     // Otherwise remove the unnecessary views.
                     ll.setVisibility(View.INVISIBLE);
+                    ((Button) view.findViewById(R.id.content_submit)).setVisibility(View.INVISIBLE);
 
                 }
 
