@@ -36,7 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:id="@+id/audioStatus"/>
+                android:id="@+id/audioStatus"
+                android:text="@string/playback_status_stopped"/>
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="match_parent"

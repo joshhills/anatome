@@ -1,7 +1,11 @@
 package io.wellbeings.anatome;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Environment;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -37,13 +41,12 @@ public final class AudioManager {
     }
 
     //play the audio from a note object
-    public void  playAudio(String directory, MediaPlayer mp){
+    public void  playAudio(MediaPlayer mp, TextView status, Context context){
         // play audio
         try {
             mp.reset();
-            //setdatasource audio path
-            mp.setDataSource(directory);
             mp.prepare();
+            status.setText(context.getResources().getString(R.string.playback_status_playing));
             mp.start();
 
         } catch (IllegalArgumentException e) {
@@ -55,15 +58,17 @@ public final class AudioManager {
         }
     }
 
-    public void pauseAudio(MediaPlayer mp){
+    public void pauseAudio(MediaPlayer mp, TextView status, Context context){
 
         if(mp.isPlaying()) {
+            status.setText(context.getResources().getString(R.string.playback_status_paused));
             mp.pause();
         }
     }
 
-    public void stopAudio(MediaPlayer mp){
+    public void stopAudio(MediaPlayer mp, TextView status, Context context){
         if(mp.isPlaying()){
+            status.setText(context.getResources().getString(R.string.playback_status_stopped));
             mp.stop();
         }
     }

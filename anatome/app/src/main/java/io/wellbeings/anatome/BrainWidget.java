@@ -28,6 +28,7 @@ import android.content.Context;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.FileInputStream;
@@ -51,11 +52,7 @@ public class BrainWidget extends Fragment implements Widget {
 
     final String MEDIA_PATH = new String("/sdcard/");
     private int currentSongIndex = 0;
-    private AudioManager AudioManager;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
-
-    //for handling audio playback
-    MediaPlayer mp;
 
     //result code constants for image and audio selection
     private static final int RESULT_LOAD_IMG = 1;
@@ -135,17 +132,6 @@ public class BrainWidget extends Fragment implements Widget {
         //retreive the negative note's delete button
         negativeDeleteButton = (ImageButton) v.findViewById(R.id.negativeDelete);
 
-        Button btnPlay = (Button) v.findViewById(R.id.playButton);
-        Button pauseButton = (Button) v.findViewById(R.id.pauseButton);
-        Button stopButton = (Button) v.findViewById(R.id.stopButton);
-
-        // Mediaplayer
-        mp = new MediaPlayer();
-
-        // Getting all audios
-        songsList = AudioManager.getPlayList();
-
-
         //define the behaviour of saveButton on click
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -175,27 +161,6 @@ public class BrainWidget extends Fragment implements Widget {
 
                 Intent i = new Intent(getActivity().getApplicationContext(), PlayListActivity.class);
                 startActivityForResult(i, RESULT_LOAD_AUDIO);
-            }
-        });
-
-        //TODO: Remove this when it works
-        pauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AudioManager.pauseAudio(mp);
-            }
-        });
-       stopButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               AudioManager.stopAudio(mp);
-           }
-        });
-
-        btnPlay.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
             }
         });
 
@@ -328,8 +293,53 @@ public class BrainWidget extends Fragment implements Widget {
             iv.setVisibility(View.VISIBLE); //make the image content visible
         }
 
+        //if the note has audio content, prepare the playback for this content
         else if(note.hasAudioContent()){
-            //TODO: Load in an audio graphic of some kind into imageView and audio buttons
+            final TextView status = (TextView)v.findViewById(R.id.audioStatus);
+            SeekBar seekBar = (SeekBar)v.findViewById(R.id.seekBar);
+
+            Button btnPlay = (Button) v.findViewById(R.id.playButton);
+            Button pauseButton = (Button) v.findViewById(R.id.pauseButton);
+            Button stopButton = (Button) v.findViewById(R.id.stopButton);
+
+            v.findViewById(R.id.audioPlayback).setVisibility(View.VISIBLE);
+
+            //MediaPlayer used to handle note playback
+            final MediaPlayer mp = new MediaPlayer();
+            final AudioManager audioManager = new AudioManager();
+            //setdatasource audio path
+            try {
+                mp.setDataSource(note.getAudioDirectory());
+            }
+            catch(IOException e) {
+                e.printStackTrace();
+                //abort the note and tell the user
+            }
+
+            // Getting all audios
+            //songsList = audioManager.getPlayList();
+
+            //TODO: Remove this when it works
+            pauseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    audioManager.pauseAudio(mp,status,getContext());
+                }
+            });
+            stopButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    audioManager.stopAudio(mp,status,getContext());
+                }
+            });
+
+            btnPlay.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    audioManager.playAudio(mp,status,getContext());
+                }
+            });
+
         }
 
         //else, the content is text based
