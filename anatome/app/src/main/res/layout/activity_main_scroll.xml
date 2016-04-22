@@ -120,6 +120,20 @@
 
             </RelativeLayout>
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mainscroll_welcome_text"
+                android:textColor="@android:color/black"
+                android:textSize="42dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="16dp"
+                android:background="@color/main_accent_text"
+                android:textAlignment="center"
+                />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -130,6 +144,7 @@
                 android:paddingRight="20dp"
                 android:paddingBottom="16dp"
                 android:background="@color/main_accent_text"
+
                 />
 
         </LinearLayout>

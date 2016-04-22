@@ -52,7 +52,7 @@
                     Learn More
                 </header>
             </headers>
-            <information id="welcome">
+            <information id="welcome_text">
                 This is a triage service for your state of well-being. Take a look at our key sections of student-orientated information and interactive widgets to help you overcome your problems!
             </information>
             <information id="more_help_text">
@@ -90,12 +90,11 @@
                 3-	genetics
             </information>
             <information id="tips">
-                •	Try to do some exercises to reduce stress for example, do some exercises (jogging, walking, swimming, etc.).
-                •	Stay relaxed by clearing your mind or listening to music, relaxation is one of the keys to this problem.
-                •	Unhealthy food could also be one of the reasons, so you could try changing your food or going on a healthy diet.
-                •	Remember, you are not alone in this world sharing your problem with your friends and family also could also help you.
-                •	If you feel like you haven’t improved after following some of the tips listed above why not consider asking for help? Below are some places you can contact.
-
+                    Try to do some exercises to reduce stress for example, do some exercises (jogging, walking, swimming, etc.).
+                    Stay relaxed by clearing your mind or listening to music, relaxation is one of the keys to this problem.
+                    Unhealthy food could also be one of the reasons, so you could try changing your food or going on a healthy diet.
+                    Remember, you are not alone in this world sharing your problem with your friends and family also could also help you.
+                    If you feel like you haven’t improved after following some of the tips listed above why not consider asking for help? Below are some places you can contact.
             </information>
             <information id="instructional_text">
                 Breathe in and count to 2, These feelings will pass, Breathe out, concentrate on your breathing
@@ -155,11 +154,11 @@
                 Here's some information about the topic.
             </information>
             <information id="tips">
-                •	Maintain a positive attitude. Try replacing negative thought with positive ones.
-                •	Keep to a routine and plan your days. Having structure will make you feel more at ease.
-                •	Remember, you are not the only one who feels this way, you are not alone.
-                Consider reaching out to those close to you such as family and friends.
-                •	Use our app to book an appointment with the Student wellbeing here at Newcastle University or contact them directly: 0191 208 3333.
+                    Maintain a positive attitude. Try replacing negative thought with positive ones.
+                    Keep to a routine and plan your days. Having structure will make you feel more at ease.
+                    Remember, you are not the only one who feels this way, you are not alone.
+                    Consider reaching out to those close to you such as family and friends.
+                    Use our app to book an appointment with the Student wellbeing here at Newcastle University or contact them directly: 0191 208 3333.
             </information>
             <information id="instructional_text">
                 Take a deep breath in and count to 5, Remember we are here to help
@@ -174,7 +173,6 @@
                 The severity of these feeling can vary between students.
                 For some these symptoms can subside over time, however, it is always worth being aware of how you can cope and the advice you can seek.
             </information>
-
             <links>
                 <link>
                     <name>
