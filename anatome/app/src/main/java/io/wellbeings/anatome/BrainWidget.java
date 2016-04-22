@@ -50,6 +50,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static java.lang.Integer.parseInt;
+
 public class BrainWidget extends Fragment implements Widget {
 
     // Store view object for UI manipulation.
@@ -150,6 +152,9 @@ public class BrainWidget extends Fragment implements Widget {
 
         //retrieve the elements of the new note
         newNoteContent = (EditText) v.findViewById(R.id.newNoteContent);
+        //****************************************************************
+        //newNoteContent.setBackground(Integer.parseInt(R.drawable.rounded_corners));
+        //****************************************************************
         deleteButton = (ImageButton) v.findViewById(R.id.deleteButton);
         saveButton = (Button) v.findViewById(R.id.btnSave1);
         galleryButton = (Button) v.findViewById(R.id.btnGallery);

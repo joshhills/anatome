@@ -66,8 +66,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="5px"
-                    android:background="@drawable/rounded_corners">
+                    android:padding="5px">
 
                     <TextView
                         android:layout_width="wrap_content"

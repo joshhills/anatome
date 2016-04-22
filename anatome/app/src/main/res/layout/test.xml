@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        android:background="#8b6eb0">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.75">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.40"></FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="280dp"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"></FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Keep track of the things that make you happy:"
+                    android:id="@+id/textView5"
+                    android:layout_weight="0.02"
+                    android:textSize="18dp"
+                    android:textColor="#f2df73" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"></FrameLayout>
+
+                <TextView
+                    android:layout_width="287dp"
+                    android:layout_height="wrap_content"
+                    android:text="Modelled on real CBT techniques, this may help lift your spirits!"
+                    android:id="@+id/textView6"
+                    android:layout_weight="0.02"
+                    android:textSize="16dp"
+                    android:textColor="#ffffffff" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"></FrameLayout>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="41dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.04"></FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4">
+
+            <FrameLayout
+                android:layout_width="41dp"
+                android:layout_height="match_parent"></FrameLayout>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/horizontalScrollView3"
+                android:layout_weight="0.3" />
+
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="match_parent"></FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:background="#432a64"
+        android:weightSum="1">
+
+        <FrameLayout
+            android:layout_width="41dp"
+            android:layout_height="match_parent"></FrameLayout>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:layout_weight="1.04" />
+
+        <FrameLayout
+            android:layout_width="41dp"
+            android:layout_height="match_parent"></FrameLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.58"
+        android:background="#432a64"></FrameLayout>
+</LinearLayout>
