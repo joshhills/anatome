@@ -50,7 +50,9 @@ public class BrainWidget extends Fragment implements Widget {
          negativeDeleteButton, audioButton;
     private EditText newNoteContent;
 
-    final AudioManager audioManager = new AudioManager();
+    //MediaPlayer used to handle note playback
+    MediaPlayer mp;
+    AudioManager audioManager;
     final String MEDIA_PATH = new String("/sdcard/");
     private int currentSongIndex = 0;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
@@ -91,6 +93,9 @@ public class BrainWidget extends Fragment implements Widget {
 
         //initialise list of notes from file
         noteList = getList();
+
+        mp = new MediaPlayer();
+        audioManager = new AudioManager();
 
         //if there aren't any notes then display the tutorial note
         if(noteList.size() == 0) {
@@ -310,38 +315,33 @@ public class BrainWidget extends Fragment implements Widget {
 
             v.findViewById(R.id.audioPlayback).setVisibility(View.VISIBLE);
 
-            //MediaPlayer used to handle note playback
-            final MediaPlayer mp = new MediaPlayer();
-
-            //setdatasource audio path
+            /*setdatasource audio path
             try {
-                mp.reset();
-                mp.setDataSource(note.getAudioDirectory());
-                mp.prepare();
+
             }
             catch(IOException e) {
                 e.printStackTrace();
                 //abort the note and tell the user
-            }
+            }*/
 
             //TODO: Remove this when it works
             pauseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    audioManager.pauseAudio(mp,status,getContext());
+                    pauseAudio(status);
                 }
             });
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    audioManager.stopAudio(mp,status,getContext());
+                    stopAudio(status);
                 }
             });
 
             btnPlay.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    audioManager.playAudio(mp,status,getContext());
+                    playAudio(status, note);
                 }
             });
 
@@ -570,6 +570,40 @@ public class BrainWidget extends Fragment implements Widget {
                 note.setAudioContent(audioPath);
                 saveNote(note);
             }
+        }
+    }
+
+    //play the audio from a note object
+    public void  playAudio(TextView status, Note note){
+        // play audio
+        try {
+            mp.reset();
+            mp.setDataSource(note.getAudioDirectory());
+            mp.prepare();
+            status.setText(getResources().getString(R.string.playback_status_playing));
+            mp.start();
+
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pauseAudio(TextView status){
+
+        if(mp.isPlaying()) {
+            status.setText(getResources().getString(R.string.playback_status_paused));
+            mp.pause();
+        }
+    }
+
+    public void stopAudio(TextView status){
+        if(mp.isPlaying()){
+            status.setText(getResources().getString(R.string.playback_status_stopped));
+            mp.stop();
         }
     }
 }
