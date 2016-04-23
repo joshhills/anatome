@@ -2,6 +2,7 @@ package io.wellbeings.anatome;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -202,7 +203,7 @@ public class LiverWidget extends Fragment implements Widget {
 
         // Get buttons
         Button addButton = (Button) v.findViewById(R.id.liver_add_button);
-        Button clearButton = (Button) v.findViewById(R.id.liver_clear_button);
+        final Button clearButton = (Button) v.findViewById(R.id.liver_clear_button);
         Button undoButton = (Button) v.findViewById(R.id.liver_undo_button);
 
         // Attach functionality to the add button.
@@ -234,6 +235,8 @@ public class LiverWidget extends Fragment implements Widget {
                 setUnits(0);
                 // Reset buzzing.
                 shouldBuzz = true;
+                // Change the button.
+                clearButton.setColor;
                 updateDisplay();
             }
         });
