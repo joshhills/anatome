@@ -1,6 +1,7 @@
 package io.wellbeings.anatome;
 
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +18,10 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTabHost;
+
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 /**
  * Section loads widget navigated to,
@@ -95,9 +100,6 @@ public class Section extends FragmentActivity {
         ((TextView) findViewById(R.id.section_name)).setBackgroundColor(secondaryColourId);
         ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
 
-
-
-
     }
 
     // Modulate set-up tasks for easy alteration.
@@ -108,6 +110,24 @@ public class Section extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        // Enable Facebook sharing.
+        FacebookSdk.sdkInitialize(this);
+        findViewById(R.id.section_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareLinkContent content = new ShareLinkContent.Builder()
+                        .setContentTitle("'anatome' - the student well-being toolkit")
+                        .setContentDescription("Engage in interactive self-help," +
+                                "share tips with the community and explore your local counselling service.")
+                        .setQuote("Download for Android now!")
+                        .setContentUrl(Uri.parse("http://team9.esy.es/Anatome"))
+                        .setImageUrl(Uri.parse("https://i.imgur.com/mGPXhBU.png"))
+                        .build();
+                ShareDialog sd = new ShareDialog(Section.this);
+                sd.show(content);
             }
         });
 

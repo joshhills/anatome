@@ -73,7 +73,6 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OrganizationActivity.this, MainScroll.class);
-                intent.putExtra("from", "OrganizationActivity");
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
             }
