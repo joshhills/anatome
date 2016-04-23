@@ -45,15 +45,12 @@ public final class AudioManager {
         // play audio
         try {
             mp.reset();
-            mp.prepare();
             status.setText(context.getResources().getString(R.string.playback_status_playing));
             mp.start();
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -50,6 +50,7 @@ public class BrainWidget extends Fragment implements Widget {
          negativeDeleteButton, audioButton;
     private EditText newNoteContent;
 
+    final AudioManager audioManager = new AudioManager();
     final String MEDIA_PATH = new String("/sdcard/");
     private int currentSongIndex = 0;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
@@ -158,8 +159,13 @@ public class BrainWidget extends Fragment implements Widget {
         audioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-
+                // Getting all audios
+                songsList = audioManager.getPlayList();
                 Intent i = new Intent(getActivity().getApplicationContext(), PlayListActivity.class);
+                //Intent intent_upload = new Intent();
+                //intent_upload.setType("audio/*");
+                //intent_upload.setAction(Intent.ACTION_GET_CONTENT);
+                //startActivityForResult(intent_upload,1);
                 startActivityForResult(i, RESULT_LOAD_AUDIO);
             }
         });
@@ -306,18 +312,17 @@ public class BrainWidget extends Fragment implements Widget {
 
             //MediaPlayer used to handle note playback
             final MediaPlayer mp = new MediaPlayer();
-            final AudioManager audioManager = new AudioManager();
+
             //setdatasource audio path
             try {
+                mp.reset();
                 mp.setDataSource(note.getAudioDirectory());
+                mp.prepare();
             }
             catch(IOException e) {
                 e.printStackTrace();
                 //abort the note and tell the user
             }
-
-            // Getting all audios
-            //songsList = audioManager.getPlayList();
 
             //TODO: Remove this when it works
             pauseButton.setOnClickListener(new View.OnClickListener() {
@@ -556,6 +561,8 @@ public class BrainWidget extends Fragment implements Widget {
             if(data != null) {
                 currentSongIndex = data.getExtras().getInt("songIndex");
                 String audioPath = songsList.get(currentSongIndex).get("songPath");
+
+                Log.d("audio","song path = " + audioPath);
 
                 //create and save the note object for it
                 String date = getCurrentDate();
