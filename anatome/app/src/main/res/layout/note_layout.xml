@@ -82,6 +82,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/delete"
-        android:src="@drawable/bin"
+        android:src="@drawable/trash_32"
         android:background="@null"/>
 </LinearLayout>

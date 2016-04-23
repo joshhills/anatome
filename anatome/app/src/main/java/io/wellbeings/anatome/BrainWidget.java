@@ -102,19 +102,19 @@ public class BrainWidget extends Fragment implements Widget {
         audioManager = new AudioManager();
 
         //if there aren't any notes then display the tutorial note
-        if(noteList.size() == 0) {
+        /*if(noteList.size() == 0) {
             Note note = new Note(getCurrentDate(),
                     getResources().getString(R.string.tutorial_note));
             initNote(note,0);
         }
-        else {
+        else {*/
             //initialise the graphics for the first five notes in the noteList
             for(int i = 4; i >= 0; i--) {
                 if(i < noteList.size()) {
                     initNote(noteList.get(i),0);
                 }
             }
-        }
+        //}
 
         //initialise the noteListPage to 1 (first index)
         noteListPage = 1;
