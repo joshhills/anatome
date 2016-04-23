@@ -368,7 +368,7 @@ public class BrainWidget extends Fragment implements Widget {
         //must use depreciated version because minimum API is set to 16.
         //we could include theme as a second param (not depreciated) but this requires API level 21
 //*****
-        Drawable d = getResources().getDrawable(R.drawable.bin);
+        Drawable d = getResources().getDrawable(R.drawable.delete_48_purple);
         deleteButton.setImageDrawable(d);
         deleteButton.setBackground(null); //make background transparent
         //set the weight of the delete button in attached note
