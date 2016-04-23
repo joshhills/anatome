@@ -27,15 +27,15 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
     boolean counterIsIncreasing = true;
     boolean counterIsActive;
+    // store the breathing value count
     int counterValue = 0;
     Timer textTimer = new Timer();
+    // vibration to user
     Vibrator vibrateToUser;
+    // Store a list of instructional messages
     List<String> instructionalText;
     // Store name of section.
     private final String SECTION = "heart";
-
-
-
     private TimerTask counterTask;
 
 
@@ -63,54 +63,80 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_heart_widget, container, false);
 
-        // Set up the button listeners
+        // Set up the start button listener
         Button startButton = (Button) v.findViewById(R.id.buttonStart);
         startButton.setOnClickListener(this);
 
+        // Set up the stop button listener
         Button stopButton = (Button) v.findViewById(R.id.buttonStop);
         stopButton.setOnClickListener(this);
 
+        // set up the vibrate functionality
         vibrateToUser = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
+        // store the instructional text
         instructionalText = getInstructions();
 
+        // set text font
         setDefautFont(v);
         
-
+        // return the view
         return v;
     }
 
     // an OnClick method for the start button
     public void startButtonOnClick(View v) {
 
+        if (counterIsActive) {
+
+            return;
+        }
+
+        // select the moving circle
         View circleView = (View) getView().findViewById(R.id.circleView);
+
+        // load the moving circle animation
         Animation circleAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.circle_animation);
+
+        // continue animating indefinitely
         circleAnimation.setRepeatCount(Animation.INFINITE);
+
+        // start the animation
         circleView.startAnimation(circleAnimation);
 
+        // the counter is now active
         counterIsActive = true;
-        //setInstructionText("Started");
+
+        // set the starting counter value
         counterValue = 0;
 
+        // load the counter task method
         counterTask = getCounterTask();
 
-        //textTimer = new Timer();
+        // set the duration and details of the timer
         textTimer.schedule(counterTask, 0, 2000);
     }
 
     // an OnClick method for the stop button
     public void stopButtonOnClick(View v) {
 
+        // select the circle view
         View circleView = (View) getView().findViewById(R.id.circleView);
 
+        // load the stop circle animation
         Animation circleAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.stop_animation);
-        circleAnimation.setRepeatCount(Animation.INFINITE);
+
+        // repeat animation indefinitely
+       // circleAnimation.setRepeatCount(Animation.INFINITE);
+
+        // start animating the circle
         circleView.startAnimation(circleAnimation);
 
         counterIsActive = false;
         setNumericalTimer(0);
         //setInstructionText("Stopped");
         counterTask.cancel();
+
 
 
     }
