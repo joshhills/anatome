@@ -205,13 +205,14 @@
 
         <FrameLayout
             android:layout_width="47dp"
-            android:layout_height="match_parent"></FrameLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"></FrameLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="0.66">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -261,7 +262,8 @@
 
         <FrameLayout
             android:layout_width="47dp"
-            android:layout_height="match_parent"></FrameLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"></FrameLayout>
     </LinearLayout>
 
     <FrameLayout
