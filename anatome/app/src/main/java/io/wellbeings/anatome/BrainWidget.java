@@ -85,28 +85,33 @@ public class BrainWidget extends Fragment implements Widget {
     private static final String FILE_NAME = "brain.txt";
 
     //required empty constructor
-    public BrainWidget() { }
+    public BrainWidget() {
+
+    }
+
     //method for creating a new instance of this class
     public static BrainWidget newInstance() {
         BrainWidget fragment = new BrainWidget();
         Bundle args = new Bundle();
         return fragment;
     }
+
     //onCreate method
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); }
+        super.onCreate(savedInstanceState);
+    }
 
     //onCreateView method (when this fragment is navigated to)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment, storing view.
         //**********************************************************************
         //v = inflater.inflate(R.layout.test_brain_layout, container, false);
         v = inflater.inflate(R.layout.test, container, false);
         //**********************************************************************
-
 
         //for the camera
         OUTPUT_FILE = Environment.getExternalStorageDirectory() + "/audiorecorder.3gpp";
@@ -363,6 +368,7 @@ public class BrainWidget extends Fragment implements Widget {
         final ImageButton deleteButton = new ImageButton(getContext());
         //must use depreciated version because minimum API is set to 16.
         //we could include theme as a second param (not depreciated) but this requires API level 21
+//*****
         Drawable d = getResources().getDrawable(R.drawable.bin);
         deleteButton.setImageDrawable(d);
         deleteButton.setBackground(null); //make background transparent
