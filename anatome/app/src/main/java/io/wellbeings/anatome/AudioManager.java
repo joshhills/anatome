@@ -1,26 +1,26 @@
 package io.wellbeings.anatome;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Environment;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by thirawat on 22/04/2016.
  */
-public class AudioManager {
+public final class AudioManager {
     // SDCard Path
     final String MEDIA_PATH = new Environment().getExternalStorageDirectory().getPath();
-//    final String MEDIA_PATH = new String("/sdcard/");
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
-
-    // Constructor
-    public AudioManager(){
-
-    }
 
     //read all mp3 files and store them into the arraylist
     public ArrayList<HashMap<String, String>> getPlayList() {
@@ -38,7 +38,39 @@ public class AudioManager {
         // return songslist
         return songsList;
 
+    }
 
+    //play the audio from a note object
+    public void  playAudio(MediaPlayer mp, TextView status, Context context){
+        // play audio
+        try {
+            mp.reset();
+            mp.prepare();
+            status.setText(context.getResources().getString(R.string.playback_status_playing));
+            mp.start();
+
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pauseAudio(MediaPlayer mp, TextView status, Context context){
+
+        if(mp.isPlaying()) {
+            status.setText(context.getResources().getString(R.string.playback_status_paused));
+            mp.pause();
+        }
+    }
+
+    public void stopAudio(MediaPlayer mp, TextView status, Context context){
+        if(mp.isPlaying()){
+            status.setText(context.getResources().getString(R.string.playback_status_stopped));
+            mp.stop();
+        }
     }
 
 

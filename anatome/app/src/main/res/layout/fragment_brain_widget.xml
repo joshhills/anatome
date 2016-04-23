@@ -69,9 +69,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:id="@+id/deleteButton"
-                    android:src="@drawable/bin"
-                    android:background="@null"/>
+                    android:id="@+id/audioButton"
+                    android:src="@drawable/microphone"
+                    android:background="@null" />
                 <ImageButton
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="0dp"
@@ -192,33 +192,4 @@
             android:background="@null"/>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="103dp"
-            android:layout_height="match_parent"
-            android:text="Pause"
-            android:id="@+id/pauseButton" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Stop"
-            android:id="@+id/stopButton" />
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/audioButton"
-
-            android:src="@drawable/audio"
-            android:background="@null" />
-    </LinearLayout>
-
 </LinearLayout>

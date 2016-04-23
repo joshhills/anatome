@@ -20,5 +20,8 @@
     <string name="title_activity_section">Section</string>
     <string name="title_activity_awdawd">Map</string>
     <string name="title_activity_play_list">PlayListActivity</string>
+    <string name="playback_status_playing">Playing..</string>
+    <string name="playback_status_paused">Paused</string>
+    <string name="playback_status_stopped">Stopped</string>
 
 </resources>
