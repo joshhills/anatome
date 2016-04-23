@@ -207,7 +207,7 @@ public class Settings extends Activity {
         });
 
         // Password change.
-        ((Button) findViewById(R.id.settings_password)).setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.settings_password_change)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -273,6 +273,18 @@ public class Settings extends Activity {
                 // Show the now prepared dialog.
                 builder.show();
 
+            }
+        });
+
+        // Password clear.
+        ((Button) findViewById(R.id.settings_password_clear)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Remove password.
+                UtilityManager.getUserUtility(Settings.this).setPassword(null);
+                // Display visual feedback.
+                Toast.makeText(Settings.this, "Password cleared.",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
