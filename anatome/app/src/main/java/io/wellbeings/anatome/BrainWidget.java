@@ -6,6 +6,8 @@ package io.wellbeings.anatome;
  */
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
@@ -56,6 +58,8 @@ public class BrainWidget extends Fragment implements Widget {
     final String MEDIA_PATH = new String("/sdcard/");
     private int currentSongIndex = 0;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
+    AssetManager asset;
+    AssetFileDescriptor afd;
 
     //result code constants for image and audio selection
     private static final int RESULT_LOAD_IMG = 1;
@@ -306,14 +310,14 @@ public class BrainWidget extends Fragment implements Widget {
 
         //if the note has audio content, prepare the playback for this content
         else if(note.hasAudioContent()){
-            final TextView status = (TextView)v.findViewById(R.id.audioStatus);
-            SeekBar seekBar = (SeekBar)v.findViewById(R.id.seekBar);
+            final TextView status = (TextView)ll.findViewById(R.id.audioStatus);
+            SeekBar seekBar = (SeekBar)ll.findViewById(R.id.seekBar);
 
-            Button btnPlay = (Button) v.findViewById(R.id.playButton);
-            Button pauseButton = (Button) v.findViewById(R.id.pauseButton);
-            Button stopButton = (Button) v.findViewById(R.id.stopButton);
+            Button btnPlay = (Button) ll.findViewById(R.id.playButton);
+            Button pauseButton = (Button) ll.findViewById(R.id.pauseButton);
+            Button stopButton = (Button) ll.findViewById(R.id.stopButton);
 
-            v.findViewById(R.id.audioPlayback).setVisibility(View.VISIBLE);
+            ll.findViewById(R.id.audioPlayback).setVisibility(View.VISIBLE);
 
             /*setdatasource audio path
             try {
@@ -577,11 +581,16 @@ public class BrainWidget extends Fragment implements Widget {
     public void  playAudio(TextView status, Note note){
         // play audio
         try {
+            asset = getActivity().getAssets();
+            afd = asset.openFd(note.getAudioDirectory());
+
             mp.reset();
-            mp.setDataSource(note.getAudioDirectory());
+            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             mp.prepare();
             status.setText(getResources().getString(R.string.playback_status_playing));
             mp.start();
+
+            afd.close();
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
