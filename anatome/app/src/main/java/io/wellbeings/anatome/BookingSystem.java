@@ -153,7 +153,7 @@ public class BookingSystem extends AppCompatActivity {
         }catch(ParseException e) {
             System.out.println("Error: Unable to parse date");
         }catch (NetworkException e) {
-            NotificationHandler.networkErrorDialog(BookingSystem.this);
+            NotificationHandler.NetworkErrorDialog(BookingSystem.this);
         }
     }
 
@@ -193,7 +193,7 @@ public class BookingSystem extends AppCompatActivity {
         }catch(ParseException e) {
             System.out.println("Error: Unable to parse date");
         }catch(NetworkException e){
-            NotificationHandler.networkErrorDialog(BookingSystem.this);
+            NotificationHandler.NetworkErrorDialog(BookingSystem.this);
         }
 
 

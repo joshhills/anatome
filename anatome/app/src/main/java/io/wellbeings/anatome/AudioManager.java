@@ -1,24 +1,29 @@
 package io.wellbeings.anatome;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by thirawat on 22/04/2016.
  */
-public class AudioManager {
+public final class AudioManager {
     // SDCard Path
     final String MEDIA_PATH = new Environment().getExternalStorageDirectory().getPath();
-//    final String MEDIA_PATH = new String("/sdcard/");
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
 
-    // Constructor
-    public AudioManager(){
+    public AudioManager() {
 
     }
 
@@ -39,5 +44,6 @@ public class AudioManager {
         return songsList;
 
     }
+
 
 }

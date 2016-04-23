@@ -54,6 +54,8 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
         // Load the corresponding view.
         setContentView(R.layout.activity_organization);
 
+        // TODO: Network checking!!
+
         populateContent();
 
         initGUI();
@@ -90,13 +92,6 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
 
     private void populateContent() {
 
-        // If internet not allowed...
-        if(!UtilityManager.getUserUtility(this).isNetwork()) {
-            // Close activity.
-            NotificationHandler.networkErrorDialog(this);
-            finish();
-        }
-
         try {
 
             // Attempt to retrieve the organization's location.
@@ -114,7 +109,7 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
                     UtilityManager.getDbUtility(this).getOrgDescription()
             );
         }catch(NetworkException e) {
-            NotificationHandler.networkErrorDialog(OrganizationActivity.this);
+            NotificationHandler.NetworkErrorDialog(OrganizationActivity.this);
         }
 
 
@@ -151,7 +146,7 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
             }
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(orgLocation, ZOOM_LEVEL));
         }catch (NetworkException e) {
-            NotificationHandler.networkErrorDialog(OrganizationActivity.this);
+            NotificationHandler.NetworkErrorDialog(OrganizationActivity.this);
         }
     }
 
