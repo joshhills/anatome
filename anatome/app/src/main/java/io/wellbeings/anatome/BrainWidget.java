@@ -56,12 +56,10 @@ public class BrainWidget extends Fragment implements Widget {
     private View v;
 
     //declare variables for the graphical parts of the widget
-    Button saveButton, galleryButton;
-    ImageButton leftArrow;
-    ImageButton rightArrow;
+    ImageButton saveButton, galleryButton;
+    ImageButton deleteButton, negativeDeleteButton;
+    ImageButton leftArrow, rightArrow;
     EditText newNoteContent;
-    ImageButton deleteButton;
-    ImageButton negativeDeleteButton;
 
     //for audio capture
     private MediaPlayer mediaPlayer;
@@ -100,7 +98,7 @@ public class BrainWidget extends Fragment implements Widget {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment, storing view.
-        v = inflater.inflate(R.layout.fragment_brain_widget, container, false);
+        v = inflater.inflate(R.layout.test, container, false);
 
         //for the camera
         OUTPUT_FILE = Environment.getExternalStorageDirectory() + "/audiorecorder.3gpp";
@@ -110,10 +108,13 @@ public class BrainWidget extends Fragment implements Widget {
 
         //if there aren't any notes then display the tutorial note
         if(noteList.size() == 0) {
+
+            /*
             Note note = new Note(getCurrentDate(),
                     "Create your first note by editing the template to the left of this note and clicking save!" +
                             "You can delete notes by pressing the bin at the bottom of said note.");
             initNote(note,0);
+            */
         }
         else {
             //initialise the graphics for the first five notes in the noteList
@@ -136,9 +137,11 @@ public class BrainWidget extends Fragment implements Widget {
     //method for initialising the save, left and right buttons
     private void initControlPanel(View v) {
         //retrieve the two navigation buttons
+
         leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
         rightArrow = (ImageButton) v.findViewById(R.id.rightArrow);
-//        ivImage = (ImageView) v.findViewById(R.id.ivImage);
+
+        //ivImage = (ImageView) v.findViewById(R.id.ivImage);
 
         //obtain scroll view used in the save button's onclick listener
         final LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
@@ -146,8 +149,8 @@ public class BrainWidget extends Fragment implements Widget {
         //retrieve the elements of the new note
         newNoteContent = (EditText) v.findViewById(R.id.newNoteContent);
         deleteButton = (ImageButton) v.findViewById(R.id.deleteButton);
-        saveButton = (Button) v.findViewById(R.id.btnSave1);
-        galleryButton = (Button) v.findViewById(R.id.btnGallery);
+        saveButton = (ImageButton) v.findViewById(R.id.btnSave1);
+        galleryButton = (ImageButton) v.findViewById(R.id.btnGallery);
         //retreive the negative note's delete button
         negativeDeleteButton = (ImageButton) v.findViewById(R.id.negativeDelete);
 
@@ -173,6 +176,7 @@ public class BrainWidget extends Fragment implements Widget {
                 startActivityForResult(i, RESULT_LOAD_IMG);
              }
          });
+
 
         //define the behaviour of the left arrow
         leftArrow.setOnClickListener(new View.OnClickListener() {
@@ -344,7 +348,7 @@ public class BrainWidget extends Fragment implements Widget {
         final ImageButton deleteButton = new ImageButton(getContext());
         //must use depreciated version because minimum API is set to 16.
         //we could include theme as a second param (not depreciated) but this requires API level 21
-        Drawable d = getResources().getDrawable(R.drawable.bin);
+        Drawable d = getResources().getDrawable(R.drawable.trash_32);
         deleteButton.setImageDrawable(d);
         deleteButton.setBackground(null); //make background transparent
         //set the weight of the delete button in attached note
