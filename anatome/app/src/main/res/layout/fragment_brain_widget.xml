@@ -111,7 +111,7 @@
                         android:layout_height="match_parent"
                         android:id="@+id/audioButton"
                         android:layout_weight="0.32"
-                        android:src="@drawable/trash_32_white"
+                        android:src="@drawable/microphone_32"
                         style="?android:attr/borderlessButtonStyle" />
 
                     <ImageButton
