@@ -23,5 +23,6 @@
     <string name="playback_status_playing">Playing..</string>
     <string name="playback_status_paused">Paused</string>
     <string name="playback_status_stopped">Stopped</string>
+    <string name="facebook_app_id">993489687372387</string>
 
 </resources>
