@@ -7,14 +7,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.26"
+        android:layout_weight="0.3"
         android:background="#8b6eb0">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.98">
+            android:layout_weight="1.1">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2.6"></FrameLayout>
+                    android:layout_weight="2.8"></FrameLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2.6"></FrameLayout>
+                    android:layout_weight="2.8"></FrameLayout>
 
             </LinearLayout>
 
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="1"
-            android:layout_weight="0.24">
+            android:layout_weight="0.3">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -110,22 +110,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/deleteButton"
-                        android:layout_weight="0.3" />
+                        android:layout_weight="0.32"
+                        android:src="@drawable/delete_24"
+                        style="?android:attr/borderlessButtonStyle" />
 
-                    <Button
-                        style="?android:attr/buttonStyleSmall"
+                    <ImageButton
+                        style="?android:attr/borderlessButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="save"
                         android:id="@+id/btnSave1"
-                        android:layout_weight="0.3" />
+                        android:layout_weight="0.31"
+                        android:src="@drawable/save_24" />
 
-                    <Button
+                    <ImageButton
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/btnGallery"
                         android:layout_weight="0.3"
-                        android:text="gall" />
+                        android:text="gall"
+                        android:src="@drawable/photos_32"
+
+                        style="?android:attr/borderlessButtonStyle"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -168,7 +174,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.14"></FrameLayout>
+            android:layout_weight="1.3"></FrameLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -198,7 +204,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.34"></FrameLayout>
+                    android:layout_weight="0.33"></FrameLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -207,7 +213,7 @@
                     android:id="@+id/textView8"
                     android:textColor="#f2df73"
                     android:textSize="16dp"
-                    android:layout_weight="0.26" />
+                    android:layout_weight="0.25" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -218,7 +224,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.14"
+                    android:layout_weight="0.12"
                     android:id="@+id/negativeNote">
 
                     <EditText
@@ -248,8 +254,11 @@
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/negativeDelete"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:src="@drawable/delete_32"
+            style="?android:attr/borderlessButtonStyle"
+            android:scaleType="centerInside" />
     </FrameLayout>
 </LinearLayout>

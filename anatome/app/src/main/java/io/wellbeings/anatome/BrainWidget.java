@@ -58,11 +58,10 @@ public class BrainWidget extends Fragment implements Widget {
     private View v;
 
     //declare variables for the graphical parts of the widget
-    Button saveButton, galleryButton;
-    ImageButton leftArrow;
-    ImageButton rightArrow;
+    ImageButton saveButton;
+    ImageButton leftArrow, rightArrow;
     EditText newNoteContent;
-    ImageButton deleteButton;
+    ImageButton deleteButton, galleryButton;
     ImageButton negativeDeleteButton;
 
     //for audio capture
@@ -166,8 +165,8 @@ public class BrainWidget extends Fragment implements Widget {
         //newNoteContent.setBackground(Integer.parseInt(R.drawable.rounded_corners));
         //****************************************************************
         deleteButton = (ImageButton) v.findViewById(R.id.deleteButton);
-        saveButton = (Button) v.findViewById(R.id.btnSave1);
-        galleryButton = (Button) v.findViewById(R.id.btnGallery);
+        saveButton = (ImageButton) v.findViewById(R.id.btnSave1);
+        galleryButton = (ImageButton) v.findViewById(R.id.btnGallery);
         //retreive the negative note's delete button
         negativeDeleteButton = (ImageButton) v.findViewById(R.id.negativeDelete);
 
