@@ -242,28 +242,28 @@
             </information>
             <!--temporary ids and information since I can't think of goo ones right now-->
             <information id="threshold-1">
-                You haven't drank anything yet
+                You haven't added anything yet. Abstaining is totally fine!
             </information>
             <information id="threshold-2">
-                You're almost over the guidelines
+                Be wary, you're almost over the government guidelines for alcohol consumption.
             </information>
             <information id="threshhold-3">
-                You should start slowing down
+                At this point, you should start slowing down.
             </information>
             <information id="threshold-4">
-                Now it's really time to stop
+                After this point, you may start feeling nauseous, and your decision-making skills may be impaired.
             </information>
             <information id="threshold-5">
-                You have drunk a dangerous amount of alcohol
+                You have drunk a dangerous amount of alcohol. Any more can potentially cause longer lasting ailments.
             </information>
             <information id="threshold-6">
-                GO HOME
+                It's time to go home, or possibly to the hospital.
             </information>
             <information id="units">
                 Units
             </information>
             <information id="threshold-warning">
-                This is over the government recommended daily allowance.
+                This is over the recommended daily allowance.
             </information>
             <links>
                 <link>

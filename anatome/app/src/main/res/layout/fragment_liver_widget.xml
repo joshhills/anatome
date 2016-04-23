@@ -9,8 +9,10 @@
     <ImageView
         android:id="@+id/liver_illustration"
         android:layout_width="fill_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
         android:layout_height="0dp"
-        android:layout_weight="45" />
+        android:layout_weight="52" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +20,7 @@
         android:orientation="horizontal"
         android:background="@color/liver_secondary_bg"
         android:id="@+id/liver_unit_manipulation"
-        android:layout_weight="12"
+        android:layout_weight="8"
         android:gravity="center_vertical">
 
         <Button
@@ -41,7 +43,7 @@
             android:text="0 Units"
             android:id="@+id/liver_unit_display"
             android:textColor="@color/liver_accent_text"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:textAlignment="center"
             android:fontFamily="@string/font_name_helvetica"
             android:layout_weight="33" />
@@ -104,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/liver_information"
-        android:layout_weight="31"
+        android:layout_weight="24"
         android:orientation="vertical"
         android:background="@color/liver_secondary_bg"
         android:padding="10dp">
@@ -114,13 +116,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/liver_threshold_warning"
             android:textColor="@color/liver_accent_text"
-            android:textSize="18dp"
+            android:textSize="14dp"
             android:textAlignment="center"
             android:fontFamily="@string/font_name_helvetica"
             android:textIsSelectable="true"
             android:text="Warning"
             android:layout_weight="25"
-            android:layout_gravity="top" />
+            android:layout_gravity="top"
+            android:visibility="invisible" />
 
         <TextView
                 android:layout_width="match_parent"
@@ -128,10 +131,10 @@
                 android:text="awdawd"
                 android:id="@+id/liver_warning"
                 android:textColor="@color/liver_main_text"
-                android:textSize="26dp"
+                android:textSize="16dp"
                 android:textAlignment="center"
                 android:fontFamily="@string/font_name_helvetica"
-                android:textIsSelectable="true"
+                android:textIsSelectable="false"
             android:layout_weight="75" />
     </LinearLayout>
 
