@@ -52,7 +52,7 @@
                     Learn More
                 </header>
             </headers>
-            <information id="welcome">
+            <information id="welcome_text">
                 This is a triage service for your state of well-being. Take a look at our key sections of student-orientated information and interactive widgets to help you overcome your problems!
             </information>
             <information id="more_help_text">

@@ -208,8 +208,13 @@ public class MainScroll extends Activity {
                 .override(1080, 731)
                 .into((ImageView) findViewById(R.id.mainscroll_footer));
 
+
+
+        TextView welcomeHeader = (TextView)findViewById(R.id.mainscroll_welcome_text);
+        welcomeHeader.setText(UtilityManager.getContentLoader(this).getHeaderText("mainscroll", "welcome"));
+
         TextView t = (TextView)findViewById(R.id.main_scroll_text);
-        t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "welcome"));
+        t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "welcome_text"));
 
         TextView footerTextTitle = (TextView)findViewById(R.id.mainscroll_organisation_title);
         footerTextTitle.setText(UtilityManager.getContentLoader(this).getHeaderText("mainscroll", "more_help"));
