@@ -31,6 +31,8 @@ import java.security.Security;
 /**
  * Display 'plugged-in' organization's
  * information to guide user to extra help.
+ *
+ * @author Team WellBeings - Josh
  */
 public class OrganizationActivity extends FragmentActivity implements Widget, OnMapReadyCallback {
 

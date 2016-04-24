@@ -99,12 +99,27 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
     public void initGUI() {
 
+        // Set the content.
+
+        ((Button) v.findViewById(R.id.heart_start)).setText(
+                UtilityManager.getContentLoader(getContext()).getButtonText("start")
+        );
+
+        ((Button) v.findViewById(R.id.heart_stop)).setText(
+                UtilityManager.getContentLoader(getContext()).getButtonText("stop")
+        );
+
+        ((TextView) v.findViewById(R.id.heart_advice)).setText(
+                UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "advice-text")
+        );
+
         // Get the typeface.
         Typeface bariol = UtilityManager.getThemeUtility(getContext()).getFont("Bariol");
+        Typeface helvetica = UtilityManager.getThemeUtility(getContext()).getFont("Helvetica");
 
         // Set the typeface.
         ((TextView) v.findViewById(R.id.heart_instruction)).setTypeface(bariol);
-        ((TextView) v.findViewById(R.id.heart_advice)).setTypeface(bariol);
+        ((TextView) v.findViewById(R.id.heart_advice)).setTypeface(helvetica);
 
     }
 
@@ -279,12 +294,12 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.buttonStart:
+            case R.id.heart_start:
 
                 startButtonOnClick(v);
                 break;
 
-            case R.id.buttonStop:
+            case R.id.heart_stop:
 
                 stopButtonOnClick(v);
                 // reset the text
@@ -302,7 +317,7 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
     private void setInstructionText(String s) {
 
         // fetch the textView for the instructions
-        TextView instructionalTextView = (TextView) (getView().findViewById(R.id.textView));
+        TextView instructionalTextView = (TextView) (getView().findViewById(R.id.heart_instruction));
         // set the text
         instructionalTextView.setText(s);
 
@@ -325,7 +340,7 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
      */
     private List<String> getInstructions() {
 
-        return UtilityManager.getContentLoader(getContext()).getInfoTextAsList(SECTION, "instructional_text", ",");
+        return UtilityManager.getContentLoader(getContext()).getInfoTextAsList(SECTION, "instructional-text", ",");
 
     }
 

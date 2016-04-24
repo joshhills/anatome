@@ -13,6 +13,12 @@ import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Class contents taken from tutorial in playing audio in Android at:
+ * http://www.androidhive.info/2012/03/android-building-audio-player-tutorial/
+ *
+ * Implemented and commented by Thirawat.
+ */
 public class PlayListActivity extends ListActivity {
 
     // Songs list

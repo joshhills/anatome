@@ -13,8 +13,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by Calum on 02/04/2016.
- * Purpose: A class to handle push notifications from all areas of the app
+ * A class to handle pushing notifications
+ * from many areas of the app to the device.
+ *
+ * @author Team WellBeings - Calum, Josh
  */
 public class NotificationHandler {
     //method for sending a push notification to the user

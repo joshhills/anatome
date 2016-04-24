@@ -11,6 +11,13 @@ import android.support.v4.app.FragmentManager;
 import android.view.Window;
 import android.view.WindowManager;
 
+/**
+ * Provide over-arching user profile
+ * creation for initial app-usage -
+ * link fragments together.
+ *
+ * @author Team WellBeings - Josh
+ */
 public class Preamble extends AppCompatActivity {
 
     // Store navigation info for access by inner fragments.

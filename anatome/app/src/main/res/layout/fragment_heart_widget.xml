@@ -97,7 +97,7 @@ android:background="@color/heart_main_bg">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Follow the steps above when you are feeling stressed"
+            android:text="Follow the steps above when you are feeling stressed."
             android:id="@+id/heart_advice"
             android:background="@color/heart_secondary_bg"
             android:textColor="#ffffff"

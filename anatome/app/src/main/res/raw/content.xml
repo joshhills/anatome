@@ -175,8 +175,11 @@
                 Remember, you are not alone in this world sharing your problem with your friends and family also could also help you
                 If you don't feel like the normal you after following some of the tips listed above, why not consider asking for help? Below are some places you can contact for a little extra help.
             </information>
-            <information id="instructional_text">
+            <information id="instructional-text">
                 Breathe in and count to 2, These feelings will pass, Breathe out, Concentrate on your breathing
+            </information>
+            <information id="advice-text">
+                Follow the steps above when you are feeling stressed.
             </information>
             <links>
                 <link>
@@ -333,6 +336,8 @@
                 <label id="cancel">Cancel</label>
                 <label id="oops">Oops!</label>
                 <label id="done">Done</label>
+                <label id="start">Start</label>
+                <label id="stop">Stop</label>
                 <label id="date">Last modified</label>
                 <label id="unit">Unit</label>
                 <label id="units">Units</label>

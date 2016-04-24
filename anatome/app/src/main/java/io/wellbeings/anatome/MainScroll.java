@@ -5,11 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -21,18 +18,17 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 
 /**
  * Main activity handles navigation to custom
  * informative sections, serves as a graphical
  * launchpad for app's key features.
+ *
+ * @author Team WellBeings - Everyone!
  */
 public class MainScroll extends Activity {
 
@@ -208,7 +204,7 @@ public class MainScroll extends Activity {
                 .animate(R.anim.heart_animation)
                 .into((ImageView) findViewById(R.id.heart));
 
-        //load the brain image
+        // load the brain image
         Glide.with(this)
                 .load(R.drawable.brain)
                 .dontTransform()
@@ -216,7 +212,7 @@ public class MainScroll extends Activity {
                 .animate(R.anim.brain_animation)
                 .into((ImageView) findViewById(R.id.brain));
 
-        //load the liver image
+        // load the liver image
         Glide.with(this)
                 .load(R.drawable.liver_front)
                 .dontTransform()
@@ -224,14 +220,14 @@ public class MainScroll extends Activity {
                 .animate(R.anim.liver_animation)
                 .into((ImageView) findViewById(R.id.liver));
 
-        //load the background liver image
+        // load the background liver image
         Glide.with(this)
                 .load(R.drawable.liver_back)
                 .dontTransform()
                 .override(targetScreenWidth, (int) (662 / targetSize))
                 .into((ImageView) findViewById(R.id.liver_back));
 
-        //load the footer
+        // load the footer
         Glide.with(this)
                 .load(R.drawable.footer)
                 .dontTransform()
