@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -59,7 +60,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
             c.set(Calendar.MONTH, monthOfYear);
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             setCurrentDateOnView();
-
         }
     };
 
@@ -67,6 +67,9 @@ public class BookingSystem extends AppCompatActivity implements Widget {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        String s = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
+        Toast.makeText(BookingSystem.this,s,Toast.LENGTH_LONG).show();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booking_layout);
@@ -101,7 +104,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         if(!hasInteracted) {
             disableBookButton();
         }
-
     }
 
     public void attachListeners() {
@@ -129,7 +131,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
 
                 // Remove this one from the stack.
                 finish();
-
             }
         });
 
@@ -321,7 +322,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         dp.getDatePicker().setMaxDate(newdate.getTime() + 1209600000);
 
         dp.show();
-
     }
 
     /**
@@ -357,7 +357,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
                 }
                 break;
         }
-
     }
 
     /* Other database methods. */
@@ -377,6 +376,7 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         SimpleDateFormat initial = new SimpleDateFormat("dd-MM-yy");
         SimpleDateFormat needed = new SimpleDateFormat("yyyy-MM-dd");
 
+
         // Attempt to log the appointment in the database.
         try {
             newDate = needed.format(initial.parse(date));
@@ -388,7 +388,5 @@ public class BookingSystem extends AppCompatActivity implements Widget {
             // Notify the user of any errors.
             NotificationHandler.NetworkErrorDialog(BookingSystem.this);
         }
-
     }
-
 }

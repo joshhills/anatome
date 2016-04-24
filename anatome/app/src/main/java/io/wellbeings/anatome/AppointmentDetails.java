@@ -34,6 +34,9 @@ public class AppointmentDetails extends AppCompatActivity {
         // Find and save references to UI element.
         mBackFromBooked = (Button)findViewById(R.id.backFromBooked);
 
+        // Set font.
+        mBackFromBooked.setTypeface(customFont);
+
         // Add back button.
         mBackFromBooked.setOnClickListener(new View.OnClickListener() {
             @Override

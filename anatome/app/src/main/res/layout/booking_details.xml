@@ -10,7 +10,7 @@
         android:id="@+id/imageView2"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:src="@drawable/balloon_blue" />
+        android:src="@drawable/balloon_small" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -20,7 +20,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.35">
+            android:layout_weight="1.04">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -28,29 +28,42 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/bookedDate"
                 android:layout_gravity="center_horizontal|bottom"
-                android:textColor="#ffffffff"
+                android:textColor="#ff73A8BE"
                 android:layout_marginBottom="6dp"
                 android:textSize="26dp"
                 android:text="dd-MM-yy"
                 />
         </FrameLayout>
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.2">
+            android:layout_weight="1.2"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/bookedTime"
-                android:layout_gravity="center_horizontal|top"
-                android:textColor="#ffffffff"
-                android:layout_marginTop="6dp"
-                android:textSize="26dp"
-                android:text="hh:mm a" />
-        </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:id="@+id/bookedTime"
+                    android:layout_gravity="center_horizontal|top"
+                    android:textColor="#ff73A8BE"
+                    android:layout_marginTop="6dp"
+                    android:textSize="26dp"
+                    android:text="hh:mm a" />
+            </FrameLayout>
+
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -62,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:text="Back"
                 android:id="@+id/backFromBooked"
-                android:layout_gravity="center_horizontal|top"
+                android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginTop="22dp"
                 android:layout_marginRight="1dp"
                 android:textSize="24dp"
