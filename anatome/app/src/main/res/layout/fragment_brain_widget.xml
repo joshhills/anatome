@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.3"
-        android:background="#8b6eb0">
+        android:background="@color/brain_main_bg">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -39,7 +39,7 @@
                     android:id="@+id/textView5"
                     android:layout_weight="0.1"
                     android:textSize="16dp"
-                    android:textColor="#f2df73" />
+                    android:textColor="@color/brain_accent_text" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#ffffffff"
+                    android:background="@color/brain_note_bg"
                     android:weightSum="1"
                     android:layout_weight="0.28">
 
@@ -85,8 +85,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/newNoteDate"
                         android:layout_weight="0.1"
-                        android:background="#d6d6d6"
-                        android:textColor="#432a64"
+                        android:background="@color/brain_note_date_bg"
+                        android:textColor="@color/brain_note_date_text"
                         android:textSize="16dp"
                         android:textAlignment="center"
                         android:gravity="center_vertical" />
@@ -200,7 +200,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.6"
-        android:background="#432a64"
+        android:background="@color/brain_secondary_bg"
         android:weightSum="1">
 
         <FrameLayout
@@ -230,7 +230,7 @@
                     android:layout_height="match_parent"
                     android:text="And throw away the thoughts that don&apos;t ..."
                     android:id="@+id/textView8"
-                    android:textColor="#f2df73"
+                    android:textColor="@color/brain_accent_text"
                     android:textSize="16dp"
                     android:layout_weight="0.25" />
 
@@ -253,7 +253,7 @@
                         android:ems="10"
                         android:id="@+id/negativeEditText"
                         android:layout_weight="0.14"
-                        android:background="#ffffffff" />
+                        android:background="@color/brain_negative_text" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -270,7 +270,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.76"
-        android:background="#432a64">
+        android:background="@color/brain_secondary_bg">
 
         <ImageButton
             android:layout_width="wrap_content"

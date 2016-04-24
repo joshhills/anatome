@@ -310,7 +310,7 @@ public class BrainWidget extends Fragment {
 
         //if the note has audio content, prepare the playback for this content
         else if(note.hasAudioContent()){
-            final TextView status = (TextView)ll.findViewById(R.id.audioStatus);
+            final EditText status = (EditText) ll.findViewById(R.id.audioStatus);
             SeekBar seekBar = (SeekBar)ll.findViewById(R.id.seekBar);
 
             Button btnPlay = (Button) ll.findViewById(R.id.playButton);
@@ -578,7 +578,7 @@ public class BrainWidget extends Fragment {
     }
 
     //play the audio from a note object
-    public void  playAudio(TextView status, Note note){
+    public void  playAudio(EditText status, Note note){
         // play audio
         try {
             asset = getActivity().getAssets();
@@ -601,7 +601,7 @@ public class BrainWidget extends Fragment {
         }
     }
 
-    public void pauseAudio(TextView status){
+    public void pauseAudio(EditText status){
 
         if(mp.isPlaying()) {
             status.setText(getResources().getString(R.string.playback_status_paused));
@@ -609,7 +609,7 @@ public class BrainWidget extends Fragment {
         }
     }
 
-    public void stopAudio(TextView status){
+    public void stopAudio(EditText status){
         if(mp.isPlaying()){
             status.setText(getResources().getString(R.string.playback_status_stopped));
             mp.stop();

@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="150dp"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/brain_note_bg"
     android:layout_marginLeft="10dp">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:id="@+id/date"/>
+        android:layout_weight="1"
+        android:id="@+id/date"
+        android:background="@color/brain_note_date_bg"
+        android:textColor="@color/brain_note_date_text"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -32,12 +34,13 @@
             android:layout_height="match_parent"
             android:id="@+id/audioPlayback"
             android:visibility="gone">
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:id="@+id/audioStatus"
-                android:text="@string/playback_status_stopped"/>
+                android:text="@string/playback_status_stopped"
+                android:focusable="false"/>
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="match_parent"
