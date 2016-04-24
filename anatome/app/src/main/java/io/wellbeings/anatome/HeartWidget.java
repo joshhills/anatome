@@ -22,7 +22,15 @@ import java.util.TimerTask;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HeartWidget extends Fragment implements View.OnClickListener {
+public class HeartWidget extends Fragment implements Widget, View.OnClickListener {
+
+    // Store name of section.
+    private final String SECTION = "heart";
+
+    // Store the view for code clarity.
+    private View v;
+
+    /* Private fields store state of interaction. */
 
     boolean counterIsIncreasing = true; // check if the timer is increasing
     boolean counterIsActive; // check if the timer is running
@@ -30,29 +38,29 @@ public class HeartWidget extends Fragment implements View.OnClickListener {
     Timer textTimer = new Timer(); // creates a new timer for the breathing count
     Vibrator vibrateToUser; // vibration to user
     List<String> instructionalText; // Store a list of instructional messages
-    private final String SECTION = "heart";  // Store name of section.
     private TimerTask counterTask; // a timer used to schedule the running of the counter
 
+    /* Necessary lifecycle methods. */
 
     public HeartWidget() {
         // Required empty public constructor
     }
 
     public static HeartWidget newInstance() {
-
         HeartWidget fragment = new HeartWidget();
         Bundle args = new Bundle();
         return fragment;
     }
 
     /**
-     *  override native onPause method to ensure the timerTask is successfully stopped
+     *  Override native onPause method to ensure the
+     *  timerTask is successfully paused.
      */
     @Override
     public void onPause() {
         super.onPause();
-        // cancel the timer and reset the status
 
+        // Cancel the timer and reset the status
         if (counterTask != null) {
 
             counterTask.cancel();
@@ -70,13 +78,37 @@ public class HeartWidget extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_heart_widget, container, false);
+        v = inflater.inflate(R.layout.fragment_heart_widget, container, false);
+
+        initGUI();
+
+        attachListeners();
+
+        // store the instructional text
+        instructionalText = getInstructions();
+        
+        // return the view
+        return v;
+
+    }
+
+    public void initGUI() {
+
+        // Get the typeface.
+        Typeface bariol = UtilityManager.getThemeUtility(getContext()).getFont("Bariol");
+
+        // Set the typeface.
+        ((TextView) v.findViewById(R.id.textView)).setTypeface(bariol);
+        ((TextView) v.findViewById(R.id.textView2)).setTypeface(bariol);
+
+    }
+
+    public void attachListeners() {
 
         // Set up the start button listener
         Button startButton = (Button) v.findViewById(R.id.buttonStart);
@@ -86,27 +118,20 @@ public class HeartWidget extends Fragment implements View.OnClickListener {
         Button stopButton = (Button) v.findViewById(R.id.buttonStop);
         stopButton.setOnClickListener(this);
 
-        // set up the vibrate functionality
+        // Set up the vibrate functionality.
         vibrateToUser = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
-        // store the instructional text
-        instructionalText = getInstructions();
-
-        // set text font
-        setDefautFont(v);
-        
-        // return the view
-        return v;
     }
 
     /**
-     * an OnClick method for the start button
-     **/
+     * Provide 'onClick' method for start button
+     * to separate functionality - this starts
+     * the animation and timer.
+     */
     public void startButtonOnClick(View v) {
 
         // check the timer is not already running
         if (counterIsActive) {
-
             return;
         }
 
@@ -136,8 +161,10 @@ public class HeartWidget extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * an OnClick method for the stop button. This stops the animation and timer
-     * **/
+     * Provide 'onClick' method for stop button
+     * to separate functionality - this stops
+     * the animation and resets the timer.
+     */
     public void stopButtonOnClick(View v) {
 
         // select the circle view
@@ -159,19 +186,16 @@ public class HeartWidget extends Fragment implements View.OnClickListener {
         counterTask.cancel();
     }
 
-
-
     /**
-     * A method to run a new timer task with timer value and instructional text
+     * A method to run a new timer task with
+     * timer value and instructional text.
      */
     public TimerTask getCounterTask() {
 
         return new TimerTask() {
 
-
             @Override
             public void run() {
-
 
                 Activity a = getActivity();
 
@@ -185,11 +209,9 @@ public class HeartWidget extends Fragment implements View.OnClickListener {
                     @Override
                     public void run() {
 
-
                         // set the timer value
                         if (counterIsActive) {
                             setNumericalTimer(counterValue);
-
 
                             // begin the timer
                             if (counterValue == 0) {
@@ -236,16 +258,23 @@ public class HeartWidget extends Fragment implements View.OnClickListener {
                             } else {
                                 counterValue--;
                             }
+
                         }
+
                     }
                 });
+
             }
+
         };
+
     }
 
     /**
-     * override the onClick method for the view
-     * @param v
+     * Override the onClick method for the
+     * entire view to direct user interaction.
+     *
+     * @param v The element interacted with.
      */
     @Override
     public void onClick(View v) {
@@ -265,8 +294,10 @@ public class HeartWidget extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * set the instructional text and display to the user
-     * @param s
+     * Set the instructional text and
+     * display to the user.
+     *
+     * @param s The text string to display.
      */
     private void setInstructionText(String s) {
 
@@ -274,31 +305,28 @@ public class HeartWidget extends Fragment implements View.OnClickListener {
         TextView instructionalTextView = (TextView) (getView().findViewById(R.id.textView));
         // set the text
         instructionalTextView.setText(s);
+
     }
 
     /**
-     * sets the timer value and displays it to the user
+     * Update and display the timer value
+     * to the user.
      */
     private void setNumericalTimer(int i) {
 
         TextView counter = (TextView) (getView().findViewById(R.id.counter));
         counter.setText(Integer.toString(i));
+
     }
 
-    private void setDefautFont(View v) {
-
-        TextView text = (TextView) (v.findViewById(R.id.textView));
-        TextView text2 = (TextView) (v.findViewById(R.id.textView2));
-        Typeface fontBariol = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Bariol.ttf");
-        text.setTypeface(fontBariol);
-        text2.setTypeface(fontBariol);
-    }
-
-
-    // fetches a list of strings for the instructional text
+    /**
+     * Fetches a list of strings for the
+     * instructional text.
+     */
     private List<String> getInstructions() {
 
         return UtilityManager.getContentLoader(getContext()).getInfoTextAsList(SECTION, "instructional_text", ",");
 
     }
+
 }
