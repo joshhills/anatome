@@ -55,11 +55,10 @@ public class BrainWidget extends Fragment {
     //MediaPlayer used to handle note playback
     MediaPlayer mp;
     AudioManager audioManager;
-    final String MEDIA_PATH = new String("/sdcard/");
+
     private int currentSongIndex = 0;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
-    AssetManager asset;
-    AssetFileDescriptor afd;
+ 
 
     //result code constants for image and audio selection
     private static final int RESULT_LOAD_IMG = 1;
@@ -544,8 +543,8 @@ public class BrainWidget extends Fragment {
                 // Let's read picked image path using content resolver
                 String[] filePath = {MediaStore.Images.Media.DATA};
 
-                ContentResolver contentResolverU = ContentResolverUltility.tryGetContentResolver(getContext());
-                Cursor cursor = contentResolverU.query(pickedImage, filePath, null, null, null);
+
+                Cursor cursor = getContext().getContentResolver().query(pickedImage, filePath, null, null, null);
                 cursor.moveToFirst();
                 String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
 
@@ -581,16 +580,17 @@ public class BrainWidget extends Fragment {
     public void  playAudio(EditText status, Note note){
         // play audio
         try {
-            asset = getActivity().getAssets();
-            afd = asset.openFd(note.getAudioDirectory());
+//            asset = getActivity().getAssets();
+//            afd = asset.openFd(note.getAudioDirectory());
 
             mp.reset();
-            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+//            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            mp.setDataSource(note.getAudioDirectory());
             mp.prepare();
             status.setText(getResources().getString(R.string.playback_status_playing));
             mp.start();
 
-            afd.close();
+//            afd.close();
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
