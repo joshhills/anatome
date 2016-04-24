@@ -13,6 +13,5 @@
         android:toYScale="0.5"
         android:repeatMode="reverse"
         android:repeatCount="infinite"
-        android:startOffset="350"
         />
 </set>
