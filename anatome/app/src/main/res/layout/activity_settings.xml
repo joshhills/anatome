@@ -65,7 +65,8 @@
                     android:layout_height="wrap_content"
                     android:text="Device"
                     android:textColor="#ffffff"
-                    android:textSize="22dp" />
+                    android:textSize="22dp"
+                    android:id="@+id/settings_device" />
 
                 <Switch
                     android:layout_width="fill_parent"
@@ -100,7 +101,8 @@
                     android:layout_height="wrap_content"
                     android:text="Profile"
                     android:textColor="#ffffff"
-                    android:textSize="22dp" />
+                    android:textSize="22dp"
+                    android:id="@+id/settings_profile" />
 
                 <LinearLayout
                     android:orientation="horizontal"

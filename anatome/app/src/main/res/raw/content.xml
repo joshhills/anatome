@@ -348,6 +348,9 @@
                 <label id="set">Set</label>
                 <label id="password-set">Set Password</label>
                 <label id="password-confirm">Please confirm your password.</label>
+                <label id="password-change">Change password</label>
+                <label id="password-remove">Remove password</label>
+                <label id="erase">Erase User Data</label>
                 <label id="date">Last modified</label>
                 <label id="unit">Unit</label>
                 <label id="units">Units</label>
@@ -362,6 +365,12 @@
                 <label id="filter-info">* This will request a specific advisor.</label>
                 <label id="submit-tip">Submit a tip</label>
                 <label id="backend">Want to change your organization's information? Click here.</label>
+                <label id="device">Device</label>
+                <label id="profile">Profile</label>
+                <label id="name">Name</label>
+                <label id="email">Email</label>
+                <label id="notifications">Allow Notifications</label>
+                <label id="network">Use Network</label>
             </buttons>
         </miscellaneous>
     </content>

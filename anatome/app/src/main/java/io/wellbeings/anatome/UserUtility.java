@@ -190,6 +190,7 @@ public class UserUtility implements Utility {
      * Provide accessor methods for fields stored only during
      * application lifecycle.
      */
+
     public double getUnits(){
         return units;
     }
