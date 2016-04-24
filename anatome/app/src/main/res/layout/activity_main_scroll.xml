@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Need more help ?"
-                android:id="@+id/needMoreHelpText"
+                android:id="@+id/mainscroll_help"
                 android:textColor="@android:color/black"
                 android:textSize="32dp"
                 android:layout_marginLeft="20dp"

@@ -242,6 +242,10 @@ public class MainScroll extends Activity {
         TextView t = (TextView)findViewById(R.id.main_scroll_text);
         t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "welcome_text"));
 
+        // display booking message at the top of the mainScroll
+        TextView bookingTextTitle = (TextView)findViewById(R.id.mainscroll_help);
+        bookingTextTitle.setText(UtilityManager.getContentLoader(this).getHeaderText("mainscroll", "booking"));
+
         // display a header message in the footer
         TextView footerTextTitle = (TextView)findViewById(R.id.mainscroll_organisation_title);
         footerTextTitle.setText(UtilityManager.getContentLoader(this).getHeaderText("mainscroll", "more_help"));
@@ -303,13 +307,15 @@ public class MainScroll extends Activity {
             v.setVisibility(View.INVISIBLE);
 
             // find text view
-            TextView needMoreHelpText = (TextView) findViewById(R.id.needMoreHelpText);
+            TextView needMoreHelpText = (TextView) findViewById(R.id.mainscroll_help);
 
             // override default text size of the text view
             needMoreHelpText.setTextSize(20);
 
             // set the text
-            needMoreHelpText.setText("Book an appointment with \nthe Wellbeing Service");
+            needMoreHelpText.setText(
+                    UtilityManager.getContentLoader(MainScroll.this).getInfoText("mainscroll", "booking")
+            );
 
             // select the book button
             findViewById(R.id.bookButtonOnMainScroll).setVisibility(View.VISIBLE);
@@ -331,10 +337,13 @@ public class MainScroll extends Activity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainScroll.this, AlertDialog.THEME_HOLO_LIGHT);
 
                 // set the details of the alert dialog
-                builder.setMessage("You must set your email in settings to book an appointment!")
+                builder.setMessage(
+                        UtilityManager.getContentLoader(MainScroll.this).getNotificationText("email-error")
+                )
                         .setCancelable(false)
                         // close the dialog when user clicks okay
-                        .setPositiveButton("Okay",
+                        .setPositiveButton(
+                                UtilityManager.getContentLoader(MainScroll.this).getButtonText("ok"),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();

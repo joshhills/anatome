@@ -82,13 +82,13 @@ public class Settings extends Activity {
                 UtilityManager.getUserUtility(this).isNetwork()
         );
         ((Switch) findViewById(R.id.settings_network)).setText(
-                UtilityManager.getContentLoader(this).getButtonText("notifications")
+                UtilityManager.getContentLoader(this).getButtonText("network")
         );
         ((Switch) findViewById(R.id.settings_notifications)).setChecked(
                 UtilityManager.getUserUtility(this).isNotifications()
         );
-        ((Switch) findViewById(R.id.settings_network)).setText(
-                UtilityManager.getContentLoader(this).getButtonText("network")
+        ((Switch) findViewById(R.id.settings_notifications)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("notifications")
         );
 
         // Populate content.
