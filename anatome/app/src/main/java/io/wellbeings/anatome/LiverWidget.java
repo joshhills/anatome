@@ -236,7 +236,7 @@ public class LiverWidget extends Fragment implements Widget {
                 // Reset buzzing.
                 shouldBuzz = true;
                 // Change the button.
-                clearButton.setColor;
+                //clearButton.setColor;
                 updateDisplay();
             }
         });
