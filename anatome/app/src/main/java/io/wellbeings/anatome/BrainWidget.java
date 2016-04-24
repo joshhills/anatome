@@ -1,8 +1,11 @@
 package io.wellbeings.anatome;
 
 /**
- * Created by Calum on 29/11/2015.
- * Purpose: To define the functionality of the brain section of the app
+ * Interactive subsection hinging on body part
+ * provides a CBT technique of saveing positive
+ * thought objects and expelling negative ones.
+ *
+ * @author Team WellBeings - Calum, Thirawat
  */
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -44,6 +47,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class BrainWidget extends Fragment implements Widget {
+
+    // Store name of section.
+    private final String SECTION = "brain";
     // Store view object for UI manipulation.
     private View v;
 
@@ -58,7 +64,6 @@ public class BrainWidget extends Fragment implements Widget {
 
     private int currentSongIndex = 0;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
- 
 
     //result code constants for image and audio selection
     private static final int RESULT_LOAD_IMG = 1;
@@ -111,6 +116,17 @@ public class BrainWidget extends Fragment implements Widget {
     }
 
     public void initGUI() {
+
+        // Set textual content.
+
+        ((TextView) v.findViewById(R.id.brain_instruction_positive)).setText(
+                UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "instruction-positive")
+        );
+
+        ((TextView) v.findViewById(R.id.brain_instruction_negative)).setText(
+                UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "instruction-negative")
+        );
+
         //initialise list of notes from file
         noteList = getList();
 
@@ -133,19 +149,19 @@ public class BrainWidget extends Fragment implements Widget {
     //method contains attachment of listeners for the main UI component (not including saved notes)
     public void attachListeners() {
         //retrieve the two navigation buttons
-        leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
-        rightArrow = (ImageButton) v.findViewById(R.id.rightArrow);
+        leftArrow = (ImageButton) v.findViewById(R.id.brain_left_arrow);
+        rightArrow = (ImageButton) v.findViewById(R.id.brain_right_arrow);
 
         //obtain scroll view used in the save button's onclick listener
-        final LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+        final LinearLayout scroll = (LinearLayout) v.findViewById(R.id.brain_notes_scroll);
 
         //retrieve the elements of the new note
-        newNoteContent = (EditText) v.findViewById(R.id.newNoteContent);
-        audioButton = (ImageButton) v.findViewById(R.id.audioButton);
-        saveButton = (ImageButton) v.findViewById(R.id.btnSave1);
-        galleryButton = (ImageButton) v.findViewById(R.id.btnGallery);
+        newNoteContent = (EditText) v.findViewById(R.id.brain_new_note_content);
+        audioButton = (ImageButton) v.findViewById(R.id.brain_audio_button);
+        saveButton = (ImageButton) v.findViewById(R.id.brain_save_button);
+        galleryButton = (ImageButton) v.findViewById(R.id.brain_gallery_button);
         //retreive the negative note's delete button
-        negativeDeleteButton = (ImageButton) v.findViewById(R.id.negativeDelete);
+        negativeDeleteButton = (ImageButton) v.findViewById(R.id.brain_negative_delete);
 
         //define the behaviour of saveButton on click
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -264,7 +280,7 @@ public class BrainWidget extends Fragment implements Widget {
     //method for removing a specific note from UI
     private void removedDisplayedSavedNote(int index) {
         try {
-            LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+            LinearLayout scroll = (LinearLayout) v.findViewById(R.id.brain_notes_scroll);
             scroll.removeViewAt(index);
         }
         catch(Exception e) {
@@ -275,7 +291,7 @@ public class BrainWidget extends Fragment implements Widget {
     //method used in navigation for removing all displayed saved notes
     private void removeDisplayedSavedNotes() {
         try {
-            LinearLayout scroll = (LinearLayout) v.findViewById(R.id.noteScroll);
+            LinearLayout scroll = (LinearLayout) v.findViewById(R.id.brain_notes_scroll);
             int maxIndex = scroll.getChildCount() - 1;
             for (int i = maxIndex; i >= 0; i--) {
                 scroll.removeViewAt(i);
@@ -293,7 +309,7 @@ public class BrainWidget extends Fragment implements Widget {
     //method for displaying a saved note
     private void initNote(final Note note, int index) {
         //obtain the horizontal scroll view that stores the notes
-        final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
+        final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.brain_notes_scroll);
 
         //obtain and inflate the note's appearance from an XML definition
         LayoutInflater inflater;
@@ -301,11 +317,11 @@ public class BrainWidget extends Fragment implements Widget {
         final LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.note_layout, scroll, false);
 
         //set the date of the note being initialised
-        ((TextView)ll.findViewById(R.id.date)).setText(note.getCreationDate());
+        ((TextView)ll.findViewById(R.id.brain_note_date)).setText(note.getCreationDate());
 
         //if the note has image content, load this content in
         if(note.hasImageContent()) {
-            ImageView iv = (ImageView)ll.findViewById(R.id.imageContent);
+            ImageView iv = (ImageView)ll.findViewById(R.id.brain_note_image_content);
 
             //retrieve the image content and add it to view
             String imageDir = note.getImageDirectory();
@@ -315,13 +331,13 @@ public class BrainWidget extends Fragment implements Widget {
 
         //if the note has audio content, prepare the playback for this content
         else if(note.hasAudioContent()){
-            final EditText status = (EditText) ll.findViewById(R.id.audioStatus);
-            SeekBar seekBar = (SeekBar)ll.findViewById(R.id.seekBar);
+            final EditText status = (EditText) ll.findViewById(R.id.brain_note_audio_status);
+            SeekBar seekBar = (SeekBar)ll.findViewById(R.id.brain_note_seek_bar);
 
-            ImageButton btnPlay = (ImageButton) ll.findViewById(R.id.playButton);
-            ImageButton stopButton = (ImageButton) ll.findViewById(R.id.stopButton);
+            ImageButton btnPlay = (ImageButton) ll.findViewById(R.id.brain_note_play);
+            ImageButton stopButton = (ImageButton) ll.findViewById(R.id.brain_note_stop);
 
-            ll.findViewById(R.id.audioPlayback).setVisibility(View.VISIBLE);
+            ll.findViewById(R.id.brain_note_audio_content).setVisibility(View.VISIBLE);
 
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -340,13 +356,13 @@ public class BrainWidget extends Fragment implements Widget {
         //else, the content is text based
         else {
             //add the note's text input
-            EditText noteInput = (EditText)ll.findViewById(R.id.textContent);
+            EditText noteInput = (EditText)ll.findViewById(R.id.brain_note_text_content);
             noteInput.setText(note.getContent());
             noteInput.setVisibility(View.VISIBLE); //make the content visible
         }
 
         //add the delete button
-        final ImageButton deleteButton = (ImageButton)ll.findViewById(R.id.delete);
+        final ImageButton deleteButton = (ImageButton)ll.findViewById(R.id.brain_note_delete);
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -396,12 +412,12 @@ public class BrainWidget extends Fragment implements Widget {
         //linearLayout will be the container of the note being deleted
         final LinearLayout container;
         //obtain the negative thought EditText
-        EditText negativeText = (EditText)v.findViewById(R.id.negativeEditText);
+        EditText negativeText = (EditText)v.findViewById(R.id.brain_negative_text);
 
         //a negative index indicates the note being deleted is the "negative thought note"
         if(index < 0){
             //obtain the linear layout holding the negative note
-            container = (LinearLayout)v.findViewById(R.id.negativeNote);
+            container = (LinearLayout)v.findViewById(R.id.brain_negative_note);
             //temporarily remove the negative thought EditText
             negativeText.setText("");
             container.removeView(negativeText);
@@ -414,7 +430,7 @@ public class BrainWidget extends Fragment implements Widget {
         //a positive index indicates the note being deleted is saved in the scroll
         else {
             //obtain the horizontal scroll view that stores the notes
-            container = (LinearLayout)v.findViewById(R.id.noteScroll);
+            container = (LinearLayout)v.findViewById(R.id.brain_notes_scroll);
             //set margin placing the animation more centrally for a note
             params.setMargins(0, 150, 0, 0);
             smokeCloudImg.setLayoutParams(params);
@@ -450,7 +466,7 @@ public class BrainWidget extends Fragment implements Widget {
     //method for saving a new note
     private void saveNote(Note note) {
         //obtain the scroll view the note will be displayed in
-        final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.noteScroll);
+        final LinearLayout scroll = (LinearLayout)v.findViewById(R.id.brain_notes_scroll);
 
         //add the note to list
         noteList.add(0, note);

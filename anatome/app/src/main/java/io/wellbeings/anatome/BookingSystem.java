@@ -47,7 +47,7 @@ public class BookingSystem extends AppCompatActivity implements Widget {
     // Store private fields used to construct an appointment.
     private String[] appointments;
     private String pref = "either";
-    private String timeTime = "Select Time";
+    private String timeTime = UtilityManager.getContentLoader(this).getButtonText("time");
     private final Calendar c = Calendar.getInstance();
 
     // Create private date listener.
@@ -82,11 +82,20 @@ public class BookingSystem extends AppCompatActivity implements Widget {
     public void initGUI() {
 
         // Find and save references to commonly used UI elements.
-        mSetDate = (TextView) findViewById(R.id.setDate);
-        mSetTime = (TextView) findViewById(R.id.setTime);
-        mBackFromBooking = (Button) findViewById(R.id.backFromBooking);
-        mBook = (Button) findViewById(R.id.bookFromBooking);
-        mBookingTitle = (TextView) findViewById(R.id.bookingTitle);
+        mSetDate = (TextView) findViewById(R.id.booking_set_date);
+        mSetTime = (TextView) findViewById(R.id.booking_set_time);
+        mBackFromBooking = (Button) findViewById(R.id.booking_back_from_booking);
+        mBook = (Button) findViewById(R.id.booking_book_from_booking);
+        mBookingTitle = (TextView) findViewById(R.id.booking_title);
+
+        // Set textual content.
+
+        mBackFromBooking.setText(
+                UtilityManager.getContentLoader(this).getButtonText("book")
+        );
+        mBookingTitle.setText(
+                UtilityManager.getContentLoader(this).getButtonText("appointment")
+        );
 
         // Set fonts.
         Typeface customFont = UtilityManager.getThemeUtility(this).getFont("Bariol");
@@ -135,7 +144,7 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         });
 
         // Add filter screen navigation button.
-        mOptions = (ImageButton) findViewById(R.id.bookingOptions);
+        mOptions = (ImageButton) findViewById(R.id.booking_options);
         mOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,25 +179,50 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         // Change the view.
         setContentView(R.layout.booking_options_layout);
 
-        /* Style the view. */
+        // Style the view.
 
-        Button save = (Button) findViewById(R.id.saveGenderOptionsButton);
-        TextView firstLine = (TextView) findViewById(R.id.genderOptionsFirstLine);
-        TextView secondLine = (TextView) findViewById(R.id.genderOptionsSecondLine);
-        TextView smallText = (TextView) findViewById(R.id.small_text_gender_options);
-        RadioButton rb1 = (RadioButton) findViewById(R.id.radio_woman);
-        RadioButton rb2 = (RadioButton) findViewById(R.id.radio_man);
-        RadioButton rb3 = (RadioButton) findViewById(R.id.radio_nopreference);
+        Button save = (Button) findViewById(R.id.booking_save_gender);
+        TextView firstLine = (TextView) findViewById(R.id.booking_gender_line_one);
+        TextView secondLine = (TextView) findViewById(R.id.booking_gender_line_two);
+        TextView smallText = (TextView) findViewById(R.id.booking_gender_info);
+        RadioButton rb1 = (RadioButton) findViewById(R.id.booking_radio_woman);
+        RadioButton rb2 = (RadioButton) findViewById(R.id.booking_radio_man);
+        RadioButton rb3 = (RadioButton) findViewById(R.id.booking_radio_nopreference);
 
-        Typeface customFont = UtilityManager.getThemeUtility(this).getFont("Bariol");
+        // Set the content.
 
-        save.setTypeface(customFont);
-        firstLine.setTypeface(customFont);
-        secondLine.setTypeface(customFont);
-        smallText.setTypeface(customFont);
-        rb1.setTypeface(customFont);
-        rb2.setTypeface(customFont);
-        rb3.setTypeface(customFont);
+        save.setText(
+                UtilityManager.getContentLoader(this).getButtonText("save")
+        );
+        firstLine.setText(
+                UtilityManager.getContentLoader(this).getButtonText("filter-one")
+        );
+        secondLine.setText(
+                UtilityManager.getContentLoader(this).getButtonText("filter-two")
+        );
+        smallText.setText(
+                UtilityManager.getContentLoader(this).getButtonText("filter-info")
+        );
+        rb1.setText(
+                UtilityManager.getContentLoader(this).getButtonText("woman")
+        );
+        rb2.setText(
+                UtilityManager.getContentLoader(this).getButtonText("man")
+        );
+        rb3.setText(
+                UtilityManager.getContentLoader(this).getButtonText("no-preference")
+        );
+
+        Typeface bariol = UtilityManager.getThemeUtility(this).getFont("Bariol");
+        Typeface helvetica = UtilityManager.getThemeUtility(this).getFont("Bariol");
+
+        save.setTypeface(helvetica);
+        firstLine.setTypeface(bariol);
+        secondLine.setTypeface(bariol);
+        smallText.setTypeface(helvetica);
+        rb1.setTypeface(helvetica);
+        rb2.setTypeface(helvetica);
+        rb3.setTypeface(helvetica);
 
         // Provide a listener to revert the view.
         save.setOnClickListener(new View.OnClickListener() {
@@ -339,19 +373,19 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         switch (rb.getId()) {
 
             // Log preference as female advisor.
-            case R.id.radio_woman:
+            case R.id.booking_radio_woman:
                 if(checked) {
                     pref = "woman";
                 }
                 break;
             // Log preference as male advisor.
-            case R.id.radio_man:
+            case R.id.booking_radio_man:
                 if(checked) {
                     pref = "man";
                 }
                 break;
             // Log preference as any advisor.
-            case R.id.radio_nopreference:
+            case R.id.booking_radio_nopreference:
                 if(checked) {
                     pref = "either";
                 }

@@ -23,6 +23,9 @@
 
                 (This can all be tweaked in the settings.)
             </information>
+            <information id="disclaimer">
+                * The advice in this app is not written by professionals, but we're pretty knowledgeable!
+            </information>
             <information id="name">
                 Firstly, what should we call you?
                 (If you're worried about privacy, now's the time to re-invent yourself. Otherwise, we'll remember you as 'guest'!)
@@ -93,6 +96,12 @@
                 •	Remember, you are not the only one who feels this way, you are not alone.
                 Consider reaching out to those close to you such as family and friends.
                 •	Use our app to book an appointment with the Student wellbeing here at Newcastle University or contact them directly: 0191 208 3333.
+            </information>
+            <information id="instruction-positive">
+                Keep track of the things that make you happy:
+            </information>
+            <information id="instruction-negative">
+                And throw away the thoughts that don't...
             </information>
             <links>
                 <link>
@@ -166,8 +175,11 @@
                 Remember, you are not alone in this world sharing your problem with your friends and family also could also help you
                 If you don't feel like the normal you after following some of the tips listed above, why not consider asking for help? Below are some places you can contact for a little extra help.
             </information>
-            <information id="instructional_text">
-                Breathe in and count to 2, These feelings will pass, Breathe out, concentrate on your breathing
+            <information id="instructional-text">
+                Breathe in and count to 2, These feelings will pass, Breathe out, Concentrate on your breathing
+            </information>
+            <information id="advice-text">
+                Follow the steps above when you are feeling stressed.
             </information>
             <links>
                 <link>
@@ -220,10 +232,14 @@
                 </header>
             </headers>
             <information id="title">
-                Here's some information about the topic.
+                Alcohol consumption for many students is a big part of university life, however it is important to remember the impact it can have on your health and studies! Excess consumption can have many consequences including the impairment of motor skills, harm to interpersonal relationships and along side badly affecting your studies. Peer pressure is often a large factor in student drinking and substance abuse, so remember it is okay to say no!
             </information>
             <information id="tips">
-                Here are some tips.
+                Know your limits
+                Keep track of how many units you have
+                Remember, it’s okay to say no!
+                Always have plans to get home after drinking
+
             </information>
             <information id="drinks">
                 Beer,Cider,Wine,Spirit,Alcopop,Sours,Other
@@ -273,18 +289,19 @@
                 </link>
                 <link>
                     <name>
-                        Helpful link2.
+                        NHS
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        http://www.nhs.uk/Livewell/studenthealth/Pages/Smoking,alcoholanddrugs.aspx
+
                     </source>
                 </link>
                 <link>
                     <name>
-                        Helpful link3.
+                        Drink Aware
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        https://www.drinkaware.co.uk/
                     </source>
                 </link>
             </links>
@@ -311,17 +328,49 @@
                 <notification id="email-invalid" graphic="./assets/defaults/toast-graphic.png">
                     The email entered is not a valid email address. Please try again.
                 </notification>
+                <notification id="password-set" graphic="./assets/defaults/toast-graphic.png">
+                    Password set.
+                </notification>
+                <notification id="password-fail" graphic="./assets/defaults/toast-graphic.png">
+                    Passwords didn't match!.
+                </notification>
             </notifications>
             <buttons>
                 <label id="next">Next</label>
                 <label id="back">Back</label>
                 <label id="ok">Okay</label>
+                <label id="confirm">Confirm</label>
                 <label id="cancel">Cancel</label>
                 <label id="oops">Oops!</label>
                 <label id="done">Done</label>
+                <label id="start">Start</label>
+                <label id="stop">Stop</label>
+                <label id="set">Set</label>
+                <label id="password-set">Set Password</label>
+                <label id="password-confirm">Please confirm your password.</label>
+                <label id="password-change">Change password</label>
+                <label id="password-remove">Remove password</label>
+                <label id="erase">Erase User Data</label>
                 <label id="date">Last modified</label>
                 <label id="unit">Unit</label>
                 <label id="units">Units</label>
+                <label id="time">Select Time</label>
+                <label id="book">Book</label>
+                <label id="appointment">Book an appointment</label>
+                <label id="filter-one">Who would you</label>
+                <label id="filter-two">like to meet?</label>
+                <label id="woman">Woman</label>
+                <label id="man">Man</label>
+                <label id="no-preference">No preference</label>
+                <label id="filter-info">* This will request a specific advisor.</label>
+                <label id="submit-tip">Submit a tip</label>
+                <label id="backend">Want to change your organization's information? Click here.</label>
+                <label id="device">Device</label>
+                <label id="profile">Profile</label>
+                <label id="name">Name</label>
+                <label id="email">Email</label>
+                <label id="notifications">Allow Notifications</label>
+                <label id="network">Use Network</label>
             </buttons>
         </miscellaneous>
     </content>

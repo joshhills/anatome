@@ -27,6 +27,8 @@ import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 /**
  * Allow application to begin crucial tasks
  * while covering operation with quirky veneer.
+ *
+ * @author Team WellBeings - Bettina, Josh
  */
 public class Loading extends Activity {
 

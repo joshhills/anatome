@@ -81,8 +81,44 @@ public class Settings extends Activity {
         ((Switch) findViewById(R.id.settings_network)).setChecked(
                 UtilityManager.getUserUtility(this).isNetwork()
         );
+        ((Switch) findViewById(R.id.settings_network)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("notifications")
+        );
         ((Switch) findViewById(R.id.settings_notifications)).setChecked(
                 UtilityManager.getUserUtility(this).isNotifications()
+        );
+        ((Switch) findViewById(R.id.settings_network)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("network")
+        );
+
+        // Populate content.
+
+        ((TextView) findViewById(R.id.settings_device)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("device")
+        );
+
+        ((TextView) findViewById(R.id.settings_profile)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("profile")
+        );
+
+        ((TextView) findViewById(R.id.settings_name_label)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("name")
+        );
+
+        ((TextView) findViewById(R.id.settings_email_label)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("email")
+        );
+
+        ((Button) findViewById(R.id.settings_password_change)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("password-change")
+        );
+
+        ((Button) findViewById(R.id.settings_password_clear)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("password-remove")
+        );
+
+        ((Button) findViewById(R.id.settings_erase)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("erase")
         );
 
     }
@@ -135,6 +171,7 @@ public class Settings extends Activity {
                         break;
 
                 }
+
             }
 
             @Override

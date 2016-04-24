@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/bookedDate"
+                android:id="@+id/booking_booked_date"
                 android:layout_gravity="center_horizontal|bottom"
                 android:textColor="#ff73A8BE"
                 android:layout_marginBottom="6dp"
@@ -64,6 +64,18 @@
             </FrameLayout>
 
         </LinearLayout>
+        
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/booking_booked_time"
+                android:layout_gravity="center_horizontal|top"
+                android:textColor="#ffffffff"
+                android:layout_marginTop="6dp"
+                android:textSize="26dp"
+                android:text="hh:mm a" />
+        </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"

@@ -19,9 +19,10 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by Elizabeth on 11/04/2016.
+ * Provide an electrical animation for
+ * the brain within the main scroll.
  *
- * Purpose: A class to provide an electrical animation for the brain within the main scroll
+ * @author Team WellBeings - Lizzie
  */
 public class ElectricView extends View {
     

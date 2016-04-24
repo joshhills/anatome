@@ -25,6 +25,7 @@ public class AppointmentDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booking_details);
 
@@ -32,7 +33,7 @@ public class AppointmentDetails extends AppCompatActivity {
         Typeface customFont = UtilityManager.getThemeUtility(this).getFont("Bariol");
 
         // Find and save references to UI element.
-        mBackFromBooked = (Button)findViewById(R.id.backFromBooked);
+        mBackFromBooked = (Button)findViewById(R.id.booking_booked_back);
 
         // Set font.
         mBackFromBooked.setTypeface(customFont);
@@ -46,6 +47,11 @@ public class AppointmentDetails extends AppCompatActivity {
             }
         });
 
+        // Set back button text.
+        mBackFromBooked.setText(
+                UtilityManager.getContentLoader(this).getButtonText("back")
+        );
+
         Context ctx = AppointmentDetails.this;
         HashMap<String, String> appointments;
 
@@ -56,8 +62,8 @@ public class AppointmentDetails extends AppCompatActivity {
             appointments = UtilityManager.getDbUtility(this).getAppointment();
 
             // References to UI elements.
-            TextView timeView = (TextView) findViewById(R.id.bookedTime);
-            TextView dateView = (TextView) findViewById(R.id.bookedDate);
+            TextView timeView = (TextView) findViewById(R.id.booking_booked_time);
+            TextView dateView = (TextView) findViewById(R.id.booking_booked_date);
 
             // Appointment details saved and converted to Strings.
             String date = appointments.get("App_Date").toString();

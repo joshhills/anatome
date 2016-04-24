@@ -1,7 +1,5 @@
 package io.wellbeings.anatome;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,10 +8,18 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
+/**
+ * Allow the user to set their
+ * name and email if they so desire.
+ *
+ * @author Team WellBeings - Josh
+ */
 public class PreambleName extends Fragment {
 
+    // Store the view for code clarity.
     private static View view;
+
+    /* Necessary lifecycle methods. */
 
     public PreambleName() {
         // Required empty public constructor
@@ -29,14 +35,15 @@ public class PreambleName extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_preamble_name, container, false);
 
-        populateContent();
+        initGUI();
 
         // Inflate the layout for this fragment
         return view;
+
     }
 
     // Initialise GUI elements.
-    private void populateContent() {
+    private void initGUI() {
 
         /* Tutorialised information. */
 
