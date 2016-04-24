@@ -1,8 +1,11 @@
 package io.wellbeings.anatome;
 
 /**
- * Created by Calum on 29/11/2015.
- * Purpose: To define the functionality of the brain section of the app
+ * Interactive subsection hinging on body part
+ * provides a CBT technique of saveing positive
+ * thought objects and expelling negative ones.
+ *
+ * @author Team WellBeings - Calum, Thirawat
  */
 import android.content.ContentResolver;
 import android.content.Intent;

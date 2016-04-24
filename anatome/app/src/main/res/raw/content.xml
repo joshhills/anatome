@@ -327,6 +327,15 @@
                 <label id="date">Last modified</label>
                 <label id="unit">Unit</label>
                 <label id="units">Units</label>
+                <label id="time">Select Time</label>
+                <label id="book">Book</label>
+                <label id="appointment">Book an appointment</label>
+                <label id="filter-one">Who would you</label>
+                <label id="filter-two">like to meet?</label>
+                <label id="woman">Woman</label>
+                <label id="man">Man</label>
+                <label id="no-preference">No preference</label>
+                <label id="filter-info">* This will request a specific advisor.</label>
             </buttons>
         </miscellaneous>
     </content>
