@@ -34,9 +34,10 @@ public class Section extends FragmentActivity {
     private String section;
 
     // Store language-dependent headers.
-    // TODO: Implement language from content loader.
-    private String interactiveHeader = "Interact";
-    private String informationHeader = "Info";
+    private String interactiveHeader =
+            UtilityManager.getContentLoader(this).getButtonText("interact");
+    private String informationHeader =
+            UtilityManager.getContentLoader(this).getButtonText("info");
 
     /**
      * On activity creation, set up canvas.
@@ -60,7 +61,7 @@ public class Section extends FragmentActivity {
         setContentView(R.layout.activity_section);
 
         // Set correct section values.
-        initDisplay();
+        initGUI();
 
         // Initialization of components.
         attachListeners();
@@ -70,7 +71,7 @@ public class Section extends FragmentActivity {
     }
 
     // Alter colour and headers accordingly.
-    private void initDisplay() {
+    private void initGUI() {
 
         FragmentTabHost mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
 
@@ -78,6 +79,11 @@ public class Section extends FragmentActivity {
         ((TextView)findViewById(R.id.section_name)).setText(
                 section.substring(0, 1).toUpperCase() +
                         section.substring(1));
+
+        // Set back button text.
+        ((Button) findViewById(R.id.section_back)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("back")
+        );
 
         // Set correct section icon.
         final int resourceId = getResources().getIdentifier(
@@ -95,12 +101,11 @@ public class Section extends FragmentActivity {
 
         ((ImageView) findViewById(R.id.section_image)).setImageResource(resourceId);
         ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(secondaryColourId);
-        ((Button) findViewById(R.id.back)).setBackgroundColor(backBtnColourId);
+        ((Button) findViewById(R.id.section_back)).setBackgroundColor(backBtnColourId);
         ((TextView) findViewById(R.id.section_name)).setBackgroundColor(secondaryColourId);
 
-
         ((TextView) findViewById(R.id.section_name)).setTypeface(UtilityManager.getThemeUtility(this).getFont("Bariol"));
-        ((TextView) findViewById(R.id.back)).setTypeface(UtilityManager.getThemeUtility(this).getFont("Bariol"));
+        ((TextView) findViewById(R.id.section_back)).setTypeface(UtilityManager.getThemeUtility(this).getFont("Bariol"));
         ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
 
     }
@@ -109,7 +114,7 @@ public class Section extends FragmentActivity {
     private void attachListeners() {
 
         // Enable backwards navigation.
-        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.section_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

@@ -6,11 +6,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -22,12 +19,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 
 /**
@@ -37,6 +31,8 @@ import java.util.logging.Logger;
  *
  * class content for the measuring screen size taken from:
  * http://stackoverflow.com/questions/2902640/android-get-the-screen-resolution-pixels-as-integer-values
+ *
+ * @author Team WellBeings - Everyone!
  */
 public class MainScroll extends Activity {
 
@@ -212,7 +208,7 @@ public class MainScroll extends Activity {
                 .animate(R.anim.heart_animation)
                 .into((ImageView) findViewById(R.id.heart));
 
-        //load the brain image
+        // load the brain image
         Glide.with(this)
                 .load(R.drawable.brain)
                 .dontTransform()
@@ -220,7 +216,7 @@ public class MainScroll extends Activity {
                 .animate(R.anim.brain_animation)
                 .into((ImageView) findViewById(R.id.brain));
 
-        //load the liver image
+        // load the liver image
         Glide.with(this)
                 .load(R.drawable.liver_front)
                 .dontTransform()
@@ -228,14 +224,14 @@ public class MainScroll extends Activity {
                 .animate(R.anim.liver_animation)
                 .into((ImageView) findViewById(R.id.liver));
 
-        //load the background liver image
+        // load the background liver image
         Glide.with(this)
                 .load(R.drawable.liver_back)
                 .dontTransform()
                 .override(targetScreenWidth, (int) (662 / targetSize))
                 .into((ImageView) findViewById(R.id.liver_back));
 
-        //load the footer
+        // load the footer
         Glide.with(this)
                 .load(R.drawable.footer)
                 .dontTransform()
@@ -249,6 +245,10 @@ public class MainScroll extends Activity {
         // display a message to the user on the mainscroll
         TextView t = (TextView)findViewById(R.id.main_scroll_text);
         t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "welcome_text"));
+
+        // display booking message at the top of the mainScroll
+        TextView bookingTextTitle = (TextView)findViewById(R.id.mainscroll_help);
+        bookingTextTitle.setText(UtilityManager.getContentLoader(this).getHeaderText("mainscroll", "booking"));
 
         // display a header message in the footer
         TextView footerTextTitle = (TextView)findViewById(R.id.mainscroll_organisation_title);
@@ -311,13 +311,15 @@ public class MainScroll extends Activity {
             v.setVisibility(View.INVISIBLE);
 
             // find text view
-            TextView needMoreHelpText = (TextView) findViewById(R.id.needMoreHelpText);
+            TextView needMoreHelpText = (TextView) findViewById(R.id.mainscroll_help);
 
             // override default text size of the text view
             needMoreHelpText.setTextSize(20);
 
             // set the text
-            needMoreHelpText.setText("Book an appointment with \nthe Wellbeing Service");
+            needMoreHelpText.setText(
+                    UtilityManager.getContentLoader(MainScroll.this).getInfoText("mainscroll", "booking")
+            );
 
             // select the book button
             findViewById(R.id.bookButtonOnMainScroll).setVisibility(View.VISIBLE);
@@ -339,10 +341,13 @@ public class MainScroll extends Activity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainScroll.this, AlertDialog.THEME_HOLO_LIGHT);
 
                 // set the details of the alert dialog
-                builder.setMessage("You must set your email in settings to book an appointment!")
+                builder.setMessage(
+                        UtilityManager.getContentLoader(MainScroll.this).getNotificationText("email-error")
+                )
                         .setCancelable(false)
                         // close the dialog when user clicks okay
-                        .setPositiveButton("Okay",
+                        .setPositiveButton(
+                                UtilityManager.getContentLoader(MainScroll.this).getButtonText("ok"),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();

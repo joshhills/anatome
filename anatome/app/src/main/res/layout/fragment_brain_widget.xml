@@ -36,10 +36,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Keep track of the things that make you happy:"
-                    android:id="@+id/brain_instruction_positive"
                     android:layout_weight="0.1"
                     android:textSize="16dp"
-                    android:textColor="@color/brain_accent_text" />
+                    android:textColor="@color/brain_accent_text"
+                    android:id="@+id/brain_instruction_positive" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/newNoteDate"
+                        android:id="@+id/new_note_date"
                         android:layout_weight="0.1"
                         android:background="@color/brain_note_date_bg"
                         android:textColor="@color/brain_note_date_text"
@@ -96,7 +96,7 @@
                         android:layout_height="146dp"
                         android:inputType="textMultiLine"
                         android:ems="10"
-                        android:id="@+id/newNoteContent" />
+                        android:id="@+id/brain_new_note_content" />
 
                 </LinearLayout>
 
@@ -109,7 +109,7 @@
                     <ImageButton
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/audioButton"
+                        android:id="@+id/brain_audio_button"
                         android:layout_weight="0.32"
                         android:src="@drawable/microphone_32"
                         style="?android:attr/borderlessButtonStyle" />
@@ -119,14 +119,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="save"
-                        android:id="@+id/btnSave1"
+                        android:id="@+id/brain_save_button"
                         android:layout_weight="0.31"
                         android:src="@drawable/save_24" />
 
                     <ImageButton
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/btnGallery"
+                        android:id="@+id/brain_gallery_button"
                         android:layout_weight="0.3"
                         android:text="gall"
                         android:src="@drawable/photos_32"
@@ -143,7 +143,7 @@
                 <ImageButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/leftArrow"
+                    android:id="@+id/brain_left_arrow"
                     android:layout_gravity="center"
                     android:src="@drawable/arrow_left_16"
                     style="?android:attr/borderlessButtonStyle" />
@@ -158,14 +158,13 @@
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/horizontalScrollView2"
                     android:layout_weight="0.25">
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/noteScroll"></LinearLayout>
+                        android:id="@+id/brain_notes_scroll"></LinearLayout>
                 </HorizontalScrollView>
 
                 <FrameLayout
@@ -182,7 +181,7 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rightArrow"
+                    android:id="@+id/brain_right_arrow"
                     android:layout_gravity="left|center_vertical"
                     android:src="@drawable/arrow_right_16"
                     style="?android:attr/borderlessButtonStyle" />
@@ -244,14 +243,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.12"
-                    android:id="@+id/negativeNote">
+                    android:id="@+id/brain_negative_note">
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textMultiLine"
                         android:ems="10"
-                        android:id="@+id/negativeEditText"
+                        android:id="@+id/brain_negative_text"
                         android:layout_weight="0.14"
                         android:background="@color/brain_negative_text" />
                 </LinearLayout>
@@ -275,7 +274,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/negativeDelete"
+            android:id="@+id/brain_negative_delete"
             android:layout_gravity="center"
             android:src="@drawable/trash_32_white"
             style="?android:attr/borderlessButtonStyle"

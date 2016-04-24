@@ -18,6 +18,8 @@ import java.util.regex.Pattern;
 
 /**
  * Control carousel navigation.
+ *
+ * @author Team WellBeings - Josh
  */
 public class PreambleCarousel extends Fragment {
 
@@ -29,6 +31,8 @@ public class PreambleCarousel extends Fragment {
     View view;
     // Initialise private index.
     private int index = 0;
+
+    /* Neccesary lifecycle methods. */
 
     public PreambleCarousel() {
         // Required empty public constructor

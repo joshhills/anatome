@@ -13,8 +13,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by Calum on 02/04/2016.
- * Purpose: A class to handle push notifications from all areas of the app
+ * A class to handle pushing notifications
+ * from many areas of the app to the device.
+ *
+ * @author Team WellBeings - Calum, Josh
  */
 public class NotificationHandler {
     //method for sending a push notification to the user
@@ -51,14 +53,20 @@ public class NotificationHandler {
 
     public static void NetworkErrorDialog(Context ctx) {
         new AlertDialog.Builder(ctx)
-                .setTitle("Oops...")
-                .setMessage("Looks like you're not connected to the internet. Check your settings and try again. Some features will not function without internet.")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                        dialog.cancel();
-                    }
-                })
+                .setTitle(
+                        UtilityManager.getContentLoader(ctx).getButtonText("oops")
+                )
+                .setMessage(
+                        UtilityManager.getContentLoader(ctx).getNotificationText("network-error")
+                )
+                .setPositiveButton(
+                        UtilityManager.getContentLoader(ctx).getButtonText("ok"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                dialog.cancel();
+                            }
+                        })
                 .show();
     }
 

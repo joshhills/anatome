@@ -20,7 +20,7 @@
             android:padding="36px"
             android:text="Back"
             android:textSize="36px"
-            android:id="@+id/back"
+            android:id="@+id/section_back"
             android:textColor="#ffffffff"
             android:layout_gravity="center_vertical|left" />
 

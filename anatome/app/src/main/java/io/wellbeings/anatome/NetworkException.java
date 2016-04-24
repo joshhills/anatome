@@ -1,7 +1,10 @@
 package io.wellbeings.anatome;
 
 /**
- * Created by Callum on 21/04/16.
+ * Provide a bespoke, named exception to
+ * aid code clarity.
+ *
+ * @author Team WellBeings - Callum
  */
 public class NetworkException extends Exception{
         public NetworkException() { super(); }
