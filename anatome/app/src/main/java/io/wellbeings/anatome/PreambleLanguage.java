@@ -8,9 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-
 /**
- * A simple {@link Fragment} subclass.
+ * Allow the user to select their language.
+ *
+ * @author Team WellBeings - Josh
  */
 public class PreambleLanguage extends Fragment implements View.OnClickListener {
 

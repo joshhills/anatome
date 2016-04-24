@@ -13,14 +13,16 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 /**
- * A simple {@link Fragment} subclass.
+ * Interactive subsection hinging on body part
+ * provides a breathing control simulation and
+ * extra advice to encourage users to relax.
+ *
+ * @author Team WellBeings - Lizzie, Abdulla
  */
 public class HeartWidget extends Fragment implements Widget, View.OnClickListener {
 

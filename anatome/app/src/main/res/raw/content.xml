@@ -328,16 +328,26 @@
                 <notification id="email-invalid" graphic="./assets/defaults/toast-graphic.png">
                     The email entered is not a valid email address. Please try again.
                 </notification>
+                <notification id="password-set" graphic="./assets/defaults/toast-graphic.png">
+                    Password set.
+                </notification>
+                <notification id="password-fail" graphic="./assets/defaults/toast-graphic.png">
+                    Passwords didn't match!.
+                </notification>
             </notifications>
             <buttons>
                 <label id="next">Next</label>
                 <label id="back">Back</label>
                 <label id="ok">Okay</label>
+                <label id="confirm">Confirm</label>
                 <label id="cancel">Cancel</label>
                 <label id="oops">Oops!</label>
                 <label id="done">Done</label>
                 <label id="start">Start</label>
                 <label id="stop">Stop</label>
+                <label id="set">Set</label>
+                <label id="password-set">Set Password</label>
+                <label id="password-confirm">Please confirm your password.</label>
                 <label id="date">Last modified</label>
                 <label id="unit">Unit</label>
                 <label id="units">Units</label>

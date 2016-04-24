@@ -18,9 +18,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Allow the user to password protect
+ * the potentially private contents
+ * of the application.
+ *
+ * @author Team WellBeings - Josh
+ */
 public class PreambleLock extends Fragment {
 
+    // Store the view for code clarity.
     View view;
+
+    /* Necessary lifecycle methods. */
 
     public PreambleLock() {
         // Required empty public constructor
@@ -37,19 +47,27 @@ public class PreambleLock extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_preamble_lock, container, false);
 
-        populateContent();
+        initGUI();
+
         attachListeners();
 
         return view;
+
     }
 
-    private void populateContent() {
+    private void initGUI() {
+
+        // Set textual contents of elements.
 
         ((TextView) view.findViewById(R.id.preamble_header_lock))
                 .setText(UtilityManager.getContentLoader(getContext()).getHeaderText("preamble", "lock"));
 
         ((TextView) view.findViewById(R.id.preamble_information_lock))
                 .setText(UtilityManager.getContentLoader(getContext()).getInfoText("preamble", "lock"));
+
+        ((Button) view.findViewById(R.id.preamble_password)).setText(
+                UtilityManager.getContentLoader(getContext()).getButtonText("password-set")
+        );
 
     }
 
@@ -63,7 +81,9 @@ public class PreambleLock extends Fragment {
 
                 // Create overarching interaction.
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
-                builder.setTitle("Set Password");
+                builder.setTitle(
+                        UtilityManager.getContentLoader(getContext()).getButtonText("password-set")
+                );
 
                 // Create input.
                 final EditText pwInput = new EditText(getContext());
@@ -77,50 +97,58 @@ public class PreambleLock extends Fragment {
                 builder.setView(pwInput);
 
                 // Dictate what the buttons do.
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Store the input.
-                        final String proposedPassword = pwInput.getText().toString();
-                        // Reset the input.
-                        final EditText pwConfirm = new EditText(getContext());
-                        pwConfirm.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        pwConfirm.setFilters(new InputFilter[]{new InputFilter.LengthFilter(
-                                UtilityManager.getUserUtility(getContext()).getPASSWORD_LENGTH()
-                        )});
-                        builder.setView(pwConfirm);
-                        builder.setTitle("Please confirm your password.");
-                        // Change the purpose of the button.
-                        builder.setPositiveButton("SET", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(
+                        UtilityManager.getContentLoader(getContext()).getButtonText("ok"),
+                        new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // If password confirmation was successful...
-                                if (pwConfirm.getText().toString().equals(proposedPassword)) {
-                                    // Display visual feedback.
-                                    Toast.makeText(getContext(), "Password set.",
-                                            Toast.LENGTH_SHORT).show();
-                                    // Store password.
-                                    UtilityManager.getUserUtility(getContext()).setPassword(
-                                            pwConfirm.getText().toString());
-                                    // Continue to main activity.
-                                    Intent intent = new Intent(getActivity(), MainScroll.class);
-                                    startActivity(intent);
-                                } else {
-                                    dialog.cancel();
-                                    Toast.makeText(getContext(), "Your passwords didn't match!",
-                                            Toast.LENGTH_SHORT).show();
-                                }
+                                // Store the input.
+                                final String proposedPassword = pwInput.getText().toString();
+                                // Reset the input.
+                                final EditText pwConfirm = new EditText(getContext());
+                                pwConfirm.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                                pwConfirm.setFilters(new InputFilter[]{new InputFilter.LengthFilter(
+                                        UtilityManager.getUserUtility(getContext()).getPASSWORD_LENGTH()
+                                )});
+                                builder.setView(pwConfirm);
+                                builder.setTitle(UtilityManager.getContentLoader(getContext()).getButtonText("password-confirm"));
+                                // Change the purpose of the button.
+                                builder.setPositiveButton(
+                                        UtilityManager.getContentLoader(getContext()).getButtonText("confirm"),
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // If password confirmation was successful...
+                                                if (pwConfirm.getText().toString().equals(proposedPassword)) {
+                                                    // Display visual feedback.
+                                                    Toast.makeText(getContext(),
+                                                            UtilityManager.getContentLoader(getContext()).getNotificationText("password-set"),
+                                                            Toast.LENGTH_SHORT).show();
+                                                    // Store password.
+                                                    UtilityManager.getUserUtility(getContext()).setPassword(
+                                                            pwConfirm.getText().toString());
+                                                    // Continue to main activity.
+                                                    Intent intent = new Intent(getActivity(), MainScroll.class);
+                                                    startActivity(intent);
+                                                } else {
+                                                    dialog.cancel();
+                                                    Toast.makeText(getContext(),
+                                                            UtilityManager.getContentLoader(getContext()).getNotificationText("password-fail"),
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                    });
+                                builder.show();
                             }
                         });
-                        builder.show();
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                builder.setNegativeButton(
+                        UtilityManager.getContentLoader(getContext()).getButtonText("cancel"),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
 
                 // Show the now prepared dialog.
                 builder.show();
