@@ -342,6 +342,7 @@
                 <label id="man">Man</label>
                 <label id="no-preference">No preference</label>
                 <label id="filter-info">* This will request a specific advisor.</label>
+                <label id="submit-tip">Submit a tip</label>
             </buttons>
         </miscellaneous>
     </content>
