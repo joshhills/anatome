@@ -92,7 +92,6 @@ public class Section extends FragmentActivity {
         final int mainColourId = (ContextCompat.getColor(this,
                 UtilityManager.getThemeUtility(this).getColour(section + "_main_bg")));
 
-
         ((ImageView) findViewById(R.id.section_image)).setImageResource(resourceId);
         ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(secondaryColourId);
         ((Button) findViewById(R.id.back)).setBackgroundColor(backBtnColourId);
