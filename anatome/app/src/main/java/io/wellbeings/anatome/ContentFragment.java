@@ -37,7 +37,7 @@ import cz.msebera.android.httpclient.client.cache.Resource;
 /**
  *  This class handles the loading of section information.
  */
-public class ContentFragment extends Fragment implements Widget {
+public class ContentFragment extends Fragment {
 
     // Store content view.
     View view;

@@ -22,8 +22,7 @@ import java.util.TimerTask;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HeartWidget extends Fragment implements Widget, View.OnClickListener {
-
+public class HeartWidget extends Fragment implements View.OnClickListener {
 
     boolean counterIsIncreasing = true; // check if the timer is increasing
     boolean counterIsActive; // check if the timer is running

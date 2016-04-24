@@ -43,7 +43,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class BrainWidget extends Fragment implements Widget {
+public class BrainWidget extends Fragment {
     // Store view object for UI manipulation.
     private View v;
 

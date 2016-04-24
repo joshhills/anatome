@@ -154,12 +154,29 @@
                         android:textColorHint="#dddddd" />
                 </LinearLayout>
 
-                <Button
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Change password"
-                    android:id="@+id/settings_password"
-                    android:background="#ffffff" />
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Change password"
+                        android:id="@+id/settings_password_change"
+                        android:background="#ffffff"
+                        android:layout_weight="50"
+                        android:layout_marginRight="5dp" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Remove password"
+                        android:id="@+id/settings_password_clear"
+                        android:background="#ffffff"
+                        android:layout_weight="50"
+                        android:layout_marginLeft="5dp" />
+                </LinearLayout>
 
                 <Button
                     android:layout_width="fill_parent"

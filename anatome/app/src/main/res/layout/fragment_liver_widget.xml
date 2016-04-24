@@ -21,39 +21,73 @@
         android:background="@color/liver_secondary_bg"
         android:id="@+id/liver_unit_manipulation"
         android:layout_weight="8"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
-        <Button
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="CLR"
-            android:id="@+id/liver_clear_button"
-            android:layout_weight="16.5" />
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:gravity="center_vertical|center_horizontal"
+            android:weightSum="1">
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="UNDO"
-            android:id="@+id/liver_undo_button"
-            android:layout_weight="16.5" />
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/liver_clear_button"
+                android:background="@drawable/liver_clear" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="0 Units"
-            android:id="@+id/liver_unit_display"
-            android:textColor="@color/liver_accent_text"
-            android:textSize="25dp"
-            android:textAlignment="center"
-            android:fontFamily="@string/font_name_helvetica"
-            android:layout_weight="33" />
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:gravity="center_vertical|center_horizontal">
 
-        <Button
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/liver_undo_button"
+                android:background="@drawable/liver_remove"
+                android:clickable="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:gravity="center_vertical|center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 Units"
+                android:id="@+id/liver_unit_display"
+                android:textColor="@color/liver_accent_text"
+                android:textSize="25dp"
+                android:textAlignment="center"
+                android:fontFamily="@string/font_name_helvetica"
+                android:layout_weight="25" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="ADD"
-            android:id="@+id/liver_add_button"
-            android:layout_weight="33" />
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:gravity="center_vertical|center_horizontal">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/liver_add_button"
+                android:background="@drawable/liver_add" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

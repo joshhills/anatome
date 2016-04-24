@@ -236,21 +236,24 @@
             </information>
             <!--temporary ids and information since I can't think of goo ones right now-->
             <information id="threshold-1">
-                You haven't added anything yet. Abstaining is totally fine!
+                You haven't had anything alcoholic yet. Abstaining is totally fine!
             </information>
             <information id="threshold-2">
-                Be wary, you're almost over the government guidelines for alcohol consumption.
+                You're doing okay! Remember, it's not about the drink...
             </information>
-            <information id="threshhold-3">
-                At this point, you should start slowing down.
+            <information id="threshold-3">
+                Be wary, you're almost over the government guidelines for alcohol consumption (surprising, huh?).
             </information>
             <information id="threshold-4">
-                After this point, you may start feeling nauseous, and your decision-making skills may be impaired.
+                At this point, you should start slowing down. Remember to throw some water in the mix.
             </information>
             <information id="threshold-5">
-                You have drunk a dangerous amount of alcohol. Any more can potentially cause longer lasting ailments.
+                After this point, you may start feeling nauseous, and your decision-making skills may be impaired.
             </information>
             <information id="threshold-6">
+                You have drunk a dangerous amount of alcohol. Any more can potentially cause longer lasting ailments.
+            </information>
+            <information id="threshold-7">
                 It's time to go home, or possibly to the hospital.
             </information>
             <information id="units">
@@ -317,6 +320,8 @@
                 <label id="oops">Oops!</label>
                 <label id="done">Done</label>
                 <label id="date">Last modified</label>
+                <label id="unit">Unit</label>
+                <label id="units">Units</label>
             </buttons>
         </miscellaneous>
     </content>
