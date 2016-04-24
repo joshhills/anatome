@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * Created by bettinaalexieva on 15/03/2016.
  */
-public class TestLayout extends AppCompatActivity {
+public class AppointmentDetails extends AppCompatActivity {
 
     private Button mBackFromBooked;
 
@@ -24,13 +24,13 @@ public class TestLayout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booking_details);
 
+        // Set font.
+        Typeface customFont = UtilityManager.getThemeUtility(this).getFont("champagne");
 
+        // Find and save references to UI element.
         mBackFromBooked = (Button)findViewById(R.id.backFromBooked);
 
-        AssetManager assetManager = getAssets();
-        Typeface customFont = Typeface.createFromAsset(assetManager, "fonts/champagne.ttf");
-
-        //mBackFromBooked.setTypeface(customFont);
+        // Add back button.
         mBackFromBooked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,29 +39,33 @@ public class TestLayout extends AppCompatActivity {
             }
         });
 
-
-        Context ctx = TestLayout.this;
+        Context ctx = AppointmentDetails.this;
         HashMap<String, String> appointments;
 
+        // Retrieve and display appointment.
         try {
 
+            // Appointment retrieved from database.
             appointments = UtilityManager.getDbUtility(this).getAppointment();
 
+            // References to UI elements.
             TextView timeView = (TextView) findViewById(R.id.bookedTime);
             TextView dateView = (TextView) findViewById(R.id.bookedDate);
 
+            // Appointment details saved and converted to Strings.
             String date = appointments.get("App_Date").toString();
             String time = appointments.get("App_Time").toString();
 
+            // Text of UI elements displays appointment details.
             dateView.setText(date);
             timeView.setText(time);
 
-            NotificationHandler.pushNotification(TestLayout.this, "Booked Appointment:", "Time: " + time + " - Date: " + date);
+            // Create a notification containing appointment details.
+            NotificationHandler.pushNotification(AppointmentDetails.this, "Booked Appointment:", "Time: " + time + " - Date: " + date);
 
-        }catch(NetworkException e) {
-            NotificationHandler.NetworkErrorDialog(TestLayout.this);
+        } catch(NetworkException e) {
+            // Exception caught in case of Network Failure.
+            NotificationHandler.NetworkErrorDialog(AppointmentDetails.this);
         }
-
     }
-
 }

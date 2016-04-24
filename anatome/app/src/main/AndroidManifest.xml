@@ -51,7 +51,7 @@
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden" />
         <activity
-            android:name=".TestLayout"
+            android:name=".AppointmentDetails"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"/>

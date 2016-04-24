@@ -1,6 +1,7 @@
 package io.wellbeings.anatome;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -97,16 +98,12 @@ public class Section extends FragmentActivity {
         ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(secondaryColourId);
         ((Button) findViewById(R.id.back)).setBackgroundColor(backBtnColourId);
         ((TextView) findViewById(R.id.section_name)).setBackgroundColor(secondaryColourId);
-        //((TextView) findViewById(R.id.section_name)).setTypeface();
+        ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
 
+        Typeface customFont = UtilityManager.getThemeUtility(this).getFont("Bariol");
 
-
-        UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.section_name));
-        UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.back));
-
-                ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
-
->>>>>>> origin/master
+        ((TextView) findViewById(R.id.section_name)).setTypeface(customFont);
+        ((TextView) findViewById(R.id.back)).setTypeface(customFont);
     }
 
     // Modulate set-up tasks for easy alteration.
@@ -138,7 +135,6 @@ public class Section extends FragmentActivity {
             }
         });
 
->>>>>>> origin/master
     }
 
     /**
