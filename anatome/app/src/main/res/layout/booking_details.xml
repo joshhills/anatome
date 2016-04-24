@@ -20,7 +20,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"></FrameLayout>
+            android:layout_weight="0.194"></FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -30,40 +30,48 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
                 android:id="@+id/booking_booked_date"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:textColor="#FF73A8BE"
+                android:text="YY-MM-DD"
+                android:textSize="26dp" />
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.25"></FrameLayout>
+            android:layout_weight="0.242"></FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.17">
+            android:layout_weight="0.158">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
                 android:id="@+id/booking_booked_time"
-                android:layout_gravity="center_horizontal|top" />
+                android:layout_gravity="center_horizontal|top"
+                android:textColor="#FF73A8BE"
+                android:text="HH:MM:SS"
+                android:textSize="26dp" />
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.22">
+            android:layout_weight="0.23">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="Back"
                 android:id="@+id/booking_booked_back"
-                android:layout_gravity="center_horizontal|bottom" />
+                android:layout_gravity="center_horizontal|bottom"
+                style="?android:attr/borderlessButtonStyle"
+                android:textAllCaps="false"
+                android:textColor="#FF73A8BE"
+                android:textSize="26dp" />
         </FrameLayout>
     </LinearLayout>
 

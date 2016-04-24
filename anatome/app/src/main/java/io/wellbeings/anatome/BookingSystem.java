@@ -68,9 +68,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        String s = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
-        Toast.makeText(BookingSystem.this,s,Toast.LENGTH_LONG).show();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booking_layout);
 
