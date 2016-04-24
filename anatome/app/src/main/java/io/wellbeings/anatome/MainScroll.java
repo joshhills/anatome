@@ -9,6 +9,8 @@ import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -28,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 
 /**
@@ -117,12 +120,35 @@ public class MainScroll extends Activity {
 
     private void initGUI() {
 
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE); // the results will be higher than using the activity context object or the getWindowManager() shortcut
+        wm.getDefaultDisplay().getMetrics(displayMetrics);
+        int screenWidth = displayMetrics.widthPixels;
+
+        // default screen size
+        float targetSize = 1;
+
+        // check if screen size is found
+        if (screenWidth != 0) {
+
+            // scale screen size
+            targetSize = 1080f / screenWidth;
+        }
+
+        int targetScreenWidth = (int) (1080f / targetSize);
+
+        Log.d("targetSize", Float.toString(targetSize));
+        Log.d("screenWidth", Integer.toString(screenWidth));
+        Log.d("targetScreenWidth", Integer.toString(targetScreenWidth));
+
+
         // load the rocket background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_rocket)
                 .dontTransform()
                 //.override(1080, 732)
-                .override(1080 / 2, 732 / 2)
+                .override(targetScreenWidth, (int) (732 / targetSize))
                 .into((ImageView) findViewById(R.id.mainscroll_rocket_background));
 
         // load the rocket animation image
@@ -130,7 +156,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.rocket_animation)
                 .dontTransform()
                 //.override(1080, 732)
-                .override(1080 / 2, 732 / 2)
+                .override(targetScreenWidth, (int) (732 / targetSize))
                 .animate(R.anim.rocket_animation)
                 .into((ImageView) findViewById(R.id.rocket_animation));
 
@@ -139,7 +165,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.mainscroll_fuel_dark)
                 .dontTransform()
                 //.override(1080, 732)
-                .override(1080 / 2, 732 / 2)
+                .override(targetScreenWidth,(int) (732 / targetSize))
                 .animate(R.anim.rocket_fuel_movement_animation)
                 .into((ImageView) findViewById(R.id.mainscroll_fuel_dark));
 
@@ -148,7 +174,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.mainscroll_fuel_light)
                 .dontTransform()
                // .override(1080, 732)
-                .override(1080 / 2, 732 / 2)
+                .override(targetScreenWidth, (int) (732 / targetSize))
                 .animate(R.anim.rocket_fuel_animation)
                 .into((ImageView) findViewById(R.id.mainscroll_fuel_light));
 
@@ -157,7 +183,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.mainscroll_kite)
                 .dontTransform()
                // .override(1080, 732)
-                .override(1080 / 2, 732 / 2)
+                .override(targetScreenWidth, (int) (732 / targetSize))
                 .into((ImageView) findViewById(R.id.mainscroll_kite));
 
         // load the background image
@@ -165,7 +191,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.mainscroll_background_upper)
                 .dontTransform()
                // .override(1080, 2700)
-                .override(1080 / 2, 2700 / 2)
+                .override(targetScreenWidth, (int) (2700 / targetSize))
                 .into((ImageView) findViewById(R.id.mainscroll_background_upper));
 
         // load the background image
@@ -173,7 +199,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.mainscroll_background_lower)
                 .dontTransform()
                 //.override(1080, 2638)
-                .override(1080/2, 2638 / 2)
+                .override(targetScreenWidth, (int) (2638 / targetSize))
                 .into((ImageView) findViewById(R.id.mainscroll_background_lower));
 
         // load the heart image
@@ -181,7 +207,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.heart)
                 .dontTransform()
                 //.override(1200, 1014)
-                .override(1200 / 2, 1014 / 2)
+                .override(targetScreenWidth, (int) (1014 / targetSize))
                 .animate(R.anim.heart_animation)
                 .into((ImageView) findViewById(R.id.heart));
 
@@ -190,7 +216,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.brain)
                 .dontTransform()
                 //.override(1080, 1262)
-                .override(1080 / 2, 1262 / 2)
+                .override(targetScreenWidth, (int) (1262 / targetSize))
                 .animate(R.anim.brain_animation)
                 .into((ImageView) findViewById(R.id.brain));
 
@@ -199,7 +225,7 @@ public class MainScroll extends Activity {
                 .load(R.drawable.liver_front)
                 .dontTransform()
                 //.override(1080, 662)
-                .override(1080 / 2, 662 / 2)
+                .override(targetScreenWidth, (int) (662 / targetSize))
                 .animate(R.anim.liver_animation)
                 .into((ImageView) findViewById(R.id.liver));
 
@@ -208,29 +234,32 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.liver_back)
                 .dontTransform()
-               //.override(1080, 662)
-                .override(1080 / 2, 662 / 2)
+                        //.override(1080, 662)
+                .override(targetScreenWidth, (int) (662 / targetSize))
                 .into((ImageView) findViewById(R.id.liver_back));
 
         //load the footer
         Glide.with(this)
                 .load(R.drawable.footer)
                 .dontTransform()
-                //.override(1080, 731)
-                .override(1080/2, 731/2)
+                        //.override(1080, 731)
+                .override(targetScreenWidth, (int) (731 / targetSize))
                 .into((ImageView) findViewById(R.id.mainscroll_footer));
 
 
-
+        // display the welcome message at the top of the mainScroll
         TextView welcomeHeader = (TextView)findViewById(R.id.mainscroll_welcome_text);
         welcomeHeader.setText(UtilityManager.getContentLoader(this).getHeaderText("mainscroll", "welcome"));
 
+        // display a message to the user on the mainscroll
         TextView t = (TextView)findViewById(R.id.main_scroll_text);
         t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "welcome_text"));
 
+        // display a title message in the footer
         TextView footerTextTitle = (TextView)findViewById(R.id.mainscroll_organisation_title);
         footerTextTitle.setText(UtilityManager.getContentLoader(this).getHeaderText("mainscroll", "more_help"));
 
+        // display a message in the footer
         TextView footerTextInfo = (TextView)findViewById(R.id.mainscroll_more_help_text);
         footerTextInfo.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "more_help_text"));
 
