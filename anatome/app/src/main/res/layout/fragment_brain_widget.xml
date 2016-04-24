@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Keep track of the things that make you happy:"
-                    android:id="@+id/textView5"
+                    android:id="@+id/brain_instruction_positive"
                     android:layout_weight="0.1"
                     android:textSize="16dp"
                     android:textColor="@color/brain_accent_text" />
@@ -229,7 +229,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="And throw away the thoughts that don&apos;t ..."
-                    android:id="@+id/textView8"
+                    android:id="@+id/brain_instruction_negative"
                     android:textColor="@color/brain_accent_text"
                     android:textSize="16dp"
                     android:layout_weight="0.25" />

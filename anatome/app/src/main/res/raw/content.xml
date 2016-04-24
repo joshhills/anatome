@@ -94,6 +94,12 @@
                 Consider reaching out to those close to you such as family and friends.
                 •	Use our app to book an appointment with the Student wellbeing here at Newcastle University or contact them directly: 0191 208 3333.
             </information>
+            <information id="instruction-positive">
+                Keep track of the things that make you happy:
+            </information>
+            <information id="instruction-negative">
+                And throw away the thoughts that don't...
+            </information>
             <links>
                 <link>
                     <name>

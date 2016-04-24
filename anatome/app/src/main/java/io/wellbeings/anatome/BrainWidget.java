@@ -47,6 +47,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class BrainWidget extends Fragment implements Widget {
+
+    // Store name of section.
+    private final String SECTION = "brain";
     // Store view object for UI manipulation.
     private View v;
 
@@ -61,7 +64,6 @@ public class BrainWidget extends Fragment implements Widget {
 
     private int currentSongIndex = 0;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
- 
 
     //result code constants for image and audio selection
     private static final int RESULT_LOAD_IMG = 1;
@@ -114,6 +116,17 @@ public class BrainWidget extends Fragment implements Widget {
     }
 
     public void initGUI() {
+
+        // Set textual content.
+
+        ((TextView) v.findViewById(R.id.brain_instruction_positive)).setText(
+                UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "instruction-positive")
+        );
+
+        ((TextView) v.findViewById(R.id.brain_instruction_negative)).setText(
+                UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "instruction-negative")
+        );
+
         //initialise list of notes from file
         noteList = getList();
 
