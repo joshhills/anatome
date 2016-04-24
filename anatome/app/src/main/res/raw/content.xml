@@ -167,7 +167,7 @@
                 If you don't feel like the normal you after following some of the tips listed above, why not consider asking for help? Below are some places you can contact for a little extra help.
             </information>
             <information id="instructional_text">
-                Breathe in and count to 2, These feelings will pass, Breathe out, concentrate on your breathing
+                Breathe in and count to 2, These feelings will pass, Breathe out, Concentrate on your breathing
             </information>
             <links>
                 <link>
@@ -220,10 +220,14 @@
                 </header>
             </headers>
             <information id="title">
-                Here's some information about the topic.
+                Alcohol consumption for many students is a big part of university life, however it is important to remember the impact it can have on your health and studies! Excess consumption can have many consequences including the impairment of motor skills, harm to interpersonal relationships and along side badly affecting your studies. Peer pressure is often a large factor in student drinking and substance abuse, so remember it is okay to say no!
             </information>
             <information id="tips">
-                Here are some tips.
+                Know your limits
+                Keep track of how many units you have
+                Remember, it’s okay to say no!
+                Always have plans to get home after drinking
+
             </information>
             <information id="drinks">
                 Beer,Cider,Wine,Spirit,Alcopop,Sours,Other
@@ -273,18 +277,19 @@
                 </link>
                 <link>
                     <name>
-                        Helpful link2.
+                        NHS
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        http://www.nhs.uk/Livewell/studenthealth/Pages/Smoking,alcoholanddrugs.aspx
+
                     </source>
                 </link>
                 <link>
                     <name>
-                        Helpful link3.
+                        Drink Aware
                     </name>
                     <source>
-                        http://www.helpfulsource.com
+                        https://www.drinkaware.co.uk/
                     </source>
                 </link>
             </links>
