@@ -62,6 +62,7 @@ public class BrainWidget extends Fragment implements Widget {
     MediaPlayer mp;
     AudioManager audioManager;
 
+    //data used for audio support
     private int currentSongIndex = 0;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
 
@@ -78,6 +79,8 @@ public class BrainWidget extends Fragment implements Widget {
     private int noteListPage; //indexing starts at 1
     //constant storing the maximum number of notes per page
     private static int MAX_NOTES_PER_PAGE = 5;
+    //integer storing the current day streak the user has saving notes
+    private int dayStreak;
 
     //required empty constructor
     public BrainWidget() { }
@@ -108,6 +111,21 @@ public class BrainWidget extends Fragment implements Widget {
 
         //initialise the main GUI elements
         initGUI();
+
+        //calculate the day streak that a user has saved a thought for
+        //start by initialising dayStreak to 0
+        dayStreak = 0;
+        while(dayStreak < noteList.size()) {
+            //calculate how many days ago the next most recent note was
+            int streak = 5;
+
+            //if it's more than 1, break as the streak has ended
+            if(streak > 1) break;
+
+            //otherwise, increment streak by 1, and repeat with the following note
+            else dayStreak++;
+        }
+        //display the day streak to the user
 
         //attach listeners for the main UI component
         attachListeners();
