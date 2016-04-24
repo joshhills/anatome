@@ -53,14 +53,20 @@ public class NotificationHandler {
 
     public static void NetworkErrorDialog(Context ctx) {
         new AlertDialog.Builder(ctx)
-                .setTitle("Oops...")
-                .setMessage("Looks like you're not connected to the internet. Check your settings and try again. Some features will not function without internet.")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                        dialog.cancel();
-                    }
-                })
+                .setTitle(
+                        UtilityManager.getContentLoader(ctx).getButtonText("oops")
+                )
+                .setMessage(
+                        UtilityManager.getContentLoader(ctx).getNotificationText("network-error")
+                )
+                .setPositiveButton(
+                        UtilityManager.getContentLoader(ctx).getButtonText("ok"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                dialog.cancel();
+                            }
+                        })
                 .show();
     }
 

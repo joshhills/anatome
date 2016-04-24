@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This document conforms to a bespoke schema directly accesible by our application. -->
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="contentschema.xsd">
+
     <!-- Content blocks hold bulk information in various languages for internationalization. -->
     <content lang="en">
-        <!-- Sections store text relevant to the visible frame. -->
+
+        <!-- Store relevant sectional information for application startup. -->
         <section name="preamble">
-            <!-- Headers store titles for parts of the section. -->
+            <!-- Store the headers for the sub-fragments. -->
             <headers>
                 <header id="intro">
                     Hey there!
@@ -45,6 +47,8 @@
                 2016-04-23T09:00:00Z
             </modified>
         </section>
+
+        <!-- Store information to be displayed on the main application window. -->
         <section name="mainscroll">
             <headers>
                 <header id="welcome">
@@ -60,9 +64,14 @@
             <information id="more_help_text">
                 Sometimes a face-to-face can't be beaten. Take a look at your local resource center for well-being.
             </information>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2016-04-23T09:00:00Z
+            </modified>
         </section>
+
+        <!-- Store information for the brain widget section. -->
         <section name="brain">
-            <!-- Headers store titles for parts of the section. -->
             <headers>
                 <header id="title">
                     Mental Health
@@ -82,16 +91,16 @@
                 Coming to university can be a stressful and overwhelming experience, but don’t despair!
                 Understanding your feelings and how to cope is the first step to feeling like you are back on track.
                 First let’s understand what depression is and how it can make you feel:
-                • Extended periods of sadness
-                • A feeling of hopelessness,
-                • Lack of motivation and self-belief.
-                • Feeling of fatigue
-                • Insomnia
+                •   Extended periods of sadness
+                •   A feeling of hopelessness,
+                •   Lack of motivation and self-belief.
+                •   Feeling of fatigue
+                •   Insomnia
                 The severity of these feeling can vary between students.
                 For some these symptoms can subside over time, however, it is always worth being aware of how you can cope and the advice you can seek.
             </information>
             <information id="tips">
-                •	Maintain a positive attitude. Try replacing negative thought with positive ones.
+                •   Maintain a positive attitude. Try replacing negative thought with positive ones.
                 •	Keep to a routine and plan your days. Having structure will make you feel more at ease.
                 •	Remember, you are not the only one who feels this way, you are not alone.
                 Consider reaching out to those close to you such as family and friends.
@@ -114,7 +123,7 @@
                 </link>
                 <link>
                     <name>
-                        mentalhealth.org
+                        Mental Health Organisation
                     </name>
                     <source>
                         http://www.mentalhealth.org.uk/help-information/mental-health-a-z/D/depression/
@@ -129,16 +138,14 @@
                     </source>
                 </link>
             </links>
-            <graphic>
-                ./assets/defaults/section-graphic.png
-            </graphic>
             <!-- Important meta information displays relevance of section content, therefore mandatory. -->
             <modified>
                 2016-04-23T09:00:00Z
             </modified>
         </section>
+
+        <!-- Store information for the brain widget section. -->
         <section name="heart">
-            <!-- Headers store titles for parts of the section. -->
             <headers>
                 <header id="title">
                     Anxiety
@@ -158,15 +165,15 @@
                 Anxiety also affects us mentally due to the stain our bodies are put under. We may worry a lot, which resulting in a change of our behaviour towards others. We may feel overwhelmed and overcome by these feelings of anxiety and find ourselves acting out of character in situation.
                 Also, some long term effects such may occur such as sleeping problems and depression.
                 Situations where anxiety is common:
-                1-	Day before the exam
-                2-	Sitting in an exam room
-                3-	Going away from home (e.g. studying abroad)
-                4-	Going to a hospital
+                1 -	Day before the exam
+                2 -	Sitting in an exam room
+                3 -	Going away from home (e.g. studying abroad)
+                4 -	Going to a hospital
                 Examples of what might causes of anxiety:
-                1-	Past experiences
-                2-	A drastic change
-                3-	Genetics
-                4-  New Experiences
+                1 -	Past experiences
+                2 -	A drastic change
+                3 -	Genetics
+                4 - New Experiences
             </information>
             <information id="tips">
                 Try to do some exercises to reduce stress for example such jogging, walking or swimming
@@ -184,7 +191,7 @@
             <links>
                 <link>
                     <name>
-                        Anxiety and panic attacks
+                        Information about panic attacks
                     </name>
                     <source>
                         http://www.mind.org.uk/information-support/types-of-mental-health-problems/anxiety-and-panic-attacks/#.VrnW-tuLRD8
@@ -192,7 +199,7 @@
                 </link>
                 <link>
                     <name>
-                        Anxiety
+                        Information about anxiety
                     </name>
                     <source>
                         http://www.moodjuice.scot.nhs.uk/anxiety.asp
@@ -200,21 +207,20 @@
                 </link>
                 <link>
                     <name>
-                        Generalised anxiety disorder
+                        Information about disorders
                     </name>
                     <source>
                         http://www.nhs.uk/Conditions/Anxiety/Pages/Introduction.aspx
                     </source>
                 </link>
             </links>
-            <graphic>
-                ./assets/defaults/section-graphic.png
-            </graphic>
             <!-- Important meta information displays relevance of section content, therefore mandatory. -->
             <modified>
                 2016-04-23T09:00:00Z
             </modified>
         </section>
+
+        <!-- Store information for the liver widget section. -->
         <section name="liver">
             <!-- Headers store titles for parts of the section. -->
             <headers>
@@ -239,8 +245,9 @@
                 Keep track of how many units you have
                 Remember, it’s okay to say no!
                 Always have plans to get home after drinking
-
             </information>
+
+            <!-- Functional information. -->
             <information id="drinks">
                 Beer,Cider,Wine,Spirit,Alcopop,Sours,Other
             </information>
@@ -250,7 +257,6 @@
             <information id="percentage">
                 40%,37.5%,15%,12%,10%,7.5%,5%,4%,Other
             </information>
-            <!--temporary ids and information since I can't think of goo ones right now-->
             <information id="threshold-1">
                 You haven't had anything alcoholic yet. Abstaining is totally fine!
             </information>
@@ -271,9 +277,6 @@
             </information>
             <information id="threshold-7">
                 It's time to go home, or possibly to the hospital.
-            </information>
-            <information id="units">
-                Units
             </information>
             <information id="threshold-warning">
                 This is over the recommended daily allowance.
@@ -305,16 +308,15 @@
                     </source>
                 </link>
             </links>
-            <graphic>
-                ./assets/defaults/section-graphic.png
-            </graphic>
             <!-- Important meta information displays relevance of section content, therefore mandatory. -->
             <modified>
                 2016-04-23T09:00:00Z
             </modified>
         </section>
+
         <!-- Extra smaller parts of information. -->
         <miscellaneous>
+
             <notifications>
                 <notification id="token" graphic="./assets/defaults/toast-graphic.png">
                     This is a pushed notification.
@@ -332,9 +334,13 @@
                     Password set.
                 </notification>
                 <notification id="password-fail" graphic="./assets/defaults/toast-graphic.png">
-                    Passwords didn't match!.
+                    Passwords didn't match!
+                </notification>
+                <notification id="network-error" graphic="./assets/defaults/toast-graphic.png">
+                   You're not connected to the internet. Check your settings and try again. Some features will not function without internet.
                 </notification>
             </notifications>
+
             <buttons>
                 <label id="next">Next</label>
                 <label id="back">Back</label>
@@ -372,6 +378,389 @@
                 <label id="notifications">Allow Notifications</label>
                 <label id="network">Use Network</label>
             </buttons>
+
         </miscellaneous>
+
     </content>
+
+    <content lang="es">
+
+        <!-- Store relevant sectional information for application startup. -->
+        <section name="preamble">
+            <!-- Store the headers for the sub-fragments. -->
+            <headers>
+                <header id="intro">
+                    Hey there!
+                </header>
+                <header id="name">
+                    Who are you?
+                </header>
+                <header id="lock">
+                    Keep me safe.
+                </header>
+            </headers>
+            <information id="intro">
+                Welcome to the student toolkit for well-being.
+                There's some minor information necessary to set you going so you can use your new app to soothe your mood, settle your stomach, and see a psych' whenever you like!
+
+                (This can all be tweaked in the settings.)
+            </information>
+            <information id="disclaimer">
+                * The advice in this app is not written by professionals, but we're pretty knowledgeable!
+            </information>
+            <information id="name">
+                Firstly, what should we call you?
+                (If you're worried about privacy, now's the time to re-invent yourself. Otherwise, we'll remember you as 'guest'!)
+            </information>
+            <information id="username-hint">
+                name
+            </information>
+            <information id="email-hint">
+                login@university.ac.uk
+            </information>
+            <information id="lock">
+                You can use our interactive sections to store personal information.
+                For this reason, you may want to password-protect them.
+            </information>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2016-04-23T09:00:00Z
+            </modified>
+        </section>
+
+        <!-- Store information to be displayed on the main application window. -->
+        <section name="mainscroll">
+            <headers>
+                <header id="welcome">
+                    Welcome!
+                </header>
+                <header id="more_help">
+                    Learn More
+                </header>
+            </headers>
+            <information id="welcome_text">
+                This is a triage service for your state of well-being. Take a look at our key sections of student-orientated information and interactive widgets to help you overcome your problems!
+            </information>
+            <information id="more_help_text">
+                Sometimes a face-to-face can't be beaten. Take a look at your local resource center for well-being.
+            </information>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2016-04-23T09:00:00Z
+            </modified>
+        </section>
+
+        <!-- Store information for the brain widget section. -->
+        <section name="brain">
+            <headers>
+                <header id="title">
+                    Mental Health
+                </header>
+                <header id="tips">
+                    Here's some general pointers:
+                </header>
+                <header id="links">
+                    Want to know more?
+                </header>
+                <header id="advice">
+                    Community Advice
+                </header>
+            </headers>
+            <information id="title">
+                Here's some information about the topic:
+                Coming to university can be a stressful and overwhelming experience, but don’t despair!
+                Understanding your feelings and how to cope is the first step to feeling like you are back on track.
+                First let’s understand what depression is and how it can make you feel:
+                •   Extended periods of sadness
+                •   A feeling of hopelessness,
+                •   Lack of motivation and self-belief.
+                •   Feeling of fatigue
+                •   Insomnia
+                The severity of these feeling can vary between students.
+                For some these symptoms can subside over time, however, it is always worth being aware of how you can cope and the advice you can seek.
+            </information>
+            <information id="tips">
+                •   Maintain a positive attitude. Try replacing negative thought with positive ones.
+                •	Keep to a routine and plan your days. Having structure will make you feel more at ease.
+                •	Remember, you are not the only one who feels this way, you are not alone.
+                Consider reaching out to those close to you such as family and friends.
+                •	Use our app to book an appointment with the Student wellbeing here at Newcastle University or contact them directly: 0191 208 3333.
+            </information>
+            <information id="instruction-positive">
+                Keep track of the things that make you happy:
+            </information>
+            <information id="instruction-negative">
+                And throw away the thoughts that don't...
+            </information>
+            <links>
+                <link>
+                    <name>
+                        NHS
+                    </name>
+                    <source>
+                        http://www.nhs.uk/Conditions/Depression/Pages/Introduction.aspx
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Mental Health Organisation
+                    </name>
+                    <source>
+                        http://www.mentalhealth.org.uk/help-information/mental-health-a-z/D/depression/
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Mind
+                    </name>
+                    <source>
+                        http://www.mind.org.uk/information-support/types-of-mental-health-problems/depression/#.VlR2xuonyUk
+                    </source>
+                </link>
+            </links>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2016-04-23T09:00:00Z
+            </modified>
+        </section>
+
+        <!-- Store information for the brain widget section. -->
+        <section name="heart">
+            <headers>
+                <header id="title">
+                    Anxiety
+                </header>
+                <header id="tips">
+                    Here's some general pointers:
+                </header>
+                <header id="links">
+                    Want to know more?
+                </header>
+                <header id="advice">
+                    Community Advice
+                </header>
+            </headers>
+            <information id="title">
+                Anxiety often happens when we experience an uncomfortable, unusual or stressful situation. Physical feelings that may trigger included: sweating, an increase heart rate, an inability to breathe and panic attacks.
+                Anxiety also affects us mentally due to the stain our bodies are put under. We may worry a lot, which resulting in a change of our behaviour towards others. We may feel overwhelmed and overcome by these feelings of anxiety and find ourselves acting out of character in situation.
+                Also, some long term effects such may occur such as sleeping problems and depression.
+                Situations where anxiety is common:
+                1 -	Day before the exam
+                2 -	Sitting in an exam room
+                3 -	Going away from home (e.g. studying abroad)
+                4 -	Going to a hospital
+                Examples of what might causes of anxiety:
+                1 -	Past experiences
+                2 -	A drastic change
+                3 -	Genetics
+                4 - New Experiences
+            </information>
+            <information id="tips">
+                Try to do some exercises to reduce stress for example such jogging, walking or swimming
+                Stay relaxed by clearing your mind or listening to music, relaxation is one of the keys to this problem.
+                Try to live a healthy lifestyle with a good diet
+                Remember, you are not alone in this world sharing your problem with your friends and family also could also help you
+                If you don't feel like the normal you after following some of the tips listed above, why not consider asking for help? Below are some places you can contact for a little extra help.
+            </information>
+            <information id="instructional-text">
+                Breathe in and count to 2, These feelings will pass, Breathe out, Concentrate on your breathing
+            </information>
+            <information id="advice-text">
+                Follow the steps above when you are feeling stressed.
+            </information>
+            <links>
+                <link>
+                    <name>
+                        Information about panic attacks
+                    </name>
+                    <source>
+                        http://www.mind.org.uk/information-support/types-of-mental-health-problems/anxiety-and-panic-attacks/#.VrnW-tuLRD8
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Information about anxiety
+                    </name>
+                    <source>
+                        http://www.moodjuice.scot.nhs.uk/anxiety.asp
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Information about disorders
+                    </name>
+                    <source>
+                        http://www.nhs.uk/Conditions/Anxiety/Pages/Introduction.aspx
+                    </source>
+                </link>
+            </links>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2016-04-23T09:00:00Z
+            </modified>
+        </section>
+
+        <!-- Store information for the liver widget section. -->
+        <section name="liver">
+            <!-- Headers store titles for parts of the section. -->
+            <headers>
+                <header id="title">
+                    Drinking Stuff
+                </header>
+                <header id="tips">
+                    Here's some general pointers:
+                </header>
+                <header id="links">
+                    Want to know more?
+                </header>
+                <header id="advice">
+                    Community Advice
+                </header>
+            </headers>
+            <information id="title">
+                Alcohol consumption for many students is a big part of university life, however it is important to remember the impact it can have on your health and studies! Excess consumption can have many consequences including the impairment of motor skills, harm to interpersonal relationships and along side badly affecting your studies. Peer pressure is often a large factor in student drinking and substance abuse, so remember it is okay to say no!
+            </information>
+            <information id="tips">
+                Know your limits
+                Keep track of how many units you have
+                Remember, it’s okay to say no!
+                Always have plans to get home after drinking
+            </information>
+
+            <!-- Functional information. -->
+            <information id="drinks">
+                Beer,Cider,Wine,Spirit,Alcopop,Sours,Other
+            </information>
+            <information id="volume">
+                Pint,Half Pint,Single Measure,Double Measure,Treble Measure,Large Wine Glass,Small Wine Glass,Other
+            </information>
+            <information id="percentage">
+                40%,37.5%,15%,12%,10%,7.5%,5%,4%,Other
+            </information>
+            <information id="threshold-1">
+                You haven't had anything alcoholic yet. Abstaining is totally fine!
+            </information>
+            <information id="threshold-2">
+                You're doing okay! Remember, it's not about the drink...
+            </information>
+            <information id="threshold-3">
+                Be wary, you're almost over the government guidelines for alcohol consumption (surprising, huh?).
+            </information>
+            <information id="threshold-4">
+                At this point, you should start slowing down. Remember to throw some water in the mix.
+            </information>
+            <information id="threshold-5">
+                After this point, you may start feeling nauseous, and your decision-making skills may be impaired.
+            </information>
+            <information id="threshold-6">
+                You have drunk a dangerous amount of alcohol. Any more can potentially cause longer lasting ailments.
+            </information>
+            <information id="threshold-7">
+                It's time to go home, or possibly to the hospital.
+            </information>
+            <information id="threshold-warning">
+                This is over the recommended daily allowance.
+            </information>
+            <links>
+                <link>
+                    <name>
+                        Change4Life
+                    </name>
+                    <source>
+                        http://www.nhs.uk/Change4Life/Pages/drink-less-alcohol.aspx
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        NHS
+                    </name>
+                    <source>
+                        http://www.nhs.uk/Livewell/studenthealth/Pages/Smoking,alcoholanddrugs.aspx
+
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Drink Aware
+                    </name>
+                    <source>
+                        https://www.drinkaware.co.uk/
+                    </source>
+                </link>
+            </links>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2016-04-23T09:00:00Z
+            </modified>
+        </section>
+
+        <!-- Extra smaller parts of information. -->
+        <miscellaneous>
+
+            <notifications>
+                <notification id="token" graphic="./assets/defaults/toast-graphic.png">
+                    This is a pushed notification.
+                </notification>
+                <notification id="add-comment" graphic="./assets/defaults/toast-graphic.png">
+                    Be the first to add your own personal advice relating to this section of well-being!
+                </notification>
+                <notification id="email-empty" graphic="./assets/defaults/toast-graphic.png">
+                    You can set your name and email in the settings at a later time.
+                </notification>
+                <notification id="email-invalid" graphic="./assets/defaults/toast-graphic.png">
+                    The email entered is not a valid email address. Please try again.
+                </notification>
+                <notification id="password-set" graphic="./assets/defaults/toast-graphic.png">
+                    Password set.
+                </notification>
+                <notification id="password-fail" graphic="./assets/defaults/toast-graphic.png">
+                    Passwords didn't match!
+                </notification>
+                <notification id="network-error" graphic="./assets/defaults/toast-graphic.png">
+                    You're not connected to the internet. Check your settings and try again. Some features will not function without internet.
+                </notification>
+            </notifications>
+
+            <buttons>
+                <label id="next">Next</label>
+                <label id="back">Back</label>
+                <label id="ok">Okay</label>
+                <label id="confirm">Confirm</label>
+                <label id="cancel">Cancel</label>
+                <label id="oops">Oops!</label>
+                <label id="done">Done</label>
+                <label id="start">Start</label>
+                <label id="stop">Stop</label>
+                <label id="set">Set</label>
+                <label id="password-set">Set Password</label>
+                <label id="password-confirm">Please confirm your password.</label>
+                <label id="password-change">Change password</label>
+                <label id="password-remove">Remove password</label>
+                <label id="erase">Erase User Data</label>
+                <label id="date">Last modified</label>
+                <label id="unit">Unit</label>
+                <label id="units">Units</label>
+                <label id="time">Select Time</label>
+                <label id="book">Book</label>
+                <label id="appointment">Book an appointment</label>
+                <label id="filter-one">Who would you</label>
+                <label id="filter-two">like to meet?</label>
+                <label id="woman">Woman</label>
+                <label id="man">Man</label>
+                <label id="no-preference">No preference</label>
+                <label id="filter-info">* This will request a specific advisor.</label>
+                <label id="submit-tip">Submit a tip</label>
+                <label id="backend">Want to change your organization's information? Click here.</label>
+                <label id="device">Device</label>
+                <label id="profile">Profile</label>
+                <label id="name">Name</label>
+                <label id="email">Email</label>
+                <label id="notifications">Allow Notifications</label>
+                <label id="network">Use Network</label>
+            </buttons>
+
+        </miscellaneous>
+
+    </content>
+
 </application>
