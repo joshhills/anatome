@@ -88,6 +88,9 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         // Set textual content.
 
         mBackFromBooking.setText(
+                UtilityManager.getContentLoader(this).getButtonText("back")
+        );
+        mBook.setText(
                 UtilityManager.getContentLoader(this).getButtonText("book")
         );
         mBookingTitle.setText(
