@@ -29,6 +29,7 @@ public class UserUtility implements Utility {
 
     // General persistent user storage (only active in app lifecycle).
     private final int PASSWORD_LENGTH = 4;
+    private final int COMMENT_LENGTH = 120;
 
     // Liver 'widget' persistent user storage (only active in app lifecycle).
     private double units = 0;
@@ -59,7 +60,14 @@ public class UserUtility implements Utility {
 
         // Check to see if user profile exists.
         if(settings.getString("NAME", null) == null) {
+
+            // Initialize default settings.
+            this.allowNetwork(true);
+            this.allowNotifications(true);
+
+            // Return that there wasn't a pre-existing profile.
             return STATUS.NONE;
+
         }
         else {
             return STATUS.SUCCESS;
@@ -162,6 +170,10 @@ public class UserUtility implements Utility {
     }
     public String getPassword() {
         return settings.getString("PASSWORD", null);
+    }
+
+    public int getCOMMENT_LENGTH() {
+        return COMMENT_LENGTH;
     }
 
     @Override

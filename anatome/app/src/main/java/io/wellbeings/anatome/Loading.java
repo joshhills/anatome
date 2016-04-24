@@ -14,6 +14,8 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,7 +38,14 @@ public class Loading extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Hide the notification bar.
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
+
+        // Load the corresponding style.
         setContentView(R.layout.loading_layout);
 
         initGUI();
@@ -61,8 +70,6 @@ public class Loading extends Activity {
 
                 // Simple idle during async task.
                 while(okGo == null) {}
-
-               // Log.d("DDD", UtilityManager.getUserUtility(getApplicationContext()).getPassword());
 
                 // If a user profile exists.
                 if (okGo == STATUS.SUCCESS) {

@@ -4,48 +4,55 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Settings.
+ * Display settings to allow user
+ * to change their device and profile preferences.
  */
 public class Settings extends Activity {
 
     /**
      * On activity creation, set up canvas.
      *
-     * @param savedInstanceState    Previously cached state.
+     * @param savedInstanceState Previously cached state.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Hide intrusive android status bars.
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE);
 
         // Load previous state if applicable.
         super.onCreate(savedInstanceState);
@@ -54,7 +61,7 @@ public class Settings extends Activity {
         setContentView(R.layout.activity_settings);
 
         // Set correct section values.
-        // initGUI();
+        initGUI();
 
         // Initialization of components.
         attachListeners();
@@ -65,18 +72,18 @@ public class Settings extends Activity {
     private void initGUI() {
 
         // Set the background of the layout container.
-        final RelativeLayout rl = (RelativeLayout) findViewById(R.id.settings_bg);
+        Glide.with(this).load(R.drawable.settings_bg)
+                .dontTransform()
+                .override(1080,1844)
+                .into((ImageView) findViewById(R.id.settings_bg));
 
-        Glide.with(this)
-        .load(R.drawable.settings_bg)
-                .asBitmap()
-                .into(new SimpleTarget<Bitmap>(rl.getWidth(), rl.getHeight()) {
-                    @Override
-                    public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
-                        Drawable drawable = new BitmapDrawable(Settings.this.getResources(), bitmap);
-                        rl.setBackground(drawable);
-                    }
-                });
+        // Ensure multiple choice form fields are correct.
+        ((Switch) findViewById(R.id.settings_network)).setChecked(
+                UtilityManager.getUserUtility(this).isNetwork()
+        );
+        ((Switch) findViewById(R.id.settings_notifications)).setChecked(
+                UtilityManager.getUserUtility(this).isNotifications()
+        );
 
     }
 
@@ -84,7 +91,7 @@ public class Settings extends Activity {
     private void attachListeners() {
 
         // Notification toggle.
-        ((Switch)findViewById(R.id.settings_notifications)).setOnClickListener(new View.OnClickListener() {
+        ((Switch) findViewById(R.id.settings_notifications)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UtilityManager.getUserUtility(v.getContext()).allowNotifications(
@@ -94,7 +101,7 @@ public class Settings extends Activity {
         });
 
         // Network toggle.
-        ((Switch)findViewById(R.id.settings_network)).setOnClickListener(new View.OnClickListener() {
+        ((Switch) findViewById(R.id.settings_network)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UtilityManager.getUserUtility(v.getContext()).allowNetwork(
@@ -129,9 +136,24 @@ public class Settings extends Activity {
 
                 }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
+
+        // Set the correct language.
+        switch(UtilityManager.getUserUtility(this).getLanguage()) {
+            case "en":
+                langSpinner.setSelection(0);
+                break;
+            case "fr":
+                langSpinner.setSelection(1);
+                break;
+            case "es":
+                langSpinner.setSelection(2);
+                break;
+        }
 
         // Name field.
         final EditText nameText = (EditText) findViewById(R.id.settings_name);
@@ -139,9 +161,13 @@ public class Settings extends Activity {
 
         nameText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 // Set the name to the most recent change.
@@ -158,9 +184,13 @@ public class Settings extends Activity {
 
         emailText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -177,7 +207,7 @@ public class Settings extends Activity {
         });
 
         // Password change.
-        ((Button) findViewById(R.id.settings_password)).setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.settings_password_change)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -191,11 +221,11 @@ public class Settings extends Activity {
                 // Force numerical keyboard and hidden values.
                 pwInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 // Force maximum length.
-                pwInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(
+                pwInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(
                         UtilityManager.getUserUtility(Settings.this).getPASSWORD_LENGTH()
                 )});
                 builder.setView(pwInput);
-                
+
                 // Dictate what the buttons do.
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -246,6 +276,18 @@ public class Settings extends Activity {
             }
         });
 
+        // Password clear.
+        ((Button) findViewById(R.id.settings_password_clear)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Remove password.
+                UtilityManager.getUserUtility(Settings.this).setPassword(null);
+                // Display visual feedback.
+                Toast.makeText(Settings.this, "Password cleared.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // Reset button.
         ((Button) findViewById(R.id.settings_erase)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,10 +301,12 @@ public class Settings extends Activity {
         });
 
         // Exit button.
-        ((ImageButton)findViewById(R.id.settings_back)).setOnClickListener(new View.OnClickListener() {
+        ((ImageButton) findViewById(R.id.settings_back)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Settings.this, MainScroll.class));
+                Intent intent = new Intent(Settings.this, MainScroll.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_top_in, R.anim.slide_top_out);
             }
         });
 

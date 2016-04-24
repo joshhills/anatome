@@ -1,6 +1,9 @@
 package io.wellbeings.anatome;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
@@ -8,16 +11,22 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +37,7 @@ import cz.msebera.android.httpclient.client.cache.Resource;
 /**
  *  This class handles the loading of section information.
  */
-public class ContentFragment extends Fragment implements Widget {
+public class ContentFragment extends Fragment {
 
     // Store content view.
     View view;
@@ -56,10 +65,8 @@ public class ContentFragment extends Fragment implements Widget {
         // Populate text containers with informative content.
         populateContent();
 
-        // If the user has allowed network access...
-        if(UtilityManager.getUserUtility(getContext()).isNetwork()) {
-            loadComments();
-        }
+        // Load user tips from the database.
+        loadComments();
 
         return view;
     }
@@ -114,78 +121,180 @@ public class ContentFragment extends Fragment implements Widget {
                         UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
         );
 
+        ((TextView) view.findViewById(R.id.content_advice)).setText(
+                UtilityManager.getContentLoader(getContext()).getHeaderText(section, "advice"));
+        ((TextView) view.findViewById(R.id.content_advice)).setTextColor(ContextCompat.getColor(getContext(),
+                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
+        );
+
+        // Allow user to submit their own comment.
+        ((Button) view.findViewById(R.id.content_submit)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Create comment input.
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
+                builder.setTitle("Share your advice!");
+                builder.setCancelable(true);
+                final EditText commentInput = new EditText(getContext());
+
+                // Force maximum length.
+                commentInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(
+                        UtilityManager.getUserUtility(getContext()).getCOMMENT_LENGTH()
+                )});
+                builder.setView(commentInput);
+
+                // Dictate how the buttons should look.
+                builder.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(commentInput.getText().toString().length() < 10) {
+                            Toast.makeText(getContext(), "Sorry, comment too short!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            try {
+                                UtilityManager.getDbUtility(getContext()).addComment(
+                                        commentInput.getText().toString(),
+                                        UtilityManager.getUserUtility(getContext()).getName(),
+                                        section
+                                );
+                            } catch (NetworkException e) {
+                                Toast.makeText(getContext(), "Sorry, there was an error!",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            Toast.makeText(getContext(), "Awesome, it's pending approval!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
         // Log when the content was last updated.
         ((TextView) view.findViewById(R.id.content_modified)).setText(
                 UtilityManager.getContentLoader(getContext()).getButtonText("date") + " " +
-                UtilityManager.getContentLoader(getContext()).getDateModified(section)
+                        UtilityManager.getContentLoader(getContext()).getDateModified(section)
         );
 
         /* Load graphical element. */
 
-
         final int resourceIdLarge = getResources().getIdentifier(
                 section + "_graphic", "drawable", getContext().getPackageName()
         );
-
         ((ImageView) view.findViewById(R.id.content_graphic_other)).setImageResource(resourceIdLarge);
-
-
 
     }
 
     // Load custom social aspect of app via comments.
     private void loadComments() {
 
-        // Get outer container.
-        LinearLayout ll = (LinearLayout) view.findViewById(R.id.content_comments_container);
+        try {
 
-        // Retrieve user comments.
-        HashMap<String, String> comments = UtilityManager.getDbUtility(getContext()).getComments(section);
+            // Get outer container.
+            LinearLayout ll = (LinearLayout) view.findViewById(R.id.content_comments_container);
 
-        // Create visual element for every comment.
-        if(comments != null) {
+            // Check for intentional network impediment.
+            if(UtilityManager.getUserUtility(getContext()).isNetwork()) {
 
-            for(String comment : comments.keySet()) {
+                // Retrieve user comments.
+                HashMap<String, String> comments = UtilityManager.getDbUtility(getContext()).getComments(section);
 
-                // Set and style comment content.
-                TextView commentView = new TextView(getContext());
-                commentView.setText(comment);
-                commentView.setTextColor(ContextCompat.getColor(getContext(),
-                                UtilityManager.getThemeUtility(getContext()).getColour(section + "_secondary_bg"))
-                );
-                commentView.setTextSize(18);
-                commentView.setLayoutParams(new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                // Create visual element for every comment.
+                if (comments != null) {
 
-                // Add element.
-                ll.addView(commentView);
+                    // If no comments exist in the database.
+                    if(comments.size() == 0) {
 
-                // Set and style author content.
-                TextView authorView = new TextView(getContext());
-                authorView.setText("- " + comments.get(comment));
-                authorView.setTextColor(ContextCompat.getColor(getContext(),
-                                UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
-                );
-                authorView.setTextSize(16);
-                authorView.setLayoutParams(new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                        // Set and style suggestion content.
+                        TextView suggestionView = new TextView(getContext());
+                        suggestionView.setText(
+                            UtilityManager.getContentLoader(getContext()).getNotificationText("add-comment")
+                        );
+                        suggestionView.setTextColor(ContextCompat.getColor(getContext(),
+                                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_secondary_bg"))
+                        );
+                        suggestionView.setTextSize(18);
+                        suggestionView.setLayoutParams(new LinearLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-                // Add element.
-                ll.addView(authorView);
+                        // Add element.
+                        ll.addView(suggestionView);
 
-                // Add separator with margin.
-                View v = new View(getContext());
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        5
-                );
-                lp.setMargins(0, 20, 0, 20);
-                v.setLayoutParams(lp);
-                v.setBackgroundColor(ContextCompat.getColor(getContext(),
-                        UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text")));
-                ll.addView(v);
+                    }
+                    else {
+                        for (String comment : comments.keySet()) {
+
+                            // Set and style comment content.
+                            TextView commentView = new TextView(getContext());
+                            commentView.setText(comment);
+                            commentView.setTextColor(ContextCompat.getColor(getContext(),
+                                            UtilityManager.getThemeUtility(getContext()).getColour(section + "_secondary_bg"))
+                            );
+                            commentView.setTextSize(18);
+                            commentView.setLayoutParams(new LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+                            // Add element.
+                            ll.addView(commentView);
+
+                            // Set and style author content.
+                            TextView authorView = new TextView(getContext());
+                            authorView.setText("- " + comments.get(comment));
+                            authorView.setTextColor(ContextCompat.getColor(getContext(),
+                                            UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text"))
+                            );
+                            authorView.setTextSize(16);
+                            authorView.setLayoutParams(new LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+                            // Add element.
+                            ll.addView(authorView);
+
+                            // Add separator with margin.
+                            View v = new View(getContext());
+                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    5
+                            );
+                            lp.setMargins(0, 20, 0, 20);
+                            v.setLayoutParams(lp);
+                            v.setBackgroundColor(ContextCompat.getColor(getContext(),
+                                    UtilityManager.getThemeUtility(getContext()).getColour(section + "_accent_text")));
+                            ll.addView(v);
+
+                            // Finally, if there were too many comments and it became too big...
+                            ScrollView commentContainer = (ScrollView) view.findViewById(R.id.content_comments_scroll);
+                            if(commentContainer.getHeight() > 100) {
+
+                                // Set it to a reasonable size to force scrolling.
+                                ViewGroup.LayoutParams sp = commentContainer.getLayoutParams();
+                                sp.height = 10;
+                                commentContainer.setLayoutParams(lp);
+
+                            }
+
+                        }
+
+                    }
+
+                }
+                else {
+
+                    // Otherwise remove the unnecessary views.
+                    ll.setVisibility(View.INVISIBLE);
+                    ((Button) view.findViewById(R.id.content_submit)).setVisibility(View.INVISIBLE);
+                    ((TextView) view.findViewById(R.id.content_advice)).setVisibility(View.INVISIBLE);
+
+                }
 
             }
+        } catch (NetworkException e) {
+
+            // Display unintended network error.
+            NotificationHandler.NetworkErrorDialog(getContext());
 
         }
 

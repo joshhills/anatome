@@ -34,11 +34,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/content_graphic_other"
-            android:paddingTop="14dp"
-            android:paddingBottom="14dp"
-            android:contentDescription="section graphic"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
+            android:contentDescription="section graphic" />
 
 
         <TextView
@@ -74,21 +70,41 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Link"
             android:id="@+id/content_linkscontent"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:paddingBottom="14dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Community Advice"
+            android:id="@+id/content_advice"
+            android:textSize="24dp" />
 
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:background="@drawable/rounded_corners_bg"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="14dp"
+            android:id="@+id/content_comments_scroll">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/content_comments_container"
-                android:background="@drawable/rounded_corners_bg"></LinearLayout>
+                android:id="@+id/content_comments_container"></LinearLayout>
         </ScrollView>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit a tip"
+            android:id="@+id/content_submit"
+            android:background="@drawable/rounded_corners_bg"
+            android:layout_marginBottom="15dp" />
 
         <TextView
             android:layout_width="wrap_content"

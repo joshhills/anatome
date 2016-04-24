@@ -1,12 +1,15 @@
 package io.wellbeings.anatome;
 
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -15,6 +18,10 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTabHost;
+
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 /**
  * Section loads widget navigated to,
@@ -40,6 +47,10 @@ public class Section extends FragmentActivity {
 
         // Load previous state if applicable.
         super.onCreate(savedInstanceState);
+
+        // Hide the notification bar.
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Initialize local variables.
         section = getIntent().getStringExtra("section");
@@ -89,13 +100,13 @@ public class Section extends FragmentActivity {
         //((TextView) findViewById(R.id.section_name)).setTypeface();
 
 
+
         UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.section_name));
         UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.back));
 
-
-        //ThemeUtility.defineCustomFont((TextView) findViewById(R.id.section_name));
-
                 ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
+
+>>>>>>> origin/master
     }
 
     // Modulate set-up tasks for easy alteration.
@@ -108,6 +119,26 @@ public class Section extends FragmentActivity {
                 finish();
             }
         });
+
+        // Enable Facebook sharing.
+        FacebookSdk.sdkInitialize(this);
+        findViewById(R.id.section_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareLinkContent content = new ShareLinkContent.Builder()
+                        .setContentTitle("'anatome' - the student well-being toolkit")
+                        .setContentDescription("Engage in interactive self-help," +
+                                "share tips with the community and explore your local counselling service.")
+                        .setQuote("Download for Android now!")
+                        .setContentUrl(Uri.parse("http://team9.esy.es/Anatome"))
+                        .setImageUrl(Uri.parse("https://i.imgur.com/mGPXhBU.png"))
+                        .build();
+                ShareDialog sd = new ShareDialog(Section.this);
+                sd.show(content);
+            }
+        });
+
+>>>>>>> origin/master
     }
 
     /**

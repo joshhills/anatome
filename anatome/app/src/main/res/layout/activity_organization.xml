@@ -1,52 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    xmlns:android= "http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context="io.wellbeings.anatome.OrganizationActivity"
-    android:background="#875f43">
+    android:background="#74675c"
+    android:id="@+id/organization_container">
 
-    <ImageButton
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:id="@+id/organization_back"
-        android:layout_gravity="center_horizontal|bottom"
-        android:background="@null"
-        android:src="@drawable/organization_up_arrow"
-        android:layout_below="@+id/settings_container"
-        android:layout_centerHorizontal="true"
-        android:scaleType="fitCenter"
-        android:layout_marginBottom="15dp" />
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:id="@+id/organization_bg"
+        android:layout_alignParentBottom="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Organization Name"
-        android:id="@+id/organization_name"
-        android:textColor="#ffffff"
-        android:layout_marginBottom="10dp"
-        android:textSize="18dp" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Organization Description"
-        android:id="@+id/organization_description"
-        android:textColor="#ffffff"
-        android:layout_marginBottom="15dp"
-        android:textSize="11dp" />
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/organization_back"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@null"
+            android:src="@drawable/organization_up_arrow"
+            android:layout_below="@+id/settings_container"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="15dp" />
 
-    <fragment
-        android:id="@+id/organization_map"
-        android:name="com.google.android.gms.maps.MapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Organization Name"
+            android:id="@+id/organization_name"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="10dp"
+            android:textSize="18dp" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Organization Description"
+            android:id="@+id/organization_description"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="15dp"
+            android:textSize="11dp" />
+
+        <fragment
+            android:id="@+id/organization_map"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"/>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -33,15 +33,28 @@
             android:adjustViewBounds="true"
             android:alpha="1"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Title"
-            android:id="@+id/section_name"
-            android:layout_gravity="center_vertical|right"
-            android:textColor="#ffffff"
-            android:background="#c34546" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|right">
+
+            <ImageButton
+                android:layout_width="80px"
+                android:layout_height="80px"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/facebook_icon"
+                android:id="@+id/section_share" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Title"
+                android:id="@+id/section_name"
+                android:textColor="#ffffff"
+                android:background="#c34546" />
+
+        </LinearLayout>
 
     </FrameLayout>
 

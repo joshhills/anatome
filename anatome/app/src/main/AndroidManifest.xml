@@ -9,43 +9,88 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true">
-
+        android:supportsRtl="true"
+        android:screenOrientation="portrait"
+        android:configChanges="orientation|keyboardHidden">
         <activity
-            android:name=".Preamble"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".MainScroll"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Section"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BookingSystem"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".TestLayout"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Loading"
-            android:theme="@style/AppTheme.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            android:name=".Loading"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
+            android:name=".Preamble"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".MainScroll"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            />
+        <activity
+            android:name=".Section"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".BookingSystem"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".TestLayout"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity
             android:name=".Settings"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".OrganizationActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            android:noHistory="true" />
+        <activity android:name=".OrganizationActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            android:noHistory="true" />
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".PlayListActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+
+        <!-- Facebook. -->
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
+        <provider android:authorities="com.facebook.app.FacebookContentProvider993489687372387"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId"  android:value="@string/facebook_app_id"/>
+
+        <!-- Google Play Maps & Services App Indexing. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
     </application>
-    <uses-permission android:name="android.permission.VIBRATE" />
+
 </manifest>

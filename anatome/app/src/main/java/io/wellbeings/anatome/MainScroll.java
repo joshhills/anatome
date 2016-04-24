@@ -7,19 +7,25 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import android.content.Intent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.util.Util;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import java.util.HashMap;
 
@@ -31,6 +37,8 @@ import java.util.HashMap;
  */
 public class MainScroll extends Activity {
 
+    // Store scroll position for resume.
+    public static int scrollY;
 
     /**
      * On activity creation, set up canvas.
@@ -39,6 +47,17 @@ public class MainScroll extends Activity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Hide intrusive android status bars.
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE);
 
         // Load previous state if applicable.
         super.onCreate(savedInstanceState);
@@ -49,25 +68,120 @@ public class MainScroll extends Activity {
         // Initialization of components.
         attachListeners();
 
+        // Initialise the GUI.
+        initGUI();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Log scroll position for ease of use.
+        scrollY = ((ScrollView) findViewById(R.id.mainscroll_scroll_container)).getScrollY();
+
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        // Restore the scroll position.
+        ((ScrollView) findViewById(R.id.mainscroll_scroll_container)).post(new Runnable() {
+            @Override
+            public void run() {
+                ((ScrollView) findViewById(R.id.mainscroll_scroll_container)).setScrollY(scrollY);
+            }
+        });
+
+        // Reload paused animations.
+        Animation brainAnimation = AnimationUtils.loadAnimation(this, R.anim.brain_animation);
+        Animation heartAnimation = AnimationUtils.loadAnimation(this, R.anim.heart_animation);
+        Animation liverAnimation = AnimationUtils.loadAnimation(this, R.anim.liver_animation);
+        Animation rocketAnimation = AnimationUtils.loadAnimation(this, R.anim.rocket_animation);
+        Animation fuelAnimation = AnimationUtils.loadAnimation(this, R.anim.rocket_fuel_animation);
+        Animation fuelMovementAnimation = AnimationUtils.loadAnimation(this, R.anim.rocket_fuel_movement_animation);
+
+
+        // Start them going again.
+        ((ImageView) findViewById(R.id.heart)).startAnimation(heartAnimation);
+        ((ImageView) findViewById(R.id.brain)).startAnimation(brainAnimation);
+        ((ImageView) findViewById(R.id.liver)).startAnimation(liverAnimation);
+        ((ImageView) findViewById(R.id.rocket_animation)).startAnimation(rocketAnimation);
+        ((ImageView) findViewById(R.id.mainscroll_fuel_dark)).startAnimation(fuelMovementAnimation);
+        ((ImageView) findViewById(R.id.mainscroll_fuel_light)).startAnimation(fuelMovementAnimation);
+        ((ImageView) findViewById(R.id.mainscroll_fuel_light)).startAnimation(fuelAnimation);
+
+    }
+
+    private void initGUI() {
+
+        // load the rocket background image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_background_rocket)
+                .dontTransform()
+                //.override(1080, 732)
+                .override(1080 / 2, 732 / 2)
+                .into((ImageView) findViewById(R.id.mainscroll_rocket_background));
+
+        // load the rocket animation image
+        Glide.with(this)
+                .load(R.drawable.rocket_animation)
+                .dontTransform()
+                //.override(1080, 732)
+                .override(1080 / 2, 732 / 2)
+                .animate(R.anim.rocket_animation)
+                .into((ImageView) findViewById(R.id.rocket_animation));
+
+        // load the dark fuel animation image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_fuel_dark)
+                .dontTransform()
+                //.override(1080, 732)
+                .override(1080 / 2, 732 / 2)
+                .animate(R.anim.rocket_fuel_movement_animation)
+                .into((ImageView) findViewById(R.id.mainscroll_fuel_dark));
+
+        // load the light fuel animation image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_fuel_light)
+                .dontTransform()
+               // .override(1080, 732)
+                .override(1080 / 2, 732 / 2)
+                .animate(R.anim.rocket_fuel_animation)
+                .into((ImageView) findViewById(R.id.mainscroll_fuel_light));
+
+        // load the kite background image
+        Glide.with(this)
+                .load(R.drawable.mainscroll_kite)
+                .dontTransform()
+               // .override(1080, 732)
+                .override(1080 / 2, 732 / 2)
+                .into((ImageView) findViewById(R.id.mainscroll_kite));
+
         // load the background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_upper)
                 .dontTransform()
-                .override(1080, 2727)
+               // .override(1080, 2700)
+                .override(1080 / 2, 2700 / 2)
                 .into((ImageView) findViewById(R.id.mainscroll_background_upper));
 
         // load the background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_lower)
                 .dontTransform()
-                .override(1080, 2640)
+                //.override(1080, 2638)
+                .override(1080/2, 2638 / 2)
                 .into((ImageView) findViewById(R.id.mainscroll_background_lower));
 
         // load the heart image
         Glide.with(this)
                 .load(R.drawable.heart)
                 .dontTransform()
-                .override(1080, 1200)
+                //.override(1200, 1014)
+                .override(1200 / 2, 1014 / 2)
                 .animate(R.anim.heart_animation)
                 .into((ImageView) findViewById(R.id.heart));
 
@@ -75,7 +189,8 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.brain)
                 .dontTransform()
-                .override(1080, 1262)
+                //.override(1080, 1262)
+                .override(1080 / 2, 1262 / 2)
                 .animate(R.anim.brain_animation)
                 .into((ImageView) findViewById(R.id.brain));
 
@@ -83,7 +198,8 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.liver_front)
                 .dontTransform()
-                .override(1080, 662)
+                //.override(1080, 662)
+                .override(1080 / 2, 662 / 2)
                 .animate(R.anim.liver_animation)
                 .into((ImageView) findViewById(R.id.liver));
 
@@ -92,20 +208,32 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.liver_back)
                 .dontTransform()
-                .override(1080, 662)
+               //.override(1080, 662)
+                .override(1080 / 2, 662 / 2)
                 .into((ImageView) findViewById(R.id.liver_back));
 
         //load the footer
-        //Glide.with(this)
-        //        .load(R.drawable.footer)
-        //        .dontTransform()
-          //      .override(1080, 731)
-            //    .into((ImageView) findViewById(R.id.footer));
+        Glide.with(this)
+                .load(R.drawable.footer)
+                .dontTransform()
+                //.override(1080, 731)
+                .override(1080/2, 731/2)
+                .into((ImageView) findViewById(R.id.mainscroll_footer));
+
+
+
+        TextView welcomeHeader = (TextView)findViewById(R.id.mainscroll_welcome_text);
+        welcomeHeader.setText(UtilityManager.getContentLoader(this).getHeaderText("mainscroll", "welcome"));
 
         TextView t = (TextView)findViewById(R.id.main_scroll_text);
+        t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "welcome_text"));
 
+        TextView footerTextTitle = (TextView)findViewById(R.id.mainscroll_organisation_title);
+        footerTextTitle.setText(UtilityManager.getContentLoader(this).getHeaderText("mainscroll", "more_help"));
 
-                t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "mainscrollText"));
+        TextView footerTextInfo = (TextView)findViewById(R.id.mainscroll_more_help_text);
+        footerTextInfo.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "more_help_text"));
+
     }
 
     // Modulate set-up tasks for easy alteration.
@@ -116,11 +244,13 @@ public class MainScroll extends Activity {
         findViewById(R.id.heart).setOnClickListener(navigateToSection);
         findViewById(R.id.liver).setOnClickListener(navigateToSection);
         findViewById(R.id.bookingInfoButton).setOnClickListener(navigateToBookingSystem);
-        findViewById(R.id.settingsImage).setOnClickListener(navigateToSettings);
+        findViewById(R.id.rocket_animation).setOnClickListener(navigateToSettings);
         findViewById(R.id.settingsBtn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainScroll.this, OrganizationActivity.class));
+                Intent intent = new Intent(MainScroll.this, OrganizationActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_top_in, R.anim.slide_top_out);
             }
         });
 
@@ -143,7 +273,6 @@ public class MainScroll extends Activity {
 
         }
     };
-
 
     private OnClickListener navigateToBookingSystem = new OnClickListener() {
         @Override
@@ -189,28 +318,32 @@ public class MainScroll extends Activity {
 
                    }else {
 
-                       Context ctx = MainScroll.this;
-                       HashMap<String, String> appointments;
-
-                       appointments = UtilityManager.getDbUtility(MainScroll.this).getAppointment();
-
-                       String date;
-                       Boolean check;
-
                        try {
-                           date = appointments.get("App_Date").toString();
-                           check = true;
-                       } catch (Exception e) {
-                           check = false;
-                       }
+                           Context ctx = MainScroll.this;
+                           HashMap<String, String> appointments;
 
-                       if (check) {
-                           Intent intent = new Intent(v.getContext(), TestLayout.class);
-                           startActivity(intent);
-                       } else {
+                           appointments = UtilityManager.getDbUtility(ctx).getAppointment();
 
-                           Intent intent = new Intent(v.getContext(), BookingSystem.class);
-                           startActivity(intent);
+                           String date;
+                           Boolean check;
+
+                           try {
+                               date = appointments.get("App_Date").toString();
+                               check = true;
+                           } catch (Exception e) {
+                               check = false;
+                           }
+
+                           if (check) {
+                               Intent intent = new Intent(v.getContext(), TestLayout.class);
+                               startActivity(intent);
+                           } else {
+
+                               Intent intent = new Intent(v.getContext(), BookingSystem.class);
+                               startActivity(intent);
+                           }
+                       }catch (NetworkException e) {
+                           NotificationHandler.NetworkErrorDialog(MainScroll.this);
                        }
 
                    }
@@ -224,11 +357,12 @@ public class MainScroll extends Activity {
     private OnClickListener navigateToSettings = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            ((ImageButton) findViewById(R.id.settingsImage)).setOnClickListener(new OnClickListener() {
+            ((ImageView) findViewById(R.id.rocket_animation)).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), Settings.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
                 }
             });
         }
