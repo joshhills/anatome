@@ -53,29 +53,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Pause"
-                    android:id="@+id/pauseButton" />
 
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Stop"
-                    android:id="@+id/stopButton" />
-
-                <Button
+                <ImageButton
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Play"
-                    android:id="@+id/playButton" />
+                    android:id="@+id/playButton"
+                    android:src="@drawable/play_32"/>
+
+                <ImageButton
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Stop"
+                    android:id="@+id/stopButton"
+                    android:src="@drawable/stop_32"/>
 
             </LinearLayout>
         </LinearLayout>
