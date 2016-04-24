@@ -142,7 +142,7 @@ public class MainScroll extends Activity {
         if (screenWidth != 0) {
 
             // scale screen size
-            targetSize = 1080f / screenWidth;
+            targetSize = 1080f / screenWidth * 2;
         }
 
         // calculate the screen width
