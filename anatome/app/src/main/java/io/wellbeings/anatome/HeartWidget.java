@@ -103,19 +103,19 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         Typeface bariol = UtilityManager.getThemeUtility(getContext()).getFont("Bariol");
 
         // Set the typeface.
-        ((TextView) v.findViewById(R.id.textView)).setTypeface(bariol);
-        ((TextView) v.findViewById(R.id.textView2)).setTypeface(bariol);
+        ((TextView) v.findViewById(R.id.heart_instruction)).setTypeface(bariol);
+        ((TextView) v.findViewById(R.id.heart_advice)).setTypeface(bariol);
 
     }
 
     public void attachListeners() {
 
         // Set up the start button listener
-        Button startButton = (Button) v.findViewById(R.id.buttonStart);
+        Button startButton = (Button) v.findViewById(R.id.heart_start);
         startButton.setOnClickListener(this);
 
         // Set up the stop button listener
-        Button stopButton = (Button) v.findViewById(R.id.buttonStop);
+        Button stopButton = (Button) v.findViewById(R.id.heart_stop);
         stopButton.setOnClickListener(this);
 
         // Set up the vibrate functionality.
