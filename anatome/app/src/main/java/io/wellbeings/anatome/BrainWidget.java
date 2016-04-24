@@ -312,9 +312,8 @@ public class BrainWidget extends Fragment {
             final EditText status = (EditText) ll.findViewById(R.id.audioStatus);
             SeekBar seekBar = (SeekBar)ll.findViewById(R.id.seekBar);
 
-            Button btnPlay = (Button) ll.findViewById(R.id.playButton);
-            Button pauseButton = (Button) ll.findViewById(R.id.pauseButton);
-            Button stopButton = (Button) ll.findViewById(R.id.stopButton);
+            ImageButton btnPlay = (ImageButton) ll.findViewById(R.id.playButton);
+            ImageButton stopButton = (ImageButton) ll.findViewById(R.id.stopButton);
 
             ll.findViewById(R.id.audioPlayback).setVisibility(View.VISIBLE);
 
@@ -327,13 +326,6 @@ public class BrainWidget extends Fragment {
                 //abort the note and tell the user
             }*/
 
-            //TODO: Remove this when it works
-            pauseButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pauseAudio(status);
-                }
-            });
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -598,14 +590,6 @@ public class BrainWidget extends Fragment {
             e.printStackTrace();
         } catch(IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void pauseAudio(EditText status){
-
-        if(mp.isPlaying()) {
-            status.setText(getResources().getString(R.string.playback_status_paused));
-            mp.pause();
         }
     }
 

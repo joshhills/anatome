@@ -101,12 +101,11 @@ public class Section extends FragmentActivity {
 
 
 
-        UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.section_name));
-        UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.back));
+        //UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.section_name));
+        //UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.back));
 
                 ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
 
->>>>>>> origin/master
     }
 
     // Modulate set-up tasks for easy alteration.
@@ -138,7 +137,6 @@ public class Section extends FragmentActivity {
             }
         });
 
->>>>>>> origin/master
     }
 
     /**
