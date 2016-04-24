@@ -41,8 +41,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -112,20 +115,8 @@ public class BrainWidget extends Fragment implements Widget {
         //initialise the main GUI elements
         initGUI();
 
-        //calculate the day streak that a user has saved a thought for
-        //start by initialising dayStreak to 0
-        dayStreak = 0;
-        while(dayStreak < noteList.size()) {
-            //calculate how many days ago the next most recent note was
-            int streak = 5;
-
-            //if it's more than 1, break as the streak has ended
-            if(streak > 1) break;
-
-            //otherwise, increment streak by 1, and repeat with the following note
-            else dayStreak++;
-        }
-        //display the day streak to the user
+        //calculate the initial streak of days saving notes and display it
+        displayDayStreak();
 
         //attach listeners for the main UI component
         attachListeners();
@@ -247,6 +238,50 @@ public class BrainWidget extends Fragment implements Widget {
                 playDeleteAnimation(-1);
             }
         });
+    }
+
+    /*method for calculating the number of days a note has been set for,
+      and then displaying this in the appropriate TextView*/
+    private void displayDayStreak(){
+        //start by initialising dayStreak to 0
+        dayStreak = 0;
+
+        try {
+            //define the format that the current date will be retrieved in
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+
+            //fetch the current date in a format simple to compare
+            Date d = sdf.parse(getCurrentDate());
+
+            //calculate how long the day streak actually is
+            while(dayStreak < noteList.size()) {
+                //if the date of this note is the same as the previous, skip it
+                //first check that is not there is a previous value
+                if(dayStreak > 0 && (noteList.get(dayStreak).getCreationDate())
+                        == (noteList.get(dayStreak-1).getCreationDate())) {
+                    continue;
+                }
+
+                //parse the date of the note in question to a date object
+                Date noteDate = sdf.parse(noteList.get(dayStreak).getCreationDate());
+
+                //calculate how many days ago the next most recent note was
+                long streak = d.getTime() - noteDate.getTime();
+
+                //if it's been more than 24 hours, break as the streak has ended
+                if (streak > 8.64e+7) break;
+
+                    //otherwise, increment streak by 1, and repeat with the following note
+                else dayStreak++;
+            }
+        }
+        catch(ParseException e) {
+            e.printStackTrace();
+        }
+
+        //display the day streak to the user
+        TextView streak = (TextView)v.findViewById(R.id.brain_streak);
+        streak.setText("streak of storing happy notes: " + dayStreak + " days!");
     }
 
     //method for replacing the current notes on screen with the next 5 most recent
@@ -508,6 +543,8 @@ public class BrainWidget extends Fragment implements Widget {
     private void saveList() {
         try {
             saveArrayList(getActivity().getApplicationContext(), FILE_NAME, noteList);
+            //calculate and update the number of consecutive days posting a note
+            displayDayStreak();
         } catch (IOException e) {
          e.printStackTrace();
         }
