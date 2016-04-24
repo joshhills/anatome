@@ -16,15 +16,13 @@ import android.view.WindowManager;
 
 public class Preamble extends AppCompatActivity {
 
+    // Store navigation info for access by inner fragments.
     public static final int NUM_STEPS = 4;
     public static ViewPager mPager;
     private PagerAdapter mPagerAdapter;
 
     // Declare the section meta-information.
     private final String sectionName = "preamble";
-
-    // Store the section's content loader.
-    public static ContentLoader cLoad = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +45,10 @@ public class Preamble extends AppCompatActivity {
         // Set the correct view.
         setContentView(R.layout.activity_preamble);
 
-        // Attempt to initiate content loading.
-        cLoad = new ContentLoader(this, getResources().openRawResource(R.raw.content),
-                getResources().openRawResource(R.raw.contentschema));
-
+        // Attach listener to pager.
         mPager = (ViewPager) findViewById(R.id.preamble_carousel);
         mPagerAdapter = new MyPageAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -66,7 +60,8 @@ public class Preamble extends AppCompatActivity {
             public void onPageSelected(int position) {
 
                 // Retrieve the fragment.
-                PreambleCarousel fragment = (PreambleCarousel) getSupportFragmentManager().findFragmentById(R.id.carousel_fragment);
+                PreambleCarousel fragment =
+                        (PreambleCarousel) getSupportFragmentManager().findFragmentById(R.id.carousel_fragment);
 
                 fragment.changeTab(position);
 
@@ -76,6 +71,9 @@ public class Preamble extends AppCompatActivity {
 
     }
 
+    /**
+     * Private anonymous class 
+     */
     private class MyPageAdapter extends FragmentPagerAdapter {
 
         public MyPageAdapter(FragmentManager fm) {

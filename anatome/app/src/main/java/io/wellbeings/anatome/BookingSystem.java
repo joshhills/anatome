@@ -35,6 +35,9 @@ import java.util.Locale;
  */
 public class BookingSystem extends AppCompatActivity implements Widget {
 
+    // Store whether the user has interacted with form elements.
+    private boolean hasInteracted = false;
+
     // Retrieve display elements for code clarity.
     private TextView mSetDate, mSetTime, mBookingTitle;
     private Button mBackFromBooking, mBook;
@@ -95,8 +98,10 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         // Set the current date.
         setCurrentDateOnView();
 
-        // Disable the booking button as nothing has been selected yet.
-        disableBookButton();
+        // Disable the booking button if nothing has been selected yet.
+        if(!hasInteracted) {
+            disableBookButton();
+        }
 
     }
 
@@ -117,9 +122,9 @@ public class BookingSystem extends AppCompatActivity implements Widget {
             public void onClick(View v) {
 
                 postBooking();
-                disableBookButton();
 
                 // Switch to new view.
+                // TODO: CLEAR ACTIVITY STACK.
                 Intent intent = new Intent(BookingSystem.this, TestLayout.class);
                 startActivity(intent);
 
@@ -167,9 +172,7 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         // Change the view.
         setContentView(R.layout.booking_options_layout);
 
-
         /* Style the view. */
-
 
         Button save = (Button) findViewById(R.id.saveGenderOptionsButton);
         TextView firstLine = (TextView) findViewById(R.id.genderOptionsFirstLine);
@@ -194,10 +197,10 @@ public class BookingSystem extends AppCompatActivity implements Widget {
             @Override
             public void onClick(View v) {
                 setContentView(R.layout.booking_layout);
+                initGUI();
+                attachListeners();
             }
         });
-
-        // Provide a listener to save the view.
 
     }
 
@@ -210,9 +213,11 @@ public class BookingSystem extends AppCompatActivity implements Widget {
     }
 
     /**
-     * Styling function for brevity disables button.
+     * Styling function for brevity enables button,
+     * also logs interaction.
      */
     private void enableBookButton() {
+        hasInteracted = true;
         mBook.setEnabled(true);
         mBook.setTextColor(Color.parseColor("#09849a"));
     }
