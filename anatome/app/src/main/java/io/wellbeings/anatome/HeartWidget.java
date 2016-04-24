@@ -1,5 +1,6 @@
 package io.wellbeings.anatome;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -25,18 +25,14 @@ import java.util.TimerTask;
 public class HeartWidget extends Fragment implements Widget, View.OnClickListener {
 
 
-    boolean counterIsIncreasing = true;
-    boolean counterIsActive;
-    // store the breathing value count
-    int counterValue = 0;
-    Timer textTimer = new Timer();
-    // vibration to user
-    Vibrator vibrateToUser;
-    // Store a list of instructional messages
-    List<String> instructionalText;
-    // Store name of section.
-    private final String SECTION = "heart";
-    private TimerTask counterTask;
+    boolean counterIsIncreasing = true; // check if the timer is increasing
+    boolean counterIsActive; // check if the timer is running
+    int counterValue = 0; // store the breathing value count
+    Timer textTimer = new Timer(); // creates a new timer for the breathing count
+    Vibrator vibrateToUser; // vibration to user
+    List<String> instructionalText; // Store a list of instructional messages
+    private final String SECTION = "heart";  // Store name of section.
+    private TimerTask counterTask; // a timer used to schedule the running of the counter
 
 
     public HeartWidget() {
@@ -48,6 +44,22 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         HeartWidget fragment = new HeartWidget();
         Bundle args = new Bundle();
         return fragment;
+    }
+
+    /**
+     *  override native onPause method to ensure the timerTask is successfully stopped
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        // cancel the timer and reset the status
+        counterTask.cancel();
+        counterIsActive = false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -84,9 +96,12 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         return v;
     }
 
-    // an OnClick method for the start button
+    /**
+     * an OnClick method for the start button
+     **/
     public void startButtonOnClick(View v) {
 
+        // check the timer is not already running
         if (counterIsActive) {
 
             return;
@@ -117,7 +132,9 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         textTimer.schedule(counterTask, 0, 2000);
     }
 
-    // an OnClick method for the stop button
+    /**
+     * an OnClick method for the stop button. This stops the animation and timer
+     * **/
     public void stopButtonOnClick(View v) {
 
         // select the circle view
@@ -126,22 +143,24 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
         // load the stop circle animation
         Animation circleAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.stop_animation);
 
-        // repeat animation indefinitely
-       // circleAnimation.setRepeatCount(Animation.INFINITE);
-
-        // start animating the circle
+        // stop animating the circle
         circleView.startAnimation(circleAnimation);
 
+        // timer is no longer running
         counterIsActive = false;
+
+        // reset the start value
         setNumericalTimer(0);
-        //setInstructionText("Stopped");
+
+        // cancel the timer
         counterTask.cancel();
-
-
-
     }
 
-    // changes the timer inside the circle & changes the instructional text
+
+
+    /**
+     * A method to run a new timer task with timer value and instructional text
+     */
     public TimerTask getCounterTask() {
 
         return new TimerTask() {
@@ -149,34 +168,50 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
             @Override
             public void run() {
-                getActivity().runOnUiThread(new Runnable() {
+
+
+                Activity a = getActivity();
+
+                // check there is a current activity
+                if (a == null) {
+                    return;
+                }
+
+                // run thread on this activity
+                a.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
 
+                        // set the timer value
                         if (counterIsActive) {
-
                             setNumericalTimer(counterValue);
 
 
+                            // begin the timer
                             if (counterValue == 0) {
 
+                                // send vibration to the user
                                 vibrateToUser.vibrate(300);
+                                // the timer is now running
                                 counterIsIncreasing = true;
+                                // display instructions to the user
                                 setInstructionText(instructionalText.get(0));
-
                             }
 
-                            if (counterValue == 1  && counterIsIncreasing) {
+                            // display instructional message to the user as they breathe in
+                            if (counterValue == 1 && counterIsIncreasing) {
 
                                 setInstructionText(instructionalText.get(1));
                             }
 
+                            // display instructional message to the user as they breathe out
                             if (counterValue == 1 && !counterIsIncreasing) {
 
-                                setInstructionText(instructionalText.get(1));
+                                setInstructionText(instructionalText.get(3));
                             }
 
+                            // timer ready to count down
                             if (counterValue == 2) {
 
                                 counterIsIncreasing = false;
@@ -184,56 +219,66 @@ public class HeartWidget extends Fragment implements Widget, View.OnClickListene
 
                             if (counterValue == 2 && !counterIsIncreasing) {
 
+                                // vibrate to user
                                 vibrateToUser.vibrate(300);
+                                // display instructional text to the user
                                 setInstructionText(instructionalText.get(2));
-                                counterIsIncreasing = false; }
+                            }
 
+                            // increase the timer value
                             if (counterIsIncreasing) {
 
                                 counterValue++;
+                              // decrease the timer value
                             } else {
                                 counterValue--;
                             }
-
                         }
-
                     }
                 });
             }
         };
     }
 
+    /**
+     * override the onClick method for the view
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonStart:
 
                 startButtonOnClick(v);
-
                 break;
 
             case R.id.buttonStop:
 
                 stopButtonOnClick(v);
+                // reset the text
                 setInstructionText(instructionalText.get(0));
-
                 break;
         }
     }
 
+    /**
+     * set the instructional text and display to the user
+     * @param s
+     */
     private void setInstructionText(String s) {
 
+        // fetch the textView for the instructions
         TextView instructionalTextView = (TextView) (getView().findViewById(R.id.textView));
+        // set the text
         instructionalTextView.setText(s);
-
-
     }
 
+    /**
+     * sets the timer value and displays it to the user
+     */
     private void setNumericalTimer(int i) {
 
         TextView counter = (TextView) (getView().findViewById(R.id.counter));
-
-
         counter.setText(Integer.toString(i));
     }
 

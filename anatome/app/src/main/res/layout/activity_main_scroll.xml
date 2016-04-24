@@ -38,21 +38,21 @@
                    android:scaleType="fitXY" />
 
                <ImageView
-                   android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:id="@+id/mainscroll_fuel_dark"
                    android:adjustViewBounds="true"
                    android:scaleType="fitXY"/>
 
                <ImageView
-                   android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:id="@+id/mainscroll_fuel_light"
                    android:adjustViewBounds="true"
                    android:scaleType="fitXY"/>
 
                <ImageView
-                   android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:id="@+id/rocket_animation"
                    android:adjustViewBounds="true"

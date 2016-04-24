@@ -121,14 +121,16 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_rocket)
                 .dontTransform()
-                .override(1080, 732)
+                //.override(1080, 732)
+                .override(1080 / 2, 732 / 2)
                 .into((ImageView) findViewById(R.id.mainscroll_rocket_background));
 
         // load the rocket animation image
         Glide.with(this)
                 .load(R.drawable.rocket_animation)
                 .dontTransform()
-                .override(1080, 732)
+                //.override(1080, 732)
+                .override(1080 / 2, 732 / 2)
                 .animate(R.anim.rocket_animation)
                 .into((ImageView) findViewById(R.id.rocket_animation));
 
@@ -136,7 +138,8 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.mainscroll_fuel_dark)
                 .dontTransform()
-                .override(1080, 732)
+                //.override(1080, 732)
+                .override(1080 / 2, 732 / 2)
                 .animate(R.anim.rocket_fuel_movement_animation)
                 .into((ImageView) findViewById(R.id.mainscroll_fuel_dark));
 
@@ -144,7 +147,8 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.mainscroll_fuel_light)
                 .dontTransform()
-                .override(1080, 732)
+               // .override(1080, 732)
+                .override(1080 / 2, 732 / 2)
                 .animate(R.anim.rocket_fuel_animation)
                 .into((ImageView) findViewById(R.id.mainscroll_fuel_light));
 
@@ -152,28 +156,32 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.mainscroll_kite)
                 .dontTransform()
-                .override(1080, 732)
+               // .override(1080, 732)
+                .override(1080 / 2, 732 / 2)
                 .into((ImageView) findViewById(R.id.mainscroll_kite));
 
         // load the background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_upper)
                 .dontTransform()
-                .override(1080, 2700)
+               // .override(1080, 2700)
+                .override(1080 / 2, 2700 / 2)
                 .into((ImageView) findViewById(R.id.mainscroll_background_upper));
 
         // load the background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_lower)
                 .dontTransform()
-                .override(1080, 2638)
+                //.override(1080, 2638)
+                .override(1080/2, 2638 / 2)
                 .into((ImageView) findViewById(R.id.mainscroll_background_lower));
 
         // load the heart image
         Glide.with(this)
                 .load(R.drawable.heart)
                 .dontTransform()
-                .override(1200, 1014)
+                //.override(1200, 1014)
+                .override(1200 / 2, 1014 / 2)
                 .animate(R.anim.heart_animation)
                 .into((ImageView) findViewById(R.id.heart));
 
@@ -181,7 +189,8 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.brain)
                 .dontTransform()
-                .override(1080, 1262)
+                //.override(1080, 1262)
+                .override(1080 / 2, 1262 / 2)
                 .animate(R.anim.brain_animation)
                 .into((ImageView) findViewById(R.id.brain));
 
@@ -189,7 +198,8 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.liver_front)
                 .dontTransform()
-                .override(1080, 662)
+                //.override(1080, 662)
+                .override(1080 / 2, 662 / 2)
                 .animate(R.anim.liver_animation)
                 .into((ImageView) findViewById(R.id.liver));
 
@@ -198,14 +208,16 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.liver_back)
                 .dontTransform()
-                .override(1080, 662)
+               //.override(1080, 662)
+                .override(1080 / 2, 662 / 2)
                 .into((ImageView) findViewById(R.id.liver_back));
 
         //load the footer
         Glide.with(this)
                 .load(R.drawable.footer)
                 .dontTransform()
-                .override(1080, 731)
+                //.override(1080, 731)
+                .override(1080/2, 731/2)
                 .into((ImageView) findViewById(R.id.mainscroll_footer));
 
 
