@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/date"
+        android:id="@+id/brain_note_date"
         android:background="@color/brain_note_date_bg"
         android:textColor="@color/brain_note_date_text"/>
     <LinearLayout
@@ -19,36 +19,36 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/textContent"
+            android:id="@+id/brain_note_text_content"
             android:textSize="13dp"
             android:focusable="false"
             android:visibility="gone"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/imageContent"
+            android:id="@+id/brain_note_image_content"
             android:visibility="gone"/>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/audioPlayback"
+            android:id="@+id/brain_note_audio_content"
             android:visibility="gone">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:id="@+id/audioStatus"
+                android:id="@+id/brain_note_audio_status"
                 android:text="@string/playback_status_stopped"
                 android:focusable="false"/>
             <SeekBar
-                android:id="@+id/seekBar"
+                android:id="@+id/brain_note_seek_bar"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:visibility="gone"/>
             <LinearLayout
-                android:id="@+id/audioControlPanel"
+                android:id="@+id/brain_note_audio_control"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Play"
-                    android:id="@+id/playButton"
+                    android:id="@+id/brain_note_play"
                     android:src="@drawable/play_32"/>
 
                 <ImageButton
@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Stop"
-                    android:id="@+id/stopButton"
+                    android:id="@+id/brain_note_stop"
                     android:src="@drawable/stop_32"/>
 
             </LinearLayout>
@@ -79,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/delete"
+        android:id="@+id/brain_note_delete"
         android:src="@drawable/trash_32"
         android:background="@null"/>
 </LinearLayout>
