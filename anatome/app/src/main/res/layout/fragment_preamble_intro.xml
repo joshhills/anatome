@@ -26,6 +26,15 @@
         android:textColor="@color/main_accent_text"
         android:textSize="20sp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/generic_content"
+        android:id="@+id/preamble_information_disclaimer"
+        android:textColor="@color/main_accent_text"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp" />
+
     <ImageView
         android:layout_width="210dp"
         android:layout_height="200dp"
@@ -33,4 +42,5 @@
         android:contentDescription="@string/image_toolbox"
         android:src="@drawable/toolbox"
         android:layout_weight="0.04" />
+
 </LinearLayout>

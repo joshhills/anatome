@@ -2,6 +2,7 @@ package io.wellbeings.anatome;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -23,13 +24,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.w3c.dom.Text;
+
 import java.security.Security;
 
 /**
  * Display 'plugged-in' organization's
  * information to guide user to extra help.
  */
-public class OrganizationActivity extends FragmentActivity implements OnMapReadyCallback {
+public class OrganizationActivity extends FragmentActivity implements Widget, OnMapReadyCallback {
 
     // Map-related private fields.
     private LatLng orgLocation;
@@ -54,11 +57,9 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
         // Load the corresponding view.
         setContentView(R.layout.activity_organization);
 
-        // TODO: Network checking!!
-
-        populateContent();
-
         initGUI();
+
+        attachListeners();
 
         // Create the inner map fragment.
         if(orgLocation != null) {
@@ -68,17 +69,7 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
         }
     }
 
-    private void initGUI() {
-
-        // Exit button.
-        ((ImageButton)findViewById(R.id.organization_back)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(OrganizationActivity.this, MainScroll.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
-            }
-        });
+    public void initGUI() {
 
         // Set the background of the layout container.
         Glide.with(this).load(R.drawable.organization_bg)
@@ -87,10 +78,7 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
                         getResources().getDisplayMetrics().heightPixels)
                 .into((ImageView) findViewById(R.id.organization_bg));
 
-
-    }
-
-    private void populateContent() {
+        /* Organization Info. */
 
         try {
 
@@ -112,6 +100,34 @@ public class OrganizationActivity extends FragmentActivity implements OnMapReady
             NotificationHandler.NetworkErrorDialog(OrganizationActivity.this);
         }
 
+        // Display back-end link.
+        ((TextView) findViewById(R.id.organization_backend)).setText(
+                UtilityManager.getContentLoader(this).getButtonText("backend")
+        );
+
+    }
+
+    public void attachListeners() {
+
+        // Link to back-end.
+        ((TextView) findViewById(R.id.organization_backend)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://team9.esy.es/anatome-admin/index.html"));
+                startActivity(i);
+            }
+        });
+
+        // Exit button.
+        ((ImageButton)findViewById(R.id.organization_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrganizationActivity.this, MainScroll.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
+            }
+        });
 
     }
 

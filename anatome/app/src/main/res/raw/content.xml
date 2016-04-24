@@ -23,6 +23,9 @@
 
                 (This can all be tweaked in the settings.)
             </information>
+            <information id="disclaimer">
+                * The advice in this app is not written by professionals, but we're pretty knowledgeable!
+            </information>
             <information id="name">
                 Firstly, what should we call you?
                 (If you're worried about privacy, now's the time to re-invent yourself. Otherwise, we'll remember you as 'guest'!)
@@ -343,6 +346,7 @@
                 <label id="no-preference">No preference</label>
                 <label id="filter-info">* This will request a specific advisor.</label>
                 <label id="submit-tip">Submit a tip</label>
+                <label id="backend">Want to change your organization's information? Click here.</label>
             </buttons>
         </miscellaneous>
     </content>
