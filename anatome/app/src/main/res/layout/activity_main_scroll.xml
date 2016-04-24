@@ -181,7 +181,7 @@
             android:gravity="top"
             android:layout_alignBottom="@+id/mainscroll_background"
             android:layout_alignParentTop="true"
-            android:weightSum="5249">
+            android:weightSum="5365">
 
         <ImageView
             android:layout_width="match_parent"
@@ -204,17 +204,19 @@
 
             <io.wellbeings.anatome.ElectricView
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="0dp"
                 android:id="@+id/view"
                 android:layout_alignParentTop="true"
+                android:layout_alignTop="@+id/brain"
                 android:layout_alignParentLeft="true"
                 android:layout_alignBottom="@+id/brain"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                />
 
         </RelativeLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:id="@+id/heart"
