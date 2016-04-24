@@ -43,7 +43,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class BrainWidget extends Fragment {
+public class BrainWidget extends Fragment implements Widget {
     // Store view object for UI manipulation.
     private View v;
 
@@ -94,38 +94,44 @@ public class BrainWidget extends Fragment {
         // Inflate the layout for this fragment, storing view.
         v = inflater.inflate(R.layout.fragment_brain_widget, container, false);
 
-        //initialise list of notes from file
-        noteList = getList();
-
+        //initialise tools for handling audio in the app
         mp = new MediaPlayer();
         audioManager = new AudioManager();
-
-        //if there aren't any notes then display the tutorial note
-        /*if(noteList.size() == 0) {
-            Note note = new Note(getCurrentDate(),
-                    getResources().getString(R.string.tutorial_note));
-            initNote(note,0);
-        }
-        else {*/
-            //initialise the graphics for the first five notes in the noteList
-            for(int i = 4; i >= 0; i--) {
-                if(i < noteList.size()) {
-                    initNote(noteList.get(i),0);
-                }
-            }
-        //}
 
         //initialise the noteListPage to 1 (first index)
         noteListPage = 1;
 
-        //initialise the control panel for saving and navigation
-        initControlPanel(v);
+        //initialise the main GUI elements
+        initGUI();
+
+        //attach listeners for the main UI component
+        attachListeners();
 
         return v;
     }
 
-    //method for initialising the save, left and right buttons
-    private void initControlPanel(View v) {
+    public void initGUI() {
+        //initialise list of notes from file
+        noteList = getList();
+
+        //if there aren't any notes then display the tutorial note
+        if(noteList.size() == 0) {
+            Note note = new Note(getCurrentDate(),
+                    getResources().getString(R.string.tutorial_note));
+            initNote(note,0);
+        }
+        else {
+            //initialise the graphics for the first five notes in the noteList
+            for (int i = 4; i >= 0; i--) {
+                if (i < noteList.size()) {
+                    initNote(noteList.get(i), 0);
+                }
+            }
+        }
+    }
+
+    //method contains attachment of listeners for the main UI component (not including saved notes)
+    public void attachListeners() {
         //retrieve the two navigation buttons
         leftArrow = (ImageButton) v.findViewById(R.id.leftArrow);
         rightArrow = (ImageButton) v.findViewById(R.id.rightArrow);
@@ -154,15 +160,15 @@ public class BrainWidget extends Fragment {
             }
         });
 
-         galleryButton.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 //open gallery
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 //start the activity and pass the data
                 startActivityForResult(i, RESULT_LOAD_IMG);
-             }
-         });
+            }
+        });
 
         audioButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -312,42 +318,23 @@ public class BrainWidget extends Fragment {
             final EditText status = (EditText) ll.findViewById(R.id.audioStatus);
             SeekBar seekBar = (SeekBar)ll.findViewById(R.id.seekBar);
 
-            Button btnPlay = (Button) ll.findViewById(R.id.playButton);
-            Button pauseButton = (Button) ll.findViewById(R.id.pauseButton);
-            Button stopButton = (Button) ll.findViewById(R.id.stopButton);
+            ImageButton btnPlay = (ImageButton) ll.findViewById(R.id.playButton);
+            ImageButton stopButton = (ImageButton) ll.findViewById(R.id.stopButton);
 
             ll.findViewById(R.id.audioPlayback).setVisibility(View.VISIBLE);
 
-            /*setdatasource audio path
-            try {
-
-            }
-            catch(IOException e) {
-                e.printStackTrace();
-                //abort the note and tell the user
-            }*/
-
-            //TODO: Remove this when it works
-            pauseButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pauseAudio(status);
-                }
-            });
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     stopAudio(status);
                 }
             });
-
             btnPlay.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     playAudio(status, note);
                 }
             });
-
         }
 
         //else, the content is text based
@@ -580,17 +567,11 @@ public class BrainWidget extends Fragment {
     public void  playAudio(EditText status, Note note){
         // play audio
         try {
-//            asset = getActivity().getAssets();
-//            afd = asset.openFd(note.getAudioDirectory());
-
             mp.reset();
-//            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             mp.setDataSource(note.getAudioDirectory());
             mp.prepare();
             status.setText(getResources().getString(R.string.playback_status_playing));
             mp.start();
-
-//            afd.close();
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
@@ -598,14 +579,6 @@ public class BrainWidget extends Fragment {
             e.printStackTrace();
         } catch(IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void pauseAudio(EditText status){
-
-        if(mp.isPlaying()) {
-            status.setText(getResources().getString(R.string.playback_status_paused));
-            mp.pause();
         }
     }
 

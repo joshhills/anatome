@@ -93,17 +93,16 @@ public class Section extends FragmentActivity {
         final int mainColourId = (ContextCompat.getColor(this,
                 UtilityManager.getThemeUtility(this).getColour(section + "_main_bg")));
 
-
         ((ImageView) findViewById(R.id.section_image)).setImageResource(resourceId);
         ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(secondaryColourId);
         ((Button) findViewById(R.id.back)).setBackgroundColor(backBtnColourId);
         ((TextView) findViewById(R.id.section_name)).setBackgroundColor(secondaryColourId);
+
+
+        ((TextView) findViewById(R.id.section_name)).setTypeface(UtilityManager.getThemeUtility(this).getFont("Bariol"));
+        ((TextView) findViewById(R.id.back)).setTypeface(UtilityManager.getThemeUtility(this).getFont("Bariol"));
         ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
 
-        Typeface customFont = UtilityManager.getThemeUtility(this).getFont("Bariol");
-
-        ((TextView) findViewById(R.id.section_name)).setTypeface(customFont);
-        ((TextView) findViewById(R.id.back)).setTypeface(customFont);
     }
 
     // Modulate set-up tasks for easy alteration.

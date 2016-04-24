@@ -16,6 +16,7 @@
     <color name="brain_negative_text">#ffffff</color>
     <color name="brain_note_date_bg">#d6d6d6</color>
     <color name="brain_note_date_text">#432a64</color>
+    <color name="brain_main_text">#ffffff</color>
 
     <!-- Mood Section. -->
     <color name="heart_main_bg">#de6363</color>

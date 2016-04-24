@@ -33,7 +33,6 @@ public class ThemeUtility implements Utility {
      */
     public ThemeUtility (Context ctx) {
 
-        // Attempt to start to set-up the utility using the arguments provided.
         // Store the context.
         this.ctx = ctx;
 
@@ -135,4 +134,5 @@ public class ThemeUtility implements Utility {
         return customFont;
 
     }
+
 }
