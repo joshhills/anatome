@@ -1,6 +1,7 @@
 package io.wellbeings.anatome;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -96,6 +97,7 @@ public class Section extends FragmentActivity {
         ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(secondaryColourId);
         ((Button) findViewById(R.id.back)).setBackgroundColor(backBtnColourId);
         ((TextView) findViewById(R.id.section_name)).setBackgroundColor(secondaryColourId);
+
 
         ((TextView) findViewById(R.id.section_name)).setTypeface(UtilityManager.getThemeUtility(this).getFont("Bariol"));
         ((TextView) findViewById(R.id.back)).setTypeface(UtilityManager.getThemeUtility(this).getFont("Bariol"));

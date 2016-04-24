@@ -41,6 +41,9 @@ public class PreambleIntro extends Fragment {
         ((TextView) view.findViewById(R.id.preamble_information_intro))
                 .setText(UtilityManager.getContentLoader(getContext()).getInfoText("preamble", "intro"));
 
+        ((TextView) view.findViewById(R.id.preamble_information_disclaimer))
+                .setText(UtilityManager.getContentLoader(getContext()).getInfoText("preamble", "disclaimer"));
+
     }
 
 }

@@ -54,13 +54,24 @@
             android:text="Organization Description"
             android:id="@+id/organization_description"
             android:textColor="#ffffff"
-            android:layout_marginBottom="15dp"
             android:textSize="11dp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/organization_backend"
+            android:text="Back-end link"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:textColor="#ffffff"
+            android:textSize="11dp"
+            android:singleLine="false"
+            android:textStyle="bold|italic" />
 
         <fragment
             android:id="@+id/organization_map"
             android:name="com.google.android.gms.maps.MapFragment"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
 
     </LinearLayout>

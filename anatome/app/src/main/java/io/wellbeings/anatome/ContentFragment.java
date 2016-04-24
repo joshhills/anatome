@@ -63,7 +63,7 @@ public class ContentFragment extends Fragment {
         section = getArguments().getString("section");
 
         // Populate text containers with informative content.
-        populateContent();
+        initGUI();
 
         // Load user tips from the database.
         loadComments();
@@ -72,7 +72,7 @@ public class ContentFragment extends Fragment {
     }
 
     // Populate frame UI components with local information.
-    private void populateContent() {
+    private void initGUI() {
 
         /* Style background elements. */
 
@@ -127,51 +127,10 @@ public class ContentFragment extends Fragment {
                         UtilityManager.getThemeUtility(getContext()).getColour(section + "_main_text"))
         );
 
-        // Allow user to submit their own comment.
-        ((Button) view.findViewById(R.id.content_submit)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Create comment input.
-                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
-                builder.setTitle("Share your advice!");
-                builder.setCancelable(true);
-                final EditText commentInput = new EditText(getContext());
-
-                // Force maximum length.
-                commentInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(
-                        UtilityManager.getUserUtility(getContext()).getCOMMENT_LENGTH()
-                )});
-                builder.setView(commentInput);
-
-                // Dictate how the buttons should look.
-                builder.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(commentInput.getText().toString().length() < 10) {
-                            Toast.makeText(getContext(), "Sorry, comment too short!",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            try {
-                                UtilityManager.getDbUtility(getContext()).addComment(
-                                        commentInput.getText().toString(),
-                                        UtilityManager.getUserUtility(getContext()).getName(),
-                                        section
-                                );
-                            } catch (NetworkException e) {
-                                Toast.makeText(getContext(), "Sorry, there was an error!",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                            Toast.makeText(getContext(), "Awesome, it's pending approval!",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                builder.show();
-
-            }
-        });
+        // Set the submit button text.
+        ((Button) view.findViewById(R.id.content_submit)).setText(
+                UtilityManager.getContentLoader(getContext()).getButtonText("submit-tip")
+        );
 
         // Log when the content was last updated.
         ((TextView) view.findViewById(R.id.content_modified)).setText(
@@ -185,6 +144,9 @@ public class ContentFragment extends Fragment {
                 section + "_graphic", "drawable", getContext().getPackageName()
         );
         ((ImageView) view.findViewById(R.id.content_graphic_other)).setImageResource(resourceIdLarge);
+
+        // Load comments.
+        loadComments();
 
     }
 
@@ -297,6 +259,56 @@ public class ContentFragment extends Fragment {
             NotificationHandler.NetworkErrorDialog(getContext());
 
         }
+
+    }
+
+    public void attachListeners() {
+
+        // Allow user to submit their own comment.
+        ((Button) view.findViewById(R.id.content_submit)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Create comment input.
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
+                builder.setTitle("Share your advice!");
+                builder.setCancelable(true);
+                final EditText commentInput = new EditText(getContext());
+
+                // Force maximum length.
+                commentInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(
+                        UtilityManager.getUserUtility(getContext()).getCOMMENT_LENGTH()
+                )});
+                builder.setView(commentInput);
+
+                // Dictate how the buttons should look.
+                builder.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(commentInput.getText().toString().length() < 10) {
+                            Toast.makeText(getContext(), "Sorry, comment too short!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            try {
+                                UtilityManager.getDbUtility(getContext()).addComment(
+                                        commentInput.getText().toString(),
+                                        UtilityManager.getUserUtility(getContext()).getName(),
+                                        section
+                                );
+                            } catch (NetworkException e) {
+                                Toast.makeText(getContext(), "Sorry, there was an error!",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            Toast.makeText(getContext(), "Awesome, it's pending approval!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
 
     }
 

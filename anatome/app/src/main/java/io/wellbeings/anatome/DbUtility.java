@@ -34,8 +34,9 @@ import cz.msebera.android.httpclient.params.BasicHttpParams;
 /**
  * Black-box into database PHP API provides
  * dynamic functionality across application.
+ *
+ * @author Team WellBeings - Callum, Josh
  */
-
 public class DbUtility implements Utility {
 
     // Log status of utility.

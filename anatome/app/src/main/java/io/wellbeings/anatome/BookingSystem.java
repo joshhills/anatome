@@ -35,6 +35,9 @@ import java.util.Locale;
  */
 public class BookingSystem extends AppCompatActivity implements Widget {
 
+    // Store whether the user has interacted with form elements.
+    private boolean hasInteracted = false;
+
     // Retrieve display elements for code clarity.
     private TextView mSetDate, mSetTime, mBookingTitle;
     private Button mBackFromBooking, mBook;
@@ -43,7 +46,7 @@ public class BookingSystem extends AppCompatActivity implements Widget {
     // Store private fields used to construct an appointment.
     private String[] appointments;
     private String pref = "either";
-    private String timeTime = "Select Time";
+    private String timeTime = UtilityManager.getContentLoader(this).getButtonText("time");
     private final Calendar c = Calendar.getInstance();
 
     // Create private date listener.
@@ -71,17 +74,25 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         initGUI();
 
         attachListeners();
-
     }
 
     public void initGUI() {
 
         // Find and save references to commonly used UI elements.
-        mSetDate = (TextView) findViewById(R.id.setDate);
-        mSetTime = (TextView) findViewById(R.id.setTime);
-        mBackFromBooking = (Button) findViewById(R.id.backFromBooking);
-        mBook = (Button) findViewById(R.id.bookFromBooking);
-        mBookingTitle = (TextView) findViewById(R.id.bookingTitle);
+        mSetDate = (TextView) findViewById(R.id.booking_set_date);
+        mSetTime = (TextView) findViewById(R.id.booking_set_time);
+        mBackFromBooking = (Button) findViewById(R.id.booking_back_from_booking);
+        mBook = (Button) findViewById(R.id.booking_book_from_booking);
+        mBookingTitle = (TextView) findViewById(R.id.booking_title);
+
+        // Set textual content.
+
+        mBackFromBooking.setText(
+                UtilityManager.getContentLoader(this).getButtonText("book")
+        );
+        mBookingTitle.setText(
+                UtilityManager.getContentLoader(this).getButtonText("appointment")
+        );
 
         // Set fonts.
         Typeface customFont = UtilityManager.getThemeUtility(this).getFont("Bariol");
@@ -95,8 +106,10 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         // Set the current date.
         setCurrentDateOnView();
 
-        // Disable the booking button as nothing has been selected yet.
-        disableBookButton();
+        // Disable the booking button if nothing has been selected yet.
+        if(!hasInteracted) {
+            disableBookButton();
+        }
 
     }
 
@@ -117,10 +130,10 @@ public class BookingSystem extends AppCompatActivity implements Widget {
             public void onClick(View v) {
 
                 postBooking();
-                disableBookButton();
 
                 // Switch to new view.
-                Intent intent = new Intent(BookingSystem.this, TestLayout.class);
+                // TODO: CLEAR ACTIVITY STACK.
+                Intent intent = new Intent(BookingSystem.this, AppointmentDetails.class);
                 startActivity(intent);
 
                 // Remove this one from the stack.
@@ -130,14 +143,13 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         });
 
         // Add filter screen navigation button.
-        mOptions = (ImageButton) findViewById(R.id.bookingOptions);
+        mOptions = (ImageButton) findViewById(R.id.booking_options);
         mOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 displayOptions();
             }
         });
-
     }
 
     /* Useful extraneous methods. */
@@ -155,7 +167,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         // Display the new date and time.
         mSetDate.setText(sdf.format(c.getTime()));
         mSetTime.setText(timeTime);
-
     }
 
     /**
@@ -167,37 +178,60 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         // Change the view.
         setContentView(R.layout.booking_options_layout);
 
+        // Style the view.
 
-        /* Style the view. */
+        Button save = (Button) findViewById(R.id.booking_save_gender);
+        TextView firstLine = (TextView) findViewById(R.id.booking_gender_line_one);
+        TextView secondLine = (TextView) findViewById(R.id.booking_gender_line_two);
+        TextView smallText = (TextView) findViewById(R.id.booking_gender_info);
+        RadioButton rb1 = (RadioButton) findViewById(R.id.booking_radio_woman);
+        RadioButton rb2 = (RadioButton) findViewById(R.id.booking_radio_man);
+        RadioButton rb3 = (RadioButton) findViewById(R.id.booking_radio_nopreference);
 
+        // Set the content.
 
-        Button save = (Button) findViewById(R.id.saveGenderOptionsButton);
-        TextView firstLine = (TextView) findViewById(R.id.genderOptionsFirstLine);
-        TextView secondLine = (TextView) findViewById(R.id.genderOptionsSecondLine);
-        TextView smallText = (TextView) findViewById(R.id.small_text_gender_options);
-        RadioButton rb1 = (RadioButton) findViewById(R.id.radio_woman);
-        RadioButton rb2 = (RadioButton) findViewById(R.id.radio_man);
-        RadioButton rb3 = (RadioButton) findViewById(R.id.radio_nopreference);
+        save.setText(
+                UtilityManager.getContentLoader(this).getButtonText("save")
+        );
+        firstLine.setText(
+                UtilityManager.getContentLoader(this).getButtonText("filter-one")
+        );
+        secondLine.setText(
+                UtilityManager.getContentLoader(this).getButtonText("filter-two")
+        );
+        smallText.setText(
+                UtilityManager.getContentLoader(this).getButtonText("filter-info")
+        );
+        rb1.setText(
+                UtilityManager.getContentLoader(this).getButtonText("woman")
+        );
+        rb2.setText(
+                UtilityManager.getContentLoader(this).getButtonText("man")
+        );
+        rb3.setText(
+                UtilityManager.getContentLoader(this).getButtonText("no-preference")
+        );
 
-        Typeface customFont = UtilityManager.getThemeUtility(this).getFont("Bariol");
+        Typeface bariol = UtilityManager.getThemeUtility(this).getFont("Bariol");
+        Typeface helvetica = UtilityManager.getThemeUtility(this).getFont("Bariol");
 
-        save.setTypeface(customFont);
-        firstLine.setTypeface(customFont);
-        secondLine.setTypeface(customFont);
-        smallText.setTypeface(customFont);
-        rb1.setTypeface(customFont);
-        rb2.setTypeface(customFont);
-        rb3.setTypeface(customFont);
+        save.setTypeface(helvetica);
+        firstLine.setTypeface(bariol);
+        secondLine.setTypeface(bariol);
+        smallText.setTypeface(helvetica);
+        rb1.setTypeface(helvetica);
+        rb2.setTypeface(helvetica);
+        rb3.setTypeface(helvetica);
 
         // Provide a listener to revert the view.
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setContentView(R.layout.booking_layout);
+                initGUI();
+                attachListeners();
             }
         });
-
-        // Provide a listener to save the view.
 
     }
 
@@ -210,9 +244,11 @@ public class BookingSystem extends AppCompatActivity implements Widget {
     }
 
     /**
-     * Styling function for brevity disables button.
+     * Styling function for brevity enables button,
+     * also logs interaction.
      */
     private void enableBookButton() {
+        hasInteracted = true;
         mBook.setEnabled(true);
         mBook.setTextColor(Color.parseColor("#09849a"));
     }
@@ -301,7 +337,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
             // Notify the user of any errors.
             NotificationHandler.NetworkErrorDialog(BookingSystem.this);
         }
-
     }
 
     /**
@@ -338,19 +373,19 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         switch (rb.getId()) {
 
             // Log preference as female advisor.
-            case R.id.radio_woman:
+            case R.id.booking_radio_woman:
                 if(checked) {
                     pref = "woman";
                 }
                 break;
             // Log preference as male advisor.
-            case R.id.radio_man:
+            case R.id.booking_radio_man:
                 if(checked) {
                     pref = "man";
                 }
                 break;
             // Log preference as any advisor.
-            case R.id.radio_nopreference:
+            case R.id.booking_radio_nopreference:
                 if(checked) {
                     pref = "either";
                 }

@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -21,15 +20,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.util.Util;
-import com.facebook.FacebookSdk;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 
@@ -76,6 +72,9 @@ public class MainScroll extends Activity {
 
     }
 
+    /**
+     * Override the native method called when the activity is paused
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -85,6 +84,9 @@ public class MainScroll extends Activity {
 
     }
 
+    /**
+     * Override the native method called when the activity is resumed
+     */
     @Override
     protected void onResume()
     {
@@ -106,7 +108,6 @@ public class MainScroll extends Activity {
         Animation fuelAnimation = AnimationUtils.loadAnimation(this, R.anim.rocket_fuel_animation);
         Animation fuelMovementAnimation = AnimationUtils.loadAnimation(this, R.anim.rocket_fuel_movement_animation);
 
-
         // Start them going again.
         ((ImageView) findViewById(R.id.heart)).startAnimation(heartAnimation);
         ((ImageView) findViewById(R.id.brain)).startAnimation(brainAnimation);
@@ -115,18 +116,26 @@ public class MainScroll extends Activity {
         ((ImageView) findViewById(R.id.mainscroll_fuel_dark)).startAnimation(fuelMovementAnimation);
         ((ImageView) findViewById(R.id.mainscroll_fuel_light)).startAnimation(fuelMovementAnimation);
         ((ImageView) findViewById(R.id.mainscroll_fuel_light)).startAnimation(fuelAnimation);
-
     }
 
+    /**
+     * Initialise the display
+     */
     private void initGUI() {
 
-
+        // used to measure the screen
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE); // the results will be higher than using the activity context object or the getWindowManager() shortcut
+
+        // fetch the window manager
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+
+        // measure the display
         wm.getDefaultDisplay().getMetrics(displayMetrics);
+
+        // save the default screen width
         int screenWidth = displayMetrics.widthPixels;
 
-        // default screen size
+        // default screen scale
         float targetSize = 1;
 
         // check if screen size is found
@@ -136,18 +145,13 @@ public class MainScroll extends Activity {
             targetSize = 1080f / screenWidth;
         }
 
+        // calculate the screen width
         int targetScreenWidth = (int) (1080f / targetSize);
-
-        Log.d("targetSize", Float.toString(targetSize));
-        Log.d("screenWidth", Integer.toString(screenWidth));
-        Log.d("targetScreenWidth", Integer.toString(targetScreenWidth));
-
 
         // load the rocket background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_rocket)
                 .dontTransform()
-                //.override(1080, 732)
                 .override(targetScreenWidth, (int) (732 / targetSize))
                 .into((ImageView) findViewById(R.id.mainscroll_rocket_background));
 
@@ -155,7 +159,6 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.rocket_animation)
                 .dontTransform()
-                //.override(1080, 732)
                 .override(targetScreenWidth, (int) (732 / targetSize))
                 .animate(R.anim.rocket_animation)
                 .into((ImageView) findViewById(R.id.rocket_animation));
@@ -164,8 +167,7 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.mainscroll_fuel_dark)
                 .dontTransform()
-                //.override(1080, 732)
-                .override(targetScreenWidth,(int) (732 / targetSize))
+                .override(targetScreenWidth, (int) (732 / targetSize))
                 .animate(R.anim.rocket_fuel_movement_animation)
                 .into((ImageView) findViewById(R.id.mainscroll_fuel_dark));
 
@@ -173,7 +175,6 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.mainscroll_fuel_light)
                 .dontTransform()
-               // .override(1080, 732)
                 .override(targetScreenWidth, (int) (732 / targetSize))
                 .animate(R.anim.rocket_fuel_animation)
                 .into((ImageView) findViewById(R.id.mainscroll_fuel_light));
@@ -182,23 +183,20 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.mainscroll_kite)
                 .dontTransform()
-               // .override(1080, 732)
                 .override(targetScreenWidth, (int) (732 / targetSize))
                 .into((ImageView) findViewById(R.id.mainscroll_kite));
 
-        // load the background image
+        // load the upper background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_upper)
                 .dontTransform()
-               // .override(1080, 2700)
                 .override(targetScreenWidth, (int) (2700 / targetSize))
                 .into((ImageView) findViewById(R.id.mainscroll_background_upper));
 
-        // load the background image
+        // load the lower background image
         Glide.with(this)
                 .load(R.drawable.mainscroll_background_lower)
                 .dontTransform()
-                //.override(1080, 2638)
                 .override(targetScreenWidth, (int) (2638 / targetSize))
                 .into((ImageView) findViewById(R.id.mainscroll_background_lower));
 
@@ -206,7 +204,6 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.heart)
                 .dontTransform()
-                //.override(1200, 1014)
                 .override(targetScreenWidth, (int) (1014 / targetSize))
                 .animate(R.anim.heart_animation)
                 .into((ImageView) findViewById(R.id.heart));
@@ -215,7 +212,6 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.brain)
                 .dontTransform()
-                //.override(1080, 1262)
                 .override(targetScreenWidth, (int) (1262 / targetSize))
                 .animate(R.anim.brain_animation)
                 .into((ImageView) findViewById(R.id.brain));
@@ -224,17 +220,14 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.liver_front)
                 .dontTransform()
-                //.override(1080, 662)
                 .override(targetScreenWidth, (int) (662 / targetSize))
                 .animate(R.anim.liver_animation)
                 .into((ImageView) findViewById(R.id.liver));
-
 
         //load the background liver image
         Glide.with(this)
                 .load(R.drawable.liver_back)
                 .dontTransform()
-                        //.override(1080, 662)
                 .override(targetScreenWidth, (int) (662 / targetSize))
                 .into((ImageView) findViewById(R.id.liver_back));
 
@@ -242,10 +235,8 @@ public class MainScroll extends Activity {
         Glide.with(this)
                 .load(R.drawable.footer)
                 .dontTransform()
-                        //.override(1080, 731)
                 .override(targetScreenWidth, (int) (731 / targetSize))
                 .into((ImageView) findViewById(R.id.mainscroll_footer));
-
 
         // display the welcome message at the top of the mainScroll
         TextView welcomeHeader = (TextView)findViewById(R.id.mainscroll_welcome_text);
@@ -255,25 +246,27 @@ public class MainScroll extends Activity {
         TextView t = (TextView)findViewById(R.id.main_scroll_text);
         t.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "welcome_text"));
 
-        // display a title message in the footer
+        // display a header message in the footer
         TextView footerTextTitle = (TextView)findViewById(R.id.mainscroll_organisation_title);
         footerTextTitle.setText(UtilityManager.getContentLoader(this).getHeaderText("mainscroll", "more_help"));
 
         // display a message in the footer
         TextView footerTextInfo = (TextView)findViewById(R.id.mainscroll_more_help_text);
         footerTextInfo.setText(UtilityManager.getContentLoader(this).getInfoText("mainscroll", "more_help_text"));
-
     }
 
-    // Modulate set-up tasks for easy alteration.
+    /**
+     * Modulate set-up tasks for easy alteration.
+     **/
     private void attachListeners() {
 
         // Retrieve navigation components and set mutual listeners.
         findViewById(R.id.brain).setOnClickListener(navigateToSection);
         findViewById(R.id.heart).setOnClickListener(navigateToSection);
         findViewById(R.id.liver).setOnClickListener(navigateToSection);
-        findViewById(R.id.bookingInfoButton).setOnClickListener(navigateToBookingSystem);
+        findViewById(R.id.bookingInfoButton).setOnClickListener(makeBookingButtonVisible);
         findViewById(R.id.rocket_animation).setOnClickListener(navigateToSettings);
+        findViewById(R.id.bookButtonOnMainScroll).setOnClickListener(bookButtonOnClick);
         findViewById(R.id.settingsBtn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -282,10 +275,11 @@ public class MainScroll extends Activity {
                 overridePendingTransition(R.anim.slide_top_in, R.anim.slide_top_out);
             }
         });
-
     }
 
-    // Mutual re-usable interface type to manage section routing.
+    /**
+     * Mutual re-usable interface type to manage section routing.
+     **/
     private OnClickListener navigateToSection = new OnClickListener() {
         public void onClick(View arg) {
 
@@ -299,101 +293,107 @@ public class MainScroll extends Activity {
 
             // Start activity with message passed.
             startActivity(intent);
-
         }
     };
 
-    private OnClickListener navigateToBookingSystem = new OnClickListener() {
+    /**
+     * Enable navigation to the booking system
+     */
+    private OnClickListener makeBookingButtonVisible = new OnClickListener() {
         @Override
         public void onClick(View v) {
 
+            // set clicked image to be invisible
+            v.setVisibility(View.INVISIBLE);
+
+            // find text view
             TextView needMoreHelpText = (TextView) findViewById(R.id.needMoreHelpText);
-            ImageButton infoButtonOnMainScroll = (ImageButton) v;
-            ImageButton bookImageButtonOnMainScroll = (ImageButton) findViewById(R.id.bookButtonOnMainScroll);
 
-            infoButtonOnMainScroll.setVisibility(View.INVISIBLE);
-            //needMoreHelpText.setVisibility(View.INVISIBLE);
-
-
-            AssetManager assetManager = getAssets();
-            Typeface customFontBariol = Typeface.createFromAsset(assetManager, "fonts/Bariol.ttf");
-            Typeface customFontHelvetica = Typeface.createFromAsset(assetManager, "fonts/Helvetica.ttf");
-
+            // override default text size of the text view
             needMoreHelpText.setTextSize(20);
+
+            // set the text
             needMoreHelpText.setText("Book an appointment with \nthe Wellbeing Service");
-            bookImageButtonOnMainScroll.setVisibility(View.VISIBLE);
 
-           bookImageButtonOnMainScroll.setOnClickListener(new OnClickListener() {
-               @Override
-               public void onClick(View v) {
-
-                   String email = UtilityManager.getUserUtility(MainScroll.this).getEmail();
-
-                   if(email == null || "".equals(email.trim())) {
-
-                       AlertDialog.Builder builder = new AlertDialog.Builder(MainScroll.this, AlertDialog.THEME_HOLO_LIGHT);
-
-                       builder.setMessage("You must set your email in settings to book an appointment!")
-                               .setCancelable(false)
-                               .setPositiveButton("Okay",
-                                       new DialogInterface.OnClickListener() {
-                                           public void onClick(DialogInterface dialog, int id) {
-                                               dialog.cancel();
-                                           }
-                                       });
-
-                       AlertDialog alert = builder.create();
-                       alert.show();
-
-                   }else {
-
-                       try {
-                           Context ctx = MainScroll.this;
-                           HashMap<String, String> appointments;
-
-                           appointments = UtilityManager.getDbUtility(ctx).getAppointment();
-
-                           String date;
-                           Boolean check;
-
-                           try {
-                               date = appointments.get("App_Date").toString();
-                               check = true;
-                           } catch (Exception e) {
-                               check = false;
-                           }
-
-                           if (check) {
-                               Intent intent = new Intent(v.getContext(), TestLayout.class);
-                               startActivity(intent);
-                           } else {
-
-                               Intent intent = new Intent(v.getContext(), BookingSystem.class);
-                               startActivity(intent);
-                           }
-                       }catch (NetworkException e) {
-                           NotificationHandler.NetworkErrorDialog(MainScroll.this);
-                       }
-
-                   }
-               }
-           });
-
-
+            // select the book button
+            findViewById(R.id.bookButtonOnMainScroll).setVisibility(View.VISIBLE);
         }
     };
 
-    private OnClickListener navigateToSettings = new OnClickListener() {
+    private OnClickListener bookButtonOnClick = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            ((ImageView) findViewById(R.id.rocket_animation)).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), Settings.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
+
+            // fetch the users email
+            String email = UtilityManager.getUserUtility(MainScroll.this).getEmail();
+
+            // prevent user from booking an appointment with no email,
+            // remove whitespace in the email
+            if (email == null || "".equals(email.trim())) {
+
+                // create an alert dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainScroll.this, AlertDialog.THEME_HOLO_LIGHT);
+
+                // set the details of the alert dialog
+                builder.setMessage("You must set your email in settings to book an appointment!")
+                        .setCancelable(false)
+                        // close the dialog when user clicks okay
+                        .setPositiveButton("Okay",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create and show the alert message dialog to the user
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            } else {
+
+                // email is not blank
+
+                try {
+                    // fetch list of appointments
+                    Map<String, String> appointments = UtilityManager
+                            .getDbUtility(MainScroll.this).getAppointment();
+
+                    // check if appointment has a date
+                    if (appointments != null && appointments.containsKey("App_Date")) {
+
+                        // show appointment details
+                        Intent intent = new Intent(v.getContext(), AppointmentDetails.class);
+                        startActivity(intent);
+
+                    } else {
+
+                        // if no appointment is found, show the booking system
+                        Intent intent = new Intent(v.getContext(), BookingSystem.class);
+                        startActivity(intent);
+                    }
+                } catch (NetworkException e) {
+                    NotificationHandler.NetworkErrorDialog(MainScroll.this);
                 }
-            });
+            }
         }
     };
+
+    /**
+     * Enable navigation to the settings
+     */
+    private OnClickListener navigateToSettings = new OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+            // save the activity to be navigated to
+            Intent intent = new Intent(v.getContext(), Settings.class);
+
+            // navigate to saved activity
+            startActivity(intent);
+
+            // use slide animation for the transition
+            overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
+        }
+     };
 }
