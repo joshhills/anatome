@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -21,10 +20,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.util.Util;
-import com.facebook.FacebookSdk;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 
 import android.widget.ImageButton;
 import android.widget.ScrollView;
@@ -364,7 +359,7 @@ public class MainScroll extends Activity {
                            }
 
                            if (check) {
-                               Intent intent = new Intent(v.getContext(), TestLayout.class);
+                               Intent intent = new Intent(v.getContext(), AppointmentDetails.class);
                                startActivity(intent);
                            } else {
 

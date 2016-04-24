@@ -37,6 +37,7 @@ public class ThemeUtility implements Utility {
         this.ctx = ctx;
 
         // Attempt to start to set-up the utility using the argument provided.
+
         try {
             utilityStatus = initialize();
         } catch (IOException e) {
@@ -104,7 +105,6 @@ public class ThemeUtility implements Utility {
 
         return STATUS.SUCCESS;
     }
-
 
     /**
      * Replacement for deprecated Android function,

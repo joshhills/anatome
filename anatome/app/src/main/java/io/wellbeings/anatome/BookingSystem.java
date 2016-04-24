@@ -74,7 +74,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         initGUI();
 
         attachListeners();
-
     }
 
     public void initGUI() {
@@ -125,7 +124,7 @@ public class BookingSystem extends AppCompatActivity implements Widget {
 
                 // Switch to new view.
                 // TODO: CLEAR ACTIVITY STACK.
-                Intent intent = new Intent(BookingSystem.this, TestLayout.class);
+                Intent intent = new Intent(BookingSystem.this, AppointmentDetails.class);
                 startActivity(intent);
 
                 // Remove this one from the stack.
@@ -142,7 +141,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
                 displayOptions();
             }
         });
-
     }
 
     /* Useful extraneous methods. */
@@ -160,7 +158,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         // Display the new date and time.
         mSetDate.setText(sdf.format(c.getTime()));
         mSetTime.setText(timeTime);
-
     }
 
     /**
@@ -306,7 +303,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
             // Notify the user of any errors.
             NotificationHandler.NetworkErrorDialog(BookingSystem.this);
         }
-
     }
 
     /**
