@@ -1,6 +1,7 @@
 package io.wellbeings.anatome;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,6 +34,9 @@ import java.util.logging.Logger;
  * Main activity handles navigation to custom
  * informative sections, serves as a graphical
  * launchpad for app's key features.
+ *
+ * class content for the measuring screen size taken from:
+ * http://stackoverflow.com/questions/2902640/android-get-the-screen-resolution-pixels-as-integer-values
  */
 public class MainScroll extends Activity {
 
@@ -122,7 +126,7 @@ public class MainScroll extends Activity {
      * Initialise the display
      */
     private void initGUI() {
-
+        
         // used to measure the screen
         DisplayMetrics displayMetrics = new DisplayMetrics();
 

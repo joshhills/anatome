@@ -11,6 +11,7 @@
         android:id="@+id/content_container"
         android:padding="16dp">
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,6 +20,12 @@
             android:id="@+id/content_title"
             android:paddingBottom="14dp"
             android:textSize="24dp" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/content_graphic_other"
+            android:contentDescription="section graphic" />
 
 
         <TextView
@@ -29,12 +36,6 @@
             android:paddingBottom="14dp"
             android:textSize="16dp" />
 
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/content_graphic_other"
-            android:contentDescription="section graphic" />
 
 
         <TextView
