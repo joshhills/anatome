@@ -96,16 +96,12 @@ public class Section extends FragmentActivity {
         ((FrameLayout) findViewById(R.id.section_top_layout)).setBackgroundColor(secondaryColourId);
         ((Button) findViewById(R.id.back)).setBackgroundColor(backBtnColourId);
         ((TextView) findViewById(R.id.section_name)).setBackgroundColor(secondaryColourId);
-        //((TextView) findViewById(R.id.section_name)).setTypeface();
 
+        ((TextView) findViewById(R.id.section_name)).setTypeface(UtilityManager.getThemeUtility(this).getFont("Bariol"));
+        ((TextView) findViewById(R.id.back)).setTypeface(UtilityManager.getThemeUtility(this).getFont("Bariol"));
 
+        ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
 
-        UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.section_name));
-        UtilityManager.getThemeUtility(this).defineCustomFont((TextView) findViewById(R.id.back));
-
-                ((TabWidget) findViewById(R.id.tabs)).setBackgroundColor(mainColourId);
-
->>>>>>> origin/master
     }
 
     // Modulate set-up tasks for easy alteration.
@@ -137,7 +133,6 @@ public class Section extends FragmentActivity {
             }
         });
 
->>>>>>> origin/master
     }
 
     /**
