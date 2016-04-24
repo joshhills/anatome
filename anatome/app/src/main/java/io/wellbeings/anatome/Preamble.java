@@ -72,7 +72,8 @@ public class Preamble extends AppCompatActivity {
     }
 
     /**
-     * Private anonymous class 
+     * Private anonymous class specifies functionality of
+     * pager to suit application needs.
      */
     private class MyPageAdapter extends FragmentPagerAdapter {
 
@@ -87,6 +88,7 @@ public class Preamble extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            // Direct the order of fragment loading.
             switch (position) {
                 case 0:
                     return new PreambleLanguage();

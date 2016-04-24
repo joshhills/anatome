@@ -64,16 +64,21 @@ public class UtilityManager {
         utilities[1] = new ContentLoader(ctx, ctx.getResources().openRawResource(R.raw.content),
                 ctx.getResources().openRawResource(R.raw.contentschema));
 
+        // Add database interpolation for social and organization integration.
         utilities[2] = new DbUtility(ctx);
 
+        // Add stylistic functions.
         utilities[3] = new ThemeUtility(ctx);
-
-        // TODO: Add database interpolation for social and organization integration.
 
     }
 
     /**
-     * Check for status errors to determine flow of app. This is for developers only!
+     * Check for status errors to determine flow of app.
+     *
+     * This was for developers, and has been left in to
+     * give a flavour of our structured dynamic testing
+     * throughout the duration of the project - more than
+     * the now removed 'log' statements.
      *
     private void handleErrors() {
 

@@ -13,7 +13,11 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 /**
- * Created by bettinaalexieva on 15/03/2016.
+ * Provide visual display of stored user appointment
+ * to remind the user, and also disable them from
+ * adding multiple appointments.
+ *
+ * @author Team WellBeings - Bettina, Callum, Josh
  */
 public class AppointmentDetails extends AppCompatActivity {
 
@@ -25,7 +29,7 @@ public class AppointmentDetails extends AppCompatActivity {
         setContentView(R.layout.booking_details);
 
         // Set font.
-        Typeface customFont = UtilityManager.getThemeUtility(this).getFont("champagne");
+        Typeface customFont = UtilityManager.getThemeUtility(this).getFont("Bariol");
 
         // Find and save references to UI element.
         mBackFromBooked = (Button)findViewById(R.id.backFromBooked);
@@ -61,11 +65,13 @@ public class AppointmentDetails extends AppCompatActivity {
             timeView.setText(time);
 
             // Create a notification containing appointment details.
-            NotificationHandler.pushNotification(AppointmentDetails.this, "Booked Appointment:", "Time: " + time + " - Date: " + date);
+            NotificationHandler.pushNotification(AppointmentDetails.this,
+                    "Booked Appointment:", "Time: " + time + " - Date: " + date);
 
         } catch(NetworkException e) {
             // Exception caught in case of Network Failure.
             NotificationHandler.NetworkErrorDialog(AppointmentDetails.this);
         }
+
     }
 }
