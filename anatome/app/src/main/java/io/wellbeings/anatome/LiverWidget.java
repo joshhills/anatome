@@ -2,8 +2,6 @@ package io.wellbeings.anatome;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
@@ -18,9 +16,7 @@ import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
 import android.content.DialogInterface;
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.util.Util;
 
 /**
  * Interactive subsection hinging on body part
@@ -235,8 +231,6 @@ public class LiverWidget extends Fragment implements Widget {
                 setUnits(0);
                 // Reset buzzing.
                 shouldBuzz = true;
-                // Change the button.
-                //clearButton.setColor;
                 updateDisplay();
             }
         });

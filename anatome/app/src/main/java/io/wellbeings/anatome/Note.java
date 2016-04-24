@@ -58,10 +58,10 @@ public class Note implements Serializable {
     }
     public String getAudioDirectory() {
         //protect against nullPointers
-        if(hasImageContent() == false){
+        if(hasAudioContent() == false){
             return "";
         }
-        return imageDirectory;
+        return audioDirectory;
     }
     public void setAudioContent(String audioDirectory){
         this.audioDirectory = audioDirectory;

@@ -55,11 +55,10 @@ public class BrainWidget extends Fragment {
     //MediaPlayer used to handle note playback
     MediaPlayer mp;
     AudioManager audioManager;
-    final String MEDIA_PATH = new String("/sdcard/");
+
     private int currentSongIndex = 0;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
-    AssetManager asset;
-    AssetFileDescriptor afd;
+ 
 
     //result code constants for image and audio selection
     private static final int RESULT_LOAD_IMG = 1;
@@ -310,7 +309,7 @@ public class BrainWidget extends Fragment {
 
         //if the note has audio content, prepare the playback for this content
         else if(note.hasAudioContent()){
-            final TextView status = (TextView)ll.findViewById(R.id.audioStatus);
+            final EditText status = (EditText) ll.findViewById(R.id.audioStatus);
             SeekBar seekBar = (SeekBar)ll.findViewById(R.id.seekBar);
 
             Button btnPlay = (Button) ll.findViewById(R.id.playButton);
@@ -544,8 +543,8 @@ public class BrainWidget extends Fragment {
                 // Let's read picked image path using content resolver
                 String[] filePath = {MediaStore.Images.Media.DATA};
 
-                ContentResolver contentResolverU = ContentResolverUltility.tryGetContentResolver(getContext());
-                Cursor cursor = contentResolverU.query(pickedImage, filePath, null, null, null);
+
+                Cursor cursor = getContext().getContentResolver().query(pickedImage, filePath, null, null, null);
                 cursor.moveToFirst();
                 String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
 
@@ -578,19 +577,20 @@ public class BrainWidget extends Fragment {
     }
 
     //play the audio from a note object
-    public void  playAudio(TextView status, Note note){
+    public void  playAudio(EditText status, Note note){
         // play audio
         try {
-            asset = getActivity().getAssets();
-            afd = asset.openFd(note.getAudioDirectory());
+//            asset = getActivity().getAssets();
+//            afd = asset.openFd(note.getAudioDirectory());
 
             mp.reset();
-            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+//            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            mp.setDataSource(note.getAudioDirectory());
             mp.prepare();
             status.setText(getResources().getString(R.string.playback_status_playing));
             mp.start();
 
-            afd.close();
+//            afd.close();
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
@@ -601,7 +601,7 @@ public class BrainWidget extends Fragment {
         }
     }
 
-    public void pauseAudio(TextView status){
+    public void pauseAudio(EditText status){
 
         if(mp.isPlaying()) {
             status.setText(getResources().getString(R.string.playback_status_paused));
@@ -609,7 +609,7 @@ public class BrainWidget extends Fragment {
         }
     }
 
-    public void stopAudio(TextView status){
+    public void stopAudio(EditText status){
         if(mp.isPlaying()){
             status.setText(getResources().getString(R.string.playback_status_stopped));
             mp.stop();

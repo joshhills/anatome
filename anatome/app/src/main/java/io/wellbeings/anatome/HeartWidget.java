@@ -52,7 +52,11 @@ public class HeartWidget extends Fragment implements View.OnClickListener {
     public void onPause() {
         super.onPause();
         // cancel the timer and reset the status
-        counterTask.cancel();
+
+        if (counterTask != null) {
+
+            counterTask.cancel();
+        }
         counterIsActive = false;
     }
 
