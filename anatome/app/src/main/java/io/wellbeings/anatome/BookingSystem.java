@@ -38,6 +38,7 @@ public class BookingSystem extends AppCompatActivity implements Widget {
 
     // Store whether the user has interacted with form elements.
     private boolean hasInteracted = false;
+    DatePickerDialog dp;
 
     // Retrieve display elements for code clarity.
     private TextView mSetDate, mSetTime, mBookingTitle;
@@ -76,8 +77,10 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         //initialise date
         String dateFormat = "dd-MM-yy";
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.UK);
-        c.add(Calendar.DATE, 1);
+        c.add(Calendar.DATE, 7);
         mSetDate.setText(sdf.format(c.getTime()));
+
+        createDatePicker();
 
         attachListeners();
     }
@@ -352,20 +355,23 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         }
     }
 
-    /**
-     * Prompt user to select a date
-     * fired by calling element.
-     */
-    public void dateOnClick(View v) {
-
+    public void createDatePicker() {
         // Create a new dialogue.
-        DatePickerDialog dp = new DatePickerDialog(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT, date,
+        dp = new DatePickerDialog(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT, date,
                 c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
         Date newdate = c.getTime();
 
         // Set specific options.
         dp.getDatePicker().setMinDate(newdate.getTime());
-        dp.getDatePicker().setMaxDate(newdate.getTime() + 1209600000);
+        dp.getDatePicker().setMaxDate(newdate.getTime() + 604800000);
+    }
+
+
+    /**
+     * Prompt user to select a date
+     * fired by calling element.
+     */
+    public void dateOnClick(View v) {
 
         dp.show();
     }
