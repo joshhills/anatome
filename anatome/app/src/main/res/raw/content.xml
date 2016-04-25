@@ -434,7 +434,7 @@
                 <label id="share">Share your advice!</label>
                 <label id="submit">Submit</label>
                 <label id="invalid-email">Invalid Email</label>
-                <label id="enter-volume">Enter Volume:</label>
+                <label id="enter-volume">Enter Volume (ml):</label>
                 <label id="enter-percentage">Enter Percentage:</label>
                 <label id="enter">Enter</label>
             </buttons>
@@ -851,7 +851,7 @@
                 <label id="submit">Enviar</label>
                 <label id="invalid-email">Email inválido</label>
                 <label id="enter">Entrar</label>
-                <label id="enter-volume">Introduzca Volumen:</label>
+                <label id="enter-volume">Introduzca Volumen (ml):</label>
                 <label id="enter-percentage">Introduzca Porcentaje:</label>
             </buttons>
 

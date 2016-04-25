@@ -353,10 +353,13 @@ public class LiverWidget extends Fragment implements Widget {
                         //get text from edit text
                         String number = myTextBox.getText().toString();
                         //Try-catch structure unnecessary as the input is resticted by the xml document (dialog_other_option).
-                        double input = Double.parseDouble(number);
+                        Double input = Double.parseDouble(number);
                         //checks whether to set volume or percentage
                         if(percentageOrVolume == 0){//set percentage
-                            if(input > 100){
+                            if(input == null) {
+                                percentage = 0;
+                            }
+                            else if(input > 100){
                                 percentage = 100;
                             }
                             else{
@@ -364,7 +367,15 @@ public class LiverWidget extends Fragment implements Widget {
                             }
                         }
                         else if(percentageOrVolume == 1){
-                            volume = (int)input;
+
+                            if(input == null) {
+                                volume = 0;
+                            }
+                            else {
+                                // Get the volume.
+                                volume = input.intValue();
+                            }
+
                         }
 
                         //close dialog box
