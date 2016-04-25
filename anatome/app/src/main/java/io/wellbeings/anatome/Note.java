@@ -1,9 +1,6 @@
 package io.wellbeings.anatome;
 
-import android.net.Uri;
-
 import java.io.Serializable;
-import java.util.Calendar;
 
 /**
  * To model the behaviour of note objects
@@ -15,29 +12,37 @@ import java.util.Calendar;
 public class Note implements Serializable {
     //Setting the SUID
     static final long serialVersionUID = 176903428466484737L;
-
     //string storing the note's content
     private String content;
+    //String storing the directory of any selected image content
+    private String imageDirectory;
+    //String storing audio  directory
+    private String audioDirectory;
+    //String storing the note's creation date
+    private String creationDate;
+
+    //get content
     public String getContent(){
         return content;
     }
+
+    //set content
     public void setContent(String content) {
         this.content = content;
     }
 
-    //String storing the note's creation date
-    private String creationDate;
+    //get creation date
     public String getCreationDate() {
         return creationDate;
     }
+
+    //set creation date
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-    //String storing the directory of any selected image content
-    private String imageDirectory;
-    private String audioDirectory;
 
+    //get image directory
     public String getImageDirectory() {
         //protect against nullPointers
         if(hasImageContent() == false){
@@ -45,9 +50,12 @@ public class Note implements Serializable {
         }
         return imageDirectory;
     }
+
+    //set image content
     public void setImageContent(String imageDirectory) {
         this.imageDirectory = imageDirectory;
     }
+
     //method returns true if the content is an image
     public boolean hasImageContent() {
         if(imageDirectory == null) return false;
@@ -60,8 +68,7 @@ public class Note implements Serializable {
         else return true;
     }
 
-
-
+    //get audio directory
     public String getAudioDirectory() {
         //protect against nullPointers
         if(hasAudioContent() == false){
@@ -70,8 +77,8 @@ public class Note implements Serializable {
         return audioDirectory;
     }
 
-    
-    public void setAudioContent(String audioDirectory){
+    //set audio directory
+    public void setAudioContent(String audioDirectory) {
         this.audioDirectory = audioDirectory;
     }
 
@@ -81,11 +88,12 @@ public class Note implements Serializable {
         this.content = content;
     }
 
+    //toString
     @Override
     public String toString() {
         return this.getCreationDate() + this.getContent();
     }
-
+    
     @Override
     public boolean equals(Object o) {
         if(o == null || !(o instanceof Note)) return false;
