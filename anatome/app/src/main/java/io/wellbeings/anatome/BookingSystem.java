@@ -352,7 +352,7 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         Date newdate = c.getTime();
 
         // Set specific options.
-        dp.getDatePicker().setMinDate(newdate.getTime());
+        dp.getDatePicker().setMinDate(newdate.getTime() + 86400000);
         dp.getDatePicker().setMaxDate(newdate.getTime() + 1209600000);
 
         dp.show();
