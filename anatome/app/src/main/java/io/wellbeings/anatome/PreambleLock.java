@@ -129,6 +129,8 @@ public class PreambleLock extends Fragment {
                                                             pwConfirm.getText().toString());
                                                     // Continue to main activity.
                                                     Intent intent = new Intent(getActivity(), MainScroll.class);
+                                                    // Tell the main scroll which activity it is being loaded from.
+                                                    intent.putExtra("from", "preamble");
                                                     startActivity(intent);
                                                 } else {
                                                     dialog.cancel();

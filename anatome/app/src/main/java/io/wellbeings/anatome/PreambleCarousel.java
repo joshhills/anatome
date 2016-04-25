@@ -74,6 +74,8 @@ public class PreambleCarousel extends Fragment {
                 //
                 else if(index == Preamble.NUM_STEPS - 1) {
                     Intent intent = new Intent(getActivity(), MainScroll.class);
+                    // Tell the main scroll which activity it is being loaded from.
+                    intent.putExtra("from", "preamble");
                     startActivity(intent);
                 }
 
