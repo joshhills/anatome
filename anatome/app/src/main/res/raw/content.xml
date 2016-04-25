@@ -414,7 +414,7 @@
                 <label id="units">Units</label>
                 <label id="time">Select Time</label>
                 <label id="book">Book</label>
-                <label id="appointment">Book an appointment</label>
+                <label id="appointment">Book an &#xA;appointment</label>
                 <label id="filter-one">Who would you</label>
                 <label id="filter-two">like to meet?</label>
                 <label id="woman">Woman</label>
