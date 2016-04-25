@@ -25,7 +25,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/content_graphic_other"
-            android:contentDescription="section graphic" />
+            android:contentDescription="section graphic"
+            android:contextClickable="false" />
 
 
         <TextView

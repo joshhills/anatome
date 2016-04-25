@@ -142,7 +142,7 @@ public class BrainWidget extends Fragment implements Widget {
         //if there aren't any notes then display the tutorial note
         if(noteList.size() == 0) {
             Note note = new Note(getCurrentDate(),
-                    UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "note-tutorial"));
+                    UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "note-title"));
             initNote(note,0);
         }
         else {
@@ -281,7 +281,9 @@ public class BrainWidget extends Fragment implements Widget {
 
         //display the day streak to the user
         TextView streak = (TextView)v.findViewById(R.id.brain_streak);
-        streak.setText("streak of storing happy notes: " + dayStreak + " days!");
+        streak.setText(
+                UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "streak")
+                        + dayStreak + "!");
     }
 
     //method for replacing the current notes on screen with the next 5 most recent

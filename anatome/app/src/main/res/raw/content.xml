@@ -130,6 +130,9 @@
                 Create your first note by editing the template to the left of this note and clicking save!
                 You can delete notes by pressing the bin at the bottom of said note.
             </information>
+            <information id="streak">
+                Streak in days of storing happy notes:
+            </information>
             <links>
                 <link>
                     <name>
@@ -561,6 +564,9 @@
                 Creación de la primera nota de la edición de la plantilla a la izquierda de esta nota y haciendo clic en el balón!
                 Puede eliminar las notas pulsando la papelera en la parte inferior de dicha nota.
             </information>
+            <information id="streak">
+                Consecutivas en días de almacenar notas felices:
+            </information>
             <links>
                 <link>
                     <name>
@@ -985,6 +991,9 @@
             <information id="note-title">
                 Créez votre première note en modifiant le modèle à la gauche de cette note et en cliquant sauver!
                 Vous pouvez supprimer des notes en appuyant sur le bac en bas de ladite note.
+            </information>
+            <information id="streak">
+                Streak en jours de stockage des notes heureuses:
             </information>
             <links>
                 <link>
