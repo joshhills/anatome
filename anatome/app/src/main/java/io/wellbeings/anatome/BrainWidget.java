@@ -7,33 +7,24 @@ package io.wellbeings.anatome;
  *
  * @author Team WellBeings - Calum, Thirawat
  */
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
-import android.media.session.MediaController;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
-import android.widget.Button;
 import android.widget.EditText;
 import android.content.Context;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.FileInputStream;
@@ -62,8 +53,8 @@ public class BrainWidget extends Fragment implements Widget {
     private EditText newNoteContent;
 
     //MediaPlayer used to handle note playback
-    MediaPlayer mp;
-    AudioManager audioManager;
+    private MediaPlayer mp;
+    private AudioManager audioManager;
 
     //data used for audio support
     private int currentSongIndex = 0;
@@ -174,7 +165,7 @@ public class BrainWidget extends Fragment implements Widget {
         //retreive the negative note's delete button
         negativeDeleteButton = (ImageButton) v.findViewById(R.id.brain_negative_delete);
 
-        //define the behaviour of saveButton on click
+        //define the behaviour of save button on click
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //create a note object out of the new notes details
@@ -187,6 +178,7 @@ public class BrainWidget extends Fragment implements Widget {
             }
         });
 
+        //define the behaviour of the gallery button on click
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,6 +189,7 @@ public class BrainWidget extends Fragment implements Widget {
             }
         });
 
+        //define the behaviour of the audio button on click
         audioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -272,10 +265,14 @@ public class BrainWidget extends Fragment implements Widget {
                 long streak = d.getTime() - noteDate.getTime();
 
                 //if it's been more than 24 hours, break as the streak has ended
-                if (streak > TWENTY_FOUR_HOURS_MILI) break;
+                if (streak > TWENTY_FOUR_HOURS_MILI){
+                    break;
+                }
 
-                    //otherwise, increment streak by 1, and repeat with the following note
-                else dayStreak++;
+                //otherwise, increment streak by 1, and repeat with the following note
+                else {
+                    dayStreak++;
+                }
             }
         }
         catch(ParseException e) {
@@ -390,13 +387,14 @@ public class BrainWidget extends Fragment implements Widget {
         //if the note has audio content, prepare the playback for this content
         else if(note.hasAudioContent()){
             final EditText status = (EditText) ll.findViewById(R.id.brain_note_audio_status);
-            SeekBar seekBar = (SeekBar)ll.findViewById(R.id.brain_note_seek_bar);
 
             ImageButton btnPlay = (ImageButton) ll.findViewById(R.id.brain_note_play);
             ImageButton stopButton = (ImageButton) ll.findViewById(R.id.brain_note_stop);
 
+            //make the audio content visible
             ll.findViewById(R.id.brain_note_audio_content).setVisibility(View.VISIBLE);
 
+            //define the behaviour of the audio control buttons
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -555,6 +553,7 @@ public class BrainWidget extends Fragment implements Widget {
         }
     }
 
+    //method for handling the saving of an array list to file
     private void saveArrayList(Context context, String filename, List<Note> data) throws IOException {
         FileOutputStream fileOutputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -564,6 +563,7 @@ public class BrainWidget extends Fragment implements Widget {
         fileOutputStream.close();
     }
 
+    //method for handling the loading of an array list from file
     private List<Note> loadArrayList(String filename) throws IOException {
         ArrayList<Note> readBack;
 
@@ -606,7 +606,6 @@ public class BrainWidget extends Fragment implements Widget {
                 // Let's read picked image path using content resolver
                 String[] filePath = {MediaStore.Images.Media.DATA};
 
-
                 Cursor cursor = getContext().getContentResolver().query(pickedImage, filePath, null, null, null);
                 cursor.moveToFirst();
                 String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
@@ -625,10 +624,9 @@ public class BrainWidget extends Fragment implements Widget {
         if(resultCode == RESULT_LOAD_AUDIO){
             //check the data is not null
             if(data != null) {
+                //get the song path to store in the note
                 currentSongIndex = data.getExtras().getInt("songIndex");
                 String audioPath = songsList.get(currentSongIndex).get("songPath");
-
-                Log.d("audio","song path = " + audioPath);
 
                 //create and save the note object for it
                 String date = getCurrentDate();
@@ -644,8 +642,10 @@ public class BrainWidget extends Fragment implements Widget {
         // play audio
         try {
             mp.reset();
+            //set the source to the note's defined audio content
             mp.setDataSource(note.getAudioDirectory());
             mp.prepare();
+            //update the status to user
             status.setText(getResources().getString(R.string.playback_status_playing));
             mp.start();
 
@@ -658,8 +658,11 @@ public class BrainWidget extends Fragment implements Widget {
         }
     }
 
+    //stop the audio
     public void stopAudio(EditText status){
+        //first assert that it is actually playing
         if(mp.isPlaying()){
+            //update the status to user
             status.setText(getResources().getString(R.string.playback_status_stopped));
             mp.stop();
         }
