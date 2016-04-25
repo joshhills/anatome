@@ -858,5 +858,445 @@
         </miscellaneous>
 
     </content>
+    
+    <content lang="fr">
+
+        <!-- Store relevant sectional information for application startup. -->
+        <section name="preamble">
+            <!-- Store the headers for the sub-fragments. -->
+            <headers>
+                <header id="intro">
+                    Salut!
+                </header>
+                <header id="name">
+                    Qui es-tu?
+                </header>
+                <header id="lock">
+                    Protège moi.
+                </header>
+            </headers>
+            <information id="intro">
+                Bienvenue dans la boîte à outils de l'élève pour le bien-être.
+                Il y a quelques informations mineures nécessaires pour définir vous aller si vous pouvez utiliser votre nouvelle application pour apaiser votre humeur, régler votre estomac, et de voir un psy 'chaque fois que vous le souhaitez!
+
+                (Cela peut être modifié dans les paramètres.)
+            </information>
+            <information id="disclaimer">
+                * Les conseils dans cette application ne sont pas écrites par des professionnels, mais nous sommes assez bien informés!
+            </information>
+            <information id="name">
+                Tout d'abord, que devrions-nous vous appeler?
+                (Si vous êtes inquiet de la vie privée, est maintenant le temps de vous réinventer. Sinon, nous vous rappelons que 'guest'!)
+            </information>
+            <information id="username-hint">
+                prénom
+            </information>
+            <information id="email-hint">
+                login@university.ac.uk
+            </information>
+            <information id="lock">
+                Vous pouvez utiliser nos sections interactives pour stocker des informations personnelles.
+                Pour cette raison, vous pouvez mot de passe protéger eux.
+            </information>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2016-04-23T09:00:00Z
+            </modified>
+        </section>
+
+        <!-- Store information to be displayed on the main application window. -->
+        <section name="mainscroll">
+            <headers>
+                <header id="welcome">
+                    Bienvenue!
+                </header>
+                <header id="booking">
+                    Besoin d'aide?
+                </header>
+                <header id="more_help">
+                    Apprendre encore plus
+                </header>
+            </headers>
+            <information id="welcome_text">
+                Ceci est un service de triage pour votre état de bien-être. Jetez un oeil à nos sections clés de l'information axé sur les étudiants et les widgets interactifs pour vous aider à surmonter vos problèmes!
+            </information>
+            <information id="more_help_text">
+                Parfois, une face-à-face ne peut pas être battu. Jetez un oeil à votre centre de ressources locales pour le bien-être.
+            </information>
+            <information id="booking">
+                Prenez rendez-vous.
+            </information>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2016-04-23T09:00:00Z
+            </modified>
+        </section>
+
+        <!-- Store information for the brain widget section. -->
+        <section name="brain">
+            <headers>
+                <header id="title">
+                    Santé mentale
+                </header>
+                <header id="tips">
+                    Voici quelques conseils généraux:
+                </header>
+                <header id="links">
+                    Tu veux en savoir plus?
+                </header>
+                <header id="advice">
+                    Conseils de Communauté
+                </header>
+            </headers>
+            <information id="title">
+                Voici quelques informations sur le sujet:
+
+                En venant à l'université peut être une expérience stressante et écrasante, mais ne désespérez pas!
+                Comprendre vos sentiments et comment faire face est la première étape pour se sentir comme vous êtes sur la bonne voie.
+
+                Tout d'abord nous allons comprendre ce qu'est la dépression et comment il peut vous faire sentir:
+
+                • Des périodes prolongées de tristesse
+                • Un sentiment de désespoir,
+                • Manque de motivation et de confiance en soi.
+                • Sentiments de fatigue
+                • insomnie
+
+                La gravité de ces sentiments peut varier entre les étudiants.
+                Pour certains de ces symptômes peuvent se résorber au fil du temps, cependant, il est toujours utile d'être au courant de la façon dont vous pouvez faire face et les conseils que vous pouvez demander.
+            </information>
+            <information id="tips">
+                • Maintenir une attitude positive. Essayez de remplacer les pensées négatives par des pensées positives.
+
+                • Gardez à une routine et de planifier vos journées. Avoir la structure, vous vous sentirez plus à l'aise.
+
+                • Rappelez-vous, vous n'êtes pas le seul qui se sent de cette façon, vous n'êtes pas seul.
+
+                • Envisager tendre la main à ceux qui sont proches de vous comme la famille et les amis.
+
+                • Utilisez notre application pour réserver un rendez-vous avec votre service de conseil local.
+            </information>
+            <information id="instruction-positive">
+                Gardez une trace des choses qui vous rendent heureux:
+            </information>
+            <information id="instruction-negative">
+                Et jeter les pensées qui ne sont pas...
+            </information>
+            <information id="note-title">
+                Créez votre première note en modifiant le modèle à la gauche de cette note et en cliquant sauver!
+                Vous pouvez supprimer des notes en appuyant sur le bac en bas de ladite note.
+            </information>
+            <links>
+                <link>
+                    <name>
+                        NHS
+                    </name>
+                    <source>
+                        http://www.nhs.uk/Conditions/Depression/Pages/Introduction.aspx
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Organisation de la santé mentale
+                    </name>
+                    <source>
+                        http://www.mentalhealth.org.uk/help-information/mental-health-a-z/D/depression/
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Mind
+                    </name>
+                    <source>
+                        http://www.mind.org.uk/information-support/types-of-mental-health-problems/depression/#.VlR2xuonyUk
+                    </source>
+                </link>
+            </links>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2016-04-23T09:00:00Z
+            </modified>
+        </section>
+
+        <!-- Store information for the brain widget section. -->
+        <section name="heart">
+            <headers>
+                <header id="title">
+                    Anxiété
+                </header>
+                <header id="tips">
+                    Voici quelques conseils généraux:
+                </header>
+                <header id="links">
+                    Tu veux en savoir plus?
+                </header>
+                <header id="advice">
+                    Conseils de Communauté
+                </header>
+            </headers>
+            <information id="title">
+                L'anxiété se produit souvent lorsque nous éprouvons une situation inconfortable, inhabituelle ou stressante. sentiments physiques qui peuvent déclencher comprennent: la transpiration, une augmentation du rythme cardiaque, une incapacité à respirer et des attaques de panique.
+
+                L'anxiété nous affecte aussi mentalement en raison de la souche nos corps sont mis sous. Nous pouvons vous inquiétez beaucoup, ce qui se traduit par un changement de notre comportement envers les autres. Nous pouvons nous sentir dépassés et surmontés par ces sentiments d'anxiété et de nous retrouver à l'acte de caractère.
+
+                En outre, certains effets à long terme peuvent se produire, tels que les problèmes de sommeil et la dépression.
+
+                Les situations où l'anxiété est commune:
+                1- Jour avant l'examen
+                2- Assis dans une salle d'examen
+                3- Aller loin de la maison (par exemple étudier à l'étranger)
+                4- Se rendre à un hôpital
+
+                Des exemples de ce qui pourrait causer de l'anxiété:
+                1- Les expériences passées
+                2- Un changement radical
+                3- Génétique
+                4- De nouvelles expériences
+            </information>
+            <information id="tips">
+                • Essayez de faire quelques exercices pour réduire le stress, comme le jogging, la marche ou la natation.
+
+                • Restez détendu en désactivant votre esprit ou écouter de la musique, la relaxation est une des clés pour résoudre ce problème.
+
+                • Essayez de vivre une vie saine avec une bonne alimentation.
+
+                • Rappelez-vous, vous n'êtes pas seul dans ce monde, en partageant votre problème avec vos amis et votre famille pourrait vous aider.
+
+                • Si vous ne vous sentez pas comme votre auto normale après avoir suivi certains des conseils énumérés ci-dessus, envisager de demander de l'aide. Voici quelques endroits où vous pouvez contacter pour un peu de soutien supplémentaire.
+            </information>
+            <information id="instructional-text">
+                Respirez et compter jusqu'à 2, Ces sentiments vont passer, Expirez, Concentrez-vous sur votre respiration
+            </information>
+            <information id="advice-text">
+                Suivez les étapes ci-dessus lorsque vous vous sentez stressé.
+            </information>
+            <links>
+                <link>
+                    <name>
+                        Informations sur les attaques de panique
+                    </name>
+                    <source>
+                        http://www.mind.org.uk/information-support/types-of-mental-health-problems/anxiety-and-panic-attacks/#.VrnW-tuLRD8
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Informations sur l'anxiété
+                    </name>
+                    <source>
+                        http://www.moodjuice.scot.nhs.uk/anxiety.asp
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Information sur les troubles
+                    </name>
+                    <source>
+                        http://www.nhs.uk/Conditions/Anxiety/Pages/Introduction.aspx
+                    </source>
+                </link>
+            </links>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2016-04-23T09:00:00Z
+            </modified>
+        </section>
+
+        <!-- Store information for the liver widget section. -->
+        <section name="liver">
+            <!-- Headers store titles for parts of the section. -->
+            <headers>
+                <header id="title">
+                    Consommation d'alcool
+                </header>
+                <header id="tips">
+                    Voici quelques conseils généraux:
+                </header>
+                <header id="links">
+                    Tu veux en savoir plus?
+                </header>
+                <header id="advice">
+                    Conseils de Communauté
+                </header>
+            </headers>
+            <information id="title">
+                La consommation d'alcool pour de nombreux étudiants est une grande partie de la vie universitaire, mais il est important de se rappeler l'impact qu'elle peut avoir sur votre santé et les études!
+
+                Une consommation excessive peut avoir de nombreuses conséquences, y compris la dépréciation des habiletés motrices, nuire aux relations interpersonnelles et le long du côté touchant mal vos études.
+
+                La pression des pairs est souvent un facteur important dans la consommation de l'étudiant et de la toxicomanie, donc rappelez-vous qu'il est correct de dire non!
+            </information>
+            <information id="tips">
+                • Connaissez vos limites
+
+                • Gardez une trace de combien d'unités vous avez
+
+                • Rappelez-vous, il est correct de dire non!
+
+                • Ayez toujours des plans pour rentrer à la maison après avoir bu
+            </information>
+
+            <!-- Functional information. -->
+            <information id="drinks">
+                Bière, Cidre, Vin, Esprit, Alcopop, Sours, Autres
+            </information>
+            <information id="volume">
+                Pint, Half Pint, Mesure simple, double mesure, Mesure Treble, Grand Verre à Vin, Petit Verre à Vin, Autres
+            </information>
+            <information id="percentage">
+                40%,37.5%,15%,12%,10%,7.5%,5%,4%,Autre
+            </information>
+            <information id="threshold-1">
+                Vous ne l'avez pas encore eu quoi que ce soit alcoolique. L'abstinence est tout à fait bien!
+            </information>
+            <information id="threshold-2">
+                Vous faites bien! Rappelez-vous, ce n'est pas à propos de la boisson...
+            </information>
+            <information id="threshold-3">
+                Méfiez-vous, vous êtes presque sur les lignes directrices du gouvernement pour la consommation d'alcool (surprenant, hein?).
+            </information>
+            <information id="threshold-4">
+                À ce stade, vous devriez commencer à ralentir. Rappelez-vous de jeter un peu d'eau dans le mélange.
+            </information>
+            <information id="threshold-5">
+                Après ce point, vous pouvez commencer à se sentir nauséeux, et vos compétences de prise de décision peut être altérée.
+            </information>
+            <information id="threshold-6">
+                Vous avez bu une quantité dangereuse d'alcool. Pas plus peut potentiellement causer plus maux durable.
+            </information>
+            <information id="threshold-7">
+                Il est temps de rentrer à la maison, ou peut-être à l'hôpital.
+            </information>
+            <information id="threshold-warning">
+                Ceci est sur l'indemnité journalière recommandée.
+            </information>
+            <links>
+                <link>
+                    <name>
+                        Change4Life
+                    </name>
+                    <source>
+                        http://www.nhs.uk/Change4Life/Pages/drink-less-alcohol.aspx
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        NHS
+                    </name>
+                    <source>
+                        http://www.nhs.uk/Livewell/studenthealth/Pages/Smoking,alcoholanddrugs.aspx
+
+                    </source>
+                </link>
+                <link>
+                    <name>
+                        Drink Aware
+                    </name>
+                    <source>
+                        https://www.drinkaware.co.uk/
+                    </source>
+                </link>
+            </links>
+            <!-- Important meta information displays relevance of section content, therefore mandatory. -->
+            <modified>
+                2016-04-23T09:00:00Z
+            </modified>
+        </section>
+
+        <!-- Extra smaller parts of information. -->
+        <miscellaneous>
+
+            <notifications>
+                <notification id="token" graphic="./assets/defaults/toast-graphic.png">
+                    Ceci est une notification push.
+                </notification>
+                <notification id="add-comment" graphic="./assets/defaults/toast-graphic.png">
+                    Soyez le premier à ajouter vos propres conseils personnels relatifs à cette section du bien-être!
+                </notification>
+                <notification id="email-empty" graphic="./assets/defaults/toast-graphic.png">
+                    Vous pouvez définir votre nom et votre email dans les paramètres à une date ultérieure.
+                </notification>
+                <notification id="email-invalid" graphic="./assets/defaults/toast-graphic.png">
+                    Le courriel entré est pas une adresse e-mail valide. Veuillez réessayer.
+                </notification>
+                <notification id="password-set" graphic="./assets/defaults/toast-graphic.png">
+                    Mot de passe défini.
+                </notification>
+                <notification id="password-fail" graphic="./assets/defaults/toast-graphic.png">
+                    Les mots de passe ne correspondent pas!
+                </notification>
+                <notification id="network-error" graphic="./assets/defaults/toast-graphic.png">
+                    Vous n'êtes pas connecté à Internet. Vérifiez vos paramètres et essayez à nouveau. Certaines fonctionnalités ne fonctionneront pas sans internet.
+                </notification>
+                <notification id="email-error" graphic="./assets/defaults/toast-graphic.png">
+                    Vous devez définir votre email dans les paramètres pour un rendez-vous!
+                </notification>
+                <notification id="submit-fail" graphic="./assets/defaults/toast-graphic.png">
+                    Désolé, les commentaires trop court!
+                </notification>
+                <notification id="submit-success" graphic="./assets/defaults/toast-graphic.png">
+                    Génial, il est en attente d'approbation!
+                </notification>
+                <notification id="error" graphic="./assets/defaults/toast-graphic.png">
+                    Désolé, il y a eu une erreur!
+                </notification>
+                <notification id="password-clear" graphic="./assets/defaults/toast-graphic.png">
+                    Mot de passe effacé.
+                </notification>
+            </notifications>
+
+            <buttons>
+                <label id="brain">Cerveau</label>
+                <label id="heart">Cœur</label>
+                <label id="liver">Foie</label>
+                <label id="next">Prochain</label>
+                <label id="back">Arrière</label>
+                <label id="ok">D'accord</label>
+                <label id="confirm">Confirmer</label>
+                <label id="save">Sauvegarder</label>
+                <label id="cancel">Annuler</label>
+                <label id="oops">Oops!</label>
+                <label id="done">Terminé</label>
+                <label id="start">Démarrer</label>
+                <label id="stop">Arrêtez</label>
+                <label id="set">Ensemble</label>
+                <label id="password-set">Mot de passe</label>
+                <label id="password-confirm">S'il vous plaît confirmer votre mot de passe.</label>
+                <label id="password-change">Changer le mot de passe</label>
+                <label id="password-remove">Supprimer le mot de passe</label>
+                <label id="erase">Effacer les données de l'utilisateur</label>
+                <label id="date">Dernière mise à jour</label>
+                <label id="unit">Unité</label>
+                <label id="units">Unités</label>
+                <label id="time">Sélectionnez Heure</label>
+                <label id="book">Réserve</label>
+                <label id="appointment">Prenez rendez-vous</label>
+                <label id="filter-one">Qui aimeriez</label>
+                <label id="filter-two">vous rencontrer?</label>
+                <label id="woman">Femmes</label>
+                <label id="man">Homme</label>
+                <label id="no-preference">Pas de préférence</label>
+                <label id="filter-info">* Ce demandera un conseiller spécifique.</label>
+                <label id="submit-tip">Proposez une pointe</label>
+                <label id="backend">Vous voulez changer l'information de votre organisation? Cliquez ici.</label>
+                <label id="device">Dispositif</label>
+                <label id="profile">Profil</label>
+                <label id="name">Prénom</label>
+                <label id="email">Email</label>
+                <label id="notifications">Autoriser les notifications</label>
+                <label id="network">Utilisation du réseau</label>
+                <label id="interact">Interagir</label>
+                <label id="info">Info</label>
+                <label id="share">Partagez vos conseils!</label>
+                <label id="submit">Soumettre</label>
+                <label id="invalid-email">Invalide Email</label>
+                <label id="enter-volume">Entrez Volume (ml):</label>
+                <label id="enter-percentage">Entrez Pourcentage:</label>
+                <label id="enter">Entrer</label>
+            </buttons>
+
+        </miscellaneous>
+
+    </content>
 
 </application>
