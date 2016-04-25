@@ -68,9 +68,6 @@ public class ContentFragment extends Fragment {
         // Attach functionality to GUI elements.
         attachListeners();
 
-        // Load user tips from the database.
-        loadComments();
-
         return view;
 
     }

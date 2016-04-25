@@ -224,11 +224,7 @@ abstract class XMLUtility implements Utility {
 
 		// Check for nullity and format result, removing whitespace.
 		return ((target == null) ? null : target.getTextContent().trim()
-				.replaceAll("[\\s&&[^\\n]]+", " ")
-				.replaceAll("(?m)^\\s|\\s$", "")
-				.replaceAll("\t", "")
-				.replaceAll(" {2,}", "")
-				.replaceAll("^\n|\n$", ""));
+				.replaceAll(" {2,}", ""));
 
 	}
 

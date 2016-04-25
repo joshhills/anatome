@@ -156,9 +156,10 @@ public class Settings extends Activity {
         langSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Intuitively fill the next options based on initial selection.
+
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
 
+                // Set the correct language.
                 switch (position) {
                     case 0:
                         UtilityManager.getUserUtility(view.getContext()).setLanguage("en");
@@ -171,6 +172,9 @@ public class Settings extends Activity {
                         break;
 
                 }
+
+                // Reload the view.
+                initGUI();
 
             }
 
