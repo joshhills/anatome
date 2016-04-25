@@ -173,7 +173,10 @@ public class LiverWidget extends Fragment implements Widget {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 7) {
-                    otherDialog("enter volume", R.layout.dialog_other_option, 1);
+                    otherDialog(
+                            UtilityManager.getContentLoader(getContext()).getButtonText("enter-volume"),
+                            R.layout.dialog_other_option,
+                            1);
                 }
             }
 
@@ -186,7 +189,10 @@ public class LiverWidget extends Fragment implements Widget {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 8) {
-                    otherDialog("enter percentage", R.layout.dialog_other_option, 0);
+                    otherDialog(
+                            UtilityManager.getContentLoader(getContext()).getButtonText("enter-percentage"),
+                            R.layout.dialog_other_option,
+                            0);
                 }
             }
 
@@ -214,7 +220,7 @@ public class LiverWidget extends Fragment implements Widget {
 
                 // Get percentage.
                 if (percentageSpinner.getSelectedItemPosition() < 8) {
-                    percentage = Integer.parseInt(percentageSpinner.getSelectedItem().toString()
+                    percentage = Double.parseDouble(percentageSpinner.getSelectedItem().toString()
                             .replace("%", ""));
                 }
 
@@ -338,7 +344,9 @@ public class LiverWidget extends Fragment implements Widget {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View myView = inflater.inflate(layout, null);
         builder.setView(myView)
-                .setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                .setPositiveButton(
+                        UtilityManager.getContentLoader(getContext()).getButtonText("enter"),
+                        new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //get text out of text box
                         EditText myTextBox = (EditText) myView.findViewById(R.id.liver_edit_text);

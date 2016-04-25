@@ -65,10 +65,14 @@ public class ContentFragment extends Fragment {
         // Populate text containers with informative content.
         initGUI();
 
+        // Attach functionality to GUI elements.
+        attachListeners();
+
         // Load user tips from the database.
         loadComments();
 
         return view;
+
     }
 
     // Populate frame UI components with local information.
@@ -271,7 +275,9 @@ public class ContentFragment extends Fragment {
 
                 // Create comment input.
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
-                builder.setTitle("Share your advice!");
+                builder.setTitle(
+                        UtilityManager.getContentLoader(getContext()).getButtonText("share")
+                );
                 builder.setCancelable(true);
                 final EditText commentInput = new EditText(getContext());
 
@@ -282,11 +288,14 @@ public class ContentFragment extends Fragment {
                 builder.setView(commentInput);
 
                 // Dictate how the buttons should look.
-                builder.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(
+                        UtilityManager.getContentLoader(getContext()).getButtonText("submit"),
+                        new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(commentInput.getText().toString().length() < 10) {
-                            Toast.makeText(getContext(), "Sorry, comment too short!",
+                            Toast.makeText(getContext(),
+                                    UtilityManager.getContentLoader(getContext()).getNotificationText("submit-fail"),
                                     Toast.LENGTH_SHORT).show();
                         }
                         else {
@@ -297,10 +306,12 @@ public class ContentFragment extends Fragment {
                                         section
                                 );
                             } catch (NetworkException e) {
-                                Toast.makeText(getContext(), "Sorry, there was an error!",
+                                Toast.makeText(getContext(),
+                                        UtilityManager.getContentLoader(getContext()).getNotificationText("error"),
                                         Toast.LENGTH_SHORT).show();
                             }
-                            Toast.makeText(getContext(), "Awesome, it's pending approval!",
+                            Toast.makeText(getContext(),
+                                    UtilityManager.getContentLoader(getContext()).getNotificationText("submit-success"),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

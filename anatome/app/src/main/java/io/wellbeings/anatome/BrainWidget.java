@@ -142,7 +142,7 @@ public class BrainWidget extends Fragment implements Widget {
         //if there aren't any notes then display the tutorial note
         if(noteList.size() == 0) {
             Note note = new Note(getCurrentDate(),
-                    getResources().getString(R.string.tutorial_note));
+                    UtilityManager.getContentLoader(getContext()).getInfoText(SECTION, "note-tutorial"));
             initNote(note,0);
         }
         else {

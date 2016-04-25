@@ -1,10 +1,13 @@
 <resources>
 
-    <string name="app_name">anatome</string>
-    <string name="tutorial_note">Create your first note by editing the template to the left of this note and clicking save!
-        You can delete notes by pressing the bin at the bottom of said note.</string>
+    <!-- Most of our content is stored in 'content.xml' for
+        transferability between systems. -->
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- App-specific strings. -->
+    <string name="facebook_app_id">993489687372387</string>
+    <string name="app_name">anatome</string>
+
+    <!-- Views fillers that aid XML development previews. -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back"><![CDATA[<]]></string>
     <string name="forward"><![CDATA[>]]></string>
@@ -23,6 +26,5 @@
     <string name="playback_status_playing">Playing..</string>
     <string name="playback_status_paused">Paused</string>
     <string name="playback_status_stopped">Stopped</string>
-    <string name="facebook_app_id">993489687372387</string>
 
 </resources>

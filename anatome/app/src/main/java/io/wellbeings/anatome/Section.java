@@ -28,7 +28,7 @@ import com.facebook.share.widget.ShareDialog;
  * Section loads widget navigated to,
  * along with text.
  */
-public class Section extends FragmentActivity {
+public class Section extends FragmentActivity implements Widget {
 
     // Store name of current section.
     private String section;
@@ -71,14 +71,13 @@ public class Section extends FragmentActivity {
     }
 
     // Alter colour and headers accordingly.
-    private void initGUI() {
+    public void initGUI() {
 
         FragmentTabHost mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
 
         // Set correct header, capitalising first letter.
         ((TextView)findViewById(R.id.section_name)).setText(
-                section.substring(0, 1).toUpperCase() +
-                        section.substring(1));
+                UtilityManager.getContentLoader(this).getButtonText(section));
 
         // Set back button text.
         ((Button) findViewById(R.id.section_back)).setText(
@@ -111,7 +110,7 @@ public class Section extends FragmentActivity {
     }
 
     // Modulate set-up tasks for easy alteration.
-    private void attachListeners() {
+    public void attachListeners() {
 
         // Enable backwards navigation.
         findViewById(R.id.section_back).setOnClickListener(new View.OnClickListener() {

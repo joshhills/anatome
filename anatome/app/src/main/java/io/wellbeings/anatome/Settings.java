@@ -234,12 +234,16 @@ public class Settings extends Activity {
                 // Get the text.
                 String currentText = ((EditText) findViewById(R.id.settings_email)).getText().toString();
 
+                // Check the email supplied.
                 Matcher matcher = pattern.matcher(currentText);
                 if ((currentText != null || !("".equals(currentText.trim()))) && !matcher.matches()) {
-                    emailText.setError("Invalid Email");
+                    emailText.setError(
+                            UtilityManager.getContentLoader(Settings.this).getButtonText("invalid-email")
+                    );
                 } else {
                     UtilityManager.getUserUtility(Settings.this).setEmail(currentText);
                 }
+
             }
         });
 
@@ -248,23 +252,27 @@ public class Settings extends Activity {
             @Override
             public void onClick(View v) {
 
-                // Create overarching interaction.
-                final AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this, AlertDialog.THEME_HOLO_LIGHT);
-                builder.setTitle("Set Password");
+            // Create overarching interaction.
+            final AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this, AlertDialog.THEME_HOLO_LIGHT);
+            builder.setTitle(
+                    UtilityManager.getContentLoader(Settings.this).getButtonText("password-set")
+            );
 
-                // Create input.
-                final EditText pwInput = new EditText(Settings.this);
+            // Create input.
+            final EditText pwInput = new EditText(Settings.this);
 
-                // Force numerical keyboard and hidden values.
-                pwInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                // Force maximum length.
-                pwInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(
-                        UtilityManager.getUserUtility(Settings.this).getPASSWORD_LENGTH()
-                )});
-                builder.setView(pwInput);
+            // Force numerical keyboard and hidden values.
+            pwInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            // Force maximum length.
+            pwInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(
+                    UtilityManager.getUserUtility(Settings.this).getPASSWORD_LENGTH()
+            )});
+            builder.setView(pwInput);
 
-                // Dictate what the buttons do.
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            // Dictate what the buttons do.
+            builder.setPositiveButton(
+                UtilityManager.getContentLoader(Settings.this).getButtonText("ok"),
+                new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Store the input.
@@ -276,39 +284,44 @@ public class Settings extends Activity {
                                 UtilityManager.getUserUtility(Settings.this).getPASSWORD_LENGTH()
                         )});
                         builder.setView(pwConfirm);
-                        builder.setTitle("Please confirm your password.");
+                        builder.setTitle(UtilityManager.getContentLoader(Settings.this).getButtonText("password-confirm"));
                         // Change the purpose of the button.
-                        builder.setPositiveButton("SET", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // If password confirmation was successful...
-                                if (pwConfirm.getText().toString().equals(proposedPassword)) {
-                                    // Display visual feedback.
-                                    Toast.makeText(Settings.this, "Password set.",
-                                            Toast.LENGTH_SHORT).show();
-                                    // Store password.
-                                    UtilityManager.getUserUtility(Settings.this).setPassword(
-                                            pwConfirm.getText().toString());
-                                    dialog.dismiss();
-                                } else {
-                                    dialog.cancel();
-                                    Toast.makeText(Settings.this, "Your passwords didn't match!",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                        builder.setPositiveButton(
+                                UtilityManager.getContentLoader(Settings.this).getButtonText("confirm"),
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // If password confirmation was successful...
+                                        if (pwConfirm.getText().toString().equals(proposedPassword)) {
+                                            // Display visual feedback.
+                                            Toast.makeText(Settings.this,
+                                                    UtilityManager.getContentLoader(Settings.this).getNotificationText("password-set"),
+                                                    Toast.LENGTH_SHORT).show();
+                                            // Store password.
+                                            UtilityManager.getUserUtility(Settings.this).setPassword(
+                                                    pwConfirm.getText().toString());
+                                        } else {
+                                            dialog.cancel();
+                                            Toast.makeText(Settings.this,
+                                                    UtilityManager.getContentLoader(Settings.this).getNotificationText("password-fail"),
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                         builder.show();
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
+            builder.setNegativeButton(
+                    UtilityManager.getContentLoader(Settings.this).getButtonText("cancel"),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                        }
                 });
 
-                // Show the now prepared dialog.
-                builder.show();
+            // Show the now prepared dialog.
+            builder.show();
 
             }
         });
@@ -320,7 +333,8 @@ public class Settings extends Activity {
                 // Remove password.
                 UtilityManager.getUserUtility(Settings.this).setPassword(null);
                 // Display visual feedback.
-                Toast.makeText(Settings.this, "Password cleared.",
+                Toast.makeText(Settings.this,
+                        UtilityManager.getContentLoader(Settings.this).getNotificationText("password-clear"),
                         Toast.LENGTH_SHORT).show();
             }
         });

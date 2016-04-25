@@ -126,6 +126,10 @@
             <information id="instruction-negative">
                 And throw away the thoughts that don't...
             </information>
+            <information id="note-title">
+                Create your first note by editing the template to the left of this note and clicking save!
+                You can delete notes by pressing the bin at the bottom of said note.
+            </information>
             <links>
                 <link>
                     <name>
@@ -371,9 +375,24 @@
                 <notification id="email-error" graphic="./assets/defaults/toast-graphic.png">
                     You must set your email in settings to book an appointment!
                 </notification>
+                <notification id="submit-fail" graphic="./assets/defaults/toast-graphic.png">
+                    Sorry, comment too short!
+                </notification>
+                <notification id="submit-success" graphic="./assets/defaults/toast-graphic.png">
+                    Awesome, it's pending approval!
+                </notification>
+                <notification id="error" graphic="./assets/defaults/toast-graphic.png">
+                    Sorry, there was an error!
+                </notification>
+                <notification id="password-clear" graphic="./assets/defaults/toast-graphic.png">
+                    Password cleared.
+                </notification>
             </notifications>
 
             <buttons>
+                <label id="brain">Brain</label>
+                <label id="heart">Heart</label>
+                <label id="liver">Liver</label>
                 <label id="next">Next</label>
                 <label id="back">Back</label>
                 <label id="ok">Okay</label>
@@ -412,6 +431,12 @@
                 <label id="network">Use Network</label>
                 <label id="interact">Interact</label>
                 <label id="info">Info</label>
+                <label id="share">Share your advice!</label>
+                <label id="submit">Submit</label>
+                <label id="invalid-email">Invalid Email</label>
+                <label id="enter-volume">Enter Volume:</label>
+                <label id="enter-percentage">Enter Percentage:</label>
+                <label id="enter">Enter</label>
             </buttons>
 
         </miscellaneous>
@@ -437,8 +462,7 @@
             <information id="intro">
                 Bienvenido a la caja de herramientas del estudiante para el bienestar.
                 Hay un poco de información de menor importancia necesaria para que te deja ir para que pueda utilizar su nueva aplicación para calmar su estado de ánimo, resolver su estómago, y ver un Psych 'siempre que lo desee!
-
-                (Todo esto puede ser ajustado en la configuración.)
+                (Todo esto puede ser ajustado en la configuración.)
             </information>
             <information id="disclaimer">
                 * El consejo en esta aplicación no es escrito por profesionales, pero estamos bastante bien!
@@ -532,6 +556,10 @@
             </information>
             <information id="instruction-negative">
                 Y tirar los pensamientos que no lo hacen...
+            </information>
+            <information id="note-title">
+                Creación de la primera nota de la edición de la plantilla a la izquierda de esta nota y haciendo clic en el balón!
+                Puede eliminar las notas pulsando la papelera en la parte inferior de dicha nota.
             </information>
             <links>
                 <link>
@@ -763,9 +791,24 @@
                 <notification id="email-error" graphic="./assets/defaults/toast-graphic.png">
                     Debe configurar su correo electrónico en la configuración para reservar una cita!
                 </notification>
+                <notification id="submit-fail" graphic="./assets/defaults/toast-graphic.png">
+                    Lo sentimos, comentario demasiado corto!
+                </notification>
+                <notification id="submit-success" graphic="./assets/defaults/toast-graphic.png">
+                    Impresionante, que está pendiente de aprobación!
+                </notification>
+                <notification id="error" graphic="./assets/defaults/toast-graphic.png">
+                    ¡Lo sentimos, ha habido un error!
+                </notification>
+                <notification id="password-clear" graphic="./assets/defaults/toast-graphic.png">
+                    Contraseña aclaró.
+                </notification>
             </notifications>
 
             <buttons>
+                <label id="brain">Cerebro</label>
+                <label id="heart">Corazón</label>
+                <label id="liver">Hígado</label>
                 <label id="next">Siguiente</label>
                 <label id="back">Espalda</label>
                 <label id="ok">Bueno</label>
@@ -804,6 +847,12 @@
                 <label id="network">Uso de red</label>
                 <label id="interact">Interactuar</label>
                 <label id="info">Info</label>
+                <label id="share">Comparte tus consejos!</label>
+                <label id="submit">Enviar</label>
+                <label id="invalid-email">Email inválido</label>
+                <label id="enter">Entrar</label>
+                <label id="enter-volume">Introduzca Volumen:</label>
+                <label id="enter-percentage">Introduzca Porcentaje:</label>
             </buttons>
 
         </miscellaneous>
