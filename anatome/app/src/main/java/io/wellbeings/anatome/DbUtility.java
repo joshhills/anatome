@@ -464,7 +464,7 @@ public class DbUtility implements Utility {
 
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpPost httpPost = new HttpPost("http://team9.esy.es/connect.php?type=" + param.toLowerCase());
+                    HttpPost httpPost = new HttpPost("http://team9.esy.es/insert.php?type=" + param.toLowerCase());
                     httpPost.setEntity(new UrlEncodedFormEntity(data));
 
                     HttpResponse response = httpClient.execute(httpPost);
@@ -511,7 +511,7 @@ public class DbUtility implements Utility {
 
                 DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
 
-                HttpPost httppost = new HttpPost("http://team9.esy.es/testing.php?type=" + choice.toLowerCase() + "&email=" + UtilityManager.getUserUtility(ctx).getEmail() + "&area=" + area);
+                HttpPost httppost = new HttpPost("http://team9.esy.es/select.php?type=" + choice.toLowerCase() + "&email=" + UtilityManager.getUserUtility(ctx).getEmail() + "&area=" + area);
 
                 // Depends on your web service
                 httppost.setHeader("Content-type", "application/json");

@@ -73,6 +73,12 @@ public class BookingSystem extends AppCompatActivity implements Widget {
 
         initGUI();
 
+        //initialise date
+        String dateFormat = "dd-MM-yy";
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.UK);
+        c.add(Calendar.DATE, 1);
+        mSetDate.setText(sdf.format(c.getTime()));
+
         attachListeners();
     }
 
@@ -164,7 +170,6 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         // Set the correct format wanted.
         String dateFormat = "dd-MM-yy";
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.UK);
-
         // Display the new date and time.
         mSetDate.setText(sdf.format(c.getTime()));
         mSetTime.setText(timeTime);
@@ -214,13 +219,13 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         );
 
         Typeface bariol = UtilityManager.getThemeUtility(this).getFont("Bariol");
-        Typeface helvetica = UtilityManager.getThemeUtility(this).getFont("Bariol");
+        Typeface helvetica = UtilityManager.getThemeUtility(this).getFont("Helvetica");
 
         save.setTypeface(helvetica);
         firstLine.setTypeface(bariol);
         secondLine.setTypeface(bariol);
         smallText.setTypeface(helvetica);
-        rb1.setTypeface(helvetica);
+        rb1.setTypeface(helvetica);c.add(Calendar.DATE, 1);
         rb2.setTypeface(helvetica);
         rb3.setTypeface(helvetica);
 
@@ -352,7 +357,7 @@ public class BookingSystem extends AppCompatActivity implements Widget {
         Date newdate = c.getTime();
 
         // Set specific options.
-        dp.getDatePicker().setMinDate(newdate.getTime() + 86400000);
+        dp.getDatePicker().setMinDate(newdate.getTime());
         dp.getDatePicker().setMaxDate(newdate.getTime() + 1209600000);
 
         dp.show();
