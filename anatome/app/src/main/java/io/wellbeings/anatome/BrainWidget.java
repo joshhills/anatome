@@ -72,6 +72,8 @@ public class BrainWidget extends Fragment implements Widget {
     //result code constants for image and audio selection
     private static final int RESULT_LOAD_IMG = 1;
     private static final int RESULT_LOAD_AUDIO = 100;
+    //constant storing twenty-four hours as miliseconds
+    private static final double TWENTY_FOUR_HOURS_MILI = 8.64e+7;
 
     //filename for persistent data
     private static final String FILE_NAME = "brain.txt";
@@ -201,10 +203,6 @@ public class BrainWidget extends Fragment implements Widget {
                 // Getting all audios
                 songsList = audioManager.getPlayList();
                 Intent i = new Intent(getActivity().getApplicationContext(), PlayListActivity.class);
-                //Intent intent_upload = new Intent();
-                //intent_upload.setType("audio/*");
-                //intent_upload.setAction(Intent.ACTION_GET_CONTENT);
-                //startActivityForResult(intent_upload,1);
                 startActivityForResult(i, RESULT_LOAD_AUDIO);
             }
         });
@@ -265,11 +263,16 @@ public class BrainWidget extends Fragment implements Widget {
                 //parse the date of the note in question to a date object
                 Date noteDate = sdf.parse(noteList.get(dayStreak).getCreationDate());
 
-                //calculate how many days ago the next most recent note was
+                //if it's not the first note update which time the note is compared to
+                if(dayStreak > 0) {
+                    d = sdf.parse(noteList.get(dayStreak - 1).getCreationDate());
+                }
+
+                //calculate how long has passed between timeframes the next most recent note was
                 long streak = d.getTime() - noteDate.getTime();
 
                 //if it's been more than 24 hours, break as the streak has ended
-                if (streak > 8.64e+7) break;
+                if (streak > TWENTY_FOUR_HOURS_MILI) break;
 
                     //otherwise, increment streak by 1, and repeat with the following note
                 else dayStreak++;
