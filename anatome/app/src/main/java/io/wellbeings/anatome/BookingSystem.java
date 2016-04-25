@@ -282,18 +282,24 @@ public class BookingSystem extends AppCompatActivity implements Widget {
 
             newDate = needed.format(initial.parse(date));
 
+            //Number Picker adapted from http://stackoverflow.com/questions/17805040/how-to-create-a-number-picker-dialog
+
             // Retrieve a list of appointments, sort them.
             appointments = UtilityManager.getDbUtility(this).getAvailable(newDate.toString());
             Arrays.sort(appointments);
 
-            // Create a new picker to read them into...
+            // create a number picker for use with strings
             RelativeLayout linearLayout = new RelativeLayout(BookingSystem.this);
-            final NumberPicker aNumberPicker = new NumberPicker(BookingSystem.this);
-            aNumberPicker.setMaxValue(appointments.length - 1);
-            aNumberPicker.setMinValue(0);
-            aNumberPicker.setDisplayedValues(appointments);
+            final NumberPicker myNumberPicker = new NumberPicker(BookingSystem.this);
+            myNumberPicker.setMaxValue(appointments.length - 1);
 
-            aNumberPicker.setOnValueChangedListener(
+            //min value
+            myNumberPicker.setMinValue(0);
+
+            //set values to strings from DB
+            myNumberPicker.setDisplayedValues(appointments);
+
+            myNumberPicker.setOnValueChangedListener(
                     new NumberPicker.OnValueChangeListener() {
                         @Override
                         public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -306,6 +312,7 @@ public class BookingSystem extends AppCompatActivity implements Widget {
                     }
             );
 
+            //layout to display number picker pop up
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
             RelativeLayout.LayoutParams numPickerParams =
                     new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -313,19 +320,19 @@ public class BookingSystem extends AppCompatActivity implements Widget {
             numPickerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
             linearLayout.setLayoutParams(params);
-            linearLayout.addView(aNumberPicker,numPickerParams);
+            linearLayout.addView(myNumberPicker,numPickerParams);
 
-            // Build a dialogue using the previous picker...
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT);
-            alertDialogBuilder.setTitle("Select the time of your appointment:");
-            alertDialogBuilder.setView(linearLayout);
-            alertDialogBuilder
+            //create a dialog to display picker
+            AlertDialog.Builder alertBuild = new AlertDialog.Builder(BookingSystem.this, TimePickerDialog.THEME_HOLO_LIGHT);
+            alertBuild.setTitle("Select the time of your appointment:");
+            alertBuild.setView(linearLayout);
+            alertBuild
                     .setCancelable(false)
-                    .setPositiveButton("Ok",
+                    .setPositiveButton("Select",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,
                                                     int id) {
-                                    System.out.println("Value Selected: " + aNumberPicker.getValue());
+                                    System.out.println("Value Selected: " + myNumberPicker.getValue());
 
                                 }
                             })
@@ -336,7 +343,7 @@ public class BookingSystem extends AppCompatActivity implements Widget {
                                     dialog.cancel();
                                 }
                             });
-            AlertDialog alertDialog = alertDialogBuilder.create();
+            AlertDialog alertDialog = alertBuild.create();
             alertDialog.show();
 
         } catch (ParseException | NetworkException e) {
