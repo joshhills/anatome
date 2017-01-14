@@ -2,8 +2,12 @@ package io.wellbeings.anatome;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTabHost;
 
@@ -13,13 +17,7 @@ import android.support.v4.app.FragmentTabHost;
  */
 public class Section extends FragmentActivity {
 
-    // Store name of current section.
     private String section;
-
-    // Store language-dependent headers.
-    // TODO: Implement language from content loader.
-    private String interactiveHeader = "Interact";
-    private String informationHeader = "Info";
 
     /**
      * On activity creation, set up canvas.
@@ -29,6 +27,7 @@ public class Section extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         // Load previous state if applicable.
         super.onCreate(savedInstanceState);
 
@@ -36,7 +35,7 @@ public class Section extends FragmentActivity {
         section = getIntent().getStringExtra("section");
 
         // Load the corresponding view.
-        setContentView(R.layout.activity_section);
+        setContentView(R.layout.section);
 
         // Set correct section values.
         initDisplay();
@@ -53,16 +52,21 @@ public class Section extends FragmentActivity {
     private void initDisplay() {
 
         // Set correct header, capitalising first letter.
-        ((TextView)findViewById(R.id.section_name)).setText(
+        ((TextView)findViewById(R.id.section_title)).setText(
                 section.substring(0, 1).toUpperCase() +
-                        section.substring(1));
+                        section.substring(1)
+        );
 
         // Set correct section icon.
+        /* Disabled :
+
+        should change the entire titlebar background image rather than just an icon
+
         final int resourceId = getResources().getIdentifier(
                 section + "_ico", "drawable", getApplicationContext().getPackageName()
         );
-        ((ImageView)findViewById(R.id.section_ico)).setImageResource(resourceId);
-
+        ((ImageView)findViewById(R.id.section_image)).setImageResource(resourceId);
+        */
     }
 
     // Modulate set-up tasks for easy alteration.
@@ -75,7 +79,6 @@ public class Section extends FragmentActivity {
                 finish();
             }
         });
-
     }
 
     /**
@@ -85,43 +88,58 @@ public class Section extends FragmentActivity {
     private void loadFragments() {
 
         /* Create interactive fragment. */
-
-        // Grab the tab host from the layout.
         FragmentTabHost mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
-        // Point content towards the right container.
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-        // Assign interactive widget based on section selected.
+        // Changed
+        /*
+        mTabHost.addTab(mTabHost.newTabSpec("0").setIndicator("Thing 1"), BrainWidget.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("1").setIndicator("Thing 2"), HeartWidget.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("2").setIndicator("Thing 3"), LiverWidget.class, null);
+        */
+        mTabHost.addTab(mTabHost.newTabSpec("0").setIndicator("Interactive"), BrainWidget.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("1").setIndicator("Information"), HeartWidget.class, null);
+
+
+        /*Fragment interactive = null;
+
+        // Assign it based on section selected.
         switch(section) {
             case "brain" :
-                mTabHost.addTab(mTabHost.newTabSpec(interactiveHeader)
-                                .setIndicator(interactiveHeader.toUpperCase()),
-                        BrainWidget.class, null);
+                interactive = new LiverWidget();
                 break;
             case "heart" :
-                mTabHost.addTab(mTabHost.newTabSpec(interactiveHeader)
-                                .setIndicator(interactiveHeader.toUpperCase()),
-                        HeartWidget.class, null);
+                interactive = new LiverWidget();
                 break;
             case "liver" :
-                mTabHost.addTab(mTabHost.newTabSpec(interactiveHeader)
-                                .setIndicator(interactiveHeader.toUpperCase()),
-                        LiverWidget.class, null);
+                interactive = new LiverWidget();
                 break;
-
-
         }
 
+        /* Update the layout.
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.activity, interactive);
+        ft.commit();
+
+        TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
+
+        TabHost.TabSpec tab1 = tabHost.newTabSpec("First Tab");
+        TabHost.TabSpec tab2 = tabHost.newTabSpec("Second Tab");
+
+        tab1.setIndicator("Tab1");
+        tab1.setContent(new Intent(this,LiverWidget.class));
+
+        tab2.setIndicator("Tab2");
+        tab2.setContent(new Intent(this,PreambleLanguage.class));
+
+        tabHost.addTab(tab1);
+        tabHost.addTab(tab2);*/
+
+
+
+
         /* Create informative fragment. */
-
-        // Add message to bundle.
-        Bundle contentBundle = new Bundle();
-        contentBundle.putString("section", section);
-
-        // Add fragment with bundle.
-        mTabHost.addTab(mTabHost.newTabSpec(informationHeader).setIndicator(informationHeader), ContentFragment.class,
-                contentBundle);
-
     }
 
 }
